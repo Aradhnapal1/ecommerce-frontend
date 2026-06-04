@@ -18,7 +18,7 @@
 <!-- ========== Category Section Start ========== -->
 <div class="pb-[70px]">
     <div class="container">
-        <div class="grid grid-cols-12 gap-6">
+        <div id="category-container" class="grid grid-cols-12 gap-6">
             <div class="hover:border-primary border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 transition-all duration-300 wow animate__animated animate__fadeInUp group"
                 data-wow-delay=".2s">
                 <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
@@ -31,153 +31,11 @@
                     </p>
                 </a>
             </div>
-            <div class="hover:border-primary border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".3s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/samsung-phone-1.png" alt="Samsung Phone" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Phones, Tablets & Accessories
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".4s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/tablet.png" alt="Tablet" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Laptops & Computers
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".5s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/power-bank.png" alt="Power Bank" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Power Banks & Chargers
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".6s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/ipad-2.png" alt="iPad" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Apple Products
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".7s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/action-cam.png" alt="Action Cam" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Wearable Cameras & Action Cams
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".2s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/game-pad.png" alt="Game Pad" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Gaming Consoles
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".3s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/washing-machine.png" alt="Washing Machine" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Home Appliances
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".4s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/tv.png" alt="Television" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Televisions & Home Theater
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".5s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/playstation.png" alt="Playstation" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Game Controller
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".6s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/storage.png" alt="Storage Device" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Storage & Digital Devices
-                    </p>
-                </a>
-            </div>
-            <div class="border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 hover:border-primary transition-all duration-300 wow animate__animated animate__fadeInUp group"
-                data-wow-delay=".7s">
-                <a href="#" class="flex md:flex-row flex-col items-center justify-center gap-3">
-                    <div class="max-w-[100px] flex items-center justify-center w-full">
-                        <img src="assets/images/home-5/earpods.png" alt="Earpods" class="rounded-lg" />
-                    </div>
-
-                    <p
-                        class="font-semibold text-light-primary-text group-hover:text-primary text-center md:text-left transition-all duration-300">
-                        Audio Equipment's
-                    </p>
-                </a>
-            </div>
         </div>
     </div>
 </div>
 <!-- ========== Category Section End ========== -->
+
 
 <!-- ========== Limited Time Section Start ========== -->
 <section class="pb-[70px]">

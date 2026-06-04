@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchTopBanners() {
-    const apiUrl = 'https://ecommerce-backend.workarya.com/api/banner/get';
+    const apiUrl = `${domin}/api/banner/get`;
 
     fetch(apiUrl)
         .then(response => response.json())

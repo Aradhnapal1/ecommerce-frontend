@@ -36,6 +36,10 @@
 
     <!-- ========== Custom CSS ========== -->
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- Script Api Js  -->
+     <script src="./assets/api/banner.js"></script>
+     <script src="./assets/api/domin.js"></script>
 </head>
 
 <body>

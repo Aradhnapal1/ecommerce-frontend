@@ -45,18 +45,22 @@ function renderDropdown(categories) {
 
     if (!dropdownMenu) return;
 
-    // Remove scrolling properties to prevent horizontal scrollbars 
-    // and allow nested dropdowns to open to the right freely
-    dropdownMenu.classList.remove("custom-category-scroll");
-    dropdownMenu.style.maxHeight = "";
-    dropdownMenu.style.overflowY = "";
+    // Create a flyout container outside the hidden overflow dynamically
+    let flyoutContainer = document.getElementById("flyoutContainer");
+    if (!flyoutContainer) {
+        flyoutContainer = document.createElement("ul");
+        flyoutContainer.id = "flyoutContainer";
+        flyoutContainer.className = "absolute left-full  w-[250px] bg-white rounded-2xl divide-y divide-gray-300 shadow-dark-z-24 z-50 hidden";
+        const wrapper = dropdownMenu.closest('.relative');
+        if (wrapper) wrapper.appendChild(flyoutContainer);
+    }
 
     dropdownMenu.innerHTML = categories.map(category => {
         const children = category.subCategories || category.children || [];
         const hasChildren = children.length > 0;
 
         return `
-        <li class="py-[9px] group relative">
+        <li class="py-[9px] group relative category-item">
             <a
                 href="shop-left-sidebar-4col.html?category=${category.id}"
                 class="flex items-center gap-x-2 relative text-light-primary-text group-hover:text-primary pr-6"
@@ -82,7 +86,8 @@ function renderDropdown(categories) {
             </a>
             
             ${hasChildren ? `
-            <ul class="absolute left-full top-0 z-60 w-[250px] max-w-[250px] bg-white rounded-2xl divide-y divide-gray-300 shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+            <!-- Submenu kept hidden, it will be mirrored via Javascript to bypass overflow-hidden -->
+            <ul class="submenu-data hidden">
                 ${children.map(sub => {
                     const grandChildren = sub.subCategories || sub.children || [];
                     const hasGrandChildren = grandChildren.length > 0;
@@ -116,6 +121,32 @@ function renderDropdown(categories) {
         </li>
     `}).join("");
 
+    // Handle dynamic mirroring of submenus to prevent them from being cut off
+    const categoryItems = dropdownMenu.querySelectorAll('.category-item');
+    const wrapper = dropdownMenu.closest('.relative');
+
+    categoryItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const submenuData = item.querySelector('.submenu-data');
+            if (submenuData) {
+                // Mirror HTML into the outer container
+                flyoutContainer.innerHTML = submenuData.innerHTML;
+                
+                // Position flyout container directly next to the hovered item
+                const offsetTop = item.offsetTop - dropdownMenu.scrollTop;
+                flyoutContainer.style.top = "calc(100% + " + offsetTop + "px)";
+                flyoutContainer.style.display = 'block';
+            } else {
+                flyoutContainer.style.display = 'none';
+            }
+        });
+    });
+
+    if (wrapper) {
+        wrapper.addEventListener('mouseleave', () => {
+            flyoutContainer.style.display = 'none';
+        });
+    }
 }
 
 

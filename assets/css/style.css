@@ -9296,3 +9296,23 @@ Others css
     }
   }
 }
+
+/* Custom Scrollbar for Dropdown Menu */
+#dropdownMenu {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #088178 transparent; /* For Firefox */
+}
+
+#dropdownMenu::-webkit-scrollbar {
+  width: 4px; /* Scrollbar ko patla karne ke liye */
+}
+#dropdownMenu::-webkit-scrollbar-track {
+  background: transparent; 
+}
+#dropdownMenu::-webkit-scrollbar-thumb {
+  background-color: #088178; 
+  border-radius: 0px; /* Upar aur neeche koi curve (radius) nahi */
+}
+#dropdownMenu::-webkit-scrollbar-button {
+  display: none; /* Top aur bottom ke arrow buttons (stepper) hatane ke liye */
+}

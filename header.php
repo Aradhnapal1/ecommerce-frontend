@@ -2187,7 +2187,7 @@
                         </button>
                         <div>
                             <ul id="dropdownMenu"
-                                class="bg-white hide shadow-dark-z-24 rounded-b-2xl px-4 py-4 z-40 transform origin-top transition-all duration-300 ease-in-out absolute left-0 top-full w-full divide-y divide-[rgba(145,158,171,0.24)]">
+                                class="bg-white hide shadow-dark-z-24 rounded-b-2xl px-4 py-4 z-40 transform origin-top transition-all duration-300 ease-in-out absolute left-0 top-full w-full divide-y divide-[rgba(145,158,171,0.24)] max-h-[400px] overflow-y-auto overflow-x-hidden">
                             </ul>
                         </div>
                     </div>

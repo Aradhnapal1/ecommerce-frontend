@@ -241,29 +241,24 @@
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="product-listdigital.html">
+                                    <a href="product-listdigital.php">
                                         <i class="fa fa-circle"></i>Product List
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="category-digital.html">
+                                    <a href="category-digital.php">
                                         <i class="fa fa-circle"></i>Category
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="category-digitalsub.html">
+                                    <a href="category-digitalsub.php">
                                         <i class="fa fa-circle"></i>Sub Category
                                     </a>
                                 </li>
 
                                 
 
-                                <li>
-                                    <a href="add-digital-product.html">
-                                        <i class="fa fa-circle"></i>Add Product
-                                    </a>
-                                </li>
                             </ul>
 
                         </li>
@@ -277,21 +272,21 @@
 
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="order-list.html">
+                                    <a href="order-list.php">
                                         <i class="fa fa-circle"></i>
                                         <span>Order List</span>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="order-tracking.html">
+                                    <a href="order-tracking.php">
                                         <i class="fa fa-circle"></i>
                                         <span>Order Tracking</span>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="order-detail.html">
+                                    <a href="order-detail.php">
                                         <i class="fa fa-circle"></i>
                                         <span>Order Details</span>
                                     </a>
@@ -299,25 +294,7 @@
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="dollar-sign"></i>
-                                <span>Sales</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="order.html">
-                                        <i class="fa fa-circle"></i>Orders
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="transactions.html">
-                                        <i class="fa fa-circle"></i>Transactions
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                      
 
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
@@ -327,65 +304,23 @@
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="coupon-list.html">
+                                    <a href="coupon-list.php">
                                         <i class="fa fa-circle"></i>List Coupons
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="coupon-create.html">
+                                    <a href="coupon-create.php">
                                         <i class="fa fa-circle"></i>Create Coupons
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="clipboard"></i>
-                                <span>Pages</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="pages-list.html">
-                                        <i class="fa fa-circle"></i>List Page
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="page-create.html">
-                                        <i class="fa fa-circle"></i>Create Page
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                       
 
-                        <li>
-                            <a class="sidebar-header" href="media.html">
-                                <i data-feather="camera"></i>
-                                <span>Media</span>
-                            </a>
-                        </li>
+                       
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="align-left"></i>
-                                <span>Menus</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="menu-list.html">
-                                        <i class="fa fa-circle"></i>Menu Lists
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="create-menu.html">
-                                        <i class="fa fa-circle"></i>Create Menu
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
+                      
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
                                 <i data-feather="user-plus"></i>

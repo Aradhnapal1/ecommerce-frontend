@@ -47,22 +47,11 @@
                 <p>Up to 69% discount for limited time 🔥</p>
             </div>
             <div class="flex lg:flex-row flex-col items-center gap-x-5 gap-y-5">
-                <div
-                    class="limited-time-countdown flex items-center gap-x-1 bg-warning-lighter py-[9px] px-6 rounded-[50px] sellzy-countdown">
-                    <h5 class="text-warning-dark">Ends in:</h5>
-                    <h5 class="days text-warning-dark">00</h5>
-                    <h5 class="text-warning-dark">&colon;</h5>
-                    <h5 class="hours text-warning-dark">00</h5>
-                    <h5 class="text-warning-dark">&colon;</h5>
-                    <h5 class="minutes text-warning-dark">00</h5>
-                    <h5 class="text-warning-dark">&colon;</h5>
-                    <h5 class="seconds text-warning-dark">00</h5>
-                </div>
+
                 <div
                     class="flex flex-wrap md:flex-nowrap justify-center gap-y-4 gap-x-4 home-five-product-filter max-w-full">
                     <button data-tab="view-all" class="btn btn-default outline btn-large py-2.5 px-[22px] rounded-full">
-                        View All
-                    </button>
+                        Home Appliances </button>
                     <button data-tab="smart-phones"
                         class="btn btn-default outline btn-large py-2.5 px-[22px] rounded-full shadow-none">
                         Smart Phones

@@ -2145,10 +2145,6 @@
                                 <a href='about.html'>About Us </a>
                             </li>
                             <li>
-                                <a href="shop-left-sidebar-4col.html">Shop </a>
-                              
-                            </li>
-                            <li>
                                 <a href="banner-category-filter-4col.html">Shop </a>
                               
                             </li>

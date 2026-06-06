@@ -271,6 +271,11 @@
                                         <i class="fa fa-circle"></i>Size List
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="color.php">
+                                        <i class="fa fa-circle"></i>Color List
+                                    </a>
+                                </li>
 
 
 

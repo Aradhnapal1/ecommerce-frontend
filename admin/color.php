@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Brand List
+                        <h3>Color List
                             <small>Multikart Admin panel</small>
                         </h3>
                     </div>
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">Home</li>
-                        <li class="breadcrumb-item active">Brand List</li>
+                        <li class="breadcrumb-item active">Color List</li>
                     </ol>
                 </div>
             </div>
@@ -40,26 +40,26 @@
                             </div>
                         </form>
 
-                        <a href="add-brand.php" class="btn btn-primary mt-md-0 mt-2">Add New Brand
-                        </a>
+                        <a href="add-color.php" class="btn btn-primary mt-md-0 mt-2">Add New
+                            Color</a>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive table-desi">
-                            <table class="table all-package table-category" id="editableTable">
+                            <table class="table list-digital all-package table-category "
+                                id="editableTable">
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-                                        <th>Brand ID</th>
-                                        <th>Brand Image</th>
-                                        <th>Brand Name</th>
+                                        <th>ID</th>
+                                        <th>Color Name</th>
+                                        <th>Color Code</th>
+                                        <th>Color Preview</th>
                                         <th>Status</th>
                                         <th>Option</th>
                                     </tr>
                                 </thead>
-
-                                <tbody id="brandTableBody">
-                                 
+                                <tbody id="colorTableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -71,6 +71,5 @@
     <!-- Container-fluid Ends-->
 </div>
 
-<script src="./assets/adminapi/brand.js"></script>
-
+<script src="./assets/adminapi/color.js"></script>
 <?php include 'footer.php'; ?>

@@ -62,7 +62,7 @@
             <div class="main-header-right row">
                 <div class="main-header-left d-lg-none w-auto">
                     <div class="logo-wrapper">
-                        <a href="index-2.html">
+                        <a href="index.php">
                             <img class="blur-up lazyloaded d-block d-lg-none"
                                 src="assets/images/dashboard/multikart-logo-black.png" alt="">
                         </a>
@@ -221,7 +221,7 @@
             <div class="page-sidebar">
                 <div class="main-header-left d-none d-lg-block">
                     <div class="logo-wrapper">
-                        <a href="index-2.html">
+                        <a href="index.php">
                             <img class="d-none d-lg-block blur-up lazyloaded"
                                 src="assets/images/dashboard/multikart-logo.png" alt="">
                         </a>
@@ -264,6 +264,11 @@
                                 <li>
                                     <a href="brand.php">
                                         <i class="fa fa-circle"></i>Brand List
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="size.php">
+                                        <i class="fa fa-circle"></i>Size List
                                     </a>
                                 </li>
 

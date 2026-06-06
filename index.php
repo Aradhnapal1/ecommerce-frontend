@@ -51,7 +51,7 @@
                 <div
                     class="flex flex-wrap md:flex-nowrap justify-center gap-y-4 gap-x-4 home-five-product-filter max-w-full">
                     <button data-tab="view-all" class="btn btn-default outline btn-large py-2.5 px-[22px] rounded-full">
-                        Home Appliances </button>
+                        Laptops & Computers </button>
                     <button data-tab="smart-phones"
                         class="btn btn-default outline btn-large py-2.5 px-[22px] rounded-full shadow-none">
                         Smart Phones
@@ -77,7 +77,7 @@
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
                                     <a href='product-details.html'>
-                                        <img src="assets/images/home-5/tv.png" alt="product-1"
+                                        <img src="assets/images/product-details/product-details-slider-2.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
                                 </div>

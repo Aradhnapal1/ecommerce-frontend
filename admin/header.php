@@ -43,8 +43,13 @@
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="./assets/adminapi/domin.js"></script>
+
 </head>
 
 <body>
@@ -256,8 +261,13 @@
                                         <i class="fa fa-circle"></i>Sub Category
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="brand.php">
+                                        <i class="fa fa-circle"></i>Brand List
+                                    </a>
+                                </li>
 
-                                
+
 
                             </ul>
 
@@ -294,7 +304,7 @@
                             </ul>
                         </li>
 
-                      
+
 
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
@@ -316,11 +326,11 @@
                             </ul>
                         </li>
 
-                       
 
-                       
 
-                      
+
+
+
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
                                 <i data-feather="user-plus"></i>

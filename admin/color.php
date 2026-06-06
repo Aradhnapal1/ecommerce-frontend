@@ -40,8 +40,8 @@
                             </div>
                         </form>
 
-                        <a href="add-digital-product.php" class="btn btn-primary mt-md-0 mt-2">Add New
-                            Product</a>
+                        <a href="add-color.php" class="btn btn-primary mt-md-0 mt-2">Add New
+                            Color</a>
                     </div>
 
                     <div class="card-body">

@@ -38,6 +38,9 @@
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
+    <!-- Toastify css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -208,14 +211,14 @@
                                 <div class="tab-content" id="top-tabContent">
                                     <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
                                         aria-labelledby="top-profile-tab">
-                                        <form class="form-horizontal auth-form">
+                                        <form class="form-horizontal auth-form" id="loginForm">
                                             <div class="form-group">
-                                                <input required="" name="login[username]" type="email"
-                                                    class="form-control" placeholder="Username" id="exampleInputEmail1">
+                                                <input required="" name="email" type="email"
+                                                    class="form-control" placeholder="Email" id="loginEmail">
                                             </div>
                                             <div class="form-group">
-                                                <input required="" name="login[password]" type="password"
-                                                    class="form-control" placeholder="Password">
+                                                <input required="" name="password" type="password"
+                                                    class="form-control" placeholder="Password" id="loginPassword">
                                             </div>
                                             <div class="form-terms">
                                                 <div class="form-check mesm-2">
@@ -228,7 +231,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-button">
-                                                <button class="btn btn-primary" type="submit">Login</button>
+                                                <button class="btn btn-primary" type="submit" id="loginBtn">Login</button>
                                             </div>
                                             <div class="form-footer">
                                                 <span>Or Login up with social platforms</span>
@@ -320,6 +323,11 @@
             dots: true
         });
     </script>
+
+    <!-- Auth and API logic -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./assets/adminapi/domin.js"></script>
+    <script src="./assets/adminapi/auth.js"></script>
 
 </body>
 

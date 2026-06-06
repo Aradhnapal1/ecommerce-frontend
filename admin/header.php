@@ -50,6 +50,13 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="./assets/adminapi/domin.js"></script>
 
+    <!-- Check Authentication Token -->
+    <script>
+        if (!localStorage.getItem("adminToken") && !window.location.href.includes("login.php")) {
+            window.location.href = "login.php";
+        }
+    </script>
+
 </head>
 
 <body>

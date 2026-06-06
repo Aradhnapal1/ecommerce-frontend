@@ -40,9 +40,11 @@
                                         </div>
                                     </form>
 
-                                    <button type="button" class="btn btn-primary mt-md-0 mt-2" data-bs-toggle="modal"
+                                    <!-- <button type="button" class="btn btn-primary mt-md-0 mt-2" data-bs-toggle="modal"
                                         data-original-title="test" data-bs-target="#exampleModal">Add
-                                        Category</button>
+                                        Category</button> -->
+                                         <a href="add-category.php" class="btn btn-primary mt-md-0 mt-2">Add Category
+                        </a>
                                 </div>
 
                                 <div class="card-body">
@@ -51,15 +53,17 @@
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Price</th>
+                                                    <th>Category Name</th>
+                                                    <th>Sub Category</th>
+                                                    <th>Child Category</th>
+                                                   
                                                     <th>Status</th>
-                                                    <th>Category</th>
+                                                 
                                                     <th>Option</th>
                                                 </tr>
                                             </thead>
 
-                                            <tbody>
+                                            <tbody id="categoryTableBody">
                                                 <tr>
                                                     <td>
                                                         <img src="assets/images/digital-product/graphic-design.png"
@@ -68,13 +72,13 @@
 
                                                     <td data-field="name">Graphic Design</td>
 
-                                                    <td data-field="price">$57.00</td>
+                                                 
 
                                                     <td class="order-success" data-field="status">
                                                         <span>Success</span>
                                                     </td>
 
-                                                    <td data-field="name">Digital</td>
+                                              
 
                                                     <td>
                                                         <a href="javascript:void(0)">
@@ -87,110 +91,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr>
-                                                    <td>
-                                                        <img src="assets/images/digital-product/ebooks.png" alt="">
-                                                    </td>
-
-                                                    <td data-field="name">eBook</td>
-
-                                                    <td data-field="price">$462.00</td>
-
-                                                    <td class="order-pending" data-field="status">
-                                                        <span>Pending</span>
-                                                    </td>
-
-                                                    <td data-field="name">Digital</td>
-
-                                                    <td>
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-edit" title="Edit"></i>
-                                                        </a>
-
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-trash" title="Delete"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <img src="assets/images/digital-product/lecture-video-recorder.jpg"
-                                                            alt="">
-                                                    </td>
-
-                                                    <td data-field="name">Recorded lectures</td>
-
-                                                    <td data-field="price">$54.00</td>
-
-                                                    <td class="order-success" data-field="status">
-                                                        <span>Success</span>
-                                                    </td>
-
-                                                    <td data-field="name">Digital</td>
-
-                                                    <td>
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-edit" title="Edit"></i>
-                                                        </a>
-
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-trash" title="Delete"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <img src="assets/images/digital-product/application.jpg" alt="">
-                                                    </td>
-
-                                                    <td data-field="name">Application</td>
-
-                                                    <td data-field="price">$576.00</td>
-
-                                                    <td class="order-warning" data-field="status">
-                                                        <span>Waiting</span>
-                                                    </td>
-
-                                                    <td data-field="name">Digital</td>
-
-                                                    <td>
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-edit" title="Edit"></i>
-                                                        </a>
-
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-trash" title="Delete"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <img src="assets/images/digital-product/web-dev.jpg" alt="">
-                                                    </td>
-
-                                                    <td data-field="name">Websites</td>
-
-                                                    <td data-field="price">$782.00</td>
-
-                                                    <td class="order-success" data-field="status">
-                                                        <span>Success</span>
-                                                    </td>
-
-                                                    <td data-field="name">Digital</td>
-
-                                                    <td>
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-edit" title="Edit"></i>
-                                                        </a>
-
-                                                        <a href="javascript:void(0)">
-                                                            <i class="fa fa-trash" title="Delete"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                             
                                             </tbody>
                                         </table>
                                     </div>
@@ -201,6 +102,9 @@
                 </div>
                 <!-- Container-fluid Ends-->
             </div>
+
+<script src="./assets/adminapi/category.js"></script>
+
 
             
             <?php  include 'footer.php'; ?>

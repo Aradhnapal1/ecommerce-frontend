@@ -8854,7 +8854,8 @@ ul.notification-dropdown.onhover-show-div li + li:hover {
           justify-content: center;
 }
 .page-wrapper .page-body-wrapper .page-sidebar .main-header-left .logo-wrapper img {
-  width: 170px;
+  /* width: 170px; */
+  width: 250px;
 }
 .page-wrapper .page-body-wrapper .page-sidebar .sidebar-user {
   padding: 25px 10px;

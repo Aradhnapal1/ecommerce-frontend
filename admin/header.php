@@ -71,7 +71,7 @@
                     <div class="logo-wrapper">
                         <a href="index.php">
                             <img class="blur-up lazyloaded d-block d-lg-none"
-                                src="assets/images/dashboard/multikart-logo-black.png" alt="">
+                                src="assets/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                     <div class="logo-wrapper">
                         <a href="index.php">
                             <img class="d-none d-lg-block blur-up lazyloaded"
-                                src="assets/images/dashboard/multikart-logo.png" alt="">
+                                src="assets/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>

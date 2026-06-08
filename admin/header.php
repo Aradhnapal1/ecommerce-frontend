@@ -368,47 +368,7 @@
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="users"></i>
-                                <span>Vendors</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="list-vendor.html">
-                                        <i class="fa fa-circle"></i>Vendor List
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="create-vendors.html">
-                                        <i class="fa fa-circle"></i>Create Vendor
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="chrome"></i>
-                                <span>Localization</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="translations.html"><i class="fa fa-circle"></i>Translations
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="currency-rates.html"><i class="fa fa-circle"></i>Currency Rates
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="taxes.html"><i class="fa fa-circle"></i>Taxes
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
 
                         <li>
                             <a class="sidebar-header" href="support-ticket.html"><i
@@ -416,11 +376,6 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href="reports.html"><i
-                                    data-feather="bar-chart"></i><span>Reports</span>
-                            </a>
-                        </li>
 
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)"><i
@@ -434,20 +389,20 @@
                             </ul>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a class="sidebar-header" href="invoice.html"><i
                                     data-feather="archive"></i><span>Invoice</span></a>
-                        </li>
+                        </li> -->
 
                         <li>
-                            <a class="sidebar-header" href="forgot-password.html">
+                            <a class="sidebar-header" href="forgot-password.php">
                                 <i data-feather="key"></i>
                                 <span>Forgot Password</span>
                             </a>
                         </li>
 
                         <li>
-                            <a class="sidebar-header" href="login.html">
+                            <a class="sidebar-header" href="login.php">
                                 <i data-feather="log-in"></i>
                                 <span>Login</span>
                             </a>

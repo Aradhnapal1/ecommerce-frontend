@@ -13,9 +13,9 @@
     <meta name="keywords"
         content="admin template, Multikart admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="assets/images/dashboard/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/dashboard/favicon.png" type="image/x-icon">
-    <title>Multikart - Premium Admin Template</title>
+    <link rel="icon" href="assets/img/favicon.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/favicon.webp" type="image/x-icon">
+    <title>HyperScripts -  Admin Panel</title>
 
     <!-- Google font-->
     <link rel="stylesheet"
@@ -71,7 +71,7 @@
                     <div class="logo-wrapper">
                         <a href="index.php">
                             <img class="blur-up lazyloaded d-block d-lg-none"
-                                src="assets/images/dashboard/multikart-logo-black.png" alt="">
+                                src="assets/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                     <div class="logo-wrapper">
                         <a href="index.php">
                             <img class="d-none d-lg-block blur-up lazyloaded"
-                                src="assets/images/dashboard/multikart-logo.png" alt="">
+                                src="assets/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -255,6 +255,11 @@
                                 <li>
                                     <a href="product-listdigital.php">
                                         <i class="fa fa-circle"></i>Product List
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="variant.php">
+                                        <i class="fa fa-circle"></i>Variant List
                                     </a>
                                 </li>
                                 <li>

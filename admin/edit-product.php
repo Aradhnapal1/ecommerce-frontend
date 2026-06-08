@@ -162,11 +162,11 @@
 
                         <!-- ================= SUBMIT BUTTON ================= -->
                         <div class="form-group mt-3">
-                            <button type="button" class="btn btn-primary" id="submitBtn">
-                                Save Product
+                            <button type="button" class="btn btn-primary" id="editproduct">
+                                Update Product
                             </button>
 
-                          
+                           
                         </div>
 
                     </div>

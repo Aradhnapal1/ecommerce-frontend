@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Add Products
+                        <h3>Add Variant
                             <small> Admin panel</small>
                         </h3>
                     </div>
@@ -19,7 +19,7 @@
                             </a>
                         </li>
                         <!-- <li class="breadcrumb-item">Digital</li> -->
-                        <li class="breadcrumb-item active">Add Product</li>
+                        <li class="breadcrumb-item active">Add Variant</li>
                     </ol>
                 </div>
             </div>
@@ -41,25 +41,26 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label>Product Name</label>
-                            <input id="productName" class="form-control" type="text">
+                            <label>Variant Name</label>
+                            <input id="variantName" class="form-control" type="text">
                         </div>
+
+                        <div class="form-group">
+                            <label>Product</label>
+                            <select id="productId" class="form-control custom-select">
+                                <option value="">--Select Product--</option>
+                            </select>
+                        </div>
+
+
 
                         <div class="form-group">
                             <label>SKU</label>
                             <input id="sku" class="form-control" type="text">
                         </div>
 
-                        <div class="form-group">
-                            <label>Category</label>
-                            <div id="dynamicCategoryContainer"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>Brand</label>
-                            <select id="brandId" class="form-control custom-select">
-                                <option value="">--Select Brand--</option>
-                            </select>
-                        </div>
+                      
+                       
                         <div class="form-group">
                             <label>Color</label>
                             <select id="colorId" class="form-control custom-select">
@@ -72,18 +73,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label>Product Type</label>
-
-                            <select id="type" class="form-control custom-select">
-                                <option value="">--Select Type--</option>
-                                <option value="digital">Digital</option>
-                                <option value="physical">Physical</option>
-                                <option value="service">Service</option>
-                                <option value="ebook">E-Book</option>
-                                <option value="software">Software</option>
-                            </select>
-                        </div>
+                       
 
                         <div class="form-group">
                             <label>MRP</label>
@@ -106,26 +96,7 @@
                         </div>
 
 
-                        <!-- ================= MAIN IMAGE ================= -->
-                        <div class="form-group">
-                            <label>Product Image</label>
-
-                            <input type="file" id="productImageInput" accept="image/*" class="form-control">
-
-                            <img id="productImagePreview"
-                                style="width:100px;height:100px;object-fit:cover;margin-top:10px;border-radius:8px;">
-                        </div>
-
-                        <!-- ================= GALLERY ================= -->
-                        <div class="form-group">
-                            <label>Gallery Images</label>
-
-                            <input type="file" id="galleryInput" accept="image/*" multiple class="form-control">
-
-                            <div id="galleryPreview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
-                            </div>
-                        </div>
-
+                        
 
                         <!-- ================= STATUS ================= -->
                         <div class="form-group">
@@ -149,21 +120,31 @@
 
                     <div class="card-body">
 
-                        <!-- ================= SHORT DESCRIPTION ================= -->
+                       <!-- ================= MAIN IMAGE ================= -->
                         <div class="form-group">
-                            <label>Short Description</label>
-                            <textarea id="shortDescription"></textarea>
+                            <label>Product Image</label>
+
+                            <input type="file" id="productImageInput" accept="image/*" class="form-control">
+
+                            <img id="productImagePreview"
+                                style="width:100px;height:100px;object-fit:cover;margin-top:10px;border-radius:8px;">
                         </div>
 
+                        <!-- ================= GALLERY ================= -->
                         <div class="form-group">
-                            <label>Long Description</label>
-                            <textarea id="description"></textarea>
+                            <label>Gallery Images</label>
+
+                            <input type="file" id="galleryInput" accept="image/*" multiple class="form-control">
+
+                            <div id="galleryPreview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+                            </div>
                         </div>
+
 
                         <!-- ================= SUBMIT BUTTON ================= -->
                         <div class="form-group mt-3">
-                            <button type="button" class="btn btn-primary" id="submitBtn">
-                                Save Product
+                            <button type="button" class="btn btn-primary" id="addVariantBtn">
+                                Save Variant
                             </button>
 
                           
@@ -203,7 +184,7 @@
     </div>
     <!-- Container-fluid Ends-->
 </div>
-<script src="./assets/adminapi/product.js"></script>
+<script src="./assets/adminapi/variant.js"></script>
 
 <script>
     // Image Preview for Main Product Image
@@ -243,12 +224,6 @@
             reader.readAsDataURL(file);
         });
     });
-</script>
-<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-
-<script>
-    CKEDITOR.replace('shortDescription');
-    CKEDITOR.replace('description');
 </script>
 
 

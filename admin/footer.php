@@ -75,6 +75,34 @@
 
     <!--script admin-->
     <script src="assets/js/admin-script.js"></script>
+
+    <!-- Global Search Logic for Tables -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            // 1. Prevent form submission on pressing Enter
+            const searchForms = document.querySelectorAll(".search-form");
+            searchForms.forEach(form => {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault(); 
+                });
+            });
+
+            // 2. Filter table rows based on input A-Z
+            const searchInputs = document.querySelectorAll(".search-box input[type='search']");
+            searchInputs.forEach(input => {
+                input.addEventListener("input", function () {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const card = this.closest('.card');
+                    const tableRows = card ? card.querySelectorAll("table tbody tr") : document.querySelectorAll("table tbody tr");
+                    
+                    tableRows.forEach(row => {
+                        row.style.display = row.textContent.toLowerCase().includes(searchTerm) ? "" : "none";
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 

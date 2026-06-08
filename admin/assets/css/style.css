@@ -8407,7 +8407,7 @@ footer.footer-starter-kit {
 .offcanvas .page-wrapper .page-body-wrapper .page-body {
   position: relative;
 }
-.offcanvas .page-wrapper .page-body-wrapper .page-body:before {
+/* .offcanvas .page-wrapper .page-body-wrapper .page-body:before {
   position: fixed;
   content: "";
   background-color: rgba(0, 0, 0, 0.5);
@@ -8416,7 +8416,7 @@ footer.footer-starter-kit {
   z-index: 10;
   right: 0;
   left: 255px;
-}
+} */
 
 .page-main-header {
   max-width: 100vw;

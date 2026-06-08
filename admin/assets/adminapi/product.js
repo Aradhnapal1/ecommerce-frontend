@@ -1,4 +1,6 @@
 /* Load on page ready */
+let allCategoriesList = [];
+
 document.addEventListener("DOMContentLoaded", function () {
   // Sirf Product List page par chalega
   if (document.getElementById("getproduct")) {
@@ -108,8 +110,13 @@ async function loadDropdowns() {
     // 1. Load Categories
     const catRes = await fetch(`${domin}/api/getcategories`);
     const catResult = await catRes.json();
-    const categories = catResult?.value?.data || catResult?.data || [];
-    populateCategoryDropdown(categories, document.getElementById("categoryId"));
+    const nestedCategories = catResult?.value?.data || catResult?.data || [];
+    allCategoriesList = flattenCategories(nestedCategories);
+    const catContainer = document.getElementById("dynamicCategoryContainer");
+    if (catContainer) {
+      catContainer.innerHTML = "";
+      renderCategoryDropdown(null, 0);
+    }
 
     // 2. Load Brands
     const brandRes = await fetch(`${domin}/api/brand/getallbrands`);
@@ -174,21 +181,49 @@ function populateDropdown(
   selectElement.innerHTML = html;
 }
 
-function populateCategoryDropdown(categories, selectElement) {
-  if (!selectElement) return;
-  let html = `<option value="">--Select Category--</option>`;
-
-  // Recursive function for N-Level category
-  function flatten(cats, prefix = "") {
-    cats.forEach((c) => {
-      html += `<option value="${c.id}">${prefix}${c.categoryName}</option>`;
-      if (c.children && c.children.length > 0) {
-        flatten(c.children, prefix + "— ");
+function flattenCategories(categories) {
+  let flatList = [];
+  categories.forEach(cat => {
+      flatList.push(cat);
+      if (cat.children && cat.children.length > 0) {
+          flatList = flatList.concat(flattenCategories(cat.children));
       }
-    });
-  }
-  flatten(categories);
-  selectElement.innerHTML = html;
+  });
+  return flatList;
+}
+
+function renderCategoryDropdown(parentId, level) {
+  const isRoot = (parentId === null || parentId === "" || parentId === 0);
+
+  const children = allCategoriesList.filter(cat => {
+      if (isRoot) return (cat.parentId === null || cat.parentId === 0 || cat.parentId === "");
+      return cat.parentId == parentId;
+  });
+
+  if (children.length === 0) return;
+
+  const select = document.createElement("select");
+  select.className = "form-control custom-select mt-2 dynamic-category-select";
+  select.dataset.level = level;
+  select.innerHTML = `<option value="">-- Select Level ${level + 1} Category --</option>`;
+
+  children.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat.id;
+      option.textContent = cat.categoryName;
+      select.appendChild(option);
+  });
+
+  select.addEventListener("change", function () {
+      const currentLevel = parseInt(this.dataset.level);
+      const container = document.getElementById("dynamicCategoryContainer");
+      container.querySelectorAll(".dynamic-category-select").forEach(sel => {
+          if (parseInt(sel.dataset.level) > currentLevel) sel.remove();
+      });
+      if (this.value) renderCategoryDropdown(this.value, currentLevel + 1);
+  });
+
+  document.getElementById("dynamicCategoryContainer").appendChild(select);
 }
 
 function bindAddProduct() {

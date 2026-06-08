@@ -233,20 +233,29 @@ function bindAddProduct() {
   submitBtn.addEventListener("click", async function () {
     const productName = document.getElementById("productName").value.trim();
     const sku = document.getElementById("sku").value.trim();
-    const categoryId = document.getElementById("categoryId").value;
     const brandId = document.getElementById("brandId").value;
     const colorId = document.getElementById("colorId").value;
+
+    // Get deeply selected category ID
+    let categoryId = "";
+    const catSelects = Array.from(document.querySelectorAll(".dynamic-category-select"));
+    for (let i = catSelects.length - 1; i >= 0; i--) {
+        if (catSelects[i].value !== "") {
+            categoryId = catSelects[i].value;
+            break;
+        }
+    }
+
     const type = document.getElementById("type").value;
     const mrp = document.getElementById("mrp").value.trim();
     const discount = document.getElementById("discount").value.trim();
     const gst = document.getElementById("gst").value.trim();
     const stock = document.getElementById("stock").value.trim();
 
-    // Multiple selected sizes array into comma-separated string (e.g., "1,4,5")
+    // Get multiple selected sizes as an array
     const sizeOptions = document.getElementById("sizeId").selectedOptions;
     const sizes = Array.from(sizeOptions)
-      .map((opt) => opt.value)
-      .join(",");
+      .map((opt) => opt.value);
 
     const statusEl = document.querySelector('input[name="status"]:checked');
     const isActive = statusEl ? statusEl.value : "true";
@@ -283,7 +292,12 @@ function bindAddProduct() {
     formData.append("DiscountPrice", discount);
     formData.append("GST", gst);
     formData.append("Stock", stock);
-    formData.append("Sizes", sizes);
+    
+    // Append each size individually to the FormData
+    sizes.forEach(size => {
+        formData.append("Sizes", size); // API will receive this as an array
+    });
+    
     formData.append("Color", colorId);
     formData.append("IsActive", isActive);
     formData.append("Type", type);
@@ -306,7 +320,12 @@ function bindAddProduct() {
       });
       const result = await response.json();
 
-      if (result.status || result.success || result?.value?.status === true) {
+      if (
+        result.status || 
+        result.success || 
+        result?.value?.status === true || 
+        result?.value?.value?.status === true
+      ) {
         Toastify({
           text: "✅ Product added successfully!",
           duration: 3000,
@@ -322,6 +341,7 @@ function bindAddProduct() {
             "❌ " +
             (result.message ||
               result?.value?.message ||
+              result?.value?.value?.message ||
               "Failed to add product"),
           duration: 3000,
           style: { background: "#ff416c" },

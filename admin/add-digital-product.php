@@ -166,9 +166,7 @@
                                 Save Product
                             </button>
 
-                            <button type="button" class="btn btn-light" id="resetBtn">
-                                Reset
-                            </button>
+                          
                         </div>
 
                     </div>

@@ -1,142 +1,260 @@
 <?php include 'header.php'; ?>
-            <div class="page-body">
-                <!-- Container-fluid starts-->
-                <div class="container-fluid">
-                    <div class="page-header">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="page-header-left">
-                                    <h3>Add Products
-                                        <small>Multikart Admin panel</small>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <ol class="breadcrumb pull-right">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.php">
-                                            <i data-feather="home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">Digital</li>
-                                    <li class="breadcrumb-item active">Add Product</li>
-                                </ol>
-                            </div>
-                        </div>
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Add Products
+                            <small> Admin panel</small>
+                        </h3>
                     </div>
                 </div>
-                <!-- Container-fluid Ends-->
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.php">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <!-- <li class="breadcrumb-item">Digital</li> -->
+                        <li class="breadcrumb-item active">Add Product</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
 
-                <!-- Container-fluid starts-->
-                <div class="container-fluid">
-                    <div class="row product-adding">
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>General</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="digital-add needs-validation">
-                                        <div class="form-group">
-                                            <label for="validationCustom01" class="col-form-label pt-0"><span>*</span>
-                                                Title</label>
-                                            <input class="form-control" id="validationCustom01" type="text" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="validationCustomtitle"
-                                                class="col-form-label pt-0"><span>*</span> SKU</label>
-                                            <input class="form-control" id="validationCustomtitle" type="text"
-                                                required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label categories-basic"><span>*</span>
-                                                Categories</label>
-                                            <select class="custom-select form-control" required="">
-                                                <option value="">--Select--</option>
-                                                <option value="1">eBooks</option>
-                                                <option value="2">Graphic Design</option>
-                                                <option value="3">3D Impact</option>
-                                                <option value="4">Application</option>
-                                                <option value="5">Websites</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Sort Summary</label>
-                                            <textarea rows="5" cols="12"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="validationCustom02" class="col-form-label"><span>*</span>
-                                                Product Price</label>
-                                            <input class="form-control" id="validationCustom02" type="text" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label"><span>*</span> Status</label>
-                                            <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
-                                                <label class="d-block" for="edo-ani">
-                                                    <input class="radio_animated" id="edo-ani" type="radio"
-                                                        name="rdo-ani">
-                                                    Enable
-                                                </label>
-                                                <label class="d-block" for="edo-ani1">
-                                                    <input class="radio_animated" id="edo-ani1" type="radio"
-                                                        name="rdo-ani">
-                                                    Disable
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <label class="col-form-label pt-0"> Product Upload</label>
-                                        <form class="dropzone digits" id="singleFileUpload" action="https://themes.pixelstrap.com/upload.php">
-                                            <div class="dz-message needsclick"><i class="fa fa-cloud-upload"></i>
-                                                <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row product-adding">
+
+            <!-- LEFT SIDE -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input id="productName" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>SKU</label>
+                            <input id="sku" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="categoryId" class="form-control custom-select">
+                                <option value="">--Select Category--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+    <label>Brand</label>
+    <select id="brandId" class="form-control custom-select">
+        <option value="">--Select Brand--</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Color</label>
+    <select id="colorId" class="form-control custom-select">
+        <option value="">--Select Color--</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Size</label>
+    <select id="sizeId" class="form-control custom-select" multiple>
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Product Type</label>
+
+    <select id="type" class="form-control custom-select">
+        <option value="">--Select Type--</option>
+        <option value="digital">Digital</option>
+        <option value="physical">Physical</option>
+        <option value="service">Service</option>
+        <option value="ebook">E-Book</option>
+        <option value="software">Software</option>
+    </select>
+</div>
+
+                        <div class="form-group">
+                            <label>MRP</label>
+                            <input id="mrp" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Discount %</label>
+                            <input id="discount" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>GST %</label>
+                            <input id="gst" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input id="stock" class="form-control" type="text">
+                        </div>
+
+                        
+                        <!-- ================= MAIN IMAGE ================= -->
+                        <div class="form-group">
+                            <label>Product Image</label>
+
+                            <input type="file" id="productImageInput" accept="image/*" class="form-control">
+
+                            <img id="productImagePreview"
+                                style="width:100px;height:100px;object-fit:cover;margin-top:10px;border-radius:8px;">
+                        </div>
+
+                        <!-- ================= GALLERY ================= -->
+                        <div class="form-group">
+                            <label>Gallery Images</label>
+
+                            <input type="file" id="galleryInput" accept="image/*" multiple class="form-control">
+
+                            <div id="galleryPreview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Add Description</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="digital-add needs-validation">
-                                        <div class="form-group mb-0">
-                                            <div class="description-sm">
-                                                <textarea id="editor1" name="editor1" cols="10" rows="4"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Meta Data</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="digital-add needs-validation">
-                                        <div class="form-group">
-                                            <label for="validationCustom05" class="col-form-label pt-0"> Meta
-                                                Title</label>
-                                            <input class="form-control" id="validationCustom05" type="text" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Meta Description</label>
-                                            <textarea rows="4" cols="12"></textarea>
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <div class="product-buttons">
-                                                <button type="button" class="btn btn-primary">Add</button>
-                                                <button type="button" class="btn btn-light">Discard</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
+                        <!-- ================= STATUS ================= -->
+                        <div class="form-group">
+                            <label>Status</label><br>
+
+                            <input type="radio" name="status" id="statusActive" value="true">
+                            <label for="statusActive">Enable</label>
+
+                            <input type="radio" name="status" id="statusInactive" value="false">
+                            <label for="statusInactive">Disable</label>
                         </div>
+
                     </div>
                 </div>
-                <!-- Container-fluid Ends-->
             </div>
 
-            <?php include 'footer.php'; ?>
+            <!-- LEFT SIDE -->
+            <div class="col-xl-6">
+                <div class="card">
+
+
+                    <div class="card-body">
+
+                        <!-- ================= SHORT DESCRIPTION ================= -->
+                        <div class="form-group">
+                            <label>Short Description</label>
+                            <textarea id="shortDescription"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Long Description</label>
+                            <textarea id="description"></textarea>
+                        </div>
+
+                        <!-- ================= SUBMIT BUTTON ================= -->
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-primary" id="submitBtn">
+                                Save Product
+                            </button>
+
+                            <button type="button" class="btn btn-light" id="resetBtn">
+                                Reset
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <!-- <div class="col-xl-6">
+
+            
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Description</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <textarea id="description" class="form-control" rows="6"></textarea>
+                    </div>
+
+
+                    
+                </div>
+                
+
+              
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-light">Reset</button>
+                </div>
+
+            </div> -->
+
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+<script src="./assets/adminapi/product.js"></script>
+
+<script>
+    // Image Preview for Main Product Image
+    const productImageInput = document.getElementById('productImageInput');
+    const productImagePreview = document.getElementById('productImagePreview');
+
+    productImageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                productImagePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Gallery Images Preview
+    const galleryInput = document.getElementById('galleryInput');
+    const galleryPreview = document.getElementById('galleryPreview');
+
+    galleryInput.addEventListener('change', function () {
+        galleryPreview.innerHTML = ''; // Clear previous previews
+
+        Array.from(this.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '80px';
+                img.style.height = '80px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '8px';
+                img.style.border = '1px solid #ddd';
+                galleryPreview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace('shortDescription');
+    CKEDITOR.replace('description');
+</script>
+
+
+
+<?php include 'footer.php'; ?>

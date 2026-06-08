@@ -52,40 +52,38 @@
 
                         <div class="form-group">
                             <label>Category</label>
-                            <select id="categoryId" class="form-control custom-select">
-                                <option value="">--Select Category--</option>
+                            <div id="dynamicCategoryContainer"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select id="brandId" class="form-control custom-select">
+                                <option value="">--Select Brand--</option>
                             </select>
                         </div>
                         <div class="form-group">
-    <label>Brand</label>
-    <select id="brandId" class="form-control custom-select">
-        <option value="">--Select Brand--</option>
-    </select>
-</div>
-<div class="form-group">
-    <label>Color</label>
-    <select id="colorId" class="form-control custom-select">
-        <option value="">--Select Color--</option>
-    </select>
-</div>
-<div class="form-group">
-    <label>Size</label>
-    <select id="sizeId" class="form-control custom-select" multiple>
-    </select>
-</div>
+                            <label>Color</label>
+                            <select id="colorId" class="form-control custom-select">
+                                <option value="">--Select Color--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select id="sizeId" class="form-control custom-select" multiple>
+                            </select>
+                        </div>
 
-<div class="form-group">
-    <label>Product Type</label>
+                        <div class="form-group">
+                            <label>Product Type</label>
 
-    <select id="type" class="form-control custom-select">
-        <option value="">--Select Type--</option>
-        <option value="digital">Digital</option>
-        <option value="physical">Physical</option>
-        <option value="service">Service</option>
-        <option value="ebook">E-Book</option>
-        <option value="software">Software</option>
-    </select>
-</div>
+                            <select id="type" class="form-control custom-select">
+                                <option value="">--Select Type--</option>
+                                <option value="digital">Digital</option>
+                                <option value="physical">Physical</option>
+                                <option value="service">Service</option>
+                                <option value="ebook">E-Book</option>
+                                <option value="software">Software</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label>MRP</label>
@@ -107,7 +105,7 @@
                             <input id="stock" class="form-control" type="text">
                         </div>
 
-                        
+
                         <!-- ================= MAIN IMAGE ================= -->
                         <div class="form-group">
                             <label>Product Image</label>

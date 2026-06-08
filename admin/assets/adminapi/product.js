@@ -98,7 +98,61 @@ function editProduct(id) {
 }
 
 function deleteProduct(id) {
-  alert("Delete Product ID: " + id);
+  const container = document.createElement("div");
+
+  container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to delete this product?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">
+                Yes, Delete
+            </button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">
+                Cancel
+            </button>
+        </div>
+    `;
+
+  const toast = Toastify({
+    node: container,
+    duration: -1,
+    close: false,
+    gravity: "top",
+    position: "center",
+    style: {
+      background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+      borderRadius: "10px",
+    },
+  });
+
+  toast.showToast();
+
+  // YES CLICK
+  container.querySelector(".toast-yes-btn").addEventListener("click", async function () {
+      toast.hideToast();
+
+      try {
+        const response = await fetch(`${domin}/api/product/deleteproduct/${id}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          Toastify({ text: "✅ Product deleted successfully!", duration: 2000, style: { background: "linear-gradient(to right,#00b09b,#96c93d)" } }).showToast();
+          loadProducts(); // Refresh the product list
+        } else {
+          const result = await response.json().catch(() => ({ message: "Failed to delete product" }));
+          Toastify({ text: "❌ " + (result.message || "Failed to delete product"), duration: 3000, style: { background: "linear-gradient(to right,#ff416c,#ff4b2b)" } }).showToast();
+        }
+      } catch (err) {
+        Toastify({ text: "❌ Server error occurred.", duration: 3000, style: { background: "#ff416c" } }).showToast();
+      }
+    });
+
+  // NO CLICK
+  container.querySelector(".toast-no-btn").addEventListener("click", function () {
+      toast.hideToast();
+    });
 }
 
 /* =======================================

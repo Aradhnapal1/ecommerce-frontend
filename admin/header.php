@@ -258,6 +258,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="variant.php">
+                                        <i class="fa fa-circle"></i>Variant List
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="category-digital.php">
                                         <i class="fa fa-circle"></i>Category
                                     </a>

@@ -1,7 +1,7 @@
 /* Load on page ready */
 let allCategoriesList = [];
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   // Sirf Product List page par chalega
   if (document.getElementById("getproduct")) {
     loadProducts();
@@ -10,6 +10,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("submitBtn")) {
     loadDropdowns();
     bindAddProduct();
+  }
+
+  // Sirf Edit Product page par chalega
+  if (document.getElementById("editproduct")) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get("id");
+    
+    if (editId) {
+      await loadDropdowns();
+      prefillProductData(editId);
+      bindEditProduct(editId);
+    } else {
+      Toastify({ text: "❌ Product ID not found in URL!", duration: 3000, style: { background: "#ff416c" } }).showToast();
+    }
   }
 });
 
@@ -77,9 +91,9 @@ function renderTable(products) {
                 <td>${new Date(item.createdAt).toLocaleString()}</td>
 
                 <td>
-                    <a href="javascript:void(0)" onclick="editProduct(${item.id})">
-                        <i class="fa fa-edit" title="Edit"></i>
-                    </a>
+                   <a href="edit-product.php?id=${item.id}">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
 
                     <a href="javascript:void(0)" onclick="deleteProduct(${item.id})" style="margin-left:10px;color:red;">
                         <i class="fa fa-trash" title="Delete"></i>
@@ -92,10 +106,16 @@ function renderTable(products) {
   });
 }
 
+
+
+// ====================================================get api end=================================================
+
+
+
+
+// ===================================================== delete api start ===================================================
+
 /* Actions */
-function editProduct(id) {
-  alert("Edit Product ID: " + id);
-}
 
 function deleteProduct(id) {
   const container = document.createElement("div");
@@ -129,31 +149,70 @@ function deleteProduct(id) {
   toast.showToast();
 
   // YES CLICK
-  container.querySelector(".toast-yes-btn").addEventListener("click", async function () {
+  container
+    .querySelector(".toast-yes-btn")
+    .addEventListener("click", async function () {
       toast.hideToast();
 
       try {
-        const response = await fetch(`${domin}/api/product/deleteproduct/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `${domin}/api/product/deleteproduct/${id}`,
+          {
+            method: "DELETE",
+          },
+        );
 
         if (response.ok) {
-          Toastify({ text: "✅ Product deleted successfully!", duration: 2000, style: { background: "linear-gradient(to right,#00b09b,#96c93d)" } }).showToast();
+          Toastify({
+            text: "✅ Product deleted successfully!",
+            duration: 2000,
+            style: { background: "linear-gradient(to right,#00b09b,#96c93d)" },
+          }).showToast();
           loadProducts(); // Refresh the product list
         } else {
-          const result = await response.json().catch(() => ({ message: "Failed to delete product" }));
-          Toastify({ text: "❌ " + (result.message || "Failed to delete product"), duration: 3000, style: { background: "linear-gradient(to right,#ff416c,#ff4b2b)" } }).showToast();
+          const result = await response
+            .json()
+            .catch(() => ({ message: "Failed to delete product" }));
+          Toastify({
+            text: "❌ " + (result.message || "Failed to delete product"),
+            duration: 3000,
+            style: { background: "linear-gradient(to right,#ff416c,#ff4b2b)" },
+          }).showToast();
         }
       } catch (err) {
-        Toastify({ text: "❌ Server error occurred.", duration: 3000, style: { background: "#ff416c" } }).showToast();
+        Toastify({
+          text: "❌ Server error occurred.",
+          duration: 3000,
+          style: { background: "#ff416c" },
+        }).showToast();
       }
     });
 
   // NO CLICK
-  container.querySelector(".toast-no-btn").addEventListener("click", function () {
+  container
+    .querySelector(".toast-no-btn")
+    .addEventListener("click", function () {
       toast.hideToast();
     });
 }
+
+
+// ===================================================== delete api end ===================================================
+
+
+
+
+
+
+
+
+
+
+
+
+// ================================================================= add product js start =========================================================
+
+
 
 /* =======================================
    ADD PRODUCT LOGIC
@@ -237,21 +296,22 @@ function populateDropdown(
 
 function flattenCategories(categories) {
   let flatList = [];
-  categories.forEach(cat => {
-      flatList.push(cat);
-      if (cat.children && cat.children.length > 0) {
-          flatList = flatList.concat(flattenCategories(cat.children));
-      }
+  categories.forEach((cat) => {
+    flatList.push(cat);
+    if (cat.children && cat.children.length > 0) {
+      flatList = flatList.concat(flattenCategories(cat.children));
+    }
   });
   return flatList;
 }
 
 function renderCategoryDropdown(parentId, level) {
-  const isRoot = (parentId === null || parentId === "" || parentId === 0);
+  const isRoot = parentId === null || parentId === "" || parentId === 0;
 
-  const children = allCategoriesList.filter(cat => {
-      if (isRoot) return (cat.parentId === null || cat.parentId === 0 || cat.parentId === "");
-      return cat.parentId == parentId;
+  const children = allCategoriesList.filter((cat) => {
+    if (isRoot)
+      return cat.parentId === null || cat.parentId === 0 || cat.parentId === "";
+    return cat.parentId == parentId;
   });
 
   if (children.length === 0) return;
@@ -261,20 +321,20 @@ function renderCategoryDropdown(parentId, level) {
   select.dataset.level = level;
   select.innerHTML = `<option value="">-- Select Level ${level + 1} Category --</option>`;
 
-  children.forEach(cat => {
-      const option = document.createElement("option");
-      option.value = cat.id;
-      option.textContent = cat.categoryName;
-      select.appendChild(option);
+  children.forEach((cat) => {
+    const option = document.createElement("option");
+    option.value = cat.id;
+    option.textContent = cat.categoryName;
+    select.appendChild(option);
   });
 
   select.addEventListener("change", function () {
-      const currentLevel = parseInt(this.dataset.level);
-      const container = document.getElementById("dynamicCategoryContainer");
-      container.querySelectorAll(".dynamic-category-select").forEach(sel => {
-          if (parseInt(sel.dataset.level) > currentLevel) sel.remove();
-      });
-      if (this.value) renderCategoryDropdown(this.value, currentLevel + 1);
+    const currentLevel = parseInt(this.dataset.level);
+    const container = document.getElementById("dynamicCategoryContainer");
+    container.querySelectorAll(".dynamic-category-select").forEach((sel) => {
+      if (parseInt(sel.dataset.level) > currentLevel) sel.remove();
+    });
+    if (this.value) renderCategoryDropdown(this.value, currentLevel + 1);
   });
 
   document.getElementById("dynamicCategoryContainer").appendChild(select);
@@ -292,12 +352,14 @@ function bindAddProduct() {
 
     // Get deeply selected category ID
     let categoryId = "";
-    const catSelects = Array.from(document.querySelectorAll(".dynamic-category-select"));
+    const catSelects = Array.from(
+      document.querySelectorAll(".dynamic-category-select"),
+    );
     for (let i = catSelects.length - 1; i >= 0; i--) {
-        if (catSelects[i].value !== "") {
-            categoryId = catSelects[i].value;
-            break;
-        }
+      if (catSelects[i].value !== "") {
+        categoryId = catSelects[i].value;
+        break;
+      }
     }
 
     const type = document.getElementById("type").value;
@@ -308,8 +370,7 @@ function bindAddProduct() {
 
     // Get multiple selected sizes as an array
     const sizeOptions = document.getElementById("sizeId").selectedOptions;
-    const sizes = Array.from(sizeOptions)
-      .map((opt) => opt.value);
+    const sizes = Array.from(sizeOptions).map((opt) => opt.value);
 
     const statusEl = document.querySelector('input[name="status"]:checked');
     const isActive = statusEl ? statusEl.value : "true";
@@ -346,12 +407,12 @@ function bindAddProduct() {
     formData.append("DiscountPrice", discount);
     formData.append("GST", gst);
     formData.append("Stock", stock);
-    
+
     // Append each size individually to the FormData
-    sizes.forEach(size => {
-        formData.append("Sizes", size); // API will receive this as an array
+    sizes.forEach((size) => {
+      formData.append("Sizes", size); // API will receive this as an array
     });
-    
+
     formData.append("Color", colorId);
     formData.append("IsActive", isActive);
     formData.append("Type", type);
@@ -375,9 +436,9 @@ function bindAddProduct() {
       const result = await response.json();
 
       if (
-        result.status || 
-        result.success || 
-        result?.value?.status === true || 
+        result.status ||
+        result.success ||
+        result?.value?.status === true ||
         result?.value?.value?.status === true
       ) {
         Toastify({
@@ -411,6 +472,302 @@ function bindAddProduct() {
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerText = "Save Product";
+    }
+  });
+}
+
+
+
+// ================================================================= add product js end =========================================================
+
+
+// ==================================================== edit product js start ===================================================
+
+let existingProductImageUrl = "";
+let existingGalleryUrls = [];
+
+function getCategoryPath(targetId) {
+  const path = [];
+  let current = allCategoriesList.find((c) => String(c.id) === String(targetId));
+
+  while (current) {
+    path.unshift(current.id);
+    if (!current.parentId || current.parentId === null || current.parentId === "") break;
+    current = allCategoriesList.find((c) => String(c.id) === String(current.parentId));
+  }
+  return path;
+}
+
+function prefillCategoryHierarchy(categoryId) {
+  const path = getCategoryPath(categoryId);
+  
+  for (let i = 0; i < path.length; i++) {
+    const select = document.querySelector(`.dynamic-category-select[data-level="${i}"]`);
+    if (select) {
+      select.value = path[i];
+      const event = new Event("change");
+      select.dispatchEvent(event);
+    }
+  }
+}
+
+async function prefillProductData(id) {
+  try {
+    const res = await fetch(`${domin}/api/product/getallproducts`);
+    const result = await res.json();
+    
+    let productsList = [];
+    if (Array.isArray(result)) {
+        productsList = result;
+    } else if (Array.isArray(result?.value?.data)) {
+        productsList = result.value.data;
+    } else if (Array.isArray(result?.data)) {
+        productsList = result.data;
+    } else if (Array.isArray(result?.value)) {
+        productsList = result.value;
+    }
+
+    const product = productsList.find((p) => String(p.id) === String(id));
+
+    if (!product) {
+      Toastify({
+        text: "❌ Product not found",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+      return;
+    }
+
+    // Prefill text inputs
+    if (document.getElementById("productName")) document.getElementById("productName").value = product.productName || "";
+    if (document.getElementById("sku")) document.getElementById("sku").value = product.sku || "";
+    if (document.getElementById("mrp")) document.getElementById("mrp").value = product.mrp || "";
+    if (document.getElementById("discount")) document.getElementById("discount").value = product.discountPrice || product.discount || "";
+    if (document.getElementById("gst")) document.getElementById("gst").value = product.gst || "";
+    if (document.getElementById("stock")) document.getElementById("stock").value = product.stock || "";
+    
+    // Select dropdowns
+    if (document.getElementById("type")) document.getElementById("type").value = (product.type || "").toLowerCase();
+    if (document.getElementById("brandId")) document.getElementById("brandId").value = product.brandId || product.brand || "";
+    if (document.getElementById("colorId")) document.getElementById("colorId").value = product.colorId || product.color || "";
+
+    // Sizes
+    const sizeSelect = document.getElementById("sizeId");
+    if (sizeSelect) {
+      let productSizeIds = [];
+      if (Array.isArray(product.sizes)) {
+          productSizeIds = product.sizes.map(String);
+      } else if (typeof product.sizes === 'string') {
+          productSizeIds = product.sizes.split(",").map(s => s.trim());
+      } else if (Array.isArray(product.sizeIds)) {
+          productSizeIds = product.sizeIds.map(String);
+      }
+      
+      Array.from(sizeSelect.options).forEach((opt) => {
+        if (productSizeIds.includes(String(opt.value))) {
+          opt.selected = true;
+        }
+      });
+    }
+
+    // Status
+    if (product.isActive !== undefined) {
+        if (String(product.isActive) === "true" || product.isActive === true) {
+            if (document.getElementById("statusActive")) document.getElementById("statusActive").checked = true;
+        } else {
+            if (document.getElementById("statusInactive")) document.getElementById("statusInactive").checked = true;
+        }
+    }
+
+    // Category Hierarchy
+    if (product.categoryId) {
+      prefillCategoryHierarchy(product.categoryId);
+    }
+
+    // Image Previews
+    if (product.productImageUrl || product.productImage) {
+      const mainPreview = document.getElementById("productImagePreview");
+      existingProductImageUrl = product.productImageUrl || product.productImage;
+      if (mainPreview) {
+          mainPreview.src = product.productImageUrl || product.productImage;
+          mainPreview.style.display = "block";
+      }
+    }
+    
+    const galleryUrls = product.galleryImages || product.galleryImageUrls || [];
+    if (galleryUrls.length > 0) {
+      const galleryPreview = document.getElementById("galleryPreview");
+      if (galleryPreview) {
+          existingGalleryUrls = galleryUrls;
+          galleryPreview.innerHTML = "";
+          galleryUrls.forEach((url) => {
+            const img = document.createElement("img");
+            img.src = url;
+            img.style.width = "80px";
+            img.style.height = "80px";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "8px";
+            img.style.border = "1px solid #ddd";
+            galleryPreview.appendChild(img);
+          });
+      }
+    }
+
+    // CKEditor
+    setTimeout(() => {
+      if (typeof CKEDITOR !== "undefined") {
+        if (CKEDITOR.instances.shortDescription) {
+          CKEDITOR.instances.shortDescription.setData(product.shortDescription || "");
+        }
+        if (CKEDITOR.instances.description) {
+          CKEDITOR.instances.description.setData(product.description || "");
+        }
+      }
+    }, 800);
+
+  } catch (err) {
+    console.error("Error prefilling product:", err);
+  }
+}
+
+function bindEditProduct(id) {
+  const editBtn = document.getElementById("editproduct");
+  if (!editBtn) return;
+
+  editBtn.addEventListener("click", async function () {
+    const productName = document.getElementById("productName").value.trim();
+    const sku = document.getElementById("sku").value.trim();
+    const brandId = document.getElementById("brandId").value;
+    const colorId = document.getElementById("colorId").value;
+
+    let categoryId = "";
+    const catSelects = Array.from(document.querySelectorAll(".dynamic-category-select"));
+    for (let i = catSelects.length - 1; i >= 0; i--) {
+      if (catSelects[i].value !== "") {
+        categoryId = catSelects[i].value;
+        break;
+      }
+    }
+
+    const type = document.getElementById("type").value;
+    const mrp = document.getElementById("mrp").value.trim();
+    const discount = document.getElementById("discount").value.trim();
+    const gst = document.getElementById("gst").value.trim();
+    const stock = document.getElementById("stock").value.trim();
+
+    const sizeOptions = document.getElementById("sizeId").selectedOptions;
+    const sizes = Array.from(sizeOptions).map((opt) => opt.value);
+
+    const statusEl = document.querySelector('input[name="status"]:checked');
+    const isActive = statusEl ? statusEl.value : "true";
+
+    const shortDescription = CKEDITOR.instances.shortDescription
+      ? CKEDITOR.instances.shortDescription.getData()
+      : "";
+    const description = CKEDITOR.instances.description
+      ? CKEDITOR.instances.description.getData()
+      : "";
+
+    const productImage = document.getElementById("productImageInput").files[0];
+    const galleryFiles = document.getElementById("galleryInput").files;
+
+    if (!productName || !categoryId || !mrp) {
+      Toastify({
+        text: "❌ Product Name, Category, and MRP are required.",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("ProductName", productName);
+    formData.append("ShortDescription", shortDescription);
+    formData.append("Description", description);
+    formData.append("SKU", sku);
+    formData.append("BrandId", brandId);
+    formData.append("CategoryId", categoryId);
+    formData.append("MRP", mrp);
+    formData.append("DiscountPrice", discount);
+    formData.append("GST", gst);
+    formData.append("Stock", stock);
+
+    if (sizes && sizes.length > 0) {
+      sizes.forEach((size) => {
+        formData.append("Sizes", size); 
+      });
+    } else {
+      formData.append("Sizes", ""); // Append empty so it's not null on backend
+    }
+
+    formData.append("Color", colorId);
+    formData.append("IsActive", isActive);
+    formData.append("Type", type);
+
+    // ==== IMAGE PAYLOAD FIX ====
+    if (productImage) {
+        formData.append("ProductImage", productImage);
+    } else {
+        // Agar new image select nahi ki, toh existing image ka URL send karein
+        formData.append("ProductImageUrl", existingProductImageUrl);
+        formData.append("ProductImage", new File([""], "empty.jpg", { type: "image/jpeg" }));
+    }
+    
+    if (galleryFiles && galleryFiles.length > 0) {
+        for (let i = 0; i < galleryFiles.length; i++) {
+          formData.append("GalleryFiles", galleryFiles[i]);
+        }
+    } else {
+        formData.append("GalleryFiles", new File([""], "empty.jpg", { type: "image/jpeg" }));
+    }
+
+    try {
+      editBtn.disabled = true;
+      editBtn.innerText = "Updating...";
+
+      const response = await fetch(`${domin}/api/product/updateproduct/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (
+        result.status ||
+        result.success ||
+        result?.value?.status === true ||
+        result?.value?.value?.status === true
+      ) {
+        Toastify({
+          text: "✅ Product updated successfully!",
+          duration: 3000,
+          style: { background: "#00b09b" },
+        }).showToast();
+        setTimeout(
+          () => (window.location.href = "product-listdigital.php"),
+          1500
+        );
+      } else {
+        Toastify({
+          text:
+            "❌ " +
+            (result.message ||
+              result?.value?.message ||
+              result?.value?.value?.message ||
+              "Failed to update product"),
+          duration: 3000,
+          style: { background: "#ff416c" },
+        }).showToast();
+      }
+    } catch (err) {
+      console.error("Error updating product:", err);
+      Toastify({
+        text: "❌ Server error occurred.",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+    } finally {
+      editBtn.disabled = false;
+      editBtn.innerText = "Update Product";
     }
   });
 }

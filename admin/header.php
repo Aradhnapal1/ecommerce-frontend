@@ -13,9 +13,9 @@
     <meta name="keywords"
         content="admin template, Multikart admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="assets/images/dashboard/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/dashboard/favicon.png" type="image/x-icon">
-    <title>Multikart - Premium Admin Template</title>
+    <link rel="icon" href="assets/img/favicon.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/favicon.webp" type="image/x-icon">
+    <title>HyperScripts -  Admin Panel</title>
 
     <!-- Google font-->
     <link rel="stylesheet"

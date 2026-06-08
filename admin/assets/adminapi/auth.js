@@ -1,4 +1,7 @@
-const LOGIN_API = `${domin}/api/user/login`;
+const domainUrl = typeof domin !== 'undefined' ? domin : "https://ecommerce-backend.workarya.com";
+const LOGIN_API = `${domainUrl}/api/user/login`;
+const REGISTER_API = `${domainUrl}/api/user/register`;
+const VERIFY_OTP_API = `${domainUrl}/api/user/verify-otp`;
 
 document.addEventListener("DOMContentLoaded", () => {
     // If admin is already logged in, redirect away from login page to index
@@ -66,6 +69,167 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = "Login";
+            }
+        });
+    }
+
+    // Registration Logic
+    const userForm = document.getElementById("userForm");
+    const sendOtpBtn = document.getElementById("sendOtp") || document.getElementById("submitBtn");
+
+    // Handle Verify OTP Button Click using event delegation
+    // This ensures it works even if the button is pre-written in the HTML
+    document.body.addEventListener("click", async function (ev) {
+        if (ev.target && ev.target.id === "registerBtn") {
+            ev.preventDefault();
+
+            const emailInput = document.getElementById("email");
+            const otpInput = document.getElementById("otp");
+            const regBtn = ev.target;
+
+            if (!emailInput || !otpInput) {
+                return showError("Email or OTP field is missing.");
+            }
+
+            const emailVal = emailInput.value.trim();
+            const otpVal = otpInput.value.trim();
+
+            if (!otpVal) {
+                return showError("Please enter the OTP.");
+            }
+
+            try {
+                regBtn.disabled = true;
+                regBtn.innerHTML = "Verifying...";
+
+                const payload = { email: emailVal, otp: otpVal };
+
+                const verifyResponse = await fetch(VERIFY_OTP_API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                let verifyData = {};
+                try {
+                    verifyData = await verifyResponse.json();
+                } catch(err) {
+                    console.warn("Could not parse Verify JSON", err);
+                }
+
+                // Relaxed condition here too
+                if (verifyResponse.ok && verifyData.status !== false && verifyData.success !== false) {
+                    showSuccess(verifyData.message || "Registration verified successfully!");
+                    setTimeout(() => { window.location.href = "login.php"; }, 2000);
+                } else {
+                    showError(verifyData.message || "Invalid OTP.");
+                }
+            } catch (err) {
+                console.error("OTP verification error:", err);
+                showError("Something went wrong during OTP verification.");
+            } finally {
+                regBtn.disabled = false;
+                regBtn.innerHTML = "Verify OTP & Register";
+            }
+        }
+    });
+
+    if (userForm) {
+        userForm.addEventListener("submit", async function (e) {
+            e.preventDefault(); // Prevents page reload and URL parameters
+
+            // Check if we are already in OTP phase to prevent double submit
+            const existingOtpSection = document.getElementById("otpSection");
+            if (existingOtpSection && existingOtpSection.style.display !== "none") {
+                const regBtn = document.getElementById("registerBtn");
+                if (regBtn) {
+                    regBtn.click(); // Trigger verify if user presses Enter
+                }
+                return;
+            }
+
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!firstName || !lastName || !email || !phoneNumber || !password) {
+                return showError("Please fill all required fields.");
+            }
+
+            try {
+                if (sendOtpBtn) {
+                    sendOtpBtn.disabled = true;
+                    sendOtpBtn.innerHTML = "Sending OTP...";
+                }
+
+                const payload = {
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    phone_number: phoneNumber,
+                    password: password,
+                    role: "ADMIN"
+                };
+
+                const response = await fetch(REGISTER_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                let data = {};
+                try {
+                    data = await response.json();
+                } catch(err) {
+                    console.warn("Could not parse JSON response", err);
+                }
+
+                // Relaxed condition to handle APIs that just return 200 OK without a boolean status flag
+                if (response.ok && data.status !== false && data.success !== false) {
+                    showSuccess(data.message || "OTP sent! Please check your email.");
+                    
+                    // Hide Send OTP button
+                    if (sendOtpBtn) {
+                        sendOtpBtn.style.display = "none";
+                        // also hide its wrapper if it's the .form-button div
+                        if (sendOtpBtn.parentElement && sendOtpBtn.parentElement.classList.contains("form-button")) {
+                            sendOtpBtn.parentElement.style.display = "none";
+                        }
+                    }
+                    
+                    // Show OTP Input and Verify Button dynamically
+                    if (!existingOtpSection) {
+                        const otpHTML = `
+                            <div id="otpSection">
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP" required>
+                                </div>
+                            </div>
+                            <div class="form-button mt-3" id="registerSection">
+                                <button class="btn btn-primary" type="button" id="registerBtn">Verify OTP & Register</button>
+                            </div>
+                        `;
+                        userForm.insertAdjacentHTML('beforeend', otpHTML);
+                    } else {
+                        existingOtpSection.style.display = "block";
+                        const regSec = document.getElementById("registerSection");
+                        if (regSec) regSec.style.display = "block";
+                    }
+                } else {
+                    showError(data.message || "Registration failed.");
+                }
+            } catch (error) {
+                console.error("Registration error:", error);
+                showError("Something went wrong during registration.");
+            } finally {
+                if (sendOtpBtn) {
+                    sendOtpBtn.disabled = false;
+                    sendOtpBtn.innerHTML = "Send Otp";
+                }
             }
         });
     }

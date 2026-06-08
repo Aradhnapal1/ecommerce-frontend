@@ -389,10 +389,10 @@
                             </ul>
                         </li>
 
-                        <!-- <li>
-                            <a class="sidebar-header" href="invoice.html"><i
-                                    data-feather="archive"></i><span>Invoice</span></a>
-                        </li> -->
+                        <li>
+                            <a class="sidebar-header" href="contact-list.php"><i
+                                    data-feather="archive"></i><span>Contact List</span></a>
+                        </li>
 
                         <li>
                             <a class="sidebar-header" href="forgot-password.php">

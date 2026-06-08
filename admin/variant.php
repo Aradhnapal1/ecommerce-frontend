@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Product List
+                        <h3>Variant List
                             <small> Admin panel</small>
                         </h3>
                     </div>
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <!-- <li class="breadcrumb-item">Digital</li> -->
-                        <li class="breadcrumb-item active">Product List</li>
+                        <li class="breadcrumb-item active">Variant List</li>
                     </ol>
                 </div>
             </div>
@@ -40,8 +40,8 @@
                             </div>
                         </form>
 
-                        <a href="add-digital-product.php" class="btn btn-primary mt-md-0 mt-2">Add New
-                            Product</a>
+                        <a href="add-variant.php" class="btn btn-primary mt-md-0 mt-2">Add New
+                            Variant</a>
                     </div>
 
                     <div class="card-body">
@@ -50,12 +50,14 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Product Image</th>
+                                        <th>Variant Image</th>
                                         <th>Product Name</th>
-                                        <th>Category</th>
+                                        <th>Product Id</th>
+
+                                      
                                         <th>Size</th>
                                         <th>Color</th>
-                                        <th>Brand</th>
+                                       
 
                                         <th>MRP</th>
                                         <th>Discount %</th>
@@ -65,14 +67,14 @@
                                         <th>Stock</th>
                                         <th>Sku</th>
 
-                                        <th>Type</th>
+                                      
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Option</th>
                                     </tr>
                                 </thead>
 
-                                <tbody id="getproduct">
+                                <tbody id="getvariant">
                                    
 
 
@@ -88,6 +90,6 @@
 </div>
 
 
-<script src="./assets/adminapi/product.js"></script>
+<script src="./assets/adminapi/variant.js"></script>
 
 <?php include 'footer.php'; ?>

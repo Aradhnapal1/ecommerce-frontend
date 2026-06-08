@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from themes.pixelstrap.com/multikart/back-end/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jun 2026 07:11:32 GMT -->
+
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -246,45 +247,79 @@
                                     </div>
                                     <div class="tab-pane fade" id="top-contact" role="tabpanel"
                                         aria-labelledby="contact-top-tab">
-                                        <form class="form-horizontal auth-form">
+                                        <form class="form-horizontal auth-form" id="userForm">
+
                                             <div class="form-group">
-                                                <input required="" name="login[username]" type="email"
-                                                    class="form-control" placeholder="Username"
-                                                    id="exampleInputEmail12">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="firstName"
+                                                    name="first_name"
+                                                    placeholder="First Name"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="lastName"
+                                                    name="last_name"
+                                                    placeholder="Last Name"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="Email"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input
+                                                    type="tel"
+                                                    class="form-control"
+                                                    id="phoneNumber"
+                                                    name="phone_number"
+                                                    placeholder="Phone Number"
+                                                    required>
                                             </div>
                                             <div class="form-group">
-                                                <input required="" name="login[password]" type="password"
-                                                    class="form-control" placeholder="Password">
+                                                <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    id="password"
+                                                    name="password"
+                                                    placeholder="Password"
+                                                    required>
                                             </div>
-                                            <div class="form-group">
-                                                <input required="" name="login[password]" type="password"
-                                                    class="form-control" placeholder="Confirm Password">
-                                            </div>
-                                            <div class="form-terms">
-                                                <div class="form-check mesm-2">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="customControlAutosizing1">
-                                                    <label class="form-check-label ps-2"
-                                                        for="customControlAutosizing1"><span>I agree all statements in
-                                                            <a href="#" class="pull-right">Terms &amp;
-                                                                Conditions</a></span></label>
-                                                </div>
-                                            </div>
+
                                             <div class="form-button">
-                                                <button class="btn btn-primary" type="submit">Register</button>
+                                                <button class="btn btn-primary" type="submit" id="sendOtp">
+                                                    Send Otp
+                                                </button>
                                             </div>
-                                            <div class="form-footer">
-                                                <span>Or Sign up with social platforms</span>
-                                                <ul class="social">
-                                                    <li><a class="ti-facebook" href="#"></a></li>
-                                                    <li><a class="ti-twitter" href="#"></a></li>
-                                                    <li><a class="ti-instagram" href="#"></a></li>
-                                                    <li><a class="ti-pinterest" href="#"></a></li>
-                                                </ul>
+
+                                            <div class="form-group" id="otpSection" style="display:none;">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="otp"
+                                                    placeholder="Enter OTP">
                                             </div>
+
+                                            <div class="form-button" id="registerSection" style="display:none;">
+                                                <button class="btn btn-primary" type="button" id="registerBtn">
+                                                    Verify OTP & Register
+                                                </button>
+                                            </div>
+
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -333,4 +368,5 @@
 
 
 <!-- Mirrored from themes.pixelstrap.com/multikart/back-end/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jun 2026 07:11:32 GMT -->
+
 </html>

@@ -311,5 +311,7 @@ document.getElementById("addCategoryBtn").addEventListener("click", async functi
 
 
 </script>
+<script src="./assets/adminapi/category.js"></script>
+
 
 <?php include 'footer.php'; ?>

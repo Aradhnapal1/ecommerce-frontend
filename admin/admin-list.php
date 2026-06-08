@@ -60,21 +60,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody id="userTableBody">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                        <td>Dev</td>
-                                        <td>Kumar</td>
-                                        <td>sdev70817@gmail.com</td>
-                                        <td>8527430152</td>
-                                        <td>ADMIN</td>
-                                        <td>
-                                            <a href="javascript:void(0)">
-                                                <i class="fa fa-trash text-danger" title="Delete"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tbody id="adminTableBody">
                                 </tbody>
                             </table>
                         </div>

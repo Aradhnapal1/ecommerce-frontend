@@ -53,14 +53,9 @@ async function checkIfEditMode() {
                 // Handle Active/Inactive checkbox or radio buttons
                 const isAct = (coupon.isActive === true || coupon.isActive === "true" || coupon.isActive === 1);
                 
-                const statusCheckbox = document.querySelector('input[name="status"][type="checkbox"]') || document.getElementById("status");
-                if (statusCheckbox && statusCheckbox.type === 'checkbox') {
+                const statusCheckbox = document.getElementById("isActive");
+                if (statusCheckbox) {
                     statusCheckbox.checked = isAct;
-                } else {
-                    const activeRadio = document.querySelector('input[name="status"][value="true"]') || document.querySelector('input[name="status"][value="1"]');
-                    const inactiveRadio = document.querySelector('input[name="status"][value="false"]') || document.querySelector('input[name="status"][value="0"]');
-                    if (isAct && activeRadio) activeRadio.checked = true;
-                    else if (!isAct && inactiveRadio) inactiveRadio.checked = true;
                 }
 
                 // Change Button Text
@@ -88,12 +83,9 @@ async function saveCoupon() {
     let expiryDate = document.getElementById("expiryDate")?.value;
     
     let isActiveStatus = true;
-    const statusCheckbox = document.querySelector('input[name="status"][type="checkbox"]') || document.getElementById("status");
-    if (statusCheckbox && statusCheckbox.type === 'checkbox') {
+    const statusCheckbox = document.getElementById("isActive");
+    if (statusCheckbox) {
         isActiveStatus = statusCheckbox.checked;
-    } else {
-        const checkedRadio = document.querySelector('input[name="status"]:checked');
-        isActiveStatus = checkedRadio ? (checkedRadio.value === true || checkedRadio.value === "1") : false;
     }
 
     if (!couponCode || !couponType || !discountAmount || !startDate || !expiryDate) {
@@ -137,7 +129,7 @@ async function saveCoupon() {
 
         if (response.ok && (data.status === true || data.success === true)) {
             showSuccess(data.message || (editingCouponId ? "Coupon Updated Successfully" : "Coupon Added Successfully"));
-            // setTimeout(() => { window.location.href = "coupon-list.php"; }, 2000);
+            setTimeout(() => { window.location.href = "coupon-list.php"; }, 2000);
         } else {
             showError(data.message || "Failed to process request");
         }

@@ -356,13 +356,13 @@
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="user-list.html">
+                                    <a href="user-list.php">
                                         <i class="fa fa-circle"></i>User List
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="create-user.html">
-                                        <i class="fa fa-circle"></i>Create User
+                                    <a href="admin-list.php">
+                                        <i class="fa fa-circle"></i>Admin List
                                     </a>
                                 </li>
                             </ul>

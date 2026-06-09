@@ -327,10 +327,27 @@
                         </li>
 
 
-                        <li>
+                         <li>
+                            <a class="sidebar-header" href="javascript:void(0)">
+                                <i data-feather="tag"></i>
+                                <span>Banners</span>
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </a>
+                            <ul class="sidebar-submenu">
+                                <li>
+                                    <a href="banner-list.php">
+                                        <i class="fa fa-circle"></i>List Banner
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+
+
+                        <!-- <li>
                             <a class="sidebar-header" href="banner-list.php"><i
                                     data-feather="archive"></i><span>Banner List</span></a>
-                        </li>
+                        </li> -->
 
 
                         <li>

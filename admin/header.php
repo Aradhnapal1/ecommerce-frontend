@@ -349,6 +349,26 @@
                         </li>
 
 
+                        
+                        <li>
+                            <a class="sidebar-header" href="javascript:void(0)">
+                               <i data-feather="file-text"></i>
+                                <span>Blog</span>
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </a>
+                            <ul class="sidebar-submenu">
+                                <li>
+                                    <a href="blog-list.php">
+                                        <i class="fa fa-circle"></i>List Blogs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog-create.php">
+                                        <i class="fa fa-circle"></i>Create Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
 
 

@@ -188,7 +188,7 @@ function deleteUser(id) {
 // =========================
 document.addEventListener("DOMContentLoaded", async () => {
 
-    await loadUsers();
-    await loadAdmins();
+     loadUsers();
+     loadAdmins();
 
 });

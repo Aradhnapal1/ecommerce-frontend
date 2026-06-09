@@ -15,7 +15,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="assets/img/favicon.webp" type="image/x-icon">
     <link rel="shortcut icon" href="assets/img/favicon.webp" type="image/x-icon">
-    <title>HyperScripts -  Admin Panel</title>
+    <title>HyperScripts - Admin Panel</title>
 
     <!-- Google font-->
     <link rel="stylesheet"
@@ -327,6 +327,11 @@
                         </li>
 
 
+                        <li>
+                            <a class="sidebar-header" href="banner-list.php"><i
+                                    data-feather="archive"></i><span>Banner List</span></a>
+                        </li>
+
 
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
@@ -393,6 +398,8 @@
                                 </li>
                             </ul>
                         </li>
+
+
 
                         <li>
                             <a class="sidebar-header" href="contact-list.php"><i

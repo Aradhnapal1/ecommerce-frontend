@@ -72,7 +72,7 @@
         id="sidebar" data-state="close">
         <div>
             <div class="relative pb-6">
-                <img src="assets/images/logo.png" alt="Logo" class="w-[100px]" />
+                <img src="assets/img/logo.png" alt="Logo" class="w-[100px]" />
                 <button
                     class="size-7 inline-flex items-center justify-center absolute top-0 right-0 rounded-full bg-[rgba(145,158,171,0.08)]"
                     id="side-bar-menu-close">
@@ -1854,8 +1854,8 @@
                 <!-- For Desktop Screen Start -->
                 <div class="xl:flex items-center hidden">
                     <div>
-                        <a href='index.html'>
-                            <img src="assets/images/logo.png" alt="Logo" />
+                        <a href='index.php'>
+                            <img src="assets/img/logo.png" alt="Logo"  style="width: 50%;"/>
                         </a>
                     </div>
                     <div class="flex items-center w-full justify-end gap-x-[54px]">

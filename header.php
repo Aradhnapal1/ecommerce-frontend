@@ -1993,8 +1993,8 @@
                             </button>
                         </div>
                         <div>
-                            <a href='index.html'>
-                                <img src="assets/images/logo.png" alt="Logo" class="w-[120px] md:w-[150px]" />
+                            <a href='index.php'>
+                                <img src="assets/img/logo.png" alt="Logo" class="w-[180px] md:w-[180px]" />
                             </a>
                         </div>
                         <div class="xl:hidden flex items-center gap-x-4">

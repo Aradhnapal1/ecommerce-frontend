@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadCategories() {
     try {
-        const res = await fetch(`${domin}/api/getcategories`);
+        const res = await adminFetch(`${domin}/api/getcategories`);
         const result = await res.json();
 
         const data = result.value.data;
@@ -132,7 +132,7 @@ function deleteCategory(id) {
 
         toast.hideToast();
 
-        fetch(`https://ecommerce-backend.workarya.com/api/deletecategory/${id}`, {
+        adminFetch(`${domin}/api/deletecategory/${id}`, {
             method: "DELETE"
         })
         .then(res => res.json())

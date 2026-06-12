@@ -49,6 +49,7 @@
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="./assets/adminapi/domin.js"></script>
+    <script src="./assets/adminapi/auth-helper.js"></script>
 
     <!-- Check Authentication Token -->
     <script>

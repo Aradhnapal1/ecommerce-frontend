@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function loadVariants() {
     try {
-        const res = await fetch(`${domain}/api/variant/getallvariants`);
+        const res = await adminFetch(`${domain}/api/variant/getallvariants`);
         const result = await res.json();
 
         const data = result.data || [];
@@ -136,7 +136,7 @@ function deleteVariant(id) {
         toast.hideToast();
 
         try {
-            const response = await fetch(`${domain}/api/variant/deletevariant/${id}`, {
+            const response = await adminFetch(`${domain}/api/variant/deletevariant/${id}`, {
                 method: "DELETE",
             });
 
@@ -166,19 +166,19 @@ function deleteVariant(id) {
 async function loadVariantDropdowns() {
     try {
         // 1. Load Products
-        const prodRes = await fetch(`${domain}/api/product/getallproducts`);
+        const prodRes = await adminFetch(`${domain}/api/product/getallproducts`);
         const prodResult = await prodRes.json();
         const products = Array.isArray(prodResult) ? prodResult : (prodResult?.value?.data || prodResult?.data || []);
         populateVariantDropdown(products, document.getElementById("productId"), "id", "productName", "--Select Product--");
 
         // 2. Load Colors
-        const colorRes = await fetch(`${domain}/api/colors/get-all`);
+        const colorRes = await adminFetch(`${domain}/api/colors/get-all`);
         const colorResult = await colorRes.json();
         const colors = Array.isArray(colorResult) ? colorResult : (colorResult?.value?.data || colorResult?.data || []);
         populateVariantDropdown(colors, document.getElementById("colorId"), "id", "colorName", "--Select Color--");
 
         // 3. Load Sizes
-        const sizeRes = await fetch(`${domain}/api/size/getallsize`);
+        const sizeRes = await adminFetch(`${domain}/api/size/getallsize`);
         const sizeResult = await sizeRes.json();
         const sizes = Array.isArray(sizeResult) ? sizeResult : (sizeResult?.value?.data || sizeResult?.data || []);
         populateVariantDropdown(sizes, document.getElementById("sizeId"), "id", "sizeName", "");
@@ -250,7 +250,7 @@ function bindAddVariant() {
             addBtn.disabled = true;
             addBtn.innerText = "Saving...";
 
-            const response = await fetch(`${domain}/api/variant/addvariant`, { method: "POST", body: formData });
+            const response = await adminFetch(`${domain}/api/variant/addvariant`, { method: "POST", body: formData });
             const result = await response.json();
 
             if (response.ok || result.status || result.success || result?.value?.status === true) {
@@ -278,7 +278,7 @@ function bindAddVariant() {
 async function prefillVariantData(id) {
     try {
         // Fetching all variants to find the one we need to edit
-        const res = await fetch(`${domain}/api/variant/getallvariants`);
+        const res = await adminFetch(`${domain}/api/variant/getallvariants`);
         const result = await res.json();
         const variants = Array.isArray(result) ? result : (result?.data || result?.value?.data || []);
         
@@ -423,7 +423,7 @@ function bindEditVariant(id) {
             editBtn.disabled = true;
             editBtn.innerText = "Updating...";
 
-            const response = await fetch(`${domain}/api/variant/updatevariant/${id}`, { method: "PUT", body: formData });
+            const response = await adminFetch(`${domain}/api/variant/updatevariant/${id}`, { method: "PUT", body: formData });
             const result = await response.json();
 
             if (response.ok || result.status || result.success || result?.value?.status === true) {

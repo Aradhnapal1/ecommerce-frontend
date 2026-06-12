@@ -5179,7 +5179,7 @@
                         <div
                           class="max-h-[170px] overflow-y-auto pr-2.5 category-scroll"
                         >
-                          <ul class="flex flex-col gap-y-2">
+                          <ul id="filter-category-list" class="flex flex-col gap-y-2">
                             <li class="widget-category-content-list-items">
                               <label
                                 class="group flex items-center justify-between w-full cursor-pointer"
@@ -5642,7 +5642,7 @@
                         >
                       </div>
                       <div class="colors">
-                        <ul class="flex items-center flex-wrap gap-5">
+                        <ul id="filter-color-list" class="flex items-center flex-wrap gap-5">
                           <li class="inline-flex items-center justify-center">
                             <button
                               class="w-5 h-5 inline-flex items-center justify-center bg-primary rounded-full"
@@ -5696,7 +5696,7 @@
                         >
                       </div>
                       <div class="sizes">
-                        <ul class="flex items-center flex-wrap gap-3">
+                        <ul id="filter-size-list" class="flex items-center flex-wrap gap-3">
                           <li>
                             <button
                               class="btn btn-default outline shadow-none py-[7px] px-[15px] rounded-[80px]"
@@ -5762,7 +5762,7 @@
                         >
                       </div>
                       <div class="discount">
-                        <ul class="flex flex-col gap-y-2">
+                        <ul id="filter-discount-list" class="flex flex-col gap-y-2">
                           <li class="discount-items">
                             <label
                               class="group flex items-center justify-between w-full cursor-pointer"
@@ -5989,7 +5989,7 @@
                         <div
                           class="max-h-[170px] overflow-y-auto pr-2.5 category-scroll"
                         >
-                          <ul class="flex flex-col gap-y-2">
+                          <ul id="filter-brand-list" class="flex flex-col gap-y-2">
                             <li class="brand-list-item">
                               <label
                                 class="group flex items-center justify-between w-full cursor-pointer"
@@ -6528,8 +6528,8 @@
                   </a>
                 </div>
                 <div class="lg:flex hidden">
-                  <p class="text-light-secondary-text">
-                    Showing 1-12 of 16 results
+                  <p id="shop-results-count" class="text-light-secondary-text">
+                    Loading products...
                   </p>
                 </div>
               </div>
@@ -6539,6 +6539,7 @@
                   <option value="popularity" selected>Popularity</option>
                   <option value="low-to-high-price">Low to High Price</option>
                   <option value="high-to-low-price">High to Low Price</option>
+                  <option value="discount_high">Highest Discount</option>
                   <option value="avarage-rating">Avarage Rating</option>
                   <option value="a-z-order">A-Z Order</option>
                   <option value="z-a-order">Z-A Order</option>
@@ -6546,8 +6547,8 @@
                 <label for="sorting" class="nice-select-label">Sorting</label>
               </div>
             </div>
-            <div class="grid grid-cols-12 gap-6 pb-12">
-              <!-- products -->
+            <div id="product-grid" class="grid grid-cols-12 gap-6 pb-12">
+              <!-- products loaded via API -->
               <div
                 class="2xl:col-span-3 xl:col-span-4 md:col-span-6 col-span-12 wow animate__animated animate__fadeInUp"
                 data-wow-delay=".2s"
@@ -8204,85 +8205,9 @@
             >
               <div class="col-span-12">
                 <ul
+                  id="shop-pagination"
                   class="flex items-center justify-center gap-x-1.5 blog-pagination"
-                >
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 group-hover:font-semibold group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      <span class="inline-flex items-center justify-center">
-                        <i
-                          class="hgi hgi-stroke hgi-arrow-left-01 text-[20px] group-hover:font-semibold leading-5 text-light-primary-text group-hover:text-primary"
-                        ></i
-                      ></span>
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] active"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      4
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      5
-                    </a>
-                  </li>
-                  <li class="blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white"
-                    >
-                      <span class="inline-flex items-center justify-center">
-                        <i
-                          class="hgi hgi-stroke hgi-more-horizontal text-[20px] leading-5 text-light-primary-text"
-                        ></i
-                      ></span>
-                    </a>
-                  </li>
-                  <li class="group blog-pagination-item">
-                    <a
-                      href="#"
-                      class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                    >
-                      <span class="inline-flex items-center justify-center">
-                        <i
-                          class="hgi hgi-stroke hgi-arrow-right-01 text-[20px] leading-5 group-hover:font-semibold text-light-primary-text group-hover:text-primary"
-                        ></i
-                      ></span>
-                    </a>
-                  </li>
-                </ul>
+                ></ul>
               </div>
             </div>
           </div>
@@ -8780,6 +8705,10 @@
     <script src="assets/js/vendor/jquery.magnific-popup.min.js"></script>
     <script src="assets/js/vendor/nouislider.min.js"></script>
     <script src="assets/js/vendor/wow.min.js"></script>
+
+    <!-- ========== API JS ========== -->
+    <script src="assets/api/domin.js"></script>
+    <script src="assets/api/product.js"></script>
 
     <!-- ========== Custom JS ========== -->
     <script src="assets/js/main.js"></script>

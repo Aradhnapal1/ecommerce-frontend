@@ -44,7 +44,7 @@
             data-wow-delay=".2s">
             <div class="text-center xl:text-left">
                 <h3 class="pb-2">Electronics</h3>
-                <p>Up to 50%   for limited time 🔥</p>
+                <!-- <p>Up to 50%   for limited time 🔥</p> -->
             </div>
             <div class="flex lg:flex-row flex-col items-center gap-x-5 gap-y-5">
 

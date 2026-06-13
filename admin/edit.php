@@ -53,6 +53,26 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Show in Hero Section <span class="text-danger">*</span></label><br>
+
+                            <label>
+                                <input type="radio"
+                                    name="heroSection"
+                                    id="heroSectionYes"
+                                    value="true">
+                                Yes
+                            </label>
+                            &nbsp;&nbsp;
+                            <label>
+                                <input type="radio"
+                                    name="heroSection"
+                                    id="heroSectionNo"
+                                    value="false">
+                                No
+                            </label>
+                        </div>
+
+                        <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label><br>
                             <label><input type="radio" name="status" value="true"> Active</label>
                             &nbsp;&nbsp;
@@ -147,6 +167,14 @@
             if (bCat !== undefined && bCat !== null) {
                 document.querySelectorAll('input[name="browserCategory"]').forEach(r => {
                     if (r.value === String(bCat)) r.checked = true;
+                });
+            }
+
+            // Pre-fill Hero Section
+            let hSec = currentCategory.heroSection !== undefined ? currentCategory.heroSection : currentCategory.HeroSection;
+            if (hSec !== undefined && hSec !== null) {
+                document.querySelectorAll('input[name="heroSection"]').forEach(r => {
+                    if (r.value === String(hSec)) r.checked = true;
                 });
             }
 
@@ -346,6 +374,7 @@
         const isActive = document.querySelector('input[name="status"]:checked').value === "true";
         const categoryType = document.getElementById("categoryType").value;
         const browserCategory = document.querySelector('input[name="browserCategory"]:checked').value === "true";
+        const heroSection = document.querySelector('input[name="heroSection"]:checked').value === "true";
 
         if (!name) return showToast("Category name required", "error");
 
@@ -367,6 +396,8 @@
         formData.append("type", categoryType || "");
         formData.append("BrowseCategory", browserCategory);
         formData.append("browseCategory", browserCategory);
+        formData.append("HeroSection", heroSection);
+        formData.append("heroSection", heroSection);
         if (file) formData.append("CategoryFile", file);
         formData.append("parentId", parentId);
 

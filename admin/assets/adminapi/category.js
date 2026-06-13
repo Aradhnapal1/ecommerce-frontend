@@ -78,6 +78,9 @@ function createRow(category, catName, subName, childName) {
             <td>${childName}</td>
 
             <td>${status}</td>
+            <td>${category.type}</td>
+            <td>${category.browseCategory}</td>
+            <td>${category.heroSection}</td>
 
             <td>
                 <a href="edit.php?id=${category.id}">

@@ -58,6 +58,9 @@
                                                     <th>Child Category</th>
                                                    
                                                     <th>Status</th>
+                                                    <th>Type</th>
+                                                    <th>BrowseCategory</th>
+                                                    <th>HeroSection</th>
                                                  
                                                     <th>Option</th>
                                                 </tr>

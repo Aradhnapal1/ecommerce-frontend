@@ -36,6 +36,10 @@
         if (document.getElementById("product-grid")) {
             initShopPage();
         }
+
+        if (document.getElementById("top-discounted-products")) {
+            loadTopDiscountedProducts();
+        }
     });
 
     function parseList(result) {
@@ -142,8 +146,8 @@
 
     function formatPrice(value) {
         const amount = Number(value);
-        if (Number.isNaN(amount)) return "₹0";
-        return "₹" + amount.toLocaleString("en-IN");
+        if (Number.isNaN(amount)) return "?0";
+        return "?" + amount.toLocaleString("en-IN");
     }
 
     function getProductImage(product) {
@@ -835,5 +839,97 @@
                 }
             });
         });
+    }
+
+    async function loadTopDiscountedProducts() {
+        const container = document.getElementById("top-discounted-products");
+        if (!container) return;
+
+        try {
+            const response = await fetch(API_BASE + "/api/product/top-discounted");
+
+            if (!response.ok) {
+                throw new Error("HTTP Error: " + response.status);
+            }
+
+            const result = await response.json();
+            const products = parseList(result);
+
+            if (!products.length) {
+                container.innerHTML =
+                    '<div class="col-span-12 text-center py-10 text-light-secondary-text">No discounted products found.</div>';
+                return;
+            }
+
+            container.innerHTML = products.map(renderTopDiscountedCard).join("");
+        } catch (error) {
+            console.error("Top discounted products error:", error);
+            container.innerHTML =
+                '<div class="col-span-12 text-center py-10 text-light-secondary-text">Unable to load products.</div>';
+        }
+    }
+
+    function getDiscountPercent(product) {
+        const discount =
+            product.discountPrice ??
+            product.discountPercent ??
+            product.discountPercentage ??
+            0;
+
+        return Math.round(Number(discount)) || 0;
+    }
+
+    function renderTopDiscountedCard(product, index) {
+        const delays = [0.2, 0.3, 0.4, 0.5];
+        const delay = delays[index % delays.length];
+        const productId = product.id || product.productId;
+        const productName = product.productName || product.name || "Product";
+        const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
+        const mrp = product.mrp ?? product.originalPrice ?? salePrice;
+        const discountPercent = getDiscountPercent(product);
+        const detailUrl = productId
+            ? "product-detail.php?id=" + productId
+            : "product-detail.php";
+
+        return (
+            '<div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300" data-wow-delay=".' +
+            delay +
+            's">' +
+            '<a class="flex flex-col lg:flex-row h-full" href="' +
+            detailUrl +
+            '">' +
+            '<div class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">' +
+            '<img src="' +
+            getProductImage(product) +
+            '" alt="' +
+            productName +
+            '" class="rounded-2xl max-h-[140px] object-contain" />' +
+            "</div>" +
+            '<div class="py-[37px] px-6 flex-1">' +
+            (discountPercent > 0
+                ? '<span class="product-discount-badge relative bg-error uppercase text-warning-lighter font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url(\'images/discount-shape.html\')] after:bg-contain after:bg-no-repeat">' +
+                  discountPercent +
+                  "% OFF</span>"
+                : "") +
+            '<p class="py-3 font-semibold text-base leading-6 text-light-primary-text group-hover:text-primary line-clamp-2">' +
+            productName +
+            "</p>" +
+            '<div class="rating-section flex items-center mb-3">' +
+            '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +
+            '<div style="width: 80%" class="bg-[url(\'../images/star-icon.png\')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>' +
+            "</div>" +
+            '<span class="text-sm leading-[22px] font-normal inline-block ml-1">(189)</span>' +
+            "</div>" +
+            '<div class="price-section flex items-center gap-x-3">' +
+            '<span class="current-price text-base font-semibold text-primary-dark">' +
+            formatPrice(salePrice) +
+            "</span>" +
+            (mrp > salePrice
+                ? '<span class="old-price text-base leading-6 font-normal text-light-disabled-text line-through">' +
+                  formatPrice(mrp) +
+                  "</span>"
+                : "") +
+            "</div></div></a></div>"
+        );
     }
 })();

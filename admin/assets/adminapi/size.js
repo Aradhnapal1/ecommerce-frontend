@@ -38,7 +38,7 @@ async function checkIfEditMode() {
         editingSizeId = editId;
         
         try {
-            const response = await fetch(API.GET_ALL);
+            const response = await adminFetch(API.GET_ALL);
             const result = await response.json();
             const sizes = Array.isArray(result) ? result : (result.data || []);
             const size = sizes.find(s => s.id == editId);
@@ -65,7 +65,7 @@ async function getAllSizes() {
 
     try {
 
-        const response = await fetch(API.GET_ALL);
+        const response = await adminFetch(API.GET_ALL);
         const result = await response.json();
 
         const sizes =
@@ -181,7 +181,7 @@ async function saveSize() {
                 : "POST";
 
         const response =
-            await fetch(url, {
+            await adminFetch(url, {
                 method,
                 body: formData
             });
@@ -256,7 +256,7 @@ async function deleteSize(id) {
     try {
 
         const response =
-            await fetch(
+            await adminFetch(
                 `${API.DELETE}/${id}`,
                 {
                     method: "DELETE"

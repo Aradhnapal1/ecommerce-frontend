@@ -38,9 +38,10 @@
     <link rel="stylesheet" href="assets/css/style.css" />
 
     <!-- Script Api Js  -->
-     <script src="./assets/api/banner.js"></script>
      <script src="./assets/api/domin.js"></script>
+     <script src="./assets/api/banner.js"></script>
      <script src="./assets/api/category.js"></script>
+     <script src="./assets/api/product.js"></script>
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </head>

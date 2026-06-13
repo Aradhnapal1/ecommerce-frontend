@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 /* FETCH CATEGORIES */
 async function fetchCategories() {
     try {
-        const res = await fetch(`${API}/api/getcategories`);
+        const res = await adminFetch(`${API}/api/getcategories`);
         const result = await res.json();
         allCategories = result?.value?.data || [];
     } catch (err) {
@@ -270,7 +270,7 @@ document.getElementById("addCategoryBtn").addEventListener("click", async functi
     formData.append("parentId", parentId);
 
     try {
-        const res = await fetch(`${API}/api/addcategory`, {
+        const res = await adminFetch(`${API}/api/addcategory`, {
             method: "POST",
             body: formData
         });

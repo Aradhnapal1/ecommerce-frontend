@@ -5,7 +5,7 @@ async function loadContacts() {
 
         console.log("loadContacts called");
 
-        const response = await fetch(getContactApi);
+        const response = await adminFetch(getContactApi);
 
         console.log("GET Status:", response.status);
 
@@ -115,7 +115,7 @@ function deleteContact(id) {
 
             console.log("Deleting Contact ID:", id);
 
-            const response = await fetch(
+            const response = await adminFetch(
                 `${domin}/api/deletecontact/${id}`,
                 {
                     method: "DELETE"

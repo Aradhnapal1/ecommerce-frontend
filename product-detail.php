@@ -187,10 +187,10 @@
               <div
                 class="product-title-section flex items-center justify-between mb-6"
               >
-            <h3 id="product-title">
+                <h3 id="product-title" class="line-clamp-1">
                   VitaLife Omega-3 Softgels Heart Support Max Strength
                 </h3>
-                <a class='size-10 inline-flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300' href='wishlist.php'>
+                <a id="product-detail-wishlist-btn" class='add-to-wishlist-btn size-10 inline-flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300' href='javascript:void(0)'>
                   <i
                     class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"
                   ></i>

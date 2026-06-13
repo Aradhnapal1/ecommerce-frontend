@@ -1,6 +1,11 @@
 const API_BASE_WISHLIST = typeof domin !== "undefined" ? domin : "https://ecommerce-backend.workarya.com";
 
+window.globalWishlistIds = new Set();
+
 document.addEventListener("DOMContentLoaded", function () {
+    
+    // Fetch global wishlist on load to sync icons
+    fetchGlobalWishlist();
     
     // Using Event Delegation so it works on dynamically generated product cards
     document.body.addEventListener("click", async function (e) {
@@ -14,10 +19,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const productId = wishlistBtn.getAttribute("data-product-id");
         const variantId = wishlistBtn.getAttribute("data-variant-id");
 
-        if (!productId || productId === "undefined") {
+        if (!productId || productId === "undefined" || productId === "null") {
             console.error("Product ID is missing.");
             if (typeof Toastify !== "undefined") {
                 Toastify({ text: "❌ Invalid Product ID", duration: 3000, style: { background: "#ff416c" } }).showToast();
+            }
+            return;
+        }
+
+        if (wishlistBtn.getAttribute("data-in-wishlist") === "true") {
+            if (typeof Toastify !== "undefined") {
+                Toastify({ text: "ℹ️ Already in wishlist", duration: 3000, style: { background: "#ffc107", color: "#000" } }).showToast();
             }
             return;
         }
@@ -26,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append("ProductId", productId);
         
-        if (variantId && variantId !== "undefined") {
+        if (variantId && variantId !== "undefined" && variantId !== "null") {
             formData.append("variantId", variantId);
         }
 
@@ -38,28 +50,39 @@ document.addEventListener("DOMContentLoaded", function () {
         wishlistBtn.style.opacity = "0.7";
 
         try {
+            const token = localStorage.getItem("UserToken");
+            const headers = {};
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
+            }
+
             const response = await fetch(`${API_BASE_WISHLIST}/api/wishlist/add`, {
                 method: "POST",
+                headers: headers,
                 body: formData
-                // Add Authorization header here if your API requires a Bearer token:
-                // headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
             });
 
             const result = await response.json();
 
             if (response.ok || result.status || result.success || result?.value?.status === true) {
-                // Turn the heart icon RED and Filled
-                if (icon) {
-                    icon.classList.remove("hgi-stroke");
-                    icon.classList.add("hgi-solid"); // If your icon pack uses hgi-solid for filled
-                    icon.style.color = "red";
-                    icon.style.fill = "red";
+                if (typeof Toastify !== "undefined") {
+                    Toastify({ text: "✅ Added to wishlist", duration: 3000, style: { background: "#00b09b" } }).showToast();
                 }
+                
+                // Add to global state
+                window.globalWishlistIds.add(String(productId));
+                updateAllWishlistIcons();
             } else {
                 console.error("Failed to add to wishlist:", result.message || "Unknown error");
+                if (typeof Toastify !== "undefined") {
+                    Toastify({ text: "❌ Failed to add to wishlist", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                }
             }
         } catch (error) {
             console.error("Error adding to wishlist:", error);
+            if (typeof Toastify !== "undefined") {
+                Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "#ff416c" } }).showToast();
+            }
         } finally {
             // Restore button clickability
             wishlistBtn.style.pointerEvents = "auto";
@@ -73,9 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (removeBtn) {
             e.preventDefault();
             const wishlistId = removeBtn.getAttribute("data-wishlist-id");
+            const productId = removeBtn.getAttribute("data-product-id");
             if (wishlistId) {
                 const tr = removeBtn.closest("tr");
-                deleteWishlistItem(wishlistId, tr);
+                deleteWishlistItem(wishlistId, tr, productId);
             }
         }
     });
@@ -107,7 +131,20 @@ async function loadWishlist() {
         const result = await response.json();
 
         if (response.ok || result.status || result.success || result?.value?.status === true) {
-            const items = result.data || result.value?.data || [];
+            let items = [];
+            if (Array.isArray(result)) {
+                items = result;
+            } else if (Array.isArray(result?.data)) {
+                items = result.data;
+            } else if (Array.isArray(result?.value?.data)) {
+                items = result.value.data;
+            } else if (Array.isArray(result?.value)) {
+                items = result.value;
+            } else if (result?.data?.items && Array.isArray(result.data.items)) {
+                items = result.data.items;
+            } else if (result?.value?.items && Array.isArray(result.value.items)) {
+                items = result.value.items;
+            }
             
             if (countEl) {
                 countEl.innerText = `${items.length} item${items.length !== 1 ? 's' : ''}`;
@@ -186,7 +223,7 @@ async function loadWishlist() {
                         </div>
                     </td>
                     <td data-title="Remove" class="capitalize text-center py-4 px-3 lg:px-0 pr-4 product-remove">
-                        <button class="remove-wishlist-btn" data-wishlist-id="${wishlistItem.id}">
+                        <button class="remove-wishlist-btn" data-wishlist-id="${wishlistItem.id}" data-product-id="${product.id}">
                             <span class="inline-flex items-center justify-center">
                                 <i class="hgi hgi-stroke hgi-delete-01 text-2xl leading-6"></i>
                             </span>
@@ -206,7 +243,85 @@ async function loadWishlist() {
     }
 }
 
-function deleteWishlistItem(id, rowElement) {
+async function fetchGlobalWishlist() {
+    try {
+        const token = localStorage.getItem("UserToken");
+        const headers = { "Content-Type": "application/json" };
+        if (token) headers["Authorization"] = "Bearer " + token;
+
+        const response = await fetch(`${API_BASE_WISHLIST}/api/wishlist/get`, {
+            method: "GET",
+            headers: headers
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok || result.status || result.success || result?.value?.status === true) {
+            let items = [];
+            if (Array.isArray(result)) {
+                items = result;
+            } else if (Array.isArray(result?.data)) {
+                items = result.data;
+            } else if (Array.isArray(result?.value?.data)) {
+                items = result.value.data;
+            } else if (Array.isArray(result?.value)) {
+                items = result.value;
+            } else if (result?.data?.items && Array.isArray(result.data.items)) {
+                items = result.data.items;
+            } else if (result?.value?.items && Array.isArray(result.value.items)) {
+                items = result.value.items;
+            }
+
+            items.forEach(item => {
+                const pid = String(item.productId || item.item?.id || item.product?.id || item.id);
+                if (pid && pid !== "undefined" && pid !== "null") {
+                    window.globalWishlistIds.add(pid);
+                }
+            });
+            updateAllWishlistIcons();
+        }
+    } catch (e) {
+        console.error("Error fetching global wishlist", e);
+    }
+}
+
+window.updateAllWishlistIcons = updateAllWishlistIcons;
+function updateAllWishlistIcons() {
+    document.querySelectorAll(".add-to-wishlist-btn").forEach(btn => {
+        const pid = String(btn.getAttribute("data-product-id"));
+        if (!pid || pid === "undefined" || pid === "null") return;
+        
+        const icon = btn.querySelector("i.hgi-favourite");
+        if (icon) {
+            // Stroke ko humesha retain karenge taaki icon gayab na ho
+            icon.classList.add("hgi-stroke");
+            icon.classList.remove("hgi-solid");
+
+            if (window.globalWishlistIds.has(pid)) {
+                btn.style.backgroundColor = "#ff416c";
+                btn.style.borderColor = "#ff416c";
+                icon.style.color = "#ffffff";
+                btn.setAttribute("data-in-wishlist", "true");
+            } else {
+                btn.style.backgroundColor = "";
+                btn.style.borderColor = "";
+                icon.style.color = "";
+                btn.setAttribute("data-in-wishlist", "false");
+            }
+        }
+    });
+}
+
+// Observe body for dynamically added product cards to update wishlist icons
+const wishlistObserver = new MutationObserver(() => {
+    clearTimeout(window.wishlistObserverTimeout);
+    window.wishlistObserverTimeout = setTimeout(updateAllWishlistIcons, 100);
+});
+if (document.body) {
+    wishlistObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-product-id"] });
+}
+
+function deleteWishlistItem(id, rowElement, productId) {
     const container = document.createElement("div");
 
     container.innerHTML = `
@@ -257,6 +372,11 @@ function deleteWishlistItem(id, rowElement) {
                 
                 if (rowElement) {
                     rowElement.remove();
+                }
+                
+                if (productId) {
+                    window.globalWishlistIds.delete(String(productId));
+                    updateAllWishlistIcons();
                 }
                 
                 // Update count and show empty message if no items left

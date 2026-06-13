@@ -250,8 +250,6 @@
             .join("");
     }
 
-    // fghjkj
-
     function renderProductDetail(product) {
         document.title = (product.productName || "Product") + " - HyperScripts";
 
@@ -259,10 +257,7 @@
         if (breadcrumbName) breadcrumbName.textContent = product.productName || "Product Details";
 
         const title = document.getElementById("product-title");
-        if (title) {
-            title.textContent = product.productName || "Product";
-            title.classList.remove("line-clamp-1", "truncate");
-        }
+        if (title) title.textContent = product.productName || "Product";
 
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
@@ -301,6 +296,12 @@
 
         const categoryValue = document.getElementById("product-category-value");
         if (categoryValue) categoryValue.textContent = product.categoryName || "-";
+
+        const wishlistBtn = document.getElementById("product-detail-wishlist-btn");
+        if (wishlistBtn) {
+            wishlistBtn.setAttribute("data-product-id", product.id || product.productId || "");
+            wishlistBtn.setAttribute("data-variant-id", product.variantId || "");
+        }
 
         renderProductColor(product);
         renderProductSizes(product);

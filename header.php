@@ -13,7 +13,7 @@
     <title>HyperScripts - Multipurpose eCommerce</title>
 
     <!-- ========== Favicon ========== -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="assets/img/favicon.webp" type="image/x-icon" />
 
     <!-- ========== Google Fonts ========== -->
     <link
@@ -45,6 +45,7 @@
      <script src="./assets/api/banner.js"></script>
      <script src="./assets/api/category.js"></script>
      <script src="./assets/api/product.js"></script>
+     <script src="./assets/api/blog.js"></script>
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </head>

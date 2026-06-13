@@ -57,6 +57,28 @@
                                 No
                             </label>
                         </div>
+
+                        <div class="form-group">
+                            <label>Show in Hero Section <span class="text-danger">*</span></label><br>
+
+                            <label for="heroSectionYes">
+                                <input type="radio"
+                                    id="heroSectionYes"
+                                    name="heroSection"
+                                    value="true">
+                                Yes
+                            </label>
+                            &nbsp;&nbsp;
+                            <label for="heroSectionNo">
+                                <input type="radio"
+                                    id="heroSectionNo"
+                                    name="heroSection"
+                                    value="false"
+                                    checked>
+                                No
+                            </label>
+                        </div>
+
                         <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label><br>
                             <label>
@@ -267,6 +289,7 @@
         const file = document.getElementById("categoryFile").files[0];
         const isActive = document.querySelector('input[name="status"]:checked').value === "true";
         const browserCategory = document.querySelector('input[name="browserCategory"]:checked').value === "true";
+        const heroSection = document.querySelector('input[name="heroSection"]:checked').value === "true";
         const categoryType = document.getElementById("categoryType").value;
 
         if (!name) {
@@ -305,6 +328,7 @@
         formData.append("CategoryFile", file);
         formData.append("IsActive", isActive);
         formData.append("BrowseCategory", browserCategory);
+        formData.append("HeroSection", heroSection);
         formData.append("parentId", parentId);
         formData.append("Type", categoryType);
 
@@ -316,7 +340,7 @@
             console.log(pair[0], pair[1]);
         }
 
-        alert(formDataText);
+
 
         try {
 
@@ -343,9 +367,9 @@
                 document.getElementById("categoryHierarchy").style.display = "none";
                 document.getElementById("categoryHierarchy").innerHTML = "";
 
-                // setTimeout(() => {
-                //     window.location.href = "category-digital.php";
-                // }, 1000);
+                setTimeout(() => {
+                    window.location.href = "category-digital.php";
+                }, 1000);
 
             } else {
 

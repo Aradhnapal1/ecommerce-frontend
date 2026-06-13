@@ -456,6 +456,11 @@ function renderHomeProductCard(product, index) {
     const delay = ((index % 5) + 2) * 0.1;
     const productId = product.id || product.productId;
     const productName = product.productName || product.name || "Product";
+    
+    // Truncate product name to 5 words max
+    const nameWords = productName.split(" ");
+    const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+
     const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
     const mrp = product.mrp ?? product.originalPrice ?? salePrice;
     const detailUrl = productId
@@ -495,7 +500,7 @@ function renderHomeProductCard(product, index) {
         '" title="' +
         escapeHtmlAttr(productName) +
         '" class="line-clamp-2 block">' +
-        productName +
+        displayProductName +
         "</a></h5>" +
         '<div class="rating-section flex items-center justify-center mb-3">' +
         '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +

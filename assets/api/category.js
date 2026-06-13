@@ -9,12 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 async function loadCategories() {
+    // Run both API fetches concurrently for better performance
+    loadDropdownCategories();
+    loadGridCategories();
+}
+
+async function loadDropdownCategories() {
 
     try {
 
         const response = await fetch(
-            "https://ecommerce-backend.workarya.com/api/getcategories"
+            "https://ecommerce-backend.workarya.com/api/getcategories-browse"
         );
 
         if (!response.ok) {
@@ -23,18 +30,44 @@ async function loadCategories() {
 
         const result = await response.json();
 
-        const categories = result?.value?.data
-            ?.filter(category => category.isActive === true) || [];
+        // Extracting data safely matching the provided response structure
+        const categories = (result?.data || result?.value?.data || [])
+            .filter(category => category.isActive === true);
 
         // Dropdown
         renderDropdown(categories);
+
+    } catch (error) {
+
+        console.error("Dropdown Category Error:", error);
+
+    }
+}
+
+async function loadGridCategories() {
+
+    try {
+
+        const response = await fetch(
+            "https://ecommerce-backend.workarya.com/api/getcategories-hero"
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        // Extracting data safely matching the provided response structure
+        const categories = (result?.data || result?.value?.data || [])
+            .filter(category => category.isActive === true);
 
         // Grid (first 12 only)
         renderGrid(categories.slice(0, 12));
 
     } catch (error) {
 
-        console.error("Category Error:", error);
+        console.error("Grid Category Error:", error);
 
     }
 }
@@ -170,6 +203,8 @@ function renderDropdown(categories) {
 // ======================
 // CATEGORY GRID
 // ======================
+
+
 
 function renderGrid(categories) {
 

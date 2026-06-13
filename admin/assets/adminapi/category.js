@@ -9,7 +9,8 @@ async function loadCategories() {
         const res = await adminFetch(`${domin}/api/getcategories`);
         const result = await res.json();
 
-        const data = result.value.data;
+        // Extracting data safely matching the provided response structure
+        const data = result?.data || result?.value?.data || [];
         let html = "";
 
         data.forEach(cat => {
@@ -78,6 +79,9 @@ function createRow(category, catName, subName, childName) {
             <td>${childName}</td>
 
             <td>${status}</td>
+            <td>${category.type}</td>
+            <td>${category.browseCategory}</td>
+            <td>${category.heroSection}</td>
 
             <td>
                 <a href="edit.php?id=${category.id}">

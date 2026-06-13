@@ -23,6 +23,54 @@
                             <input type="file" class="form-control" id="categoryFile" accept="image/*">
                             <small class="text-muted" id="currentImage"></small>
                         </div>
+                        <div class="form-group">
+                            <label>Category Type <span class="text-danger">*</span></label>
+                            <select class="form-control" id="categoryType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Home">Home</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Browser Category <span class="text-danger">*</span></label><br>
+
+                            <label>
+                                <input type="radio"
+                                    name="browserCategory"
+                                    id="browserCategoryYes"
+                                    value="true">
+                                Yes
+                            </label>
+
+                            &nbsp;&nbsp;
+
+                            <label>
+                                <input type="radio"
+                                    name="browserCategory"
+                                    id="browserCategoryNo"
+                                    value="false">
+                                No
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Show in Hero Section <span class="text-danger">*</span></label><br>
+
+                            <label>
+                                <input type="radio"
+                                    name="heroSection"
+                                    id="heroSectionYes"
+                                    value="true">
+                                Yes
+                            </label>
+                            &nbsp;&nbsp;
+                            <label>
+                                <input type="radio"
+                                    name="heroSection"
+                                    id="heroSectionNo"
+                                    value="false">
+                                No
+                            </label>
+                        </div>
 
                         <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label><br>
@@ -108,6 +156,27 @@
             document.querySelectorAll('input[name="status"]').forEach(r => {
                 if (r.value === String(currentCategory.isActive)) r.checked = true;
             });
+            
+            // Pre-fill Category Type
+            if (currentCategory.type) {
+                document.getElementById("categoryType").value = currentCategory.type;
+            }
+
+            // Pre-fill Browser Category (Handling both key variations just in case)
+            let bCat = currentCategory.browseCategory !== undefined ? currentCategory.browseCategory : currentCategory.browserCategory;
+            if (bCat !== undefined && bCat !== null) {
+                document.querySelectorAll('input[name="browserCategory"]').forEach(r => {
+                    if (r.value === String(bCat)) r.checked = true;
+                });
+            }
+
+            // Pre-fill Hero Section
+            let hSec = currentCategory.heroSection !== undefined ? currentCategory.heroSection : currentCategory.HeroSection;
+            if (hSec !== undefined && hSec !== null) {
+                document.querySelectorAll('input[name="heroSection"]').forEach(r => {
+                    if (r.value === String(hSec)) r.checked = true;
+                });
+            }
 
             if (currentCategory.categoryImage) {
                 document.getElementById("previewImage").src = currentCategory.categoryImage;
@@ -157,7 +226,7 @@
     });
 
     /* TOGGLE HIERARCHY CHECKBOX */
-    document.getElementById("isSubCategory").addEventListener("change", function () {
+    document.getElementById("isSubCategory").addEventListener("change", function() {
         const container = document.getElementById("categoryHierarchy");
         if (this.checked) {
             container.style.display = "block";
@@ -254,9 +323,9 @@
 
         if (!selectedId) return;
 
-        let children = level === 0
-            ? allCategories.find(c => String(c.id) === String(selectedId))?.children || []
-            : findChildrenById(selectedId);
+        let children = level === 0 ?
+            allCategories.find(c => String(c.id) === String(selectedId))?.children || [] :
+            findChildrenById(selectedId);
 
         // Filter out current category from children options to prevent cyclic loops
         children = children.filter(child => !currentCategory || String(child.id) !== String(currentCategory.id));
@@ -303,6 +372,9 @@
         const name = document.getElementById("categoryName").value.trim();
         const file = document.getElementById("categoryFile").files[0];
         const isActive = document.querySelector('input[name="status"]:checked').value === "true";
+        const categoryType = document.getElementById("categoryType").value;
+        const browserCategory = document.querySelector('input[name="browserCategory"]:checked').value === "true";
+        const heroSection = document.querySelector('input[name="heroSection"]:checked').value === "true";
 
         if (!name) return showToast("Category name required", "error");
 
@@ -320,6 +392,12 @@
         const formData = new FormData();
         formData.append("CategoryName", name);
         formData.append("IsActive", isActive);
+        formData.append("Type", categoryType || "");
+        formData.append("type", categoryType || "");
+        formData.append("BrowseCategory", browserCategory);
+        formData.append("browseCategory", browserCategory);
+        formData.append("HeroSection", heroSection);
+        formData.append("heroSection", heroSection);
         if (file) formData.append("CategoryFile", file);
         formData.append("parentId", parentId);
 

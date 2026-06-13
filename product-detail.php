@@ -15,7 +15,7 @@
               </a>
             </li>
             <li class="text-light-disabled-text">&#8226;</li>
-            <li><span>Product Details</span></li>
+            <li><span id="product-breadcrumb-name">Product Details</span></li>
           </ul>
         </div>
       </div>
@@ -23,7 +23,7 @@
     <!-- ========== Breadcrumb Section End ========== -->
 
     <!-- ========== Product Details Section Start ========== -->
-    <section>
+    <section id="product-detail-page">
       <div class="container">
         <div class="lg:grid lg:grid-cols-12 lg:gap-12">
           <div class="xl:col-span-7 lg:col-span-6">
@@ -34,6 +34,7 @@
                 class="xl:w-[114px] lg:w-full order-2 xl:order-1 flex-none overflow-hidden"
               >
                 <div
+                  id="product-details-small-slider"
                   class="product-details-small-slider -m-2.5 sellzy-slider"
                   data-slick='{"slidesToShow": 6, "slidesToScroll": 1, "arrows": false, "infinite": true, "loop": true, "vertical": true, "verticalSwiping": true, "asNavFor": ".product-details-big-slider", "focusOnSelect": true, "responsive": [{"breakpoint": 1025, "settings": {"slidesToShow": 4, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 769, "settings": {"slidesToShow": 3, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 480, "settings": {"slidesToShow": 2, "vertical": false, "verticalSwiping": false}}]}'
                 >
@@ -106,6 +107,7 @@
                 class="w-full xl:flex-1 order-1 xl:order-2 overflow-hidden relative"
               >
                 <div
+                  id="product-details-big-slider"
                   class="product-details-big-slider -mx-3 sellzy-slider"
                   data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "arrows": true, "asNavFor": ".product-details-small-slider", "appendArrows": ".product-details-big-slider-nav", "responsive": [{"breakpoint": 769, "settings": {"slidesToShow": 1, "arrows": false}}]}'
                 >
@@ -173,6 +175,7 @@
           <div class="xl:col-span-5 lg:col-span-6 mt-6 lg:mt-0">
             <div class="rounded-3xl border border-gray-300 p-6">
               <span
+                id="product-sale-badge"
                 class="product-discount-badge inline-block mb-6 uppercase relative bg-error text-warning-lighter font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url('images/discount-shape.html')] after:bg-contain after:bg-no-repeat"
                 >Sales</span
               >
@@ -184,7 +187,7 @@
               <div
                 class="product-title-section flex items-center justify-between mb-6"
               >
-                <h3 class="line-clamp-1">
+                <h3 id="product-title" class="line-clamp-1">
                   VitaLife Omega-3 Softgels Heart Support Max Strength
                 </h3>
                 <a class='size-10 inline-flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300' href='wishlist-style-v1.html'>
@@ -208,14 +211,17 @@
               </div>
               <div class="price-section flex items-center gap-x-3 mb-6">
                 <span
+                  id="product-current-price"
                   class="current-price text-2xl leading-9 font-bold text-light-primary-text relative after:absolute after:h-6 after:w-px after:bg-gray-300 after:right-0 after:top-1/2 after:-translate-y-1/2 pr-3 inline-block"
                   >$62.97</span
                 >
                 <span
+                  id="product-old-price"
                   class="old-price text-2xl leading-9 font-normal text-light-disabled-text"
                   >$39.99</span
                 >
                 <span
+                  id="product-discount-badge"
                   class="product-discount-badge uppercase relative bg-warning text-black font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url('images/discount-warning-shape.html')] after:bg-contain after:bg-no-repeat"
                   >15% OFF</span
                 >
@@ -223,7 +229,7 @@
               <div
                 class="product-add-to-cart-section py-6 border-b border-dashed border-gray-300 border-t"
               >
-                <div class="color-variation-section mb-6">
+                <div id="product-color-section" class="color-variation-section mb-6">
                   <div class="color-variation-section-title mb-4">
                     <p
                       class="font-semibold text-light-primary-text flex items-center gap-x-2.5"
@@ -306,6 +312,7 @@
                     >
                   </div>
                   <div
+                    id="product-size-items"
                     class="size-variation-items flex items-center gap-2 2xl:flex-nowrap flex-wrap"
                   >
                     <div class="size-variation-item">
@@ -436,7 +443,7 @@
                   class="product-extra-info-item flex items-center gap-x-4 gap-y-4 flex-wrap md:flex-nowrap md:gap-y-0"
                 >
                   <p class="font-semibold text-light-primary-text">SKU:</p>
-                  <p>SKU-001</p>
+                  <p id="product-sku-value">SKU-001</p>
                 </div>
                 <div
                   class="product-extra-info-item flex items-center gap-x-4 gap-y-4 flex-wrap md:flex-nowrap md:gap-y-0"
@@ -444,7 +451,7 @@
                   <p class="font-semibold text-light-primary-text">
                     Categories:
                   </p>
-                  <p>Electronics, Computers, Accessories</p>
+                  <p id="product-category-value">Electronics, Computers, Accessories</p>
                 </div>
               </div>
             </div>
@@ -543,7 +550,7 @@
           </ul>
           <div id="description" class="product-details-tab active fade">
             <h5 class="product-details-tab-title">Description</h5>
-            <div class="product-details-tab-content">
+            <div id="product-description-content" class="product-details-tab-content">
               <p class="mb-6">
                 To begin, carefully unpack the product and ensure all necessary
                 components are included. Place the product on a clean, flat
@@ -687,7 +694,7 @@
             <h5 class="product-details-tab-title">Additional Info</h5>
             <div class="product-details-tab-content">
               <table class="w-full border-collapse">
-                <tbody class="divide-y divide-gray-300">
+                <tbody id="product-additional-info-body" class="divide-y divide-gray-300">
                   <tr>
                     <th
                       class="font-semibold w-[180px] text-left py-3 text-light-primary-text"

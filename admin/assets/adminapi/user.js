@@ -6,7 +6,7 @@ const getUsersApi = `${domin}/api/user/get-all`;
 async function loadUsers() {
     try {
 
-        const response = await fetch(getUsersApi);
+        const response = await adminFetch(getUsersApi);
         const result = await response.json();
 
         console.log("USER API RESPONSE:", result);
@@ -54,7 +54,7 @@ async function loadUsers() {
 async function loadAdmins() {
     try {
 
-        const response = await fetch(getUsersApi);
+        const response = await adminFetch(getUsersApi);
         const result = await response.json();
 
         console.log("ADMIN API RESPONSE:", result);
@@ -144,7 +144,7 @@ function deleteUser(id) {
 
             console.log("Deleting User:", id);
 
-            const response = await fetch(
+            const response = await adminFetch(
                 `${domin}/api/user/delete/${id}`,
                 {
                     method: "DELETE"

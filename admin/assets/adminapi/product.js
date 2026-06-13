@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function loadProducts() {
   try {
-    const res = await fetch(`${domin}/api/product/getallproducts`);
+    const res = await adminFetch(`${domin}/api/product/getallproducts`);
     const data = await res.json();
 
     renderTable(data);
@@ -155,7 +155,7 @@ function deleteProduct(id) {
       toast.hideToast();
 
       try {
-        const response = await fetch(
+        const response = await adminFetch(
           `${domin}/api/product/deleteproduct/${id}`,
           {
             method: "DELETE",
@@ -221,7 +221,7 @@ function deleteProduct(id) {
 async function loadDropdowns() {
   try {
     // 1. Load Categories
-    const catRes = await fetch(`${domin}/api/getcategories`);
+    const catRes = await adminFetch(`${domin}/api/getcategories`);
     const catResult = await catRes.json();
     const nestedCategories = catResult?.value?.data || catResult?.data || [];
     allCategoriesList = flattenCategories(nestedCategories);
@@ -232,7 +232,7 @@ async function loadDropdowns() {
     }
 
     // 2. Load Brands
-    const brandRes = await fetch(`${domin}/api/brand/getallbrands`);
+    const brandRes = await adminFetch(`${domin}/api/brand/getallbrands`);
     const brandResult = await brandRes.json();
     const brands = Array.isArray(brandResult)
       ? brandResult
@@ -246,7 +246,7 @@ async function loadDropdowns() {
     );
 
     // 3. Load Colors
-    const colorRes = await fetch(`${domin}/api/colors/get-all`);
+    const colorRes = await adminFetch(`${domin}/api/colors/get-all`);
     const colorResult = await colorRes.json();
     const colors = Array.isArray(colorResult)
       ? colorResult
@@ -260,7 +260,7 @@ async function loadDropdowns() {
     );
 
     // 4. Load Sizes
-    const sizeRes = await fetch(`${domin}/api/size/getallsize`);
+    const sizeRes = await adminFetch(`${domin}/api/size/getallsize`);
     const sizeResult = await sizeRes.json();
     const sizes = Array.isArray(sizeResult)
       ? sizeResult
@@ -429,7 +429,7 @@ function bindAddProduct() {
       submitBtn.disabled = true;
       submitBtn.innerText = "Saving...";
 
-      const response = await fetch(`${domin}/api/product/addproduct`, {
+      const response = await adminFetch(`${domin}/api/product/addproduct`, {
         method: "POST",
         body: formData,
       });
@@ -513,7 +513,7 @@ function prefillCategoryHierarchy(categoryId) {
 
 async function prefillProductData(id) {
   try {
-    const res = await fetch(`${domin}/api/product/getallproducts`);
+    const res = await adminFetch(`${domin}/api/product/getallproducts`);
     const result = await res.json();
     
     let productsList = [];
@@ -725,7 +725,7 @@ function bindEditProduct(id) {
       editBtn.disabled = true;
       editBtn.innerText = "Updating...";
 
-      const response = await fetch(`${domin}/api/product/updateproduct/${id}`, {
+      const response = await adminFetch(`${domin}/api/product/updateproduct/${id}`, {
         method: "PUT",
         body: formData,
       });

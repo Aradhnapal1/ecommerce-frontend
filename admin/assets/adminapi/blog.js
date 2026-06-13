@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadBlogs() {
     try {
-        const response = await fetch(`${domain}/api/blog/getblog`);
+        const response = await adminFetch(`${domain}/api/blog/getblog`);
         const result = await response.json();
 
         let html = "";
@@ -130,7 +130,7 @@ function deleteBlog(id) {
         toast.hideToast();
 
         try {
-            const response = await fetch(`${domain}/api/blog/deleteblog/${id}`, {
+            const response = await adminFetch(`${domain}/api/blog/deleteblog/${id}`, {
                 method: "DELETE",
             });
 
@@ -207,7 +207,7 @@ function bindAddBlog() {
         if (loader) loader.style.display = "flex";
 
         try {
-            const response = await fetch(`${domain}/api/blog/addblog`, {
+            const response = await adminFetch(`${domain}/api/blog/addblog`, {
                 method: "POST",
                 body: formData
             });
@@ -251,7 +251,7 @@ async function checkIfEditBlogMode() {
         editingBlogId = editId;
         try {
             // Fetch all blogs to extract data for the selected one
-            const response = await fetch(`${domain}/api/blog/getblog`);
+            const response = await adminFetch(`${domain}/api/blog/getblog`);
             const result = await response.json();
             const blogs = result.data || result.value?.data || [];
             const blog = blogs.find(b => String(b.id) === String(editId));
@@ -324,7 +324,7 @@ function bindEditBlog() {
         if (loader) loader.style.display = "flex";
 
         try {
-            const response = await fetch(`${domain}/api/blog/updateblog/${editingBlogId}`, {
+            const response = await adminFetch(`${domain}/api/blog/updateblog/${editingBlogId}`, {
                 method: "PUT",
                 body: formData
             });

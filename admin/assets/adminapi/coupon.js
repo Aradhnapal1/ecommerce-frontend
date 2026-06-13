@@ -26,7 +26,7 @@ async function checkIfEditMode() {
         try {
             // Assuming you have a get-all API to fetch coupon details, similar to brands and colors. 
             // You can change this if you have a specific GET API like /api/coupons/get/{id}
-            const response = await fetch(GET_ALL_COUPONS_API);
+            const response = await adminFetch(GET_ALL_COUPONS_API);
             const result = await response.json();
             const coupons = result.data || result.coupons || result || [];
 
@@ -119,7 +119,7 @@ async function saveCoupon() {
     const method = editingCouponId ? "PUT" : "POST";
 
     try {
-        const response = await fetch(url, {
+        const response = await adminFetch(url, {
             method: method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -163,7 +163,7 @@ function showError(message) {
 
 async function loadCoupons() {
     try {
-        const response = await fetch(
+        const response = await adminFetch(
             `${domin}/api/coupons/getcoupons`
         );
 
@@ -283,7 +283,7 @@ function deleteCoupon(id) {
         toast.hideToast();
 
         try {
-            const response = await fetch(`${domin}/api/coupons/delete/${id}`, { method: "DELETE" });
+            const response = await adminFetch(`${domin}/api/coupons/delete/${id}`, { method: "DELETE" });
             const result = await response.json();
 
             if (response.ok && (result.success === true || result.status === true)) {

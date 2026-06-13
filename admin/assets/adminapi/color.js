@@ -103,7 +103,7 @@ window.showError = function(message) {
 // -----------------------------------------------------
 async function getAllColors() {
     try {
-        const response = await fetch(GET_ALL_COLORS_API);
+        const response = await adminFetch(GET_ALL_COLORS_API);
         const result = await response.json();
 
         // Handle response structure depending on API design
@@ -156,7 +156,7 @@ async function checkIfEditMode() {
         editingColorId = editId;
         
         try {
-            const response = await fetch(GET_ALL_COLORS_API);
+            const response = await adminFetch(GET_ALL_COLORS_API);
             const result = await response.json();
             const colors = Array.isArray(result) ? result : (result.data || []);
             const color = colors.find(c => c.id == editId);
@@ -202,7 +202,7 @@ async function saveColor() {
             const method = editingColorId ? "PUT" : "POST";
 
     try {
-        const response = await fetch(url, {
+        const response = await adminFetch(url, {
             method: method,
             headers: {
                 "Content-Type": "application/json"
@@ -237,7 +237,7 @@ window.deleteColor = async function(id) {
     showLoader("Deleting Color", "Please wait...");
 
     try {
-        const response = await fetch(`${DELETE_COLOR_API}${id}`, {
+        const response = await adminFetch(`${DELETE_COLOR_API}${id}`, {
             method: "DELETE" // Using DELETE method
         });
         const data = await response.json();

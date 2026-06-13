@@ -79,7 +79,7 @@
 
     async function fetchCategories() {
         try {
-            const res = await fetch(`${API}/api/getcategories`);
+            const res = await adminFetch(`${API}/api/getcategories`);
             const result = await res.json();
             allCategories = result?.value?.data || [];
         } catch (err) {
@@ -95,7 +95,7 @@
         document.getElementById("categoryId").value = id;
 
         try {
-            const res = await fetch(`${API}/api/getcategories`);
+            const res = await adminFetch(`${API}/api/getcategories`);
             const result = await res.json();
             const allData = result?.value?.data || [];
 
@@ -329,7 +329,7 @@
         btn.innerText = "Updating...";
 
         try {
-            const res = await fetch(`${API}/api/updatecategory/${id}`, {
+            const res = await adminFetch(`${API}/api/updatecategory/${id}`, {
                 method: "PUT",
                 body: formData
             });

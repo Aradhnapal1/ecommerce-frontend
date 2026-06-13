@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function getAllBrands() {
     try {
-        const response = await fetch(BRAND_API);
+        const response = await adminFetch(BRAND_API);
         const result = await response.json();
 
         brandsData = result.data || [];
@@ -78,7 +78,7 @@ async function checkIfEditMode() {
         
         try {
             // Fetch all brands to find the data of the specific brand
-            const response = await fetch(BRAND_API);
+            const response = await adminFetch(BRAND_API);
             const result = await response.json();
             const brand = (result.data || []).find(b => b.id == editId);
 
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     : `${domin}/api/brand/addbrand`;
                 const method = editingBrandId ? "PUT" : "POST";
 
-                const response = await fetch(url, {
+                const response = await adminFetch(url, {
                         method: method,
                         body: formData
                     }
@@ -316,7 +316,7 @@ window.deleteBrand = async function(id) {
     if (loader) loader.style.display = "flex";
 
     try {
-        const response = await fetch(`${domin}/api/brand/deletebrand/${id}`, {
+        const response = await adminFetch(`${domin}/api/brand/deletebrand/${id}`, {
             method: "DELETE"
         });
         const data = await response.json();

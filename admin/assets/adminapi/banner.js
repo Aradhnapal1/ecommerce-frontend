@@ -1,6 +1,6 @@
 async function getBanners() {
     try {
-        const response = await fetch(`${domin}/api/banner/get`);
+        const response = await adminFetch(`${domin}/api/banner/get`);
 
         if (!response.ok) {
             throw new Error(`HTTP Error: ${response.status}`);
@@ -167,7 +167,7 @@ window.deleteBanner = function(id) {
         toast.hideToast();
 
         try {
-            const response = await fetch(`${domin}/api/banner/delete/${id}`, {
+            const response = await adminFetch(`${domin}/api/banner/delete/${id}`, {
                 method: "DELETE"
             });
             const data = await response.json();
@@ -216,7 +216,7 @@ async function checkEditMode() {
         if (btn) btn.innerText = "Update Banner";
 
         try {
-            const response = await fetch(`${domin}/api/banner/get`);
+            const response = await adminFetch(`${domin}/api/banner/get`);
             const result = await response.json();
 
             let banners = [];
@@ -303,7 +303,7 @@ async function saveBanner() {
     if (btn) btn.disabled = true;
 
     try {
-        const response = await fetch(url, {
+        const response = await adminFetch(url, {
             method: method,
             body: formData
         });

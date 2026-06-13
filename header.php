@@ -34,6 +34,9 @@
     <!-- ========== Animate CSS ========== -->
     <link rel="stylesheet" href="assets/css/vendor/animate.min.css" />
 
+    <!-- ========== NoUiSlider CSS ========== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" />
+
     <!-- ========== Custom CSS ========== -->
     <link rel="stylesheet" href="assets/css/style.css" />
 

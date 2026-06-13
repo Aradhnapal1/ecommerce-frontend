@@ -19,10 +19,11 @@
         pageSize: PAGE_SIZE,
         sortBy: "popularity",
         searchQuery: "",
-        categoryIds: [],
-        brandIds: [],
-        colorIds: [],
-        sizeIds: [],
+        categorySlugs: [],
+        categoryPath: [],
+        brandSlugs: [],
+        colorSlugs: [],
+        sizeSlugs: [],
         discountPercents: [],
         minPrice: null,
         maxPrice: null,
@@ -77,17 +78,17 @@
     function buildFilterQuery(state) {
         const params = new URLSearchParams();
 
-        state.categoryIds.forEach(function (id) {
-            params.append("categoryIds", id);
+        state.categorySlugs.forEach(function (slug) {
+            params.append("categorySlugs", slug);
         });
-        state.brandIds.forEach(function (id) {
-            params.append("brandIds", id);
+        state.brandSlugs.forEach(function (slug) {
+            params.append("brandSlugs", slug);
         });
-        state.colorIds.forEach(function (id) {
-            params.append("colorIds", id);
+        state.colorSlugs.forEach(function (slug) {
+            params.append("colorSlugs", slug);
         });
-        state.sizeIds.forEach(function (id) {
-            params.append("sizeIds", id);
+        state.sizeSlugs.forEach(function (slug) {
+            params.append("sizeSlugs", slug);
         });
         state.discountPercents.forEach(function (value) {
             params.append("discountPercents", value);
@@ -353,7 +354,7 @@
         }
     }
 
-    function readCheckedIds(selector) {
+    function readCheckedValues(selector) {
         return Array.from(document.querySelectorAll(selector + " input[type=checkbox]:checked"))
             .map(function (input) {
                 return input.value;
@@ -361,20 +362,31 @@
             .filter(Boolean);
     }
 
-    function readSelectedButtons(selector) {
+    function readSelectedSlugs(selector) {
         return Array.from(document.querySelectorAll(selector + " button.active"))
             .map(function (button) {
-                return button.getAttribute("data-id");
+                return button.getAttribute("data-slug");
             })
             .filter(Boolean);
     }
 
     function syncStateFromUI() {
-        shopState.categoryIds = readCheckedIds("#filter-category-list");
-        shopState.brandIds = readCheckedIds("#filter-brand-list");
-        shopState.discountPercents = readCheckedIds("#filter-discount-list");
-        shopState.colorIds = readSelectedButtons("#filter-color-list");
-        shopState.sizeIds = readSelectedButtons("#filter-size-list");
+        const checkedCategories = readCheckedValues("#filter-category-list");
+
+        if (checkedCategories.length) {
+            shopState.categorySlugs = checkedCategories;
+        } else if (shopState.categoryPath.length) {
+            shopState.categorySlugs = [
+                shopState.categoryPath[shopState.categoryPath.length - 1],
+            ];
+        } else {
+            shopState.categorySlugs = [];
+        }
+
+        shopState.brandSlugs = readCheckedValues("#filter-brand-list");
+        shopState.discountPercents = readCheckedValues("#filter-discount-list");
+        shopState.colorSlugs = readSelectedSlugs("#filter-color-list");
+        shopState.sizeSlugs = readSelectedSlugs("#filter-size-list");
         shopState.hasDiscount = shopState.discountPercents.length > 0;
 
         const minInput = document.querySelector(".price-range-min-value");
@@ -463,10 +475,11 @@
             priceSlider.noUiSlider.set([0, 10000]);
         }
 
-        shopState.categoryIds = [];
-        shopState.brandIds = [];
-        shopState.colorIds = [];
-        shopState.sizeIds = [];
+        shopState.categorySlugs = [];
+        shopState.categoryPath = [];
+        shopState.brandSlugs = [];
+        shopState.colorSlugs = [];
+        shopState.sizeSlugs = [];
         shopState.discountPercents = [];
         shopState.minPrice = null;
         shopState.maxPrice = null;
@@ -495,15 +508,18 @@
         });
     }
 
-    function renderCheckboxFilter(containerSelector, items, labelKey, valueKey) {
+    function renderCheckboxFilter(containerSelector, items, labelKey, valueKey, selectedSlugs) {
         const container = document.querySelector(containerSelector);
         if (!container || !items.length) return;
+
+        const selected = selectedSlugs || [];
 
         container.innerHTML = items
             .map(function (item) {
                 const label = item[labelKey];
                 const value = item[valueKey];
-                const checked = shopState.categoryIds.includes(String(value)) ? "checked" : "";
+                if (!value) return "";
+                const checked = selected.includes(String(value)) ? "checked" : "";
 
                 return (
                     '<li><label class="group flex items-center justify-between w-full cursor-pointer">' +
@@ -532,10 +548,12 @@
         container.innerHTML = colors
             .map(function (color) {
                 const hex = color.colorCode || color.hexCode || "#00AB55";
+                const slug = color.slug;
+                if (!slug) return "";
                 return (
                     '<li class="inline-flex items-center justify-center">' +
-                    '<button type="button" data-id="' +
-                    color.id +
+                    '<button type="button" data-slug="' +
+                    slug +
                     '" title="' +
                     (color.colorName || "") +
                     '" class="w-8 h-8 inline-flex items-center justify-center rounded-full border border-gray-300" style="background-color:' +
@@ -543,6 +561,7 @@
                     '"></button></li>'
                 );
             })
+            .filter(Boolean)
             .join("");
     }
 
@@ -553,14 +572,17 @@
         container.innerHTML = sizes
             .map(function (size) {
                 const label = size.sizeName || size.name || size.size;
+                const slug = size.slug;
+                if (!slug) return "";
                 return (
-                    '<li><button type="button" data-id="' +
-                    size.id +
+                    '<li><button type="button" data-slug="' +
+                    slug +
                     '" class="btn btn-default outline shadow-none py-[7px] px-[15px] rounded-[80px]">' +
                     label +
                     "</button></li>"
                 );
             })
+            .filter(Boolean)
             .join("");
     }
 
@@ -588,10 +610,12 @@
 
     function flattenCategories(categories, output) {
         categories.forEach(function (category) {
-            output.push({
-                id: category.id,
-                categoryName: category.categoryName,
-            });
+            if (category.slug) {
+                output.push({
+                    slug: category.slug,
+                    categoryName: category.categoryName,
+                });
+            }
 
             const children = category.subCategories || category.children || [];
             if (children.length) {
@@ -617,13 +641,26 @@
             const flatCategories = [];
             flattenCategories(categories, flatCategories);
 
+            const categoryNameMap = {};
+            flatCategories.forEach(function (cat) {
+                categoryNameMap[cat.slug] = cat.categoryName;
+            });
+            updateShopBreadcrumb(categoryNameMap);
+
             renderCheckboxFilter(
                 "#filter-category-list",
                 flatCategories,
                 "categoryName",
-                "id"
+                "slug",
+                shopState.categorySlugs
             );
-            renderCheckboxFilter("#filter-brand-list", brands, "brandName", "id");
+            renderCheckboxFilter(
+                "#filter-brand-list",
+                brands,
+                "brandName",
+                "slug",
+                shopState.brandSlugs
+            );
             renderColorFilter(colors);
             renderSizeFilter(sizes);
             renderDiscountFilter();
@@ -635,16 +672,69 @@
     function readUrlParams() {
         const params = new URLSearchParams(window.location.search);
         const searchQuery = params.get("q") || "";
-        const category =
-            params.get("category") || params.get("categoryId") || params.get("categoryIds");
+
+        let categoryPath = params.getAll("category");
+        if (!categoryPath.length) {
+            const single = params.get("categorySlug") || params.get("categorySlugs");
+            if (single) categoryPath = [single];
+        }
 
         if (searchQuery) {
             shopState.searchQuery = searchQuery.trim();
         }
 
-        if (category) {
-            shopState.categoryIds = [String(category)];
+        if (categoryPath.length) {
+            shopState.categoryPath = categoryPath.map(String);
+            shopState.categorySlugs = [
+                shopState.categoryPath[shopState.categoryPath.length - 1],
+            ];
         }
+    }
+
+    function updateShopBreadcrumb(categoryNameMap) {
+        if (!shopState.categoryPath.length) return;
+
+        const breadcrumb = document.querySelector(".breadcrumb ul");
+        if (!breadcrumb) return;
+
+        let html =
+            '<li><a href="index.php">' +
+            '<span class="inline-flex items-center justify-center">' +
+            '<i class="hgi hgi-stroke hgi-home-01 text-2xl leading-6"></i></span>Home</a></li>';
+
+        shopState.categoryPath.forEach(function (slug, index) {
+            const label = categoryNameMap[slug] || slug.replace(/-/g, " ");
+            const pathSoFar = shopState.categoryPath.slice(0, index + 1);
+            const isLast = index === shopState.categoryPath.length - 1;
+
+            html += '<li class="text-light-disabled-text">&#8226;</li><li>';
+            if (isLast) {
+                html += '<span class="text-sm leading-[22px]">' + label + "</span>";
+            } else {
+                html +=
+                    '<a href="' +
+                    buildCategoryShopUrl(pathSoFar) +
+                    '" class="text-sm leading-[22px] hover:text-primary">' +
+                    label +
+                    "</a>";
+            }
+            html += "</li>";
+        });
+
+        breadcrumb.innerHTML = html;
+    }
+
+    function buildCategoryShopUrl(slugPath) {
+        const slugs = Array.isArray(slugPath) ? slugPath.filter(Boolean) : [slugPath];
+        if (!slugs.length) return "shop.php";
+        return (
+            "shop.php?" +
+            slugs
+                .map(function (slug) {
+                    return "category=" + encodeURIComponent(slug);
+                })
+                .join("&")
+        );
     }
 
     async function initShopPage() {
@@ -659,10 +749,10 @@
 
         await loadFilterOptions();
 
-        if (shopState.categoryIds.length) {
-            shopState.categoryIds.forEach(function (id) {
+        if (shopState.categorySlugs.length) {
+            shopState.categorySlugs.forEach(function (slug) {
                 const input = document.querySelector(
-                    '#filter-category-list input[value="' + id + '"]'
+                    '#filter-category-list input[value="' + slug + '"]'
                 );
                 if (input) input.checked = true;
             });
@@ -741,7 +831,7 @@
                     const query = input.value.trim();
                     if (!query) return;
                     window.location.href =
-                        "shop-left-sidebar-4col.html?q=" + encodeURIComponent(query);
+                        "shop.php?q=" + encodeURIComponent(query);
                 }
             });
         });

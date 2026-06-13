@@ -85,6 +85,19 @@ function buildCategoryShopUrl(slugPath) {
     }).join("&");
 }
 
+function buildProductDetailUrl(product) {
+    const productId = product.id || product.productId;
+    const slug = product.slug || "";
+
+    if (!productId) return "product-detail.php";
+
+    let url = "product-detail.php?id=" + encodeURIComponent(productId);
+    if (slug) {
+        url += "&slug=" + encodeURIComponent(slug);
+    }
+    return url;
+}
+
 // ======================
 // DROPDOWN
 // ======================
@@ -463,9 +476,7 @@ function renderHomeProductCard(product, index) {
 
     const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
     const mrp = product.mrp ?? product.originalPrice ?? salePrice;
-    const detailUrl = productId
-        ? "product-detail.php?id=" + productId
-        : "product-detail.php";
+    const detailUrl = buildProductDetailUrl(product);
     const ratingWidth = getHomeProductRating(product);
     const reviewCount = getHomeReviewCount(product);
 

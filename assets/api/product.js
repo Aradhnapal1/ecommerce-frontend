@@ -171,6 +171,19 @@
         return Math.round(Number(discount)) + "% OFF";
     }
 
+    function buildProductDetailUrl(product) {
+        const productId = product.id || product.productId;
+        const slug = product.slug || "";
+
+        if (!productId) return "product-detail.php";
+
+        let url = "product-detail.php?id=" + encodeURIComponent(productId);
+        if (slug) {
+            url += "&slug=" + encodeURIComponent(slug);
+        }
+        return url;
+    }
+
     function renderProductCard(product, index) {
         const delay = ((index % 4) + 2) * 0.1;
         const productId = product.id || product.productId;
@@ -178,9 +191,7 @@
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
-        const detailUrl = productId
-            ? "product-detail.php?id=" + productId
-            : "product-detail.php";
+        const detailUrl = buildProductDetailUrl(product);
 
         return (
             '<div class="2xl:col-span-3 xl:col-span-4 md:col-span-6 col-span-12 wow animate__animated animate__fadeInUp" data-wow-delay=".' +
@@ -804,9 +815,7 @@
                     resultList.innerHTML = result.items
                         .map(function (product) {
                             const productId = product.id || product.productId;
-                            const detailUrl = productId
-                                ? "product-detail.php?id=" + productId
-                                : "product-detail.php";
+                            const detailUrl = buildProductDetailUrl(product);
 
                             return (
                                 '<li class="py-2">' +
@@ -887,9 +896,7 @@
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountPercent = getDiscountPercent(product);
-        const detailUrl = productId
-            ? "product-detail.php?id=" + productId
-            : "product-detail.php";
+        const detailUrl = buildProductDetailUrl(product);
 
         return (
             '<div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300" data-wow-delay=".' +

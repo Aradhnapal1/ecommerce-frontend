@@ -1839,7 +1839,7 @@
                                     Account</a>
                             </li>
                             <li>
-                                <a href="#"
+                                <a href="wishlist.php"
                                     class="text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2">My
                                     Wishlist</a>
                             </li>

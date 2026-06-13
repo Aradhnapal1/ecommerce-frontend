@@ -487,6 +487,7 @@
     <script src="assets/js/vendor/wow.min.js"></script>
 
     <!-- ========== Custom JS ========== -->
+    <script src="assets/api/product-detail.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 

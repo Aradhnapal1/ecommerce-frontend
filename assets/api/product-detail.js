@@ -250,6 +250,8 @@
             .join("");
     }
 
+    // fghjkj
+
     function renderProductDetail(product) {
         document.title = (product.productName || "Product") + " - HyperScripts";
 
@@ -257,7 +259,10 @@
         if (breadcrumbName) breadcrumbName.textContent = product.productName || "Product Details";
 
         const title = document.getElementById("product-title");
-        if (title) title.textContent = product.productName || "Product";
+        if (title) {
+            title.textContent = product.productName || "Product";
+            title.classList.remove("line-clamp-1", "truncate");
+        }
 
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;

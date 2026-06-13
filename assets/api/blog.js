@@ -69,7 +69,7 @@ function renderBlogCard(blog, index) {
             <div class="border border-gray-300 rounded-2xl p-6 hover:transform hover:translate-y-[-5px] hover:transition-all hover:ease-[cubic-bezier(0.02,0.01,0.47,1)] hover:duration-250 transition-all ease-[cubic-bezier(0.02,0.01,0.47,1)] duration-250 h-full flex flex-col">
                 <div class="mb-6 2xl:max-w-[340px] h-[250px] w-full">
                     <a href="${blogUrl}" class="block w-full h-full">
-                        <img src="${imgUrl}" alt="${rawBlogName}" class="rounded-2xl w-full h-full object-cover" />
+                        <img src="${imgUrl}" alt="${rawBlogName}" class="rounded-2xl w-full h-full object-cover"  style="object-fit: contain;" />
                     </a>
                 </div>
                

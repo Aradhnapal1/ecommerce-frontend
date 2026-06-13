@@ -445,12 +445,14 @@ function escapeHtmlAttr(value) {
         .replace(/>/g, "&gt;");
 }
 
-function renderHomeProductHoverActions() {
+function renderHomeProductHoverActions(product) {
+    const productId = product.id || product.productId || "";
+    const variantId = product.variantId || "";
     return (
         '<div class="product-btn-actions absolute bottom-0 right-0 left-0 flex justify-center z-9 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:bottom-3">' +
         '<ul class="flex items-center gap-x-px">' +
         "<li>" +
-        '<a aria-label="Add to Wishlist" class="product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tl-sm rounded-bl-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="wishlist.php">' +
+        '<a aria-label="Add to Wishlist" class="add-to-wishlist-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tl-sm rounded-bl-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + variantId + '">' +
         '<i class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-secondary-text"></i>' +
         "</a></li>" +
         "<li>" +
@@ -496,7 +498,7 @@ function renderHomeProductCard(product, index) {
         escapeHtmlAttr(productName) +
         '" class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />' +
         "</a></div>" +
-        renderHomeProductHoverActions() +
+        renderHomeProductHoverActions(product) +
         "</div>" +
         '<div class="product-content text-center flex-1 flex flex-col">' +
         '<div class="limited-time-product-countdown sellzy-countdown flex items-center justify-center gap-x-1 bg-[#FF4842]/12 py-[5px] px-5 rounded-[50px] text-[12px] leading-[18px] text-error-dark">' +
@@ -533,7 +535,7 @@ function renderHomeProductCard(product, index) {
             : "") +
         "</div>" +
         '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
-        '<a class="size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="wishlist.php">' +
+        '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + (product.variantId || "") + '">' +
         '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
         '<a class="btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="cart-single-vendor.html">' +
         '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +

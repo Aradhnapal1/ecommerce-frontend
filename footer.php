@@ -456,7 +456,7 @@
             >
           </li>
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='wishlist-style-v1.html'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='wishlist.php'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-primary-text"
                 ></i></span

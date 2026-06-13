@@ -250,6 +250,8 @@
             .join("");
     }
 
+    // fghjkj
+
     function renderProductDetail(product) {
         document.title = (product.productName || "Product") + " - HyperScripts";
 

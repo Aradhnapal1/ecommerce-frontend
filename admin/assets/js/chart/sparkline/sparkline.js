@@ -949,7 +949,7 @@
                 if (userValues === 'html' || userValues === undefined) {
                     vals = this.getAttribute(options.get('tagValuesAttribute'));
                     if (vals === undefined || vals === null) {
-                        vals = $this.html();
+                        vals = $thi.php();
                     }
                     values = vals.replace(/(^\s*<!--)|(-->\s*$)|\s+/g, '').split(',');
                 } else {
@@ -962,7 +962,7 @@
                         // must be a better way to get the line height
                         tmp = document.createElement('span');
                         tmp.innerHTML = 'a';
-                        $this.html(tmp);
+                        $thi.php(tmp);
                         height = $(tmp).innerHeight() || $(tmp).height();
                         $(tmp).remove();
                         tmp = null;

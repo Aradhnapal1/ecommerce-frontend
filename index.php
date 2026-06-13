@@ -45,6 +45,7 @@
             <div class="text-center xl:text-left">
                 <h3 class="pb-2">Electronics</h3>
                 <!-- <p>Up to 50%   for limited time 🔥</p> -->
+
             </div>
             <div class="flex lg:flex-row flex-col items-center gap-x-5 gap-y-5">
 
@@ -65,7 +66,10 @@
                         Headphone
                     </button>
                 </div>
+
+                
             </div>
+
         </div>
         <div class="tab-content">
             <!-- ========== View All Tab Start ========== -->
@@ -76,7 +80,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/product-details/product-details-slider-2.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -129,7 +133,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -167,7 +171,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-2.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -220,7 +224,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -258,7 +262,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/headphone.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -311,7 +315,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -349,7 +353,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -402,7 +406,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -440,7 +444,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/laptop.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -493,7 +497,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -531,7 +535,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/airfryer.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -584,7 +588,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -622,7 +626,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -675,7 +679,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -713,7 +717,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/smart-watch-2.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -766,7 +770,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -804,7 +808,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -857,7 +861,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -895,7 +899,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redmi.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -948,7 +952,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -993,7 +997,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/power-bank.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1046,7 +1050,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1084,7 +1088,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1137,7 +1141,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1175,7 +1179,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1228,7 +1232,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1266,7 +1270,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1319,7 +1323,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1357,7 +1361,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1410,7 +1414,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1448,7 +1452,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/speaker.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1501,7 +1505,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1539,7 +1543,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tv.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1592,7 +1596,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1630,7 +1634,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/washing-machine.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1683,7 +1687,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1721,7 +1725,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redphone.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1774,7 +1778,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1812,7 +1816,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/headphone.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1865,7 +1869,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -1910,7 +1914,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/smart-watch-2.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -1963,7 +1967,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2001,7 +2005,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-1.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2054,7 +2058,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2092,7 +2096,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone-2.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2145,7 +2149,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2183,7 +2187,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2236,7 +2240,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2274,7 +2278,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2327,7 +2331,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2365,7 +2369,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2418,7 +2422,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2456,7 +2460,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/drone.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2509,7 +2513,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2547,7 +2551,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-1.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2600,7 +2604,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2638,7 +2642,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/game-pad.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2691,7 +2695,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2729,7 +2733,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redphone.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2782,7 +2786,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2827,7 +2831,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/drone.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2880,7 +2884,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -2918,7 +2922,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/game-pad.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -2971,7 +2975,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3009,7 +3013,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/earpods.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3062,7 +3066,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3100,7 +3104,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/ipad-1.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3153,7 +3157,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3191,7 +3195,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3244,7 +3248,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3282,7 +3286,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/washing-machine.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3335,7 +3339,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3373,7 +3377,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/power-bank.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3426,7 +3430,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3464,7 +3468,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/macbook.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3517,7 +3521,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3555,7 +3559,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/storage.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3608,7 +3612,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3646,7 +3650,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tv.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3699,7 +3703,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3778,7 +3782,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/product-details/product-details-slider-2.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3831,7 +3835,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3869,7 +3873,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-2.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -3922,7 +3926,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -3960,7 +3964,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/headphone.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4013,7 +4017,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4051,7 +4055,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4104,7 +4108,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4142,7 +4146,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/laptop.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4195,7 +4199,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4233,7 +4237,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/airfryer.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4286,7 +4290,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4324,7 +4328,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4377,7 +4381,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4415,7 +4419,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/smart-watch-2.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4468,7 +4472,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4506,7 +4510,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4559,7 +4563,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4597,7 +4601,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redmi.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4650,7 +4654,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4695,7 +4699,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/power-bank.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4748,7 +4752,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4786,7 +4790,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4839,7 +4843,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4877,7 +4881,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -4930,7 +4934,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -4968,7 +4972,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5021,7 +5025,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5059,7 +5063,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5112,7 +5116,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5150,7 +5154,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/speaker.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5203,7 +5207,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5241,7 +5245,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tv.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5294,7 +5298,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5332,7 +5336,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/washing-machine.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5385,7 +5389,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5423,7 +5427,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redphone.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5476,7 +5480,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5514,7 +5518,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/headphone.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5567,7 +5571,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5612,7 +5616,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/smart-watch-2.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5665,7 +5669,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5703,7 +5707,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-1.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5756,7 +5760,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5794,7 +5798,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/iphone-2.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5847,7 +5851,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5885,7 +5889,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/oven.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -5938,7 +5942,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -5976,7 +5980,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/playstation.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6029,7 +6033,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6067,7 +6071,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6120,7 +6124,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6158,7 +6162,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/drone.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6211,7 +6215,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6249,7 +6253,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/samsung-phone-1.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6302,7 +6306,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6340,7 +6344,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/game-pad.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6393,7 +6397,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6431,7 +6435,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/redphone.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6484,7 +6488,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6529,7 +6533,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/drone.png" alt="product-1"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6582,7 +6586,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6620,7 +6624,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/game-pad.png" alt="product-2"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6673,7 +6677,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6711,7 +6715,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/earpods.png" alt="product-3"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6764,7 +6768,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6802,7 +6806,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/ipad-1.png" alt="product-4"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6855,7 +6859,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6893,7 +6897,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tablet.png" alt="product-5"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -6946,7 +6950,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -6984,7 +6988,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/washing-machine.png" alt="product-6"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -7037,7 +7041,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>Smart 4k Television</a>
+                                    <a href='product-detail.php'>Smart 4k Television</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -7075,7 +7079,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/power-bank.png" alt="product-7"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -7128,7 +7132,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>SmartView 4K TV 50</a>
+                                    <a href='product-detail.php'>SmartView 4K TV 50</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -7166,7 +7170,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/macbook.png" alt="product-8"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -7219,7 +7223,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>PowerMax Wireless Charger</a>
+                                    <a href='product-detail.php'>PowerMax Wireless Charger</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -7257,7 +7261,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/storage.png" alt="product-9"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -7310,7 +7314,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                                    <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -7348,7 +7352,7 @@
                         <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">
                             <div class="product-image-container relative">
                                 <div class="product-image rounded-xl mb-4 overflow-hidden">
-                                    <a href='product-details.html'>
+                                    <a href='product-detail.php'>
                                         <img src="assets/images/home-5/tv.png" alt="product-10"
                                             class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />
                                     </a>
@@ -7401,7 +7405,7 @@
                                     <p>Secs</p>
                                 </div>
                                 <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                                    <a href='product-details.html'>X-Tech Bluetooth Speaker</a>
+                                    <a href='product-detail.php'>X-Tech Bluetooth Speaker</a>
                                 </h5>
                                 <div class="rating-section flex items-center justify-center mb-3">
                                     <div
@@ -7457,7 +7461,7 @@
         <div class="grid grid-cols-12 gap-x-6 xl:gap-y-12 gap-y-6">
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".2s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/headphone.png" alt="Headphone" class="rounded-2xl" />
@@ -7489,7 +7493,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".3s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/iphone-2.png" alt="iPhone" class="rounded-2xl" />
@@ -7521,7 +7525,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".4s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/laptop.png" alt="Laptop" class="rounded-2xl" />
@@ -7553,7 +7557,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".2s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/macbook.png" alt="MacBook" class="rounded-2xl" />
@@ -7585,7 +7589,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".3s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/samsung-phone-3.png" alt="Samsung Phone" class="rounded-2xl" />
@@ -7617,7 +7621,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".5s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/game-pad-2.png" alt="Game Pad" class="rounded-2xl" />
@@ -7649,7 +7653,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".2s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/redphone.png" alt="Red Phone" class="rounded-2xl" />
@@ -7681,7 +7685,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".3s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/speaker.png" alt="Speaker" class="rounded-2xl" />
@@ -7713,7 +7717,7 @@
             </div>
             <div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
                 data-wow-delay=".4s">
-                <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+                <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
                     <div
                         class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                         <img src="assets/images/home-5/action-cam.png" alt="Action Camera" class="rounded-2xl" />
@@ -7766,7 +7770,7 @@
                 data-wow-delay=".2s">
                 <div class="flex flex-col gap-y-6">
                     <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300'
-                        href='product-details.html'>
+                        href='product-detail.php'>
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/macbook.png" alt="MacBook" class="rounded-2xl" />
@@ -7795,7 +7799,7 @@
                         </div>
                     </a>
                     <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300'
-                        href='product-details.html'>
+                        href='product-detail.php'>
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/redphone.png" alt="Red Phone" class="rounded-2xl" />
@@ -7828,7 +7832,7 @@
             <div class="xl:col-span-4 col-span-12 xl:row-start-1 wow animate__animated animate__fadeInUp"
                 data-wow-delay=".3s">
                 <a class='border border-gray-300 rounded-2xl group hover:border-primary transition-all duration-300 flex flex-col'
-                    href='product-details.html'>
+                    href='product-detail.php'>
                     <div class="max-w-[528px] flex items-center justify-center w-full mx-auto">
                         <img src="assets/images/home-5/smart-watch-1.png" alt="Smart Watch" class="rounded-t-2xl" />
                     </div>

@@ -200,7 +200,7 @@ function (e, t) {
         }
 
         function r(e) {
-            return "\nRead more: https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-" + e
+            return "\nRead more: https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-code.php#error-" + e
         }
 
         function s(e, t) {
@@ -10009,11 +10009,11 @@ function (e, t) {
             constructor(e) {
                 this.domParser = new DOMParser, this.domConverter = new Tr(e, {
                     renderingMode: "data"
-                }), this.htmlWriter = new ac
+                }), thi.phpWriter = new ac
             }
             toData(e) {
                 const t = this.domConverter.viewToDom(e, document);
-                return this.htmlWriter.getHtml(t)
+                return thi.phpWriter.getHtml(t)
             }
             toView(e) {
                 const t = this._toDom(e);
@@ -10053,7 +10053,7 @@ function (e, t) {
                     priority: "lowest"
                 }), this.upcastDispatcher = new sc({
                     schema: e.schema
-                }), this.viewDocument = new yo(t), this.stylesProcessor = t, this.htmlProcessor = new cc(this.viewDocument), this.processor = this.htmlProcessor, this._viewWriter = new Wo(this.viewDocument), this.upcastDispatcher.on("text", (e, t, {
+                }), this.viewDocument = new yo(t), this.stylesProcessor = t, thi.phpProcessor = new cc(this.viewDocument), this.processor = thi.phpProcessor, this._viewWriter = new Wo(this.viewDocument), this.upcastDispatcher.on("text", (e, t, {
                     schema: i,
                     consumable: n,
                     writer: o
@@ -10197,7 +10197,7 @@ function (e, t) {
                 e(this.stylesProcessor)
             }
             registerRawContentMatcher(e) {
-                this.processor && this.processor !== this.htmlProcessor && this.processor.registerRawContentMatcher(e), this.htmlProcessor.registerRawContentMatcher(e)
+                this.processor && this.processor !== thi.phpProcessor && this.processor.registerRawContentMatcher(e), thi.phpProcessor.registerRawContentMatcher(e)
             }
             destroy() {
                 this.stopListening()

@@ -252,7 +252,7 @@
                     <a href="#">Product Details</a>
                     <ul>
                       <li>
-                        <a href='product-details.html'>Product Details Version 1</a
+                        <a href='product-detail.php'>Product Details Version 1</a
                         >
                       </li>
                       <li>
@@ -436,7 +436,7 @@
                 <ul>
                   <li><a href='blog-grid.html'>Blog Grid</a></li>
                   <li><a href='blog-list.html'>Blog List</a></li>
-                  <li><a href='blog-details.html'>Blog Details</a></li>
+                  <li><a href='blog-detail.php'>Blog Details</a></li>
                 </ul>
               </li>
               <li><a href='contact.html'>Contact</a></li>
@@ -543,7 +543,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/vitamin-c.png"
                 alt="Product Image"
@@ -558,7 +558,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -586,7 +586,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/apple-juice.png"
                 alt="Product Image"
@@ -601,7 +601,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -629,7 +629,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/ground-nuts-oil.png"
                 alt="Product Image"
@@ -644,7 +644,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -672,7 +672,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/vitamin-c-2.png"
                 alt="Product Image"
@@ -687,7 +687,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -715,7 +715,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/temperature-gun-2.png"
                 alt="Product Image"
@@ -730,7 +730,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -758,7 +758,7 @@
           <div
             class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/aooca.png"
                 alt="Product Image"
@@ -773,7 +773,7 @@
               class="similar-product-item-content flex flex-col gap-y-2 flex-1"
             >
               <h6 class="text-base font-semibold">
-                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
               </h6>
               <p class="text-sm leading-[22px]">Shop Name</p>
               <div class="flex items-center justify-between">
@@ -824,7 +824,7 @@
           <div
             class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/home-3/watermelon.png"
                 alt="Product Image"
@@ -836,7 +836,7 @@
             >
               <div class="flex items-center justify-between gap-x-2">
                 <h6 class="text-base font-semibold">
-                  <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                  <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                 </h6>
                 <div class="cart-edit-remove flex items-center gap-x-3">
                   <button>
@@ -894,7 +894,7 @@
           <div
             class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/home-3/avocado.png"
                 alt="Product Image"
@@ -906,7 +906,7 @@
             >
               <div class="flex items-center justify-between gap-x-2">
                 <h6 class="text-base font-semibold">
-                  <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                  <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                 </h6>
                 <div class="cart-edit-remove flex items-center gap-x-3">
                   <button>
@@ -964,7 +964,7 @@
           <div
             class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/home-3/pouch-mockup.png"
                 alt="Product Image"
@@ -980,7 +980,7 @@
             >
               <div class="flex items-center justify-between gap-x-2">
                 <h6 class="text-base font-semibold">
-                  <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                  <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                 </h6>
                 <div class="cart-edit-remove flex items-center gap-x-3">
                   <button>
@@ -1038,7 +1038,7 @@
           <div
             class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/home-3/strawberry-snacks.png"
                 alt="Product Image"
@@ -1050,7 +1050,7 @@
             >
               <div class="flex items-center justify-between gap-x-2">
                 <h6 class="text-base font-semibold">
-                  <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                  <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                 </h6>
                 <div class="cart-edit-remove flex items-center gap-x-3">
                   <button>
@@ -1108,7 +1108,7 @@
           <div
             class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl"
           >
-            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-details.html'>
+            <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php'>
               <img
                 src="assets/images/home-3/pomegranate.png"
                 alt="Product Image"
@@ -1120,7 +1120,7 @@
             >
               <div class="flex items-center justify-between gap-x-2">
                 <h6 class="text-base font-semibold">
-                  <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                  <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                 </h6>
                 <div class="cart-edit-remove flex items-center gap-x-3">
                   <button>
@@ -4615,7 +4615,7 @@
                       <a href="#">Product Details</a>
                       <ul>
                         <li>
-                          <a href='product-details.html'>Product Details Version 1</a
+                          <a href='product-detail.php'>Product Details Version 1</a
                           >
                         </li>
                         <li>
@@ -4892,7 +4892,7 @@
                   <ul>
                     <li><a href='blog-grid.html'>Blog Grid</a></li>
                     <li><a href='blog-list.html'>Blog List</a></li>
-                    <li><a href='blog-details.html'>Blog Details</a></li>
+                    <li><a href='blog-detail.php'>Blog Details</a></li>
                   </ul>
                 </li>
                 <li>
@@ -5498,7 +5498,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tv.png"
                           alt="product-1"
@@ -5557,7 +5557,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -5615,7 +5615,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/samsung-phone-2.png"
                           alt="product-2"
@@ -5674,7 +5674,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -5732,7 +5732,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/headphone.png"
                           alt="product-3"
@@ -5791,7 +5791,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -5850,7 +5850,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/iphone.png"
                           alt="product-4"
@@ -5909,7 +5909,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -5967,7 +5967,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/laptop.png"
                           alt="product-5"
@@ -6026,7 +6026,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -6085,7 +6085,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/airfryer.png"
                           alt="product-6"
@@ -6144,7 +6144,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -6202,7 +6202,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/oven.png"
                           alt="product-7"
@@ -6261,7 +6261,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -6319,7 +6319,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/smart-watch-2.png"
                           alt="product-8"
@@ -6378,7 +6378,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -6437,7 +6437,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/playstation.png"
                           alt="product-9"
@@ -6496,7 +6496,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -6554,7 +6554,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/redmi.png"
                           alt="product-10"
@@ -6613,7 +6613,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -6678,7 +6678,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/power-bank.png"
                           alt="product-1"
@@ -6737,7 +6737,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -6792,7 +6792,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/playstation.png"
                           alt="product-2"
@@ -6851,7 +6851,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -6906,7 +6906,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/iphone.png"
                           alt="product-3"
@@ -6965,7 +6965,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -7021,7 +7021,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/oven.png"
                           alt="product-4"
@@ -7080,7 +7080,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -7135,7 +7135,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tablet.png"
                           alt="product-5"
@@ -7194,7 +7194,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -7250,7 +7250,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/speaker.png"
                           alt="product-6"
@@ -7309,7 +7309,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -7364,7 +7364,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tv.png"
                           alt="product-7"
@@ -7423,7 +7423,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -7478,7 +7478,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/washing-machine.png"
                           alt="product-8"
@@ -7537,7 +7537,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -7593,7 +7593,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/redphone.png"
                           alt="product-9"
@@ -7652,7 +7652,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -7707,7 +7707,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/headphone.png"
                           alt="product-10"
@@ -7766,7 +7766,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -7831,7 +7831,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/smart-watch-2.png"
                           alt="product-1"
@@ -7890,7 +7890,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -7945,7 +7945,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/samsung-phone-1.png"
                           alt="product-2"
@@ -8004,7 +8004,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -8059,7 +8059,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/iphone-2.png"
                           alt="product-3"
@@ -8118,7 +8118,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -8174,7 +8174,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/oven.png"
                           alt="product-4"
@@ -8233,7 +8233,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -8288,7 +8288,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/playstation.png"
                           alt="product-5"
@@ -8347,7 +8347,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -8403,7 +8403,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tablet.png"
                           alt="product-6"
@@ -8462,7 +8462,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -8517,7 +8517,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/drone.png"
                           alt="product-7"
@@ -8576,7 +8576,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -8631,7 +8631,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/samsung-phone-1.png"
                           alt="product-8"
@@ -8690,7 +8690,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -8746,7 +8746,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/game-pad.png"
                           alt="product-9"
@@ -8805,7 +8805,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -8860,7 +8860,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/redphone.png"
                           alt="product-10"
@@ -8919,7 +8919,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -8984,7 +8984,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/drone.png"
                           alt="product-1"
@@ -9043,7 +9043,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -9098,7 +9098,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/game-pad.png"
                           alt="product-2"
@@ -9157,7 +9157,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -9212,7 +9212,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/earpods.png"
                           alt="product-3"
@@ -9271,7 +9271,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -9327,7 +9327,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/ipad-1.png"
                           alt="product-4"
@@ -9386,7 +9386,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -9441,7 +9441,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tablet.png"
                           alt="product-5"
@@ -9500,7 +9500,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -9556,7 +9556,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/washing-machine.png"
                           alt="product-6"
@@ -9615,7 +9615,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>Smart 4k Television</a>
+                      <a href='product-detail.php'>Smart 4k Television</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -9670,7 +9670,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/power-bank.png"
                           alt="product-7"
@@ -9729,7 +9729,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>SmartView 4K TV 50</a>
+                      <a href='product-detail.php'>SmartView 4K TV 50</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -9784,7 +9784,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/macbook.png"
                           alt="product-8"
@@ -9843,7 +9843,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>PowerMax Wireless Charger</a
+                      <a href='product-detail.php'>PowerMax Wireless Charger</a
                       >
                     </h5>
                     <div
@@ -9899,7 +9899,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/storage.png"
                           alt="product-9"
@@ -9958,7 +9958,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>NoiseFit Pulse Watch</a>
+                      <a href='product-detail.php'>NoiseFit Pulse Watch</a>
                     </h5>
                     <div
                       class="rating-section flex items-center justify-center mb-3"
@@ -10013,7 +10013,7 @@
                 >
                   <div class="product-image-container relative">
                     <div class="product-image rounded-xl mb-4 overflow-hidden">
-                      <a href='product-details.html'>
+                      <a href='product-detail.php'>
                         <img
                           src="assets/images/home-5/tv.png"
                           alt="product-10"
@@ -10072,7 +10072,7 @@
                       <p>Secs</p>
                     </div>
                     <h5 class="text-[20px] leading-[30px] font-bold py-3">
-                      <a href='product-details.html'>X-Tech Bluetooth Speaker</a
+                      <a href='product-detail.php'>X-Tech Bluetooth Speaker</a
                       >
                     </h5>
                     <div
@@ -10270,7 +10270,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".2s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10321,7 +10321,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".3s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10372,7 +10372,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".4s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10423,7 +10423,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".2s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10474,7 +10474,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".3s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10525,7 +10525,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".5s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10576,7 +10576,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".2s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10627,7 +10627,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".3s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -10678,7 +10678,7 @@
             class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300"
             data-wow-delay=".4s"
           >
-            <a class='flex flex-col lg:flex-row h-full' href='product-details.html'>
+            <a class='flex flex-col lg:flex-row h-full' href='product-detail.php'>
               <div
                 class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
               >
@@ -11828,7 +11828,7 @@
             data-wow-delay=".2s"
           >
             <div class="flex flex-col gap-y-6">
-              <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300' href='product-details.html'>
+              <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300' href='product-detail.php'>
                 <div
                   class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
                 >
@@ -11874,7 +11874,7 @@
                   </div>
                 </div>
               </a>
-              <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300' href='product-details.html'>
+              <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300' href='product-detail.php'>
                 <div
                   class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full"
                 >
@@ -11926,7 +11926,7 @@
             class="xl:col-span-4 col-span-12 xl:row-start-1 wow animate__animated animate__fadeInUp"
             data-wow-delay=".3s"
           >
-            <a class='border border-gray-300 rounded-2xl group hover:border-primary transition-all duration-300 flex flex-col' href='product-details.html'>
+            <a class='border border-gray-300 rounded-2xl group hover:border-primary transition-all duration-300 flex flex-col' href='product-detail.php'>
               <div
                 class="max-w-[528px] flex items-center justify-center w-full mx-auto"
               >

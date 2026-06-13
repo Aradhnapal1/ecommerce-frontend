@@ -113,7 +113,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -121,7 +121,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -181,7 +181,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -189,7 +189,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -249,7 +249,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -257,7 +257,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -317,7 +317,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -325,7 +325,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -385,7 +385,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -393,7 +393,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -453,7 +453,7 @@
                       <span>(10)</span>
                     </p>
                   </div>
-                  <a href='blog-details.html'><h6 class="mt-4 mb-3 hover:text-primary">
+                  <a href='blog-detail.php'><h6 class="mt-4 mb-3 hover:text-primary">
                       The Future of Industrial Design
                     </h6></a
                   >
@@ -461,7 +461,7 @@
                     So you have heard about this site or you have been to it,
                     but you cannot figure out.
                   </p>
-                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-details.html'>
+                  <a class='btn btn-primary btn-large rounded-[60px] group py-2 pl-6 pr-3 gap-x-[18px]' href='blog-detail.php'>
                     Read More
                     <span
                       class="size-8 bg-white inline-flex items-center justify-center rounded-full rotate-[-40deg] transform group-hover:rotate-0 transition-all duration-300"
@@ -969,7 +969,7 @@
                             <div
                               class="flex flex-col 2xl:items-start xl:items-center gap-y-2 flex-1 single-blog-post-content"
                             >
-                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-details.html'>
+                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-detail.php'>
                                 The Future of Industrial Design
                               </a>
                               <span
@@ -1025,7 +1025,7 @@
                             <div
                               class="flex flex-col 2xl:items-start xl:items-center gap-y-2 flex-1 single-blog-post-content"
                             >
-                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-details.html'>
+                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-detail.php'>
                                 The Future of Industrial Design
                               </a>
                               <span
@@ -1081,7 +1081,7 @@
                             <div
                               class="flex flex-col 2xl:items-start xl:items-center gap-y-2 flex-1 single-blog-post-content"
                             >
-                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-details.html'>
+                              <a class='text-sm leading-[22px] text-light-primary-text font-medium cursor-pointer hover:text-primary transition-colors duration-300 ease-in-out single-blog-post-content-title' href='blog-detail.php'>
                                 The Future of Industrial Design
                               </a>
                               <span

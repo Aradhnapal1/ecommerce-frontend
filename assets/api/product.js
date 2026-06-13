@@ -1,749 +1,181 @@
-(function () {
-    const API_BASE = typeof domin !== "undefined" ? domin : "https://ecommerce-backend.workarya.com";
-    const PAGE_SIZE = 20;
 
-    const SORT_MAP = {
-        popularity: "popularity",
-        "low-to-high-price": "price_low",
-        "high-to-low-price": "price_high",
-        "avarage-rating": "rating",
-        "a-z-order": "name_asc",
-        "z-a-order": "name_desc",
-        discount_high: "discount_high",
-    };
+document.addEventListener("DOMContentLoaded", function () {
+    // Assuming `domin` is globally available via domin.js
+    loadHomeDynamicSections();
+});
 
-    const DISCOUNT_OPTIONS = [5, 10, 15, 20, 25, 30];
+async function loadHomeDynamicSections() {
+    try {
+        // Fetch all categories to identify Fashion and Electronics
+        const response = await fetch(`${domin}/api/getcategories`);
+        if (!response.ok) throw new Error("Network response was not ok");
+        const result = await response.json();
+        
+        
+        // Ensure result data format matches the backend structure
+        const categories = result?.value?.data || result?.data || [];
 
-    const shopState = {
-        page: 1,
-        pageSize: PAGE_SIZE,
-        sortBy: "popularity",
-        searchQuery: "",
-        categoryIds: [],
-        brandIds: [],
-        colorIds: [],
-        sizeIds: [],
-        discountPercents: [],
-        minPrice: null,
-        maxPrice: null,
-        hasDiscount: false,
-    };
+        // Find the main categories by name (adjust includes() parameter if names differ)
+        const fashionCat = categories.find(cat => cat.categoryName.toLowerCase().includes('fashion') || cat.categoryName.toLowerCase().includes('clothing'));
+        const electronicsCat = categories.find(cat => cat.categoryName.toLowerCase().includes('electronic'));
 
-    document.addEventListener("DOMContentLoaded", function () {
-        initHeaderSearch();
-
-        if (document.getElementById("product-grid")) {
-            initShopPage();
+        // Load sections dynamically if categories exist
+        if (fashionCat) {
+            setupDynamicTabs('fashion', fashionCat);
         }
+        if (electronicsCat) {
+            setupDynamicTabs('electronics', electronicsCat);
+        }
+    } catch (error) {
+        console.error("Error loading home dynamic sections:", error);
+    }
+}
+
+function setupDynamicTabs(sectionId, parentCategory) {
+    // Get up to 4 active subcategories
+    const subCategories = (parentCategory.subCategories || parentCategory.children || [])
+        .filter(sub => sub.isActive === true)
+        .slice(0, 4);
+
+    if (subCategories.length === 0) return;
+
+    // Target wrapper elements by matching IDs in index.php
+    const tabsContainer = document.getElementById(`${sectionId}-tabs`);
+    const productsContainer = document.getElementById(`${sectionId}-product-list`);
+
+    if (!tabsContainer || !productsContainer) return;
+
+    // Render Tabs dynamically
+    let tabsHtml = '';
+    subCategories.forEach((sub, index) => {
+        // Make the first tab active by default
+        const activeClass = index === 0 
+            ? 'btn-primary' 
+            : 'btn-default outline shadow-none';
+            
+        tabsHtml += `
+            <button class="dynamic-tab-btn btn btn-large py-2.5 px-[22px] rounded-full transition-all duration-300 ${activeClass}" 
+                    data-category-id="${sub.id}" 
+                    data-section="${sectionId}">
+                ${sub.categoryName}
+            </button>
+        `;
     });
+    tabsContainer.innerHTML = tabsHtml;
 
-    function parseList(result) {
-        if (Array.isArray(result)) return result;
-        if (Array.isArray(result?.value?.data)) return result.value.data;
-        if (Array.isArray(result?.data)) return result.data;
-        if (Array.isArray(result?.value)) return result.value;
-        if (Array.isArray(result?.products)) return result.products;
-        return [];
-    }
+    // Load initial 10 products for the first subcategory tab
+    fetchAndRenderSectionProducts(subCategories[0].id, productsContainer);
 
-    function parsePaginated(result) {
-        if (Array.isArray(result?.data)) {
-            return {
-                items: result.data,
-                total: result.total ?? result.data.length,
-                page: result.page ?? shopState.page,
-                pageSize: result.pageSize ?? shopState.pageSize,
-            };
-        }
+    // Add click listeners to newly created tabs
+    const tabButtons = tabsContainer.querySelectorAll('.dynamic-tab-btn');
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Remove active state from all buttons
+            tabButtons.forEach(b => {
+                b.classList.remove('btn-primary');
+                b.classList.add('btn-default', 'outline', 'shadow-none');
+            });
 
-        const payload = result?.value?.data ?? result?.value ?? result;
-        const items = Array.isArray(payload)
-            ? payload
-            : payload?.items || payload?.products || payload?.data || [];
+            // Apply active state to clicked button
+            this.classList.remove('btn-default', 'outline', 'shadow-none');
+            this.classList.add('btn-primary');
 
-        return {
-            items: Array.isArray(items) ? items : [],
-            total:
-                result?.total ??
-                payload?.totalCount ??
-                payload?.total ??
-                result?.value?.totalCount ??
-                (Array.isArray(items) ? items.length : 0),
-            page: result?.page ?? payload?.page ?? payload?.currentPage ?? shopState.page,
-            pageSize: result?.pageSize ?? payload?.pageSize ?? shopState.pageSize,
-        };
-    }
-
-    function buildFilterQuery(state) {
-        const params = new URLSearchParams();
-
-        state.categoryIds.forEach(function (id) {
-            params.append("categoryIds", id);
+            // Fetch products based on the clicked tab category
+            const catId = this.getAttribute('data-category-id');
+            fetchAndRenderSectionProducts(catId, productsContainer);
         });
-        state.brandIds.forEach(function (id) {
-            params.append("brandIds", id);
-        });
-        state.colorIds.forEach(function (id) {
-            params.append("colorIds", id);
-        });
-        state.sizeIds.forEach(function (id) {
-            params.append("sizeIds", id);
-        });
-        state.discountPercents.forEach(function (value) {
-            params.append("discountPercents", value);
-        });
+    });
+}
 
-        if (state.minPrice !== null && state.minPrice !== "") {
-            params.append("minPrice", state.minPrice);
-        }
-        if (state.maxPrice !== null && state.maxPrice !== "") {
-            params.append("maxPrice", state.maxPrice);
-        }
-        if (state.hasDiscount) {
-            params.append("hasDiscount", "true");
-        }
-        if (state.sortBy) {
-            params.append("sortBy", state.sortBy);
-        }
+async function fetchAndRenderSectionProducts(categoryId, container) {
+    // Show Loading state
+    container.innerHTML = `
+        <div class="col-span-full flex justify-center py-10">
+            <div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    `;
 
-        params.append("page", state.page);
-        params.append("pageSize", state.pageSize);
+    try {
+        // Fetch max 10 latest products for the active tab's category using the filter API
+        const url = `${domin}/api/product/filter?categoryIds=${categoryId}&page=1&pageSize=10&sortBy=latest`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch products");
+        
+        const result = await response.json();
+        const products = result.data || result.products || result.value?.data || [];
 
-        return params.toString();
-    }
-
-    async function fetchFilteredProducts(state) {
-        const query = buildFilterQuery(state);
-        const response = await fetch(API_BASE + "/api/product/filter?" + query);
-
-        if (!response.ok) {
-            throw new Error("Filter request failed: " + response.status);
-        }
-
-        return parsePaginated(await response.json());
-    }
-
-    async function fetchSearchProducts(query, page, pageSize) {
-        const params = new URLSearchParams({
-            q: query,
-            page: String(page || 1),
-            pageSize: String(pageSize || PAGE_SIZE),
-        });
-
-        const response = await fetch(API_BASE + "/api/product/search?" + params.toString());
-
-        if (!response.ok) {
-            throw new Error("Search request failed: " + response.status);
-        }
-
-        return parsePaginated(await response.json());
-    }
-
-    function formatPrice(value) {
-        const amount = Number(value);
-        if (Number.isNaN(amount)) return "₹0";
-        return "₹" + amount.toLocaleString("en-IN");
-    }
-
-    function getProductImage(product) {
-        return (
-            product.productImageUrl ||
-            product.imageUrl ||
-            product.image ||
-            product.thumbnail ||
-            "assets/images/vitamin-c.png"
-        );
-    }
-
-    function getDiscountLabel(product) {
-        const discount =
-            product.discountPrice ??
-            product.discountPercent ??
-            product.discountPercentage ??
-            0;
-
-        if (!discount) return "";
-        return Math.round(Number(discount)) + "% OFF";
-    }
-
-    function renderProductCard(product, index) {
-        const delay = ((index % 4) + 2) * 0.1;
-        const productId = product.id || product.productId;
-        const productName = product.productName || product.name || "Product";
-        const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
-        const mrp = product.mrp ?? product.originalPrice ?? salePrice;
-        const discountLabel = getDiscountLabel(product);
-        const detailUrl = productId
-            ? "product-detail.php?id=" + productId
-            : "product-detail.php";
-
-        return (
-            '<div class="2xl:col-span-3 xl:col-span-4 md:col-span-6 col-span-12 wow animate__animated animate__fadeInUp" data-wow-delay=".' +
-            delay +
-            's">' +
-            '<div class="border border-gray-300 rounded-2xl product-card-1 p-4 group">' +
-            '<div class="product-image-container relative">' +
-            '<div class="product-image rounded-xl bg-[#F4F3F5] mb-4 overflow-hidden">' +
-            '<a href="' +
-            detailUrl +
-            '">' +
-            '<img src="' +
-            getProductImage(product) +
-            '" alt="' +
-            productName +
-            '" class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />' +
-            "</a></div></div>" +
-            '<div class="product-content">' +
-            '<h5 class="text-base leading-6 font-semibold font-dm-sans mb-4">' +
-            '<a href="' +
-            detailUrl +
-            '">' +
-            productName +
-            "</a></h5>" +
-            '<div class="price-section flex items-center gap-x-3 mb-2">' +
-            '<span class="current-price text-base font-semibold text-light-primary-text">' +
-            formatPrice(salePrice) +
-            "</span>" +
-            (mrp > salePrice
-                ? '<span class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through">' +
-                  formatPrice(mrp) +
-                  "</span>"
-                : "") +
-            (discountLabel
-                ? '<span class="discount-percentage text-sm leading-[22px] font-semibold text-error">' +
-                  discountLabel +
-                  "</span>"
-                : "") +
-            "</div>" +
-            '<div class="btn-section flex items-center gap-x-4">' +
-            '<a class="btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="cart-single-vendor.html">' +
-            '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
-            "<span>Add to Cart</span></a></div></div></div></div>"
-        );
-    }
-
-    function renderProducts(items) {
-        const grid = document.getElementById("product-grid");
-        if (!grid) return;
-
-        if (!items.length) {
-            grid.innerHTML =
-                '<div class="col-span-12 text-center py-16"><p class="text-light-secondary-text text-lg">No products found.</p></div>';
+        if (products.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No products available in this category.</div>';
             return;
         }
 
-        grid.innerHTML = items.map(renderProductCard).join("");
-    }
-
-    function updateResultsCount(items, total, page, pageSize) {
-        const el = document.getElementById("shop-results-count");
-        if (!el) return;
-
-        if (!total) {
-            el.textContent = "No results found";
-            return;
-        }
-
-        const start = (page - 1) * pageSize + 1;
-        const end = Math.min(page * pageSize, total);
-        el.textContent = "Showing " + start + "-" + end + " of " + total + " results";
-    }
-
-    function renderPagination(total, page, pageSize) {
-        const container = document.getElementById("shop-pagination");
-        if (!container) return;
-
-        const totalPages = Math.max(1, Math.ceil(total / pageSize));
-        if (totalPages <= 1) {
-            container.innerHTML = "";
-            return;
-        }
-
-        let html = "";
-
-        html +=
-            '<li class="group blog-pagination-item">' +
-            '<a href="#" data-page="' +
-            (page - 1) +
-            '" class="shop-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 ' +
-            (page <= 1 ? "pointer-events-none opacity-50" : "") +
-            '">' +
-            '<span class="inline-flex items-center justify-center"><i class="hgi hgi-stroke hgi-arrow-left-01 text-[20px] leading-5 text-light-primary-text"></i></span>' +
-            "</a></li>";
-
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || Math.abs(i - page) <= 1) {
-                html +=
-                    '<li class="group blog-pagination-item">' +
-                    '<a href="#" data-page="' +
-                    i +
-                    '" class="shop-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] ' +
-                    (i === page
-                        ? "active"
-                        : "text-base leading-6 text-light-primary-text bg-white cursor-pointer border border-gray-300") +
-                    '">' +
-                    i +
-                    "</a></li>";
-            } else if (Math.abs(i - page) === 2) {
-                html +=
-                    '<li class="blog-pagination-item"><span class="inline-flex items-center justify-center md:size-10 size-9">...</span></li>';
-            }
-        }
-
-        html +=
-            '<li class="group blog-pagination-item">' +
-            '<a href="#" data-page="' +
-            (page + 1) +
-            '" class="shop-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 ' +
-            (page >= totalPages ? "pointer-events-none opacity-50" : "") +
-            '">' +
-            '<span class="inline-flex items-center justify-center"><i class="hgi hgi-stroke hgi-arrow-right-01 text-[20px] leading-5 text-light-primary-text"></i></span>' +
-            "</a></li>";
-
-        container.innerHTML = html;
-
-        container.querySelectorAll(".shop-page-btn").forEach(function (btn) {
-            btn.addEventListener("click", function (event) {
-                event.preventDefault();
-                const nextPage = Number(btn.getAttribute("data-page"));
-                if (!nextPage || nextPage < 1 || nextPage > totalPages) return;
-                shopState.page = nextPage;
-                loadShopProducts();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            });
-        });
-    }
-
-    async function loadShopProducts() {
-        const grid = document.getElementById("product-grid");
-        if (!grid) return;
-
-        grid.innerHTML =
-            '<div class="col-span-12 text-center py-16"><p class="text-light-secondary-text">Loading products...</p></div>';
-
-        try {
-            let result;
-
-            if (shopState.searchQuery) {
-                result = await fetchSearchProducts(
-                    shopState.searchQuery,
-                    shopState.page,
-                    shopState.pageSize
-                );
-            } else {
-                result = await fetchFilteredProducts(shopState);
-            }
-
-            renderProducts(result.items);
-            updateResultsCount(
-                result.items,
-                result.total,
-                result.page || shopState.page,
-                result.pageSize || shopState.pageSize
-            );
-            renderPagination(
-                result.total,
-                result.page || shopState.page,
-                result.pageSize || shopState.pageSize
-            );
-        } catch (error) {
-            console.error("Product load error:", error);
-            grid.innerHTML =
-                '<div class="col-span-12 text-center py-16"><p class="text-error">Failed to load products. Please try again.</p></div>';
-        }
-    }
-
-    function readCheckedIds(selector) {
-        return Array.from(document.querySelectorAll(selector + " input[type=checkbox]:checked"))
-            .map(function (input) {
-                return input.value;
-            })
-            .filter(Boolean);
-    }
-
-    function readSelectedButtons(selector) {
-        return Array.from(document.querySelectorAll(selector + " button.active"))
-            .map(function (button) {
-                return button.getAttribute("data-id");
-            })
-            .filter(Boolean);
-    }
-
-    function syncStateFromUI() {
-        shopState.categoryIds = readCheckedIds("#filter-category-list");
-        shopState.brandIds = readCheckedIds("#filter-brand-list");
-        shopState.discountPercents = readCheckedIds("#filter-discount-list");
-        shopState.colorIds = readSelectedButtons("#filter-color-list");
-        shopState.sizeIds = readSelectedButtons("#filter-size-list");
-        shopState.hasDiscount = shopState.discountPercents.length > 0;
-
-        const minInput = document.querySelector(".price-range-min-value");
-        const maxInput = document.querySelector(".price-range-max-value");
-
-        if (minInput && maxInput) {
-            const minVal = Number(minInput.value);
-            const maxVal = Number(maxInput.value);
-            shopState.minPrice = Number.isNaN(minVal) ? null : minVal;
-            shopState.maxPrice = Number.isNaN(maxVal) ? null : maxVal;
-        }
-
-        const sortSelect = document.getElementById("sorting");
-        if (sortSelect) {
-            shopState.sortBy = SORT_MAP[sortSelect.value] || "popularity";
-        }
-    }
-
-    function bindFilterEvents() {
-        const applyFilters = debounce(function () {
-            syncStateFromUI();
-            shopState.page = 1;
-            shopState.searchQuery = "";
-            loadShopProducts();
-        }, 400);
-
-        document
-            .querySelectorAll(
-                "#filter-category-list input, #filter-brand-list input, #filter-discount-list input"
-            )
-            .forEach(function (input) {
-                input.addEventListener("change", applyFilters);
-            });
-
-        document.querySelectorAll("#filter-color-list button, #filter-size-list button").forEach(
-            function (button) {
-                button.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    button.classList.toggle("active");
-                    button.classList.toggle("ring-2");
-                    button.classList.toggle("ring-primary");
-                    applyFilters();
-                });
-            }
-        );
-
-        const sortSelect = document.getElementById("sorting");
-        if (sortSelect) {
-            sortSelect.addEventListener("change", applyFilters);
-        }
-
-        const priceSlider = document.getElementById("price-range-slider");
-        if (priceSlider && priceSlider.noUiSlider) {
-            priceSlider.noUiSlider.on("change", applyFilters);
-        }
-
-        const clearAll = document.querySelector(".sidebar-title a");
-        if (clearAll) {
-            clearAll.addEventListener("click", function (event) {
-                event.preventDefault();
-                resetAllFilters();
-                shopState.page = 1;
-                shopState.searchQuery = "";
-                loadShopProducts();
-            });
-        }
-    }
-
-    function resetAllFilters() {
-        document
-            .querySelectorAll(
-                "#filter-category-list input, #filter-brand-list input, #filter-discount-list input"
-            )
-            .forEach(function (input) {
-                input.checked = false;
-            });
-
-        document.querySelectorAll("#filter-color-list button, #filter-size-list button").forEach(
-            function (button) {
-                button.classList.remove("active", "ring-2", "ring-primary");
-            }
-        );
-
-        const priceSlider = document.getElementById("price-range-slider");
-        if (priceSlider && priceSlider.noUiSlider) {
-            priceSlider.noUiSlider.set([0, 10000]);
-        }
-
-        shopState.categoryIds = [];
-        shopState.brandIds = [];
-        shopState.colorIds = [];
-        shopState.sizeIds = [];
-        shopState.discountPercents = [];
-        shopState.minPrice = null;
-        shopState.maxPrice = null;
-        shopState.hasDiscount = false;
-    }
-
-    function initPriceSlider() {
-        const slider = document.getElementById("price-range-slider");
-        if (!slider || slider.noUiSlider || typeof noUiSlider === "undefined") return;
-
-        noUiSlider.create(slider, {
-            start: [0, 10000],
-            connect: true,
-            range: {
-                min: 0,
-                max: 10000,
-            },
-            step: 100,
+        // Generate and Inject Products HTML (Max 10 limit is controlled by API pageSize)
+        let productsHtml = '';
+        products.forEach(product => {
+            productsHtml += buildProductCardHTML(product);
         });
 
-        slider.noUiSlider.on("update", function (values) {
-            const minInput = document.querySelector(".price-range-min-value");
-            const maxInput = document.querySelector(".price-range-max-value");
-            if (minInput) minInput.value = Number(values[0]).toFixed(0);
-            if (maxInput) maxInput.value = Number(values[1]).toFixed(0);
-        });
+        container.innerHTML = productsHtml;
+
+    } catch (error) {
+        console.error("Error fetching section products:", error);
+        container.innerHTML = '<div class="col-span-full text-center py-8 text-red-500">Failed to load products.</div>';
     }
+}
 
-    function renderCheckboxFilter(containerSelector, items, labelKey, valueKey) {
-        const container = document.querySelector(containerSelector);
-        if (!container || !items.length) return;
+function buildProductCardHTML(product) {
+    const imageUrl = product.productImages && product.productImages.length > 0 
+        ? product.productImages[0].imageUrl 
+        : 'assets/images/default-product.jpg';
+        
+    const price = product.price || 0;
+    const discountPrice = product.discountPrice || price;
+    const discountPercent = product.discountPercents || 0;
+    const brandName = product.brand?.brandName || '';
 
-        container.innerHTML = items
-            .map(function (item) {
-                const label = item[labelKey];
-                const value = item[valueKey];
-                const checked = shopState.categoryIds.includes(String(value)) ? "checked" : "";
-
-                return (
-                    '<li><label class="group flex items-center justify-between w-full cursor-pointer">' +
-                    '<span class="flex items-center gap-x-2">' +
-                    '<span class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">' +
-                    '<span class="relative inline-flex w-5 h-5 items-center justify-center">' +
-                    '<input type="checkbox" value="' +
-                    value +
-                    '" class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out" ' +
-                    checked +
-                    " />" +
-                    '<span class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all">' +
-                    '<i class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"></i></span></span></span>' +
-                    '<span class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out">' +
-                    label +
-                    "</span></span></label></li>"
-                );
-            })
-            .join("");
-    }
-
-    function renderColorFilter(colors) {
-        const container = document.querySelector("#filter-color-list");
-        if (!container || !colors.length) return;
-
-        container.innerHTML = colors
-            .map(function (color) {
-                const hex = color.colorCode || color.hexCode || "#00AB55";
-                return (
-                    '<li class="inline-flex items-center justify-center">' +
-                    '<button type="button" data-id="' +
-                    color.id +
-                    '" title="' +
-                    (color.colorName || "") +
-                    '" class="w-8 h-8 inline-flex items-center justify-center rounded-full border border-gray-300" style="background-color:' +
-                    hex +
-                    '"></button></li>'
-                );
-            })
-            .join("");
-    }
-
-    function renderSizeFilter(sizes) {
-        const container = document.querySelector("#filter-size-list");
-        if (!container || !sizes.length) return;
-
-        container.innerHTML = sizes
-            .map(function (size) {
-                const label = size.sizeName || size.name || size.size;
-                return (
-                    '<li><button type="button" data-id="' +
-                    size.id +
-                    '" class="btn btn-default outline shadow-none py-[7px] px-[15px] rounded-[80px]">' +
-                    label +
-                    "</button></li>"
-                );
-            })
-            .join("");
-    }
-
-    function renderDiscountFilter() {
-        const container = document.querySelector("#filter-discount-list");
-        if (!container) return;
-
-        container.innerHTML = DISCOUNT_OPTIONS.map(function (percent) {
-            return (
-                '<li><label class="group flex items-center justify-between w-full cursor-pointer">' +
-                '<span class="flex items-center gap-x-2">' +
-                '<span class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">' +
-                '<span class="relative inline-flex w-5 h-5 items-center justify-center">' +
-                '<input type="checkbox" value="' +
-                percent +
-                '" class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out" />' +
-                '<span class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all">' +
-                '<i class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"></i></span></span></span>' +
-                '<span class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out">' +
-                percent +
-                "% OFF</span></span></label></li>"
-            );
-        }).join("");
-    }
-
-    function flattenCategories(categories, output) {
-        categories.forEach(function (category) {
-            output.push({
-                id: category.id,
-                categoryName: category.categoryName,
-            });
-
-            const children = category.subCategories || category.children || [];
-            if (children.length) {
-                flattenCategories(children, output);
-            }
-        });
-    }
-
-    async function loadFilterOptions() {
-        try {
-            const [catRes, brandRes, colorRes, sizeRes] = await Promise.all([
-                fetch(API_BASE + "/api/getcategories"),
-                fetch(API_BASE + "/api/brand/getallbrands"),
-                fetch(API_BASE + "/api/colors/get-all"),
-                fetch(API_BASE + "/api/size/getallsize"),
-            ]);
-
-            const categories = parseList(await catRes.json());
-            const brands = parseList(await brandRes.json());
-            const colors = parseList(await colorRes.json());
-            const sizes = parseList(await sizeRes.json());
-
-            const flatCategories = [];
-            flattenCategories(categories, flatCategories);
-
-            renderCheckboxFilter(
-                "#filter-category-list",
-                flatCategories,
-                "categoryName",
-                "id"
-            );
-            renderCheckboxFilter("#filter-brand-list", brands, "brandName", "id");
-            renderColorFilter(colors);
-            renderSizeFilter(sizes);
-            renderDiscountFilter();
-        } catch (error) {
-            console.error("Filter options error:", error);
-        }
-    }
-
-    function readUrlParams() {
-        const params = new URLSearchParams(window.location.search);
-        const searchQuery = params.get("q") || "";
-        const category =
-            params.get("category") || params.get("categoryId") || params.get("categoryIds");
-
-        if (searchQuery) {
-            shopState.searchQuery = searchQuery.trim();
-        }
-
-        if (category) {
-            shopState.categoryIds = [String(category)];
-        }
-    }
-
-    async function initShopPage() {
-        readUrlParams();
-        initPriceSlider();
-
-        if (shopState.searchQuery) {
-            document.querySelectorAll(".header-search-input").forEach(function (input) {
-                input.value = shopState.searchQuery;
-            });
-        }
-
-        await loadFilterOptions();
-
-        if (shopState.categoryIds.length) {
-            shopState.categoryIds.forEach(function (id) {
-                const input = document.querySelector(
-                    '#filter-category-list input[value="' + id + '"]'
-                );
-                if (input) input.checked = true;
-            });
-        }
-
-        bindFilterEvents();
-        loadShopProducts();
-    }
-
-    function debounce(fn, wait) {
-        let timer;
-        return function () {
-            clearTimeout(timer);
-            timer = setTimeout(fn, wait);
-        };
-    }
-
-    function initHeaderSearch() {
-        const inputs = document.querySelectorAll(".header-search-input");
-        if (!inputs.length) return;
-
-        inputs.forEach(function (input) {
-            const container = input.closest(".search-input-container");
-            const resultList = container
-                ? container.querySelector(".recommended-search-list")
-                : null;
-
-            const runSearch = debounce(async function () {
-                const query = input.value.trim();
-                if (!query || query.length < 2) {
-                    if (resultList) resultList.innerHTML = "";
-                    return;
-                }
-
-                try {
-                    const result = await fetchSearchProducts(query, 1, 5);
-                    if (!resultList) return;
-
-                    if (!result.items.length) {
-                        resultList.innerHTML =
-                            '<li class="py-2 text-light-secondary-text">No products found</li>';
-                        return;
-                    }
-
-                    resultList.innerHTML = result.items
-                        .map(function (product) {
-                            const productId = product.id || product.productId;
-                            const detailUrl = productId
-                                ? "product-detail.php?id=" + productId
-                                : "product-detail.php";
-
-                            return (
-                                '<li class="py-2">' +
-                                '<a href="' +
-                                detailUrl +
-                                '" class="flex items-center gap-3 hover:text-primary">' +
-                                '<img src="' +
-                                getProductImage(product) +
-                                '" alt="" class="w-10 h-10 rounded object-cover" />' +
-                                "<span>" +
-                                (product.productName || product.name || "Product") +
-                                "</span></a></li>"
-                            );
-                        })
-                        .join("");
-                } catch (error) {
-                    console.error("Search error:", error);
-                }
-            }, 350);
-
-            input.addEventListener("input", runSearch);
-
-            input.addEventListener("keydown", function (event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    const query = input.value.trim();
-                    if (!query) return;
-                    window.location.href =
-                        "shop-left-sidebar-4col.html?q=" + encodeURIComponent(query);
-                }
-            });
-        });
-    }
-})();
+    return `
+        <div class="col-span-1 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+            <div class="border border-gray-300 rounded-2xl product-card-1 p-4 group hover:border-primary transition-all duration-300">
+                <div class="product-image-container relative">
+                    <div class="product-image rounded-xl mb-4 overflow-hidden aspect-[4/5] flex items-center justify-center bg-gray-50">
+                        <a href="product-details.php?id=${product.id}" class="w-full h-full flex items-center justify-center">
+                            <img src="${imageUrl}" alt="${product.productName}" class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300 w-full h-full object-cover" />
+                        </a>
+                    </div>
+                </a>
+                
+                <div class="product-content text-center">
+                    ${discountPercent > 0 ? `
+                    <div class="limited-time-product-countdown sellzy-countdown flex items-center justify-center gap-x-1 bg-[#FF4842]/12 py-[5px] px-5 rounded-[50px] text-[12px] leading-[18px] text-error-dark mb-3 w-max mx-auto">
+                        <span class="font-semibold">-${discountPercent}% OFF</span>
+                    </div>` : ''}
+                    <h5 class="text-[20px] leading-[30px] font-bold py-3 truncate">
+                        <a href="product-details.php?id=${product.id}">${product.productName}</a>
+                    </h5>
+                    
+                    <div class="rating-section flex items-center justify-center mb-3">
+                        <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
+                            <div style="width: 80%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
+                        </div>
+                        <span class="text-sm leading-[22px] font-normal inline-block ml-1">(0)</span>
+                    </div>
+                    
+                    <div class="price-section flex items-center justify-center gap-x-3 mb-3">
+                        <span class="current-price text-[18px] leading-7 font-urbanist font-bold text-primary">₹${discountPrice}</span>
+                        ${price > discountPrice ? `<span class="old-price text-[18px] leading-7 font-urbanist font-semibold text-light-disabled-text line-through">₹${price}</span>` : ''}
+                    </div>
+                    
+                    <div class="btn-section flex items-center gap-x-4">
+                        <a class="size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300 cursor-pointer">
+                            <i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i>
+                        </a>
+                        <button class="btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1 shadow-none outline-none border-none">
+                            <i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}

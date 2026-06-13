@@ -174,8 +174,8 @@
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
         const detailUrl = productId
-            ? "product-details.html?id=" + productId
-            : "product-details.html";
+            ? "product-detail.php?id=" + productId
+            : "product-detail.php";
 
         return (
             '<div class="2xl:col-span-3 xl:col-span-4 md:col-span-6 col-span-12 wow animate__animated animate__fadeInUp" data-wow-delay=".' +
@@ -711,8 +711,8 @@
                         .map(function (product) {
                             const productId = product.id || product.productId;
                             const detailUrl = productId
-                                ? "product-details.html?id=" + productId
-                                : "product-details.html";
+                                ? "product-detail.php?id=" + productId
+                                : "product-detail.php";
 
                             return (
                                 '<li class="py-2">' +

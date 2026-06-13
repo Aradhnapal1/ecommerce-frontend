@@ -1724,18 +1724,18 @@
                     var dayNames = this._getDayNamesHtml(this.d.loc.firstDay),
                         days = this._getDaysHtml(this.d.currentDate);
 
-                    this.$cells.html(days);
-                    this.$names.html(dayNames)
+                    this.$cell.php(days);
+                    this.$name.php(dayNames)
                 },
                 months: function () {
                     var html = this._getMonthsHtml(this.d.currentDate);
 
-                    this.$cells.html(html)
+                    this.$cell.php(html)
                 },
                 years: function () {
                     var html = this._getYearsHtml(this.d.currentDate);
 
-                    this.$cells.html(html)
+                    this.$cell.php(html)
                 }
             },
 

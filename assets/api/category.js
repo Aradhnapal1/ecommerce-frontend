@@ -62,7 +62,7 @@ function renderDropdown(categories) {
         return `
         <li class="py-[9px] group relative category-item">
             <a
-                href="shop-left-sidebar-4col.html?category=${category.id}"
+                href="shop.php?category=${category.id}"
                 class="flex items-center gap-x-2 relative text-light-primary-text group-hover:text-primary pr-6"
             >
                 <span class="w-8 h-8 flex-shrink-0 bg-primary-lighter inline-flex items-center justify-center rounded-full overflow-hidden">
@@ -94,7 +94,7 @@ function renderDropdown(categories) {
                     
                     return `
                 <li class="py-[9px] px-4 group/item relative">
-                    <a href="shop-left-sidebar-4col.html?category=${sub.id}" class="flex items-center gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
+                    <a href="shop.php?category=${sub.id}" class="flex items-center gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
                         ${sub.categoryName}
                         ${hasGrandChildren ? `
                         <span class="absolute right-0 top-1/2 -translate-y-1/2">
@@ -106,7 +106,7 @@ function renderDropdown(categories) {
                     <ul class="absolute left-full top-0 z-60 w-[250px] max-w-[250px] bg-white rounded-2xl divide-y divide-gray-300 shadow-dark-z-24 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 transform translate-x-4 group-hover/item:translate-x-0">
                         ${grandChildren.map(grand => `
                         <li class="py-[9px] px-4 group/sub">
-                            <a href="shop-left-sidebar-4col.html?category=${grand.id}" class="flex items-center gap-x-2 relative text-light-primary-text group-hover/sub:text-primary">
+                            <a href="shop.php?category=${grand.id}" class="flex items-center gap-x-2 relative text-light-primary-text group-hover/sub:text-primary">
                                 ${grand.categoryName}
                             </a>
                         </li>
@@ -165,7 +165,7 @@ function renderGrid(categories) {
         <div class="hover:border-primary border border-gray-300 rounded-2xl col-span-6 md:col-span-4 xl:col-span-2 lg:col-span-3 p-3 transition-all duration-300 wow animate__animated animate__fadeInUp group"
             data-wow-delay=".2s">
 
-            <a href="shop-left-sidebar-4col.html?category=${category.id}"
+            <a href="shop.php?category=${category.id}"
                 class="flex md:flex-row flex-col items-center justify-center gap-3">
 
                 <div class="max-w-[100px] flex items-center justify-center w-full">

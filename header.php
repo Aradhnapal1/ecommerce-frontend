@@ -179,10 +179,10 @@
 
                         </li>
                         <li>
-                            <a href='about.html'>About Us</a>
+                            <a href='about.php'>About Us</a>
                         </li>
                         <li>
-                            <a href="#">Shop</a>
+                            <a href="shop.php">Shop</a>
 
                         </li>
                         <li>
@@ -191,8 +191,8 @@
                         </li>
 
                         <li><a href='my-account.html'>My Account</a></li>
-                        <li><a href='blog-grid.html'>Blog Grid</a></li>
-                        <li><a href='contact.html'>Contact</a></li>
+                        <li><a href='blog-grid.php'>Blog Grid</a></li>
+                        <li><a href='contact.php'>Contact</a></li>
                     </ul>
                 </nav>
                 <div class="border border-gray-500/24 p-5 rounded-2xl">
@@ -254,7 +254,7 @@
             <div class="similar-products-content p-6 flex flex-col gap-y-4 overflow-y-auto h-[calc(100%-100px)]">
                 <div class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl">
                     <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative'
-                        href='product-details.html'>
+                        href='product-detail.php'>
                         <img src="assets/images/vitamin-c.png" alt="Product Image"
                             class="w-full h-full object-cover rounded-xl" />
                         <span
@@ -262,7 +262,7 @@
                     </a>
                     <div class="similar-product-item-content flex flex-col gap-y-2 flex-1">
                         <h6 class="text-base font-semibold">
-                            <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                            <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                         </h6>
                         <p class="text-sm leading-[22px]">Shop Name</p>
                         <div class="flex items-center justify-between">
@@ -298,14 +298,14 @@
                 <div
                     class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl">
                     <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative'
-                        href='product-details.html'>
+                        href='product-detail.php'>
                         <img src="assets/images/home-3/watermelon.png" alt="Product Image"
                             class="w-full h-full object-cover rounded-xl" />
                     </a>
                     <div class="cart-product-item-content flex flex-col gap-y-2 flex-1 w-full">
                         <div class="flex items-center justify-between gap-x-2">
                             <h6 class="text-base font-semibold">
-                                <a href='product-details.html'>Fresh Bask Basket Fruits</a>
+                                <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
                             </h6>
                             <div class="cart-edit-remove flex items-center gap-x-3">
                                 <button>
@@ -1827,7 +1827,7 @@
                         <ul class="flex items-center text-white">
                             <li>
                                 <a class='text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2'
-                                    href='about.html'>About us</a>
+                                    href='about.php'>About us</a>
                             </li>
                             <li>
                                 <a href="#"
@@ -2143,10 +2143,10 @@
                             </li>
 
                             <li>
-                                <a href='about.html'>About Us </a>
+                                <a href='about.php'>About Us </a>
                             </li>
                             <li>
-                                <a href="banner-category-filter-4col.html">Shop </a>
+                                <a href="shop.php">Shop </a>
                               
                             </li>
                             <!-- <li>
@@ -2165,10 +2165,10 @@
                                 </ul>
                             </li> -->
 
-                            <li><a href='blog-grid.html'>Blog </a></li>
+                            <li><a href='blog-grid.php'>Blog </a></li>
                             <li><a href='my-account.html'>My Account</a></li>
                             <li>
-                                <a href='contact.html'>Contact </a>
+                                <a href='contact.php'>Contact </a>
                             </li>
                         </ul>
                     </nav>

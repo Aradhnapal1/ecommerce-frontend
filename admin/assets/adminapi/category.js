@@ -9,7 +9,8 @@ async function loadCategories() {
         const res = await adminFetch(`${domin}/api/getcategories`);
         const result = await res.json();
 
-        const data = result.value.data;
+        // Extracting data safely matching the provided response structure
+        const data = result?.data || result?.value?.data || [];
         let html = "";
 
         data.forEach(cat => {

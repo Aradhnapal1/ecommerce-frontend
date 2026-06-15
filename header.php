@@ -288,7 +288,7 @@
                 </div>
                 <div class="cart-buttons flex items-center gap-x-4">
                     <a class='btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none'
-                        href='cart-single-vendor.html'>
+                        href='cart-single-vendor.php'>
                         View Cart
                     </a>
                     <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout.html'>

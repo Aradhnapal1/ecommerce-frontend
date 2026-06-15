@@ -143,6 +143,15 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCartItemQuantity(cartId, quantityChange, qtyBtn);
         }
     });
+
+    // Handle clear entire cart
+    document.body.addEventListener("click", function (e) {
+        const clearBtn = e.target.closest("#clear-cart-btn");
+        if (clearBtn) {
+            e.preventDefault();
+            clearEntireCart();
+        }
+    });
 });
 
 async function fetchGlobalCart() {
@@ -233,14 +242,16 @@ async function fetchGlobalCart() {
                     }).join("");
                 }
             }
+            
+            renderCartPage(items, grandTotal);
         } else {
-            const message = !token
-                ? "Please login to view your cart."
-                : "Your cart is empty.";
+            const message = "Your cart is empty.";
             if (cartList) cartList.innerHTML = `<p class="text-center text-light-secondary-text py-10">${message}</p>`;
             if (cartCountText) cartCountText.textContent = '0 Items in Cart';
             if (cartSubtotalText) cartSubtotalText.textContent = '₹0.00';
             updateCartCountUI(0);
+            
+            renderCartPage([], 0);
         }
     } catch (e) {
         console.error("Error fetching global cart count", e);
@@ -377,4 +388,158 @@ async function updateCartItemQuantity(cartId, quantityChange, btnElement) {
         if (input) input.style.opacity = 1;
     }
     // On success, fetchGlobalCart will re-render the whole list, so we don't need to manually re-enable buttons.
+}
+
+function renderCartPage(items, grandTotal) {
+    const tbody = document.getElementById("cart-page-tbody");
+    if (!tbody) return; // Exit if not on cart page
+
+    const token = localStorage.getItem("UserToken");
+    
+    if (!items || items.length === 0) {
+        const msg = "Your cart is empty.";
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-10 font-semibold text-gray-500">${msg}</td></tr>`;
+        
+        const subtotalEl = document.getElementById("cart-page-subtotal");
+        const totalEl = document.getElementById("cart-page-total");
+        if (subtotalEl) subtotalEl.textContent = "₹0.00";
+        if (totalEl) totalEl.textContent = "₹0.00";
+        
+        const cartCountTitle = document.querySelector(".pb-\\[70px\\] .flex.items-center.justify-between.mb-6 h5 + p");
+        if (cartCountTitle) cartCountTitle.textContent = `(0 items)`;
+        return;
+    }
+
+    let html = "";
+    
+    items.forEach(item => {
+        const price = item.salePrice ?? item.mrp ?? 0;
+        const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
+        const image = item.imageUrl || "assets/images/no-image.png";
+        const itemTotal = price * (item.quantity || 1);
+
+        let attributes = [];
+        if (item.colorName) attributes.push(`Color: ${item.colorName}`);
+        if (item.sizeName) attributes.push(`Size: ${item.sizeName}`);
+        const attrText = attributes.length ? `<p class="text-sm leading-[22px] font-normal text-light-secondary-text inline-flex items-center gap-x-2.5">${attributes.join(", ")}</p>` : "";
+
+        html += `
+            <tr class="py-4">
+                <td data-title="Product" class="py-4 px-3 lg:px-4 product">
+                    <div class="flex items-end md:items-start gap-x-4 flex-col md:flex-row gap-y-4">
+                        <div class="product-thumbnail max-w-[120px] h-[120px] rounded-2xl bg-[#F4F3F5] shrink-0 overflow-hidden">
+                            <img src="${image}" alt="${item.productName}" class="rounded-2xl h-full w-full object-cover" />
+                        </div>
+                        <div class="flex flex-col gap-y-2 items-end md:items-start">
+                            <a class="product-name text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300" href="product-detail.php?id=${item.productId}">
+                                ${item.productName}
+                            </a>
+                            ${attrText}
+                        </div>
+                    </div>
+                </td>
+                <td data-title="Price" class="capitalize py-4 px-3 lg:px-0 product-price">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-light-primary-text font-semibold">₹${price.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
+                        ${oldPrice ? `<span class="line-through text-light-disabled-text font-normal">₹${oldPrice.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>` : ""}
+                    </div>
+                </td>
+                <td data-title="Quantity" class="capitalize py-4 px-3 lg:px-0 product-quantity">
+                    <div class="border border-gray-300 inline-flex items-center justify-center rounded-[80px] max-w-[108px] py-2.5 px-4">
+                        <button class="cart-qty-btn cart-qty-minus inline-flex items-center justify-center hover:text-primary" data-action="decrease" data-cart-id="${item.cartId}" data-qty="${item.quantity}">
+                            <i class="hgi hgi-stroke hgi-remove-circle text-xl leading-6"></i>
+                        </button>
+                        <input type="text" readonly value="${item.quantity}" class="quantity-input border-0 w-full grow text-center focus:outline-none font-semibold text-light-primary-text" />
+                        <button class="cart-qty-btn cart-qty-plus inline-flex items-center justify-center hover:text-primary" data-action="increase" data-cart-id="${item.cartId}" data-qty="${item.quantity}">
+                            <i class="hgi hgi-stroke hgi-add-circle text-xl leading-6"></i>
+                        </button>
+                    </div>
+                </td>
+                <td data-title="Total Price" class="capitalize py-4 px-3 lg:px-0 product-total-price">
+                    <p class="font-semibold text-light-primary-text">₹${itemTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</p>
+                </td>
+                <td data-title="Action" class="capitalize py-4 px-3 lg:px-4 product-actions">
+                    <div class="flex items-center justify-center gap-x-2 md:gap-x-6">
+                        <button class="remove-from-cart-btn inline-flex items-center justify-center product-remove" data-cart-id="${item.cartId}">
+                            <i class="hgi hgi-stroke hgi-delete-01 text-2xl leading-6 text-light-primary-text hover:text-error transition-colors"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+
+    const subtotalEl = document.getElementById("cart-page-subtotal");
+    const totalEl = document.getElementById("cart-page-total");
+    
+    if (subtotalEl) subtotalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+    if (totalEl) totalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+    
+    const cartCountTitle = document.querySelector(".pb-\\[70px\\] .flex.items-center.justify-between.mb-6 h5 + p");
+    if (cartCountTitle) cartCountTitle.textContent = `(${items.length} item${items.length !== 1 ? 's' : ''})`;
+}
+
+function clearEntireCart() {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to clear your entire cart?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">
+                Yes, Clear All
+            </button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">
+                No
+            </button>
+        </div>
+    `;
+
+    const toast = Toastify({
+        node: container,
+        duration: -1,
+        close: false,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+            borderRadius: "10px"
+        }
+    });
+
+    toast.showToast();
+
+    container.querySelector(".toast-yes-btn").addEventListener("click", async function () {
+        toast.hideToast();
+        
+        try {
+            const token = localStorage.getItem("UserToken");
+            const headers = { "Content-Type": "application/json" };
+            if (token) headers["Authorization"] = "Bearer " + token;
+
+            const response = await fetch(`${API_BASE_CART}/api/addcart/clear`, {
+                method: "DELETE",
+                headers: headers
+            });
+            
+            const result = await response.json();
+
+            if (response.ok || result.status || result.success || result?.value?.status === true) {
+                Toastify({ text: "✅ Cart cleared successfully", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                fetchGlobalCart(); // Re-fetch to update totals, counts, and empty the item list
+            } else {
+                Toastify({ text: `❌ Failed to clear cart: ${result.message || 'Unknown error'}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            }
+        } catch (err) {
+            console.error("Error clearing cart:", err);
+            Toastify({ text: "❌ Server error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        }
+    });
+
+    container.querySelector(".toast-no-btn").addEventListener("click", function () {
+        toast.hideToast();
+    });
 }

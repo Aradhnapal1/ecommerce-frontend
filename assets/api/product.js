@@ -146,8 +146,8 @@
 
     function formatPrice(value) {
         const amount = Number(value);
-        if (Number.isNaN(amount)) return "?0";
-        return "?" + amount.toLocaleString("en-IN");
+        if (Number.isNaN(amount)) return "₹0";
+        return "₹" + amount.toLocaleString("en-IN");
     }
 
     function getProductImage(product) {
@@ -171,19 +171,6 @@
         return Math.round(Number(discount)) + "% OFF";
     }
 
-    function buildProductDetailUrl(product) {
-        const productId = product.id || product.productId;
-        const slug = product.slug || "";
-
-        if (!productId) return "product-detail.php";
-
-        let url = "product-detail.php?id=" + encodeURIComponent(productId);
-        if (slug) {
-            url += "&slug=" + encodeURIComponent(slug);
-        }
-        return url;
-    }
-
     function renderProductCard(product, index) {
         const delay = ((index % 4) + 2) * 0.1;
         const productId = product.id || product.productId;
@@ -191,7 +178,9 @@
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
-        const detailUrl = buildProductDetailUrl(product);
+        const detailUrl = productId
+            ? "product-detail.php?id=" + productId
+            : "product-detail.php";
 
         return (
             '<div class="2xl:col-span-3 xl:col-span-4 md:col-span-6 col-span-12 wow animate__animated animate__fadeInUp" data-wow-delay=".' +
@@ -815,7 +804,9 @@
                     resultList.innerHTML = result.items
                         .map(function (product) {
                             const productId = product.id || product.productId;
-                            const detailUrl = buildProductDetailUrl(product);
+                            const detailUrl = productId
+                                ? "product-detail.php?id=" + productId
+                                : "product-detail.php";
 
                             return (
                                 '<li class="py-2">' +
@@ -871,6 +862,10 @@
             }
 
             container.innerHTML = products.map(renderTopDiscountedCard).join("");
+            
+            if (typeof window.updateAllWishlistIcons === "function") {
+                window.updateAllWishlistIcons();
+            }
         } catch (error) {
             console.error("Top discounted products error:", error);
             container.innerHTML =
@@ -891,12 +886,14 @@
     function renderTopDiscountedCard(product, index) {
         const delays = [0.2, 0.3, 0.4, 0.5];
         const delay = delays[index % delays.length];
-        const productId = product.id || product.productId;
+        const productId = product.id || product.productId || "";
         const productName = product.productName || product.name || "Product";
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountPercent = getDiscountPercent(product);
-        const detailUrl = buildProductDetailUrl(product);
+        const detailUrl = productId
+            ? "product-detail.php?id=" + productId
+            : "product-detail.php";
 
         return (
             '<div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300" data-wow-delay=".' +

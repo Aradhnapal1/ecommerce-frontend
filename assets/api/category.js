@@ -403,6 +403,10 @@ async function loadHomeCategoryProducts(categoryId, slug) {
 
         grid.innerHTML = products.map(renderHomeProductCard).join("");
         initHomeProductCountdowns(grid);
+        
+        if (typeof window.updateAllWishlistIcons === "function") {
+            window.updateAllWishlistIcons();
+        }
     } catch (error) {
         console.error("Home Products Error:", error);
         grid.innerHTML =

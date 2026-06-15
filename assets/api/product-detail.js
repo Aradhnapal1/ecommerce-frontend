@@ -257,7 +257,11 @@
         if (breadcrumbName) breadcrumbName.textContent = product.productName || "Product Details";
 
         const title = document.getElementById("product-title");
-        if (title) title.textContent = product.productName || "Product";
+        if (title) {
+            title.textContent = product.productName || "Product";
+            // Remove CSS line clamping that causes the "..." visual truncation
+            title.classList.remove("line-clamp-1", "line-clamp-2");
+        }
 
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;

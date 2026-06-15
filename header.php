@@ -52,6 +52,7 @@
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+     <script src="./assets/api/authUser.js"></script>
 
 </head>
 
@@ -386,7 +387,7 @@
                 class="text-light-disabled-text text-center relative before:absolute before:-z-1 before:top-1/2 before:-translate-y-1/2 before:w-full before:h-px before:bg-gray-300 before:left-0">
                 <span class="bg-white px-4 z-1">Or sign up with</span>
             </p>
-            <div class="flex items-center gap-x-4">
+            <!-- <div class="flex items-center gap-x-4">
                 <button class="btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -414,10 +415,11 @@
 
                     Facebook
                 </button>
-            </div>
+            </div> -->
             <div class="register-form">
-                <form class="flex flex-col gap-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
+                <form class="flex flex-col gap-y-6" id="userRegisterForm">
+                    <div id="registerFields" class="flex flex-col gap-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
                         <div class="relative w-full">
                             <input type="text" id="first-name"
                                 class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
@@ -438,6 +440,16 @@
                                 Last Name *
                             </label>
                         </div>
+                    </div>
+                    <div class="relative w-full">
+                            <input type="number" id="register-phone"
+                            class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                placeholder="Phone Number *" />
+
+                            <label for="register-phone"
+                            class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                Phone Number *
+                        </label>
                     </div>
                     <div class="relative w-full">
                         <input type="email" id="register-email"
@@ -469,9 +481,21 @@
                             Confirm Password *
                         </label>
                     </div>
+                    </div>
+                    <div id="otpContainer" style="display: none;" class="flex flex-col gap-y-6">
+                        <div class="relative w-full">
+                            <input type="text" id="register-otp"
+                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                placeholder="Enter OTP" />
+                            <label for="register-otp"
+                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                Enter OTP
+                            </label>
+                        </div>
+                    </div>
                     <div>
-                        <button class="btn btn-primary btn-large rounded-[80px] w-full">
-                            Create Account
+                        <button type="submit" id="registerSubmitBtn" class="btn btn-primary btn-large rounded-[80px] w-full">
+                            Otp Sent
                         </button>
                     </div>
                 </form>
@@ -534,7 +558,7 @@
                 </button>
             </div>
             <div class="login-form">
-                <form class="flex flex-col gap-y-6">
+                <form class="flex flex-col gap-y-6" id="userLoginForm">
                     <div class="relative w-full">
                         <input type="email" id="login-email"
                             class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
@@ -560,7 +584,7 @@
                             Password?</a>
                     </div>
                     <div>
-                        <button class="btn btn-primary btn-large rounded-[80px] w-full">
+                        <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-large rounded-[80px] w-full">
                             Sign In
                         </button>
                     </div>
@@ -1937,7 +1961,7 @@
                                                 Forget Password
                                             </a>
                                         </li>
-                                        <li class="px-4 group/item">
+                                        <!-- <li class="px-4 group/item">
                                             <a href="#"
                                                 class="reset-password-page-btn flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
                                                 <span
@@ -1947,8 +1971,8 @@
                                                 </span>
                                                 Set Password
                                             </a>
-                                        </li>
-                                        <li class="px-4 group/item">
+                                        </li> -->
+                                        <!-- <li class="px-4 group/item">
                                             <a href="#"
                                                 class="otp-verification-page-btn flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
                                                 <span
@@ -1958,7 +1982,7 @@
                                                 </span>
                                                 OTP Verification
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                                 <li class="flex items-center">

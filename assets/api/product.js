@@ -588,7 +588,36 @@ if (document.getElementById("top-discounted-products")) {
                 "#filter-category-list input, #filter-brand-list input, #filter-discount-list input"
             )
             .forEach(function (input) {
-                input.addEventListener("change", applyFilters);
+                input.addEventListener("change", function () {
+                    if (this.closest('#filter-category-list')) {
+                        const li = this.closest('li');
+                        let childUl = null;
+                        for (let i = 0; i < li.children.length; i++) {
+                            if (li.children[i].tagName === 'UL') {
+                                childUl = li.children[i];
+                                break;
+                            }
+                        }
+                        if (childUl) {
+                            childUl.style.display = this.checked ? "flex" : "none";
+                        }
+                        
+                        if (!this.checked) {
+                            const childInputs = li.querySelectorAll("ul input[type=checkbox]");
+                            childInputs.forEach(ci => {
+                                ci.checked = false;
+                                const cLi = ci.closest("li");
+                                for (let j = 0; j < cLi.children.length; j++) {
+                                    if (cLi.children[j].tagName === 'UL') {
+                                        cLi.children[j].style.display = "none";
+                                        break;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    applyFilters();
+                });
             });
 
         document.querySelectorAll("#filter-color-list button, #filter-size-list button").forEach(
@@ -676,6 +705,54 @@ if (document.getElementById("top-discounted-products")) {
             if (minInput) minInput.value = Number(values[0]).toFixed(0);
             if (maxInput) maxInput.value = Number(values[1]).toFixed(0);
         });
+    }
+
+    function renderCategoryTree(containerSelector, categories, selectedSlugs) {
+        const container = document.querySelector(containerSelector);
+        if (!container || !categories.length) return;
+
+        const selected = selectedSlugs || [];
+
+        function isAnyDescendantSelected(cat) {
+            if (selected.includes(String(cat.slug))) return true;
+            const children = cat.subCategories || cat.children || [];
+            return children.some(isAnyDescendantSelected);
+        }
+
+        function buildTreeHTML(cats) {
+            if (!cats || !cats.length) return "";
+            return cats.map(function(cat) {
+                const label = cat.categoryName;
+                const value = cat.slug;
+                if (!value) return "";
+                const checked = selected.includes(String(value)) ? "checked" : "";
+                const children = cat.subCategories || cat.children || [];
+                
+                const hasChildren = children.length > 0;
+                const expand = isAnyDescendantSelected(cat);
+                
+                const childrenHTML = hasChildren ? '<ul class="pl-6 flex-col gap-y-2 mt-2" style="display: ' + (expand ? 'flex' : 'none') + ';">' + buildTreeHTML(children) + '</ul>' : "";
+
+                return (
+                    '<li class="widget-category-content-list-items">' +
+                    '<label class="group flex items-center justify-between w-full cursor-pointer">' +
+                    '<span class="flex items-center gap-x-2">' +
+                    '<span class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">' +
+                    '<span class="relative inline-flex w-5 h-5 items-center justify-center">' +
+                    '<input type="checkbox" value="' + value + '" class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out" ' + checked + ' />' +
+                    '<span class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all">' +
+                    '<i class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"></i>' +
+                    '</span></span></span>' +
+                    '<span class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out">' +
+                    label +
+                    '</span></span></label>' +
+                    childrenHTML +
+                    '</li>'
+                );
+            }).join("");
+        }
+
+        container.innerHTML = buildTreeHTML(categories);
     }
 
     function renderCheckboxFilter(containerSelector, items, labelKey, valueKey, selectedSlugs) {
@@ -817,11 +894,9 @@ if (document.getElementById("top-discounted-products")) {
             });
             updateShopBreadcrumb(categoryNameMap);
 
-            renderCheckboxFilter(
+            renderCategoryTree(
                 "#filter-category-list",
-                flatCategories,
-                "categoryName",
-                "slug",
+                categories,
                 shopState.categorySlugs
             );
             renderCheckboxFilter(

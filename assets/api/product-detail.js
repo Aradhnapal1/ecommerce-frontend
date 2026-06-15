@@ -183,16 +183,20 @@
             if (opt.isBase && !product.isVariant) isActive = true;
             if (!opt.isBase && product.isVariant && String(product.variantId) === String(opt.id)) isActive = true;
 
-            const activeClass = isActive 
-                ? "border-primary bg-[rgba(145,158,171,0.08)]" 
-                : "border-gray-300 text-light-primary-text";
-
             const dataAttr = opt.isBase ? 'data-is-base="true"' : 'data-variant-id="' + opt.id + '"';
+            
+            // Use API color code, or fallback to CSS color name (e.g., "Navy" -> "navy")
+            let colorCode = opt.colorCode || opt.hexCode || opt.displayColorName || "#cccccc";
+            if (colorCode.toLowerCase() === "default") colorCode = "#cccccc"; // Safe default
+            colorCode = colorCode.replace(/\s+/g, "").toLowerCase(); // Remove spaces for CSS compatibility
+            
+            let buttonClasses = "variant-color-btn cursor-pointer flex items-center justify-center rounded-full size-10 border transition-all ";
+            buttonClasses += isActive ? "border-primary ring-2 ring-primary ring-offset-2" : "border-gray-300 hover:border-primary";
+            let buttonStyle = 'style="background-color: ' + colorCode + ';"';
 
             html += 
                 '<div class="color-variation-item">' +
-                '<button type="button" ' + dataAttr + ' title="' + opt.displayColorName + '" class="variant-color-btn cursor-pointer flex items-center justify-center rounded-full size-10 border ' + activeClass + ' hover:border-primary hover:bg-[rgba(145,158,171,0.08)] px-3">' +
-                '<span class="text-sm font-semibold capitalize line-clamp-1">' + opt.displayColorName + '</span>' +
+                '<button type="button" ' + dataAttr + ' title="' + opt.displayColorName + '" class="' + buttonClasses + '" ' + buttonStyle + '>' +
                 '</button></div>';
         });
 

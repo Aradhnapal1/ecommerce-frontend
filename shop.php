@@ -1427,13 +1427,7 @@
               <div class="flex items-center gap-x-4 shrink-0 justify-start">
                 <!-- vendor-filter-button -->
                 <div class="flex items-center gap-x-4">
-                  <a class='w-10 h-10 rounded-full inline-flex items-center justify-center btn btn-default outline shadow-none cursor-pointer' href='banner-list-with-sidebar.html'>
-                    <span class="inline-flex items-center justify-center">
-                      <i
-                        class="hgi hgi-stroke hgi-left-to-right-list-bullet text-2xl leading-6"
-                      ></i>
-                    </span>
-                  </a>
+                 
                   <a
                     href="#"
                     class="w-10 h-10 rounded-full inline-flex items-center justify-center btn-primary cursor-pointer"

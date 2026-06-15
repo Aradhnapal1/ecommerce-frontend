@@ -207,11 +207,17 @@
                 </nav>
                 <div class="border border-gray-500/24 p-5 rounded-2xl">
                     <div class="flex flex-col gap-y-3">
-                        <a href="#" class="flex items-center gap-x-2 login-page-btn">
+                        <a href="#" class="flex items-center gap-x-2 login-page-btn guest-only-block">
                             <span class="inline-flex items-center justify-center bg-warning size-8 rounded-full"><i
                                     class="hgi hgi-stroke hgi-lock-sync-01 text-base text-light-primary-text"></i>
                             </span>
                             log in / Sign Up
+                        </a>
+                        <a href="javascript:void(0)" onclick="localStorage.removeItem('UserToken'); window.location.reload();" class="items-center gap-x-2 user-only-block" style="display: none;">
+                            <span class="inline-flex items-center justify-center bg-primary size-8 rounded-full"><i
+                                    class="hgi hgi-stroke hgi-logout-01 text-base text-white"></i>
+                            </span>
+                            Log Out
                         </a>
                         <a href="#" class="flex items-center gap-x-2">
                             <span class="inline-flex items-center justify-center bg-warning size-8 rounded-full">
@@ -1862,11 +1868,11 @@
                                 <a class='text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2'
                                     href='about.php'>About us</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="my-account.php"
                                     class="text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2">My
                                     Account</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="wishlist.php"
                                     class="text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2">My
@@ -1911,7 +1917,7 @@
 
                         <div class="flex items-center gap-x-6 shrink-0">
                             <ul class="flex items-center gap-x-6">
-                                <li class="flex items-center gap-x-4 cursor-pointer relative group">
+                                <li class="flex items-center gap-x-4 cursor-pointer relative group guest-only-block">
                                     <p class="flex items-center">
                                         <span
                                             class="inline-flex items-center justify-center bg-warning w-12 h-12 rounded-full">
@@ -1983,6 +1989,26 @@
                                                 OTP Verification
                                             </a>
                                         </li> -->
+                                    </ul>
+                                </li>
+                                <li class="items-center gap-x-4 cursor-pointer relative group user-only-block" style="display: none;">
+                                    <p class="flex items-center">
+                                        <span class="inline-flex items-center justify-center bg-primary w-12 h-12 rounded-full">
+                                            <i class="hgi hgi-stroke hgi-user text-2xl text-white"></i>
+                                        </span>
+                                    </p>
+                                    <p class="flex flex-col text-light-secondary-text text-sm leading-[22px]">
+                                        Welcome
+                                        <span class="text-base leading-6 text-light-primary-text">My Account</span>
+                                    </p>
+                                    <span><i class="hgi hgi-stroke hgi-arrow-down-01 text-2xl text-light-primary-text"></i></span>
+                                    <ul class="absolute right-0 top-full py-2 z-10 w-[200px] bg-white rounded-lg shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                                        <li class="px-4 group/item">
+                                            <a href="my-account.php" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Dashboard</a>
+                                        </li>
+                                        <li class="px-4 group/item">
+                                            <a href="javascript:void(0)" onclick="localStorage.removeItem('UserToken'); window.location.reload();" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Log Out</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="flex items-center">

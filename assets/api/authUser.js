@@ -5,6 +5,22 @@ const LOGIN_API = `${domin}/api/user/login`;
 let registeredEmail = "";
 
 document.addEventListener("DOMContentLoaded", () => {
+    
+    // Check User Authentication Status
+    const token = localStorage.getItem("UserToken");
+    if (token) {
+        document.querySelectorAll(".guest-only-block").forEach(el => {
+            el.style.display = "none";
+        });
+        document.querySelectorAll(".user-only-block").forEach(el => {
+            if (el.tagName === "LI" || el.tagName === "A" || el.classList.contains("flex")) {
+                el.style.display = "flex";
+            } else {
+                el.style.display = "block";
+            }
+        });
+    }
+
     const registerForm = document.getElementById("userRegisterForm");
     const loginForm = document.getElementById("userLoginForm");
 

@@ -214,7 +214,7 @@ async function loadWishlist() {
                             <button class="btn btn-warning px-4 md:px-[22px] rounded-[80px] font-semibold py-[11px] md:text-base md:leading-[26px] text-[13px] leading-[22px] product-buy-now">
                                 Buy Now
                             </button>
-                            <a class="btn btn-primary font-semibold md:px-6 px-2.5 py-[11px] rounded-[80px] md:text-base md:leading-[26px] text-[13px] leading-[22px] product-add-to-cart" href="javascript:void(0)" data-product-id="${product.id}">
+                            <a class="add-to-cart-btn btn btn-primary font-semibold md:px-6 px-2.5 py-[11px] rounded-[80px] md:text-base md:leading-[26px] text-[13px] leading-[22px]" href="javascript:void(0)" data-product-id="${product.id}">
                                 <span class="inline-flex items-center justify-center">
                                     <i class="hgi hgi-stroke hgi-shopping-cart-02 md:text-2xl text-xl md:leading-6 leading-5"></i>
                                 </span>

@@ -7,6 +7,30 @@ document.addEventListener("DOMContentLoaded", function () {
     loadHomeCategorySections();
     initHomeQuickViewDelegation();
 
+    if (!window.quantityLogicAdded) {
+        document.body.addEventListener("click", function(e) {
+            const qtyBtn = e.target.closest(".quantity-btn");
+            if (!qtyBtn) return;
+            
+            e.preventDefault();
+            const container = qtyBtn.closest(".quantity-section");
+            if (!container) return;
+            
+            const input = container.querySelector(".quantity-input");
+            if (!input) return;
+            
+            let qty = parseInt(input.value) || 1;
+            
+            if (qtyBtn.querySelector(".hgi-plus-sign") || qtyBtn.textContent.includes("+")) {
+                qty++;
+            } else if (qtyBtn.querySelector(".hgi-minus-sign") || qtyBtn.textContent.includes("-")) {
+                if (qty > 1) qty--;
+            }
+            
+            input.value = qty;
+        });
+        window.quantityLogicAdded = true;
+    }
 });
 
 
@@ -464,7 +488,7 @@ function renderHomeProductHoverActions(product) {
         '<i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i>' +
         "</a></li>" +
         "<li>" +
-        '<a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="#" data-product-id="' + productId + '">' +
+        '<a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '">' +
         '<i class="hgi hgi-stroke hgi-view text-2xl leading-6 text-light-primary-text"></i>' +
         "</a></li>" +
         "</ul></div>"
@@ -473,7 +497,7 @@ function renderHomeProductHoverActions(product) {
 
 function renderHomeProductCard(product, index) {
     const delay = ((index % 5) + 2) * 0.1;
-    const productId = product.id || product.productId;
+    const productId = product.id || product.productId || "";
     const productName = product.productName || product.name || "Product";
     
     // Truncate product name to 5 words max
@@ -541,7 +565,7 @@ function renderHomeProductCard(product, index) {
         '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
         '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + (product.variantId || "") + '">' +
         '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
-        '<a class="btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="cart-single-vendor.html">' +
+            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
         '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
         "<span>Add to Cart</span></a></div></div></div></div>"
     );
@@ -663,6 +687,27 @@ function initHomeQuickViewDelegation() {
                         if (items) {
                             items.innerHTML = sizeNames.map((size, index) => '<div class="size-variation-item">' + '<button type="button" data-size-text="' + size + '" class="cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' + (index === 0 ? "border-primary bg-primary text-white hover:bg-primary" : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") + '">' + size + "</button></div>").join("");
                         }
+                    }
+                }
+
+                const btnSection = sidebar.querySelector(".product-add-to-cart-btn-section");
+                if (btnSection) {
+                    const addToCartBtn = btnSection.querySelector(".btn-primary");
+                    if (addToCartBtn) {
+                        addToCartBtn.classList.add("add-to-cart-btn");
+                        addToCartBtn.setAttribute("data-product-id", product.id || product.productId || "");
+                    }
+                    const buyNowBtn = btnSection.querySelector(".btn-warning");
+                    if (buyNowBtn) {
+                        buyNowBtn.classList.add("buy-now-btn");
+                        buyNowBtn.setAttribute("data-product-id", product.id || product.productId || "");
+                    }
+                    const qtyInput = btnSection.querySelector(".quantity-input");
+                    if (qtyInput) qtyInput.value = "1";
+                } else {
+                    const addToCartBtn = sidebar.querySelector(".add-to-cart-btn");
+                    if (addToCartBtn) {
+                        addToCartBtn.setAttribute("data-product-id", product.id || product.productId || "");
                     }
                 }
             }

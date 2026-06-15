@@ -307,6 +307,27 @@
             wishlistBtn.setAttribute("data-variant-id", product.variantId || "");
         }
 
+        const btnSection = document.querySelector(".product-add-to-cart-btn-section");
+        if (btnSection) {
+            // Guarantee we get a valid ID (Fallback to URL if API response lacks it)
+            const urlParams = new URLSearchParams(window.location.search);
+            const validProductId = product.id || product.productId || product._id || urlParams.get("id") || "";
+
+            const addToCartBtn = btnSection.querySelector(".btn-primary");
+            if (addToCartBtn) {
+                addToCartBtn.classList.add("add-to-cart-btn");
+                addToCartBtn.setAttribute("id", "product-detail-add-to-cart-btn");
+                addToCartBtn.setAttribute("data-product-id", validProductId);
+            }
+            const buyNowBtn = btnSection.querySelector(".btn-warning");
+            if (buyNowBtn) {
+                buyNowBtn.classList.add("buy-now-btn");
+                buyNowBtn.setAttribute("data-product-id", validProductId);
+            }
+            const qtyInput = btnSection.querySelector(".quantity-input");
+            if (qtyInput) qtyInput.value = "1";
+        }
+
         renderProductColor(product);
         renderProductSizes(product);
         renderProductDescription(product);
@@ -352,6 +373,101 @@
     }
 
     function bootProductDetailPage() {
+        if (!window.quantityLogicAdded) {
+            document.body.addEventListener("click", function(e) {
+                const qtyBtn = e.target.closest(".quantity-btn");
+                if (!qtyBtn) return;
+                
+                e.preventDefault();
+                const container = qtyBtn.closest(".quantity-section");
+                if (!container) return;
+                
+                const input = container.querySelector(".quantity-input");
+                if (!input) return;
+                
+                let qty = parseInt(input.value) || 1;
+                
+                if (qtyBtn.querySelector(".hgi-plus-sign") || qtyBtn.textContent.includes("+")) {
+                    qty++;
+                } else if (qtyBtn.querySelector(".hgi-minus-sign") || qtyBtn.textContent.includes("-")) {
+                    if (qty > 1) qty--;
+                }
+                
+                input.value = qty;
+            });
+            window.quantityLogicAdded = true;
+        }
+
+        if (!window.buyNowLogicAdded) {
+            document.body.addEventListener("click", async function(e) {
+                const buyNowBtn = e.target.closest(".buy-now-btn");
+                if (!buyNowBtn) return;
+                
+                e.preventDefault();
+                
+                const productId = buyNowBtn.getAttribute("data-product-id");
+                if (!productId || productId === "undefined" || productId === "null") {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({ text: "❌ Invalid Product ID", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                    }
+                    return;
+                }
+
+                let quantity = 1;
+                const container = buyNowBtn.closest(".product-add-to-cart-btn-section") || buyNowBtn.closest(".quick-view-sidebar") || document;
+                const quantityInput = container.querySelector(".quantity-input");
+                
+                if (quantityInput) {
+                    quantity = parseInt(quantityInput.value) || 1;
+                }
+
+                const formData = new FormData();
+                formData.append("productId", productId);
+                formData.append("quantity", quantity);
+
+                buyNowBtn.style.pointerEvents = "none";
+                buyNowBtn.style.opacity = "0.7";
+                const originalText = buyNowBtn.innerHTML;
+                buyNowBtn.innerHTML = "<span>Processing...</span>";
+
+                try {
+                    const token = localStorage.getItem("UserToken");
+                    const headers = {};
+                    if (token) headers["Authorization"] = "Bearer " + token;
+
+                    const response = await fetch(`${apiBase}/api/addcart/add`, {
+                        method: "POST",
+                        headers: headers,
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok || result.status || result.success || result?.value?.status === true) {
+                        if (typeof Toastify !== "undefined") Toastify({ text: "✅ Redirecting to checkout...", duration: 2000, style: { background: "#00b09b" } }).showToast();
+                        
+                        if (typeof window.currentCartCount !== "undefined" && typeof window.updateCartCountUI === "function") {
+                            window.updateCartCountUI(window.currentCartCount + quantity);
+                        }
+
+                        setTimeout(() => {
+                            window.location.href = "checkout.php";
+                        }, 1000);
+                    } else {
+                        if (typeof Toastify !== "undefined") Toastify({ text: "❌ Failed to process: " + (result.message || "Unknown error"), duration: 3000, style: { background: "#ff416c" } }).showToast();
+                    }
+                } catch (error) {
+                    console.error("Error processing buy now:", error);
+                    if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                } finally {
+                    buyNowBtn.style.pointerEvents = "auto";
+                    buyNowBtn.style.opacity = "1";
+                    buyNowBtn.innerHTML = originalText;
+                }
+            });
+            window.buyNowLogicAdded = true;
+        }
+
         if (!document.getElementById("product-detail-page")) return;
 
         if (document.readyState === "loading") {

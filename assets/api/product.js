@@ -177,10 +177,10 @@ if (document.getElementById("top-discounted-products")) {
         const productId = product.id || product.productId || "";
         const variantId = product.variantId || "";
         const productName = product.productName || product.name || "Product";
-
+        
         const nameWords = productName.split(" ");
         const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-
+        
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
@@ -224,9 +224,7 @@ if (document.getElementById("top-discounted-products")) {
             "</div>" +
             '<div class="product-content flex-1 flex flex-col">' +
             '<h5 class="text-base leading-6 font-semibold font-dm-sans mb-4">' +
-            '<a href="' +
-            detailUrl +
-            '">' +
+            '<a href="' + detailUrl + '" title="' + String(productName).replace(/"/g, '&quot;') + '">' +
             displayProductName +
             "</a></h5>" +
             '<div class="rating-section flex items-center mb-4">' +
@@ -253,7 +251,7 @@ if (document.getElementById("top-discounted-products")) {
             '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
             '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + variantId + '">' +
             '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
-            '<a class="btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="cart-single-vendor.html">' +
+            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
             "<span>Add to Cart</span></a></div></div></div></div>"
         );
@@ -310,11 +308,7 @@ if (document.getElementById("top-discounted-products")) {
                 let product = result?.data || (result?.value?.data && typeof result.value.data === "object" ? result.value.data : null);
                 
                 if (product) {
-                    const productName = product.productName || product.name || "Product";
-                    const nameWords = productName.split(" ");
-                    const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-                    if (titleEl) titleEl.textContent = displayProductName;
-                    
+                    if (titleEl) titleEl.textContent = product.productName || product.name || "Product";
                     const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
                     const mrp = product.mrp ?? product.originalPrice ?? salePrice;
                     let discountPercent = product.discountPrice ?? product.discountPercent ?? product.discountPercentage ?? 0;
@@ -377,6 +371,27 @@ if (document.getElementById("top-discounted-products")) {
                             if (items) {
                                 items.innerHTML = sizeNames.map((size, index) => '<div class="size-variation-item">' + '<button type="button" data-size-text="' + size + '" class="cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' + (index === 0 ? "border-primary bg-primary text-white hover:bg-primary" : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") + '">' + size + "</button></div>").join("");
                             }
+                        }
+                    }
+                    
+                    const btnSection = sidebar.querySelector(".product-add-to-cart-btn-section");
+                    if (btnSection) {
+                        const addToCartBtn = btnSection.querySelector(".btn-primary");
+                        if (addToCartBtn) {
+                            addToCartBtn.classList.add("add-to-cart-btn");
+                            addToCartBtn.setAttribute("data-product-id", product.id || product.productId || "");
+                        }
+                        const buyNowBtn = btnSection.querySelector(".btn-warning");
+                        if (buyNowBtn) {
+                            buyNowBtn.classList.add("buy-now-btn");
+                            buyNowBtn.setAttribute("data-product-id", product.id || product.productId || "");
+                        }
+                        const qtyInput = btnSection.querySelector(".quantity-input");
+                        if (qtyInput) qtyInput.value = "1";
+                    } else {
+                        const addToCartBtn = sidebar.querySelector(".add-to-cart-btn");
+                        if (addToCartBtn) {
+                            addToCartBtn.setAttribute("data-product-id", product.id || product.productId || "");
                         }
                     }
                 }
@@ -967,7 +982,7 @@ if (document.getElementById("top-discounted-products")) {
                                 '<li class="py-2">' +
                                 '<a href="' +
                                 detailUrl +
-                                '" class="flex items-center gap-3 hover:text-primary">' +
+                                '" class="flex items-center gap-3 hover:text-primary" title="' + String(productName).replace(/"/g, '&quot;') + '">' +
                                 '<img src="' +
                                 getProductImage(product) +
                                 '" alt="" class="w-10 h-10 rounded object-cover" />' +
@@ -1069,7 +1084,7 @@ if (document.getElementById("top-discounted-products")) {
                   discountPercent +
                   "% OFF</span>"
                 : "") +
-            '<p class="py-3 font-semibold text-base leading-6 text-light-primary-text group-hover:text-primary line-clamp-2">' +
+            '<p class="py-3 font-semibold text-base leading-6 text-light-primary-text group-hover:text-primary line-clamp-2" title="' + String(productName).replace(/"/g, '&quot;') + '">' +
             displayProductName +
             "</p>" +
             '<div class="rating-section flex items-center mb-3">' +

@@ -51,6 +51,9 @@
      <script src="./assets/api/product.js"></script>
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
+     <script src="./assets/api/cart-action.js"></script>
+
+     
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
      <script src="./assets/api/authUser.js"></script>
 
@@ -262,45 +265,8 @@
     <!-- Cart Sidebar Start -->
     <div data-state="close"
         class="cart-sidebar flex fixed xl:top-[30px] xl:right-[22px] right-0 top-0 xl:h-[calc(100vh-52px)] h-full z-99 max-w-[1101px] w-full bg-white xl:rounded-2xl rounded-none transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)] data-[state=open]:translate-x-0 data-[state=open]:opacity-100 data-[state=open]:visible data-[state=close]:translate-x-[200px] data-[state=close]:opacity-0 data-[state=close]:invisible">
-        <div class="similar-products max-w-[500px] w-full h-full border-r border-gray-300 xl:block hidden">
-            <div class="similar-products-header pt-6 px-6 pb-4 border-b border-gray-300 flex flex-col gap-y-1">
-                <h5>Similar Products</h5>
-                <p>You May Also Like</p>
-            </div>
-            <div class="similar-products-content p-6 flex flex-col gap-y-4 overflow-y-auto h-[calc(100%-100px)]">
-                <div class="similar-product-item flex items-center gap-x-4 p-4 border border-gray-300 rounded-2xl">
-                    <a class='similar-product-item-image w-[102px] h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative'
-                        href='product-detail.php'>
-                        <img src="assets/images/vitamin-c.png" alt="Product Image"
-                            class="w-full h-full object-cover rounded-xl" />
-                        <span
-                            class="product-discount-badge absolute top-[11px] left-0 bg-error text-warning-lighter font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url('images/discount-shape.html')] after:bg-contain">Sale</span>
-                    </a>
-                    <div class="similar-product-item-content flex flex-col gap-y-2 flex-1">
-                        <h6 class="text-base font-semibold">
-                            <a href='product-detail.php'>Fresh Bask Basket Fruits</a>
-                        </h6>
-                        <p class="text-sm leading-[22px]">Shop Name</p>
-                        <div class="flex items-center justify-between">
-                            <div class="price-section flex items-center gap-x-3">
-                                <span
-                                    class="current-price text-base font-semibold text-light-primary-text">$27.49</span>
-                                <span class="old-price text-base text-light-disabled-text line-through">$39.99</span>
-                            </div>
-                            <a class='btn btn-primary btn-medium rounded-full font-semibold text-sm leading-6 px-4 py-2'
-                                href='cart-single-vendor.html'>
-                                <span>
-                                    <i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>
-                                </span>
-                                <span>Add</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="cart-products xl:max-w-[600px] w-full h-full flex flex-col justify-between">
+       
+        <div class="cart-products xl:max-w-[500px] w-full h-full flex flex-col justify-between">
             <div class="cart-products-header pt-6 px-6 pb-4 border-b border-gray-300 flex flex-col gap-y-1 relative">
                 <h5>Cart Products</h5>
                 <p>1 Item in Cart</p>

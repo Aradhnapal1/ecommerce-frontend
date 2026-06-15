@@ -39,6 +39,7 @@
 if (document.getElementById("top-discounted-products")) {
             loadTopDiscountedProducts();
         }
+        initQuickView();
         
     });
 
@@ -176,10 +177,6 @@ if (document.getElementById("top-discounted-products")) {
         const productId = product.id || product.productId || "";
         const variantId = product.variantId || "";
         const productName = product.productName || product.name || "Product";
-        
-        const nameWords = productName.split(" ");
-        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
@@ -198,7 +195,7 @@ if (document.getElementById("top-discounted-products")) {
             '<i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i>' +
             '</a></li>' +
             '<li>' +
-            '<a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="#">' +
+            '<a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="#" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-view text-2xl leading-6 text-light-primary-text"></i>' +
             '</a></li>' +
             '</ul></div>';
@@ -226,7 +223,7 @@ if (document.getElementById("top-discounted-products")) {
             '<a href="' +
             detailUrl +
             '">' +
-            displayProductName +
+            productName +
             "</a></h5>" +
             '<div class="rating-section flex items-center mb-4">' +
             '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +
@@ -269,6 +266,117 @@ if (document.getElementById("top-discounted-products")) {
         }
 
         grid.innerHTML = items.map(renderProductCard).join("");
+    }
+
+    function initQuickView() {
+        document.body.addEventListener("click", async function (e) {
+            const btn = e.target.closest(".quick-view-sidebar-btn");
+            if (!btn) return;
+            e.preventDefault();
+
+            const productId = btn.getAttribute("data-product-id");
+            if (!productId) return;
+
+            const sidebar = document.querySelector(".quick-view-sidebar");
+            const overlay = document.querySelector(".modal-overlay");
+            if (!sidebar || !overlay) return;
+
+            const openFor = overlay.getAttribute("data-overlay-for");
+            if (openFor) {
+                const openSidebar = document.querySelector(openFor);
+                if (openSidebar) openSidebar.setAttribute("data-state", "close");
+            }
+
+            sidebar.setAttribute("data-state", "open");
+            document.body.classList.add("overflow-hidden", "scrollbar-offset");
+            if (typeof jQuery !== "undefined") {
+                jQuery(overlay).fadeIn();
+            } else {
+                overlay.classList.remove("hidden");
+            }
+            overlay.setAttribute("data-overlay-for", ".quick-view-sidebar");
+
+            const titleEl = sidebar.querySelector("h4");
+            if (titleEl) titleEl.textContent = "Loading...";
+
+            try {
+                const response = await fetch(API_BASE + "/api/product/getproductbyid/" + encodeURIComponent(productId));
+                if (!response.ok) throw new Error("HTTP Error: " + response.status);
+                const result = await response.json();
+                let product = result?.data || (result?.value?.data && typeof result.value.data === "object" ? result.value.data : null);
+                
+                if (product) {
+                    if (titleEl) titleEl.textContent = product.productName || product.name || "Product";
+                    const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
+                    const mrp = product.mrp ?? product.originalPrice ?? salePrice;
+                    let discountPercent = product.discountPrice ?? product.discountPercent ?? product.discountPercentage ?? 0;
+                    discountPercent = Math.round(Number(discountPercent)) || 0;
+
+                    const currentPriceEl = sidebar.querySelector(".current-price");
+                    if (currentPriceEl) currentPriceEl.textContent = formatPrice(salePrice);
+                    
+                    const oldPriceEl = sidebar.querySelector(".old-price");
+                    if (oldPriceEl) {
+                        oldPriceEl.textContent = mrp > salePrice ? formatPrice(mrp) : "";
+                        oldPriceEl.style.display = mrp > salePrice ? "inline-block" : "none";
+                    }
+                    
+                    const discountBadgeEls = sidebar.querySelectorAll(".product-discount-badge");
+                    discountBadgeEls.forEach(el => {
+                        el.textContent = discountPercent > 0 ? discountPercent + "% OFF" : "";
+                        el.style.display = discountPercent > 0 ? "inline-block" : "none";
+                    });
+
+                    const imagesWrapper = sidebar.querySelector(".product-images-wrapper .space-y-4");
+                    if (imagesWrapper) {
+                        const images = [];
+                        if (product.productImageUrl) images.push(product.productImageUrl);
+                        (product.galleryImages || []).forEach(img => { if (img && !images.includes(img)) images.push(img); });
+                        if (!images.length) images.push("assets/images/vitamin-c.png");
+                        imagesWrapper.innerHTML = images.map(img => `<img class="max-h-[300px] w-full rounded-xl object-contain bg-[#F4F3F5]" src="${img}" alt="product-image" />`).join("");
+                    }
+                    const descEl = sidebar.querySelector(".accordion-body");
+                    if (descEl) descEl.innerHTML = product.description || product.shortDescription || '<p class="text-light-secondary-text">No description available.</p>';
+
+                    const colorSection = sidebar.querySelector(".color-variation-section");
+                    if (colorSection) {
+                        const colorName = product.colorName;
+                        if (!colorName) {
+                            colorSection.classList.add("hidden");
+                        } else {
+                            colorSection.classList.remove("hidden");
+                            const selectedColor = colorSection.querySelector(".color-variation-selected-color");
+                            if (selectedColor) selectedColor.textContent = colorName;
+                            const items = colorSection.querySelector(".color-variation-items");
+                            if (items) {
+                                items.innerHTML = '<div class="color-variation-item">' +
+                                    '<button type="button" data-color-text="' + (product.colorSlug || colorName).toLowerCase() + '" class="cursor-pointer flex items-center justify-center rounded-full size-10 border border-primary hover:bg-[rgba(145,158,171,0.08)] px-3">' +
+                                    '<span class="text-sm font-semibold capitalize">' + colorName + "</span></button></div>";
+                            }
+                        }
+                    }
+
+                    const sizeSection = sidebar.querySelector(".size-variation-section");
+                    if (sizeSection) {
+                        const sizeNames = product.sizeNames || [];
+                        if (!sizeNames.length) {
+                            sizeSection.classList.add("hidden");
+                        } else {
+                            sizeSection.classList.remove("hidden");
+                            const selectedSize = sizeSection.querySelector(".size-variation-selected-size");
+                            if (selectedSize) selectedSize.textContent = sizeNames[0];
+                            const items = sizeSection.querySelector(".size-variation-items");
+                            if (items) {
+                                items.innerHTML = sizeNames.map((size, index) => '<div class="size-variation-item">' + '<button type="button" data-size-text="' + size + '" class="cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' + (index === 0 ? "border-primary bg-primary text-white hover:bg-primary" : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") + '">' + size + "</button></div>").join("");
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Quick view error:", error);
+                if (titleEl) titleEl.textContent = "Error loading product details.";
+            }
+        });
     }
 
     function updateResultsCount(items, total, page, pageSize) {
@@ -843,10 +951,6 @@ if (document.getElementById("top-discounted-products")) {
                                 ? "product-detail.php?id=" + productId
                                 : "product-detail.php";
 
-                            const productName = product.productName || product.name || "Product";
-                            const nameWords = productName.split(" ");
-                            const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-
                             return (
                                 '<li class="py-2">' +
                                 '<a href="' +
@@ -856,7 +960,7 @@ if (document.getElementById("top-discounted-products")) {
                                 getProductImage(product) +
                                 '" alt="" class="w-10 h-10 rounded object-cover" />' +
                                 "<span>" +
-                                displayProductName +
+                                (product.productName || product.name || "Product") +
                                 "</span></a></li>"
                             );
                         })
@@ -924,10 +1028,6 @@ if (document.getElementById("top-discounted-products")) {
         const delay = delays[index % delays.length];
         const productId = product.id || product.productId;
         const productName = product.productName || product.name || "Product";
-        
-        const nameWords = productName.split(" ");
-        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountPercent = getDiscountPercent(product);
@@ -954,7 +1054,7 @@ if (document.getElementById("top-discounted-products")) {
                   "% OFF</span>"
                 : "") +
             '<p class="py-3 font-semibold text-base leading-6 text-light-primary-text group-hover:text-primary line-clamp-2">' +
-            displayProductName +
+            productName +
             "</p>" +
             '<div class="rating-section flex items-center mb-3">' +
             '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +

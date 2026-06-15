@@ -176,6 +176,10 @@ if (document.getElementById("top-discounted-products")) {
         const productId = product.id || product.productId || "";
         const variantId = product.variantId || "";
         const productName = product.productName || product.name || "Product";
+        
+        const nameWords = productName.split(" ");
+        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountLabel = getDiscountLabel(product);
@@ -222,7 +226,7 @@ if (document.getElementById("top-discounted-products")) {
             '<a href="' +
             detailUrl +
             '">' +
-            productName +
+            displayProductName +
             "</a></h5>" +
             '<div class="rating-section flex items-center mb-4">' +
             '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +
@@ -839,6 +843,10 @@ if (document.getElementById("top-discounted-products")) {
                                 ? "product-detail.php?id=" + productId
                                 : "product-detail.php";
 
+                            const productName = product.productName || product.name || "Product";
+                            const nameWords = productName.split(" ");
+                            const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+
                             return (
                                 '<li class="py-2">' +
                                 '<a href="' +
@@ -848,7 +856,7 @@ if (document.getElementById("top-discounted-products")) {
                                 getProductImage(product) +
                                 '" alt="" class="w-10 h-10 rounded object-cover" />' +
                                 "<span>" +
-                                (product.productName || product.name || "Product") +
+                                displayProductName +
                                 "</span></a></li>"
                             );
                         })
@@ -916,6 +924,10 @@ if (document.getElementById("top-discounted-products")) {
         const delay = delays[index % delays.length];
         const productId = product.id || product.productId;
         const productName = product.productName || product.name || "Product";
+        
+        const nameWords = productName.split(" ");
+        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountPercent = getDiscountPercent(product);
@@ -942,7 +954,7 @@ if (document.getElementById("top-discounted-products")) {
                   "% OFF</span>"
                 : "") +
             '<p class="py-3 font-semibold text-base leading-6 text-light-primary-text group-hover:text-primary line-clamp-2">' +
-            productName +
+            displayProductName +
             "</p>" +
             '<div class="rating-section flex items-center mb-3">' +
             '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +

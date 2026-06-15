@@ -596,7 +596,11 @@ function initHomeQuickViewDelegation() {
             let product = result?.data || (result?.value?.data && typeof result.value.data === "object" ? result.value.data : null);
             
             if (product) {
-                if (titleEl) titleEl.textContent = product.productName || product.name || "Product";
+                const productName = product.productName || product.name || "Product";
+                const nameWords = productName.split(" ");
+                const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+                if (titleEl) titleEl.textContent = displayProductName;
+
                 const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
                 const mrp = product.mrp ?? product.originalPrice ?? salePrice;
                 let discountPercent = product.discountPrice ?? product.discountPercent ?? product.discountPercentage ?? 0;

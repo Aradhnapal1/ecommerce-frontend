@@ -109,6 +109,40 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchGlobalCart();
         }
     });
+
+    // Handle remove from cart in sidebar
+    document.body.addEventListener("click", function (e) {
+        const removeBtn = e.target.closest(".remove-from-cart-btn");
+        if (removeBtn) {
+            e.preventDefault();
+            const cartId = removeBtn.getAttribute("data-cart-id");
+            if (cartId) {
+                deleteCartItem(cartId);
+            }
+        }
+    });
+
+    // Handle quantity change in sidebar
+    document.body.addEventListener("click", function (e) {
+        const qtyBtn = e.target.closest(".cart-qty-btn");
+        if (qtyBtn) {
+            e.preventDefault();
+            const cartId = qtyBtn.getAttribute("data-cart-id");
+            const action = qtyBtn.getAttribute("data-action");
+            const currentQty = parseInt(qtyBtn.getAttribute("data-qty"), 10);
+
+            if (!cartId || !action) return;
+
+            // If current quantity is 1 and user tries to decrease, show the delete confirmation instead.
+            if (action === "decrease" && currentQty <= 1) {
+                deleteCartItem(cartId);
+                return;
+            }
+
+            const quantityChange = action === "increase" ? 1 : -1;
+            updateCartItemQuantity(cartId, quantityChange, qtyBtn);
+        }
+    });
 });
 
 async function fetchGlobalCart() {
@@ -236,4 +270,111 @@ function updateCartCountUI(count) {
     if (sidebarHeaderCount && sidebarHeaderCount.textContent.includes("Item")) {
         sidebarHeaderCount.textContent = `${count} Item${count !== 1 ? 's' : ''} in Cart`;
     }
+}
+
+function deleteCartItem(cartId) {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to remove this item from your cart?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">
+                Yes, Remove
+            </button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">
+                No
+            </button>
+        </div>
+    `;
+
+    const toast = Toastify({
+        node: container,
+        duration: -1,
+        close: false,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+            borderRadius: "10px"
+        }
+    });
+
+    toast.showToast();
+
+    container.querySelector(".toast-yes-btn").addEventListener("click", async function () {
+        toast.hideToast();
+        
+        try {
+            const token = localStorage.getItem("UserToken");
+            const headers = { "Content-Type": "application/json" };
+            if (token) headers["Authorization"] = "Bearer " + token;
+
+            const response = await fetch(`${API_BASE_CART}/api/addcart/delete/${cartId}`, {
+                method: "DELETE",
+                headers: headers
+            });
+            
+            const result = await response.json();
+
+            if (response.ok || result.status || result.success || result?.value?.status === true) {
+                Toastify({ text: "✅ Item removed from cart", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                fetchGlobalCart(); // Re-fetch to update totals, counts, and the item list
+            } else {
+                Toastify({ text: `❌ Failed to remove: ${result.message || 'Unknown error'}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            }
+        } catch (err) {
+            console.error("Error removing from cart:", err);
+            Toastify({ text: "❌ Server error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        }
+    });
+
+    container.querySelector(".toast-no-btn").addEventListener("click", function () {
+        toast.hideToast();
+    });
+}
+
+async function updateCartItemQuantity(cartId, quantityChange, btnElement) {
+    const buttonContainer = btnElement.closest(".border");
+    const buttons = buttonContainer.querySelectorAll('.cart-qty-btn');
+    const input = buttonContainer.querySelector('.quantity-input');
+
+    buttons.forEach(btn => btn.disabled = true);
+    if (input) input.style.opacity = 0.5;
+
+    try {
+        const token = localStorage.getItem("UserToken");
+        const headers = {};
+        if (token) headers["Authorization"] = "Bearer " + token;
+
+        const formData = new FormData();
+        formData.append("CartId", cartId);
+        formData.append("Quantity", quantityChange);
+
+        const response = await fetch(`${API_BASE_CART}/api/addcart/update-quantity`, {
+            method: "PUT",
+            headers: headers,
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok || result.status || result.success || result?.value?.status === true) {
+            // Success, just refresh the whole cart for consistency
+            fetchGlobalCart();
+        } else {
+            Toastify({ text: `❌ Update failed: ${result.message || 'Unknown error'}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            // Re-enable on failure
+            buttons.forEach(btn => btn.disabled = false);
+            if (input) input.style.opacity = 1;
+        }
+    } catch (err) {
+        console.error("Error updating cart quantity:", err);
+        Toastify({ text: "❌ Server error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        // Re-enable on failure
+        buttons.forEach(btn => btn.disabled = false);
+        if (input) input.style.opacity = 1;
+    }
+    // On success, fetchGlobalCart will re-render the whole list, so we don't need to manually re-enable buttons.
 }

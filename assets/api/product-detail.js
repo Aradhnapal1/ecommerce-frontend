@@ -3,6 +3,7 @@
         typeof domin !== "undefined" ? domin : "https://ecommerce-backend.workarya.com";
 
     let pendingProduct = null;
+    window.currentProductGroup = { base: null, variants: [] };
 
     function buildProductDetailUrl(product) {
         const productId = product.id || product.productId;
@@ -40,9 +41,10 @@
 
     function getProductImages(product) {
         const images = [];
+        const mainImg = product.variantImageUrl || product.productImageUrl;
 
-        if (product.productImageUrl) {
-            images.push(product.productImageUrl);
+        if (mainImg) {
+            images.push(mainImg);
         }
 
         (product.galleryImages || []).forEach(function (image) {
@@ -129,32 +131,106 @@
         reinitProductSlider(bigSlider, bigHtml);
     }
 
-    function renderProductColor(product) {
+    function renderProductColor(product, variants = []) {
         const section = document.getElementById("product-color-section");
         if (!section) return;
 
-        const colorName = product.colorName;
-        const selectedColor = section.querySelector(".color-variation-selected-color");
+        const baseProduct = window.currentProductGroup?.base;
+        if (!baseProduct) return;
 
-        if (!colorName) {
+        const allOptions = [];
+        
+        if (baseProduct.colorName || baseProduct.colorSlug) {
+            allOptions.push({
+                ...baseProduct,
+                isBase: true,
+                displayColorName: baseProduct.colorName || "Default"
+            });
+        } else if (variants.length > 0) {
+            allOptions.push({
+                ...baseProduct,
+                isBase: true,
+                displayColorName: "Default"
+            });
+        }
+
+        variants.forEach(function(v) {
+            allOptions.push({
+                ...v,
+                isBase: false,
+                displayColorName: v.colorName || "Variant"
+            });
+        });
+
+        if (allOptions.length === 0) {
             section.classList.add("hidden");
             return;
         }
 
         section.classList.remove("hidden");
-        if (selectedColor) selectedColor.textContent = colorName;
+        
+        const selectedColorText = section.querySelector(".color-variation-selected-color");
+        if (selectedColorText) {
+            selectedColorText.textContent = product.colorName || (product.isVariant ? "Variant" : "Default");
+        }
 
         const items = section.querySelector(".color-variation-items");
         if (!items) return;
 
-        items.innerHTML =
-            '<div class="color-variation-item">' +
-            '<button type="button" data-color-text="' +
-            (product.colorSlug || colorName).toLowerCase() +
-            '" class="cursor-pointer flex items-center justify-center rounded-full size-10 border border-primary hover:bg-[rgba(145,158,171,0.08)] px-3">' +
-            '<span class="text-sm font-semibold capitalize">' +
-            colorName +
-            "</span></button></div>";
+        let html = "";
+        allOptions.forEach(function(opt) {
+            let isActive = false;
+            if (opt.isBase && !product.isVariant) isActive = true;
+            if (!opt.isBase && product.isVariant && String(product.variantId) === String(opt.id)) isActive = true;
+
+            const activeClass = isActive 
+                ? "border-primary bg-[rgba(145,158,171,0.08)]" 
+                : "border-gray-300 text-light-primary-text";
+
+            const dataAttr = opt.isBase ? 'data-is-base="true"' : 'data-variant-id="' + opt.id + '"';
+
+            html += 
+                '<div class="color-variation-item">' +
+                '<button type="button" ' + dataAttr + ' title="' + opt.displayColorName + '" class="variant-color-btn cursor-pointer flex items-center justify-center rounded-full size-10 border ' + activeClass + ' hover:border-primary hover:bg-[rgba(145,158,171,0.08)] px-3">' +
+                '<span class="text-sm font-semibold capitalize line-clamp-1">' + opt.displayColorName + '</span>' +
+                '</button></div>';
+        });
+
+        items.innerHTML = html;
+
+        const btns = items.querySelectorAll('.variant-color-btn');
+        btns.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                let selectedOpt;
+                
+                if (this.getAttribute('data-is-base') === 'true') {
+                    selectedOpt = Object.assign({}, window.currentProductGroup.base, { isVariant: false });
+                } else {
+                    const vId = this.getAttribute('data-variant-id');
+                    const foundVariant = window.currentProductGroup.variants.find(function(v) { return String(v.id) === String(vId); });
+                    if (foundVariant) {
+                        selectedOpt = Object.assign({}, foundVariant, { isVariant: true });
+                    }
+                }
+
+                if (selectedOpt) {
+                    if (selectedOpt.isVariant) {
+                        selectedOpt.productName = selectedOpt.variantName || selectedOpt.productName || window.currentProductGroup.base.productName;
+                        selectedOpt.categoryName = selectedOpt.categoryName || window.currentProductGroup.base.categoryName;
+                        selectedOpt.brandName = selectedOpt.brandName || window.currentProductGroup.base.brandName;
+                        selectedOpt.description = selectedOpt.description || window.currentProductGroup.base.description;
+                        selectedOpt.shortDescription = selectedOpt.shortDescription || window.currentProductGroup.base.shortDescription;
+                        selectedOpt.variantId = selectedOpt.id; 
+                        selectedOpt.productId = window.currentProductGroup.base.id || window.currentProductGroup.base.productId;
+                    }
+
+                    pendingProduct = selectedOpt;
+                    renderProductDetail(selectedOpt, window.currentProductGroup.variants);
+                    renderProductSliders(selectedOpt);
+                }
+            });
+        });
     }
 
     function renderProductSizes(product) {
@@ -250,7 +326,7 @@
             .join("");
     }
 
-    function renderProductDetail(product) {
+    function renderProductDetail(product, variants = []) {
         document.title = (product.productName || "Product") + " - HyperScripts";
 
         const breadcrumbName = document.getElementById("product-breadcrumb-name");
@@ -303,13 +379,17 @@
 
         const wishlistBtn = document.getElementById("product-detail-wishlist-btn");
         if (wishlistBtn) {
-            wishlistBtn.setAttribute("data-product-id", product.id || product.productId || "");
-            wishlistBtn.setAttribute("data-variant-id", product.variantId || "");
+            wishlistBtn.setAttribute("data-product-id", product.productId || product.id || "");
+            if (product.variantId) {
+                wishlistBtn.setAttribute("data-variant-id", product.variantId);
+            } else {
+                wishlistBtn.removeAttribute("data-variant-id");
+            }
         }
 
         // Guarantee we get a valid ID (Fallback to URL if API response lacks it)
         const urlParams = new URLSearchParams(window.location.search);
-        const validProductId = product.id || product.productId || product._id || urlParams.get("id") || "";
+        const validProductId = product.productId || product.id || product._id || urlParams.get("id") || "";
 
         // Apply ID to ALL add to cart & buy now buttons (main page + quick view sidebar)
         const btnSections = document.querySelectorAll(".product-add-to-cart-btn-section");
@@ -318,23 +398,27 @@
             if (addToCartBtn) {
                 addToCartBtn.classList.add("add-to-cart-btn");
                 addToCartBtn.setAttribute("data-product-id", validProductId);
-            if (product.variantId) {
-                addToCartBtn.setAttribute("data-variant-id", product.variantId);
-            }
+                if (product.variantId) {
+                    addToCartBtn.setAttribute("data-variant-id", product.variantId);
+                } else {
+                    addToCartBtn.removeAttribute("data-variant-id");
+                }
             }
             const buyNowBtn = section.querySelector(".buy-now-btn, .btn-warning");
             if (buyNowBtn) {
                 buyNowBtn.classList.add("buy-now-btn");
                 buyNowBtn.setAttribute("data-product-id", validProductId);
-            if (product.variantId) {
-                buyNowBtn.setAttribute("data-variant-id", product.variantId);
-            }
+                if (product.variantId) {
+                    buyNowBtn.setAttribute("data-variant-id", product.variantId);
+                } else {
+                    buyNowBtn.removeAttribute("data-variant-id");
+                }
             }
             const qtyInput = section.querySelector(".quantity-input");
             if (qtyInput) qtyInput.value = "1";
         });
 
-        renderProductColor(product);
+        renderProductColor(product, variants);
         renderProductSizes(product);
         renderProductDescription(product);
         renderProductAdditionalInfo(product);
@@ -350,9 +434,10 @@
         }
 
         try {
-            const response = await fetch(
-                apiBase + "/api/product/getproductbyid/" + encodeURIComponent(productId)
-            );
+            const [response, variantRes] = await Promise.all([
+                fetch(apiBase + "/api/product/getproductbyid/" + encodeURIComponent(productId)),
+                fetch(apiBase + "/api/variant/getallvariants").catch(() => null)
+            ]);
 
             if (!response.ok) {
                 throw new Error("HTTP Error: " + response.status);
@@ -365,12 +450,24 @@
                 throw new Error("Product data missing");
             }
 
+            let variants = [];
+            if (variantRes && variantRes.ok) {
+                const varResult = await variantRes.json();
+                const allVars = varResult?.data || varResult?.value?.data || [];
+                variants = allVars.filter(v => String(v.productId) === String(productId) && v.isActive !== false);
+            }
+
+            window.currentProductGroup = {
+                base: product,
+                variants: variants
+            };
+
             if (product.slug && !params.get("slug")) {
                 window.history.replaceState(null, "", buildProductDetailUrl(product));
             }
 
             pendingProduct = product;
-            renderProductDetail(product);
+            renderProductDetail(product, variants);
             renderProductSliders(product);
         } catch (error) {
             console.error("Product detail error:", error);

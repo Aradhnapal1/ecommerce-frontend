@@ -401,7 +401,7 @@
                       Buy Now
                     </button>
                     <button
-                      class=" btn btn-primary btn-large rounded-[80px] flex-1"
+                      class="btn btn-primary btn-large rounded-[80px] flex-1 add-to-cart-btn"
                     >
                       <i
                         class="hgi hgi-stroke hgi-shopping-cart-add-02 leading-6 text-2xl text-white"

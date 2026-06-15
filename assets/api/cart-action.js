@@ -9,12 +9,28 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event delegation to capture clicks on any "Add to Cart" button dynamically
     document.body.addEventListener("click", async function (e) {
         // Include the product details button via its ID as well
-        const addToCartBtn = e.target.closest(".add-to-cart-btn") || e.target.closest("#product-detail-add-to-cart-btn");
+        const addToCartBtn = e.target.closest(".add-to-cart-btn") || e.target.closest("#product-detail-add-to-cart-btn") || e.target.closest(".product-add-to-cart");
         if (!addToCartBtn) return;
 
         e.preventDefault();
 
-        const productId = addToCartBtn.getAttribute("data-product-id");
+        const container = addToCartBtn.closest(".product-add-to-cart-btn-section") || addToCartBtn.closest(".quick-view-sidebar") || addToCartBtn.closest(".product-card-1") || document;
+
+        let productId = addToCartBtn.getAttribute("data-product-id");
+
+        // Fallback to searching nearby elements for the ID
+        if (!productId) {
+            const idElement = container.querySelector("[data-product-id]");
+            if (idElement) productId = idElement.getAttribute("data-product-id");
+        }
+
+        // Fallback to URL parameter on Product Details page
+        if (!productId) {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('id')) {
+                productId = urlParams.get('id');
+            }
+        }
         
         if (!productId || productId === "undefined" || productId === "null") {
             if (typeof Toastify !== "undefined") {
@@ -23,11 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        let variantId = addToCartBtn.getAttribute("data-variant-id") || "";
+        if (!variantId) {
+            const activeColorBtn = container.querySelector(".color-variation-item button.border-primary, .color-variation-item button.active");
+            if (activeColorBtn && activeColorBtn.hasAttribute("data-variant-id")) {
+                variantId = activeColorBtn.getAttribute("data-variant-id");
+            }
+        }
+
         // Default quantity is 1
         let quantity = 1;
 
         // Find if there's a quantity input nearby (like in Quick View or Product Detail pages)
-        const container = addToCartBtn.closest(".product-add-to-cart-btn-section") || addToCartBtn.closest(".quick-view-sidebar") || document;
         const quantityInput = container.querySelector(".quantity-input") || document.getElementById("product-detail-quantity");
         
         if (quantityInput) {
@@ -37,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append("productId", productId);
         formData.append("quantity", quantity);
+        if (variantId && variantId !== "undefined" && variantId !== "null") {
+            formData.append("variantId", variantId);
+        }
 
         addToCartBtn.style.pointerEvents = "none";
         addToCartBtn.style.opacity = "0.7";

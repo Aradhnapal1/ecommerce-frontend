@@ -307,26 +307,32 @@
             wishlistBtn.setAttribute("data-variant-id", product.variantId || "");
         }
 
-        const btnSection = document.querySelector(".product-add-to-cart-btn-section");
-        if (btnSection) {
-            // Guarantee we get a valid ID (Fallback to URL if API response lacks it)
-            const urlParams = new URLSearchParams(window.location.search);
-            const validProductId = product.id || product.productId || product._id || urlParams.get("id") || "";
+        // Guarantee we get a valid ID (Fallback to URL if API response lacks it)
+        const urlParams = new URLSearchParams(window.location.search);
+        const validProductId = product.id || product.productId || product._id || urlParams.get("id") || "";
 
-            const addToCartBtn = btnSection.querySelector(".btn-primary");
+        // Apply ID to ALL add to cart & buy now buttons (main page + quick view sidebar)
+        const btnSections = document.querySelectorAll(".product-add-to-cart-btn-section");
+        btnSections.forEach(section => {
+            const addToCartBtn = section.querySelector(".add-to-cart-btn, .btn-primary");
             if (addToCartBtn) {
                 addToCartBtn.classList.add("add-to-cart-btn");
-                addToCartBtn.setAttribute("id", "product-detail-add-to-cart-btn");
                 addToCartBtn.setAttribute("data-product-id", validProductId);
+            if (product.variantId) {
+                addToCartBtn.setAttribute("data-variant-id", product.variantId);
             }
-            const buyNowBtn = btnSection.querySelector(".btn-warning");
+            }
+            const buyNowBtn = section.querySelector(".buy-now-btn, .btn-warning");
             if (buyNowBtn) {
                 buyNowBtn.classList.add("buy-now-btn");
                 buyNowBtn.setAttribute("data-product-id", validProductId);
+            if (product.variantId) {
+                buyNowBtn.setAttribute("data-variant-id", product.variantId);
             }
-            const qtyInput = btnSection.querySelector(".quantity-input");
+            }
+            const qtyInput = section.querySelector(".quantity-input");
             if (qtyInput) qtyInput.value = "1";
-        }
+        });
 
         renderProductColor(product);
         renderProductSizes(product);
@@ -413,6 +419,7 @@
                     return;
                 }
 
+                const variantId = buyNowBtn.getAttribute("data-variant-id") || "";
                 let quantity = 1;
                 const container = buyNowBtn.closest(".product-add-to-cart-btn-section") || buyNowBtn.closest(".quick-view-sidebar") || document;
                 const quantityInput = container.querySelector(".quantity-input");
@@ -424,6 +431,9 @@
                 const formData = new FormData();
                 formData.append("productId", productId);
                 formData.append("quantity", quantity);
+                if (variantId && variantId !== "undefined" && variantId !== "null") {
+                    formData.append("variantId", variantId);
+                }
 
                 buyNowBtn.style.pointerEvents = "none";
                 buyNowBtn.style.opacity = "0.7";

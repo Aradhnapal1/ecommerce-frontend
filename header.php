@@ -49,8 +49,10 @@
      <script src="./assets/api/banner.js"></script>
      <script src="./assets/api/category.js"></script>
      <script src="./assets/api/product.js"></script>
+     <script src="./assets/api/product-detail.js"></script>
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
+     <script src="./assets/api/cart.js"></script>
      <script src="./assets/api/cart-action.js"></script>
 
      

@@ -397,7 +397,7 @@
                 </div>
               </div>
               <div>
-                <a class='btn btn-primary py-3 rounded-[80px] w-full' href='order-successful.html'>
+                <a class='btn btn-primary py-3 rounded-[80px] w-full' href='order-successful.php'>
                   Proceed to checkout
                 </a>
               </div>

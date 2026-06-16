@@ -292,7 +292,7 @@
                         href='cart-single-vendor.php'>
                         View Cart
                     </a>
-                    <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout.html'>
+                    <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout.php'>
                         Proceed to Checkout
                     </a>
                 </div>

@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const landmark = document.getElementById("landmark")?.value.trim();
             
             const addressTypeElement = document.querySelector('input[name="address-type"]:checked');
-            const addressType = addressTypeElement ? addressTypeElement.value : "HOME";
+            let addressType = addressTypeElement ? addressTypeElement.value : "HOME";
+            if (addressType === "on") addressType = "HOME"; // Fallback if HTML value attribute is missing
 
             if (!fullName || !mobile || !pincode || !state || !city || !addressLine1) {
                 if (typeof Toastify !== "undefined") Toastify({ text: "❌ Please fill all required fields", duration: 3000, style: { background: "#ff416c" } }).showToast();
@@ -135,34 +136,55 @@ async function loadSavedAddresses() {
         let html = "";
         addresses.forEach((addr, index) => {
             const isChecked = addr.isDefault || index === 0 ? "checked" : "";
+            const displayStyle = isChecked ? "block" : "none";
+            const addrTypeDisplay = (addr.addressType && addr.addressType !== 'on') ? addr.addressType : "Dev";
+
             html += `
-            <div class="border border-gray-300 w-full payment-method px-4 py-4 rounded-xl cursor-pointer hover:border-primary transition-all">
+            <div class="border border-gray-300 w-full address-item px-4 py-4 rounded-xl cursor-pointer hover:border-primary transition-all">
               <label class="flex items-start gap-x-3 cursor-pointer w-full">
                 <span class="has-[input:checked]:hover:bg-[#00AB55]/8 flex-shrink-0 flex items-center justify-center w-6 h-6 bg-transparent rounded-full hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out mt-1">
                   <span class="relative inline-flex w-5 h-5 items-center justify-center">
-                    <input ${isChecked} type="radio" name="selected-address" value="${addr.id}" class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"/>
+                    <input ${isChecked} type="radio" name="selected-address" value="${addr.id}" class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all address-radio"/>
                     <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary opacity-0 scale-0 peer-checked:opacity-100 peer-checked:scale-100 transition-all"></span>
                   </span>
                 </span>
                 <div class="flex flex-col gap-1 w-full">
                   <div class="flex items-center justify-between w-full">
-                      <span class="text-light-primary-text font-semibold capitalize tracking-wide text-base">${addr.fullName} <span class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-md uppercase">${addr.addressType || "HOME"}</span></span>
+                      <span class="text-light-primary-text font-semibold capitalize tracking-wide text-base">${addr.fullName} <span class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-md uppercase">${addrTypeDisplay}</span></span>
                   </div>
-                  <span class="text-sm text-light-secondary-text mt-1">
-                      ${addr.addressLine1}, ${addr.addressLine2 ? addr.addressLine2 + ',' : ''} ${addr.landmark ? addr.landmark + ',' : ''}
-                  </span>
-                  <span class="text-sm text-light-secondary-text">
-                      ${addr.city}, ${addr.state}, ${addr.country} - ${addr.pincode}
-                  </span>
-                  <span class="text-sm text-light-secondary-text font-medium mt-1">
-                      Mobile: ${addr.mobile} ${addr.alternateMobile ? ', Alternate: ' + addr.alternateMobile : ''}
-                  </span>
+                  <div class="address-details" style="display: ${displayStyle}; margin-top: 4px;">
+                    <span class="text-sm text-light-secondary-text mt-1 block">
+                        ${addr.addressLine1}, ${addr.addressLine2 ? addr.addressLine2 + ',' : ''} ${addr.landmark ? addr.landmark + ',' : ''}
+                    </span>
+                    <span class="text-sm text-light-secondary-text block">
+                        ${addr.city}, ${addr.state}, ${addr.country} - ${addr.pincode}
+                    </span>
+                    <span class="text-sm text-light-secondary-text font-medium mt-1 block">
+                        Mobile: ${addr.mobile} ${addr.alternateMobile ? ', Alternate: ' + addr.alternateMobile : ''}
+                    </span>
+                  </div>
                 </div>
               </label>
             </div>`;
         });
 
         container.innerHTML = html;
+
+        // Add event listeners for accordion behavior
+        const radioButtons = container.querySelectorAll('.address-radio');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hide all address details
+                container.querySelectorAll('.address-details').forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                // Show the selected one
+                const details = this.closest('.address-item').querySelector('.address-details');
+                if (details) {
+                    details.style.display = 'block';
+                }
+            });
+        });
 
     } catch (error) {
         console.error("Error fetching addresses:", error);

@@ -254,12 +254,19 @@ async function loadDashboardAddresses() {
                           </span>
                           ${addrTypeDisplay} Address
                         </p>
+                      <div class="flex items-center gap-x-2">
                         <a href="my-account.php?tab=edit-address&id=${addr.id}" class="btn btn-default btn-small outline rounded-[80px] shadow-none">
                           <span class="inline-flex items-center justify-center">
                             <i class="hgi hgi-stroke hgi-edit-02 text-[18px] leading-[18px] text-light-primary-text"></i>
                           </span>
                           Change
                         </a>
+                        <button onclick="deleteAddress(${addr.id})" class="btn btn-default btn-small outline rounded-[80px] shadow-none  transition-colors group" title="Delete">
+                          <span class="inline-flex items-center justify-center">
+                            <i class="hgi hgi-stroke hgi-delete-01 text-[18px] leading-[18px] text-error  transition-colors"></i>
+                          </span>
+                        </button>
+                      </div>
                       </div>
                     </th>
                   </tr>
@@ -290,3 +297,60 @@ async function loadDashboardAddresses() {
         container.innerHTML = '<p class="text-error p-6">Failed to load addresses.</p>';
     }
 }
+
+// Function to Handle Address Deletion
+window.deleteAddress = function(id) {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to delete this address?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">Yes, Delete</button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">Cancel</button>
+        </div>
+    `;
+
+    const toast = Toastify({
+        node: container,
+        duration: -1,
+        close: false,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+            borderRadius: "10px"
+        }
+    });
+    toast.showToast();
+
+    container.querySelector(".toast-yes-btn").addEventListener("click", async () => {
+        toast.hideToast();
+        
+        const token = localStorage.getItem("UserToken");
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${API_BASE_ADDRESS}/api/address/delete/${id}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const result = await response.json();
+
+            if (response.ok && (result.success === true || result.status === true)) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "✅ Address deleted successfully", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                setTimeout(() => { loadDashboardAddresses(); }, 500);
+            } else {
+                if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to delete"}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            }
+        } catch (error) {
+            console.error("DELETE ERROR:", error);
+            if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        }
+    });
+
+    container.querySelector(".toast-no-btn").addEventListener("click", () => {
+        toast.hideToast();
+    });
+};

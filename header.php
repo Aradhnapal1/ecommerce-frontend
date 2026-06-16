@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&amp;display=swap"
         rel="stylesheet" />
 
+
     <!-- ========== Huge Icons CSS ========== -->
     <link rel="stylesheet" href="assets/css/vendor/hugeicons/hgi-stroke-rounded.css" />
 
@@ -289,7 +290,7 @@
                 </div>
                 <div class="cart-buttons flex items-center gap-x-4">
                     <a class='btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none'
-                        href='cart-single-vendor.php'>
+                        href='cart.php'>
                         View Cart
                     </a>
                     <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout.php'>

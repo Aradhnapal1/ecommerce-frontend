@@ -257,6 +257,7 @@ async function fetchGlobalCart() {
     const cartList = document.getElementById("cart-sidebar-list");
     const cartCountText = document.getElementById("cart-sidebar-count");
     const cartSubtotalText = document.getElementById("cart-sidebar-subtotal");
+    const cartFooter = document.querySelector(".cart-products-footer");
 
     try {
         const token = localStorage.getItem("UserToken");
@@ -292,7 +293,9 @@ async function fetchGlobalCart() {
             if (cartList) {
                 if (items.length === 0) {
                     cartList.innerHTML = '<p class="text-center text-light-secondary-text py-10">Your cart is empty.</p>';
+                    if (cartFooter) cartFooter.style.display = "none";
                 } else {
+                    if (cartFooter) cartFooter.style.display = "flex";
                     cartList.innerHTML = items.map(item => {
                         const price = item.salePrice ?? item.mrp ?? 0;
                         const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
@@ -358,6 +361,7 @@ async function fetchGlobalCart() {
             if (cartCountText) cartCountText.textContent = '0 Items in Cart';
             if (cartSubtotalText) cartSubtotalText.textContent = '₹0.00';
             updateCartCountUI(0);
+            if (cartFooter) cartFooter.style.display = "none";
             
             localStorage.removeItem("AppliedCoupon");
             renderCartPage([], 0);
@@ -521,6 +525,9 @@ function renderCartPage(items, grandTotal) {
         
         const cartCountTitle = document.querySelector(".pb-\\[70px\\] .flex.items-center.justify-between.mb-6 h5 + p");
         if (cartCountTitle) cartCountTitle.textContent = `(0 items)`;
+        
+        const orderSummaryBox = subtotalEl ? subtotalEl.closest('.bg-gray-100') : null;
+        if (orderSummaryBox) orderSummaryBox.style.display = "none";
         return;
     }
 
@@ -591,6 +598,9 @@ function renderCartPage(items, grandTotal) {
     const discountLabelEl = document.getElementById("discount-label");
     if (discountLabelEl) discountLabelEl.textContent = "Discount";
     
+    const orderSummaryBox = subtotalEl ? subtotalEl.closest('.bg-gray-100') : null;
+    if (orderSummaryBox) orderSummaryBox.style.display = "";
+    
     if (subtotalEl) subtotalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
     if (discountEl) discountEl.textContent = "₹0.00";
     if (totalEl) totalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
@@ -602,6 +612,10 @@ function renderCartPage(items, grandTotal) {
 function renderCheckoutPage(items, grandTotal) {
     const tbody = document.getElementById("checkoutid");
     if (!tbody) return;
+
+    const checkoutBtn = document.getElementById("proceed-to-checkout-btn");
+    // Find the Order Summary container block just above the button
+    const orderSummaryBox = checkoutBtn ? checkoutBtn.parentElement.previousElementSibling : null;
 
     if (!items || items.length === 0) {
         tbody.innerHTML = `<tr><td colspan="2" class="text-center py-6 font-semibold text-gray-500">Your cart is empty.</td></tr>`;
@@ -615,8 +629,16 @@ function renderCheckoutPage(items, grandTotal) {
         if (subtotalEl) subtotalEl.textContent = "₹0.00";
         if (discountEl) discountEl.textContent = "₹0.00";
         if (totalEl) totalEl.textContent = "₹0.00";
+        
+        // Hide the checkout buttons and summary box
+        if (checkoutBtn) checkoutBtn.style.display = "none";
+        if (orderSummaryBox && orderSummaryBox.classList.contains("bg-gray-100")) orderSummaryBox.style.display = "none";
         return;
     }
+    
+    // Show the checkout buttons and summary box if items exist
+    if (checkoutBtn) checkoutBtn.style.display = "";
+    if (orderSummaryBox) orderSummaryBox.style.display = "";
 
     let html = "";
     items.forEach(item => {

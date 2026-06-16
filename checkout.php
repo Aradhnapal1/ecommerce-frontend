@@ -35,7 +35,10 @@
                 <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
                   <h5>Shipping Address</h5>
                 </div>
+                
+                <!-- Add New Address -->
                 <div class="md:px-6 px-3 py-6">
+                <h5 class="text-light-primary-text mb-4">Or Add a New Address</h5>
                 <form id="add-address-form" class="flex flex-col gap-y-6">
                 <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
                   <div class="xl:col-span-1 md:col-span-1 col-span-1">
@@ -191,7 +194,7 @@
                       <span
                         class="has-[input:checked]:hover:bg-[#00AB55]/8 flex items-center justify-center w-10 h-10 bg-transparent rounded-full hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">
                         <span class="relative inline-flex w-5 h-5 items-center justify-center">
-                          <input checked type="radio" name="address-type"
+                          <input checked type="radio" name="address-type" value="HOME"
                             class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all" />
 
                           <!-- radio inner dot -->
@@ -210,7 +213,7 @@
                       <span
                         class="has-[input:checked]:hover:bg-[#00AB55]/8 flex items-center justify-center w-10 h-10 bg-transparent rounded-full hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">
                         <span class="relative inline-flex w-5 h-5 items-center justify-center">
-                          <input type="radio" name="address-type"
+                          <input type="radio" name="address-type" value="OFFICE"
                             class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all" />
 
                           <!-- radio inner dot -->
@@ -229,7 +232,7 @@
                       <span
                         class="has-[input:checked]:hover:bg-[#00AB55]/8 flex items-center justify-center w-10 h-10 bg-transparent rounded-full hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">
                         <span class="relative inline-flex w-5 h-5 items-center justify-center">
-                          <input type="radio" name="address-type"
+                          <input type="radio" name="address-type" value="OTHER"
                             class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all" />
 
                           <!-- radio inner dot -->
@@ -247,7 +250,7 @@
                 </div>
                 <!-- Button -->
                 <div class="flex items-center md:justify-end gap-x-6">
-                  <button type="button"
+                  <button
                     class="btn btn-default outline btn-large shadow-none md:px-[33px] w-[45%] md:w-auto py-2.5 rounded-[100px]">
                     Cancel
                   </button>
@@ -258,17 +261,22 @@
               </form>
                 </div>
               </div>
+
+
               <!-- Saved Addresses -->
-              <div class="border border-gray-300 rounded-2xl">
-                <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
-                  <h5 class="text-light-primary-text">Saved Addresses</h5>
+                <div class="border border-gray-300 rounded-2xl">
+                <div class="md:px-6 px-3 py-6 border-b border-b-gray-300">
+                  <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
+                  <h5 class="text-light-primary-text mb-4">Saved Addresses</h5>
                 </div>
-                <div class="md:px-6 px-3 py-6">
+                  
+
                   <div class="payment-methods flex flex-col gap-y-4" id="saved-addresses-container">
                     <p class="text-light-secondary-text">Loading addresses...</p>
                   </div>
                 </div>
-              </div>
+                </div>
+              <!-- Payment -->
               <div class="border border-gray-300 rounded-2xl">
                 <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
                   <h5 class="text-light-primary-text">Payment</h5>
@@ -397,7 +405,7 @@
                 </div>
               </div>
               <div>
-                <a class='btn btn-primary py-3 rounded-[80px] w-full' href='order-successful.php'>
+                <a class='btn btn-primary py-3 rounded-[80px] w-full' id="proceed-to-checkout-btn" >
                   Proceed to checkout
                 </a>
               </div>

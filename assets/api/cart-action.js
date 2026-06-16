@@ -183,6 +183,74 @@ document.addEventListener("DOMContentLoaded", function () {
             applyCouponCode();
         }
     });
+
+    // Handle Place Order
+    const placeOrderBtn = document.getElementById("proceed-to-checkout-btn");
+    if (placeOrderBtn) {
+        placeOrderBtn.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            const token = localStorage.getItem("UserToken");
+            if (!token) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please login to place an order", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                return;
+            }
+
+            // 1. Get Selected Address
+            const selectedAddressInput = document.querySelector('input[name="selected-address"]:checked');
+            if (!selectedAddressInput) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please select a shipping address", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                return;
+            }
+            const addressId = selectedAddressInput.value;
+
+            // 2. Get Selected Payment Method
+            const selectedPaymentInput = document.querySelector('input[name="payment-method"]:checked');
+            if (!selectedPaymentInput) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please select a payment method", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                return;
+            }
+            const paymentMethod = selectedPaymentInput.value;
+
+            // 3. Get Coupon Code (from localStorage, as set by applyCouponCode)
+            const couponCode = localStorage.getItem("AppliedCoupon") || "";
+
+            const payload = {
+                addressId: parseInt(addressId),
+                paymentMethod: paymentMethod,
+                couponCode: couponCode
+            };
+
+            placeOrderBtn.disabled = true;
+            const originalBtnText = placeOrderBtn.innerHTML;
+            placeOrderBtn.innerHTML = "Placing Order...";
+
+            try {
+                const response = await fetch(`${API_BASE_CART}/api/orders/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && (result.status || result.success)) {
+                    if (typeof Toastify !== "undefined") Toastify({ text: "✅ Order placed successfully!", duration: 2000, style: { background: "#00b09b" } }).showToast();
+                    localStorage.removeItem("AppliedCoupon");
+                    setTimeout(() => { window.location.href = "order-successful.php"; }, 2000);
+                } else {
+                    if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to place order"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
+                    placeOrderBtn.disabled = false;
+                    placeOrderBtn.innerHTML = originalBtnText;
+                }
+            } catch (error) {
+                console.error("Error placing order:", error);
+                if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server error while placing order", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.innerHTML = originalBtnText;
+            }
+        });
+    }
 });
 
 async function fetchGlobalCart() {

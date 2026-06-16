@@ -109,11 +109,13 @@
                     class="input-group relative large w-full mx-auto ps-3.5 pe-24 py-3 rounded-[100px]"
                   >
                     <input
+                      id="coupon-code-input"
                       type="text"
                       class="form-control"
                       placeholder="Coupon Code"
                     />
                     <button
+                      id="apply-coupon-btn"
                       class="btn btn-primary btn-large px-[22px] py-[11px] rounded-l-none rounded-r-[100px] absolute top-0 right-0 h-full w-auto"
                     >
                       Apply
@@ -128,7 +130,7 @@
                         Sub-Total<span id="cart-page-subtotal" class="text-gray-900">₹0.00</span>
                       </p>
                       <p class="flex items-center justify-between">
-                        Discount<span id="cart-page-discount" class="text-gray-900">₹0.00</span>
+                        <span id="discount-label">Discount</span><span id="cart-page-discount" class="text-gray-900">₹0.00</span>
                       </p>
                     </div>
                     <h6
@@ -179,10 +181,10 @@
               </label>
               <!-- Checkout Buttons -->
               <div class="flex flex-col gap-y-6">
-                <a class='btn btn-primary py-3 w-full rounded-[80px]' href='order-successful.html'>
+                <a class='btn btn-primary py-3 w-full rounded-[80px]' href='checkout.php'>
                   Proceed to checkout
                 </a>
-                <a class='btn btn-default outline shadow-none w-full py-[11px] rounded-[80px]' href='shop-left-sidebar-3col.html'>
+                <a class='btn btn-default outline shadow-none w-full py-[11px] rounded-[80px]' href='shop.php'>
                   Continue Shopping
                   <span class="inline-flex items-center justify-center"
                     ><i

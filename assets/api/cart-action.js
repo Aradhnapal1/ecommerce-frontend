@@ -6,6 +6,28 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fetch initial cart count on page load
     fetchGlobalCart();
 
+    // Prevent checkout if user is not logged in
+    document.body.addEventListener("click", function (e) {
+        const clickedEl = e.target.closest("a, button");
+        if (!clickedEl) return;
+
+        const isCheckoutHref = clickedEl.hasAttribute("href") && (clickedEl.getAttribute("href").includes("checkout.php") || clickedEl.getAttribute("href").includes("checkout.html"));
+        const isCheckoutText = clickedEl.textContent && clickedEl.textContent.toLowerCase().includes("proceed to checkout");
+
+        if (isCheckoutHref || isCheckoutText) {
+            const token = localStorage.getItem("UserToken");
+            if (!token) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof Toastify !== "undefined") {
+                    Toastify({ text: "⚠️ Please log in to proceed to checkout", duration: 3000, style: { background: "#ffc107", color: "#000" } }).showToast();
+                }
+                const loginBtn = document.querySelector(".login-page-btn");
+                if (loginBtn) loginBtn.click();
+            }
+        }
+    });
+
     // Event delegation to capture clicks on any "Add to Cart" button dynamically
     document.body.addEventListener("click", async function (e) {
         // Include the product details button via its ID as well

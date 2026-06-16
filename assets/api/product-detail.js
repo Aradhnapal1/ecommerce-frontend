@@ -512,6 +512,16 @@
                 
                 e.preventDefault();
                 
+                const token = localStorage.getItem("UserToken");
+                if (!token) {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({ text: "⚠️ Please log in to proceed to checkout", duration: 3000, style: { background: "#ffc107", color: "#000" } }).showToast();
+                    }
+                    const loginBtn = document.querySelector(".login-page-btn");
+                    if (loginBtn) loginBtn.click();
+                    return;
+                }
+
                 const productId = buyNowBtn.getAttribute("data-product-id");
                 if (!productId || productId === "undefined" || productId === "null") {
                     if (typeof Toastify !== "undefined") {

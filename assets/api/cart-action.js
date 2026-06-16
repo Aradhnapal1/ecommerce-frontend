@@ -253,6 +253,7 @@ async function fetchGlobalCart() {
             }
             
             renderCartPage(items, grandTotal);
+            renderCheckoutPage(items, grandTotal);
 
             // Auto-apply saved coupon if cart has items
             const savedCoupon = localStorage.getItem("AppliedCoupon");
@@ -270,6 +271,7 @@ async function fetchGlobalCart() {
             
             localStorage.removeItem("AppliedCoupon");
             renderCartPage([], 0);
+            renderCheckoutPage([], 0);
         }
     } catch (e) {
         console.error("Error fetching global cart count", e);
@@ -507,6 +509,78 @@ function renderCartPage(items, grandTotal) {
     if (cartCountTitle) cartCountTitle.textContent = `(${items.length} item${items.length !== 1 ? 's' : ''})`;
 }
 
+function renderCheckoutPage(items, grandTotal) {
+    const tbody = document.getElementById("checkoutid");
+    if (!tbody) return;
+
+    if (!items || items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="2" class="text-center py-6 font-semibold text-gray-500">Your cart is empty.</td></tr>`;
+        
+        const subtotalEl = document.getElementById("checkout-subtotal");
+        const discountEl = document.getElementById("checkout-discount");
+        const totalEl = document.getElementById("checkout-total");
+        const discountLabelEl = document.getElementById("checkout-discount-label");
+        
+        if (discountLabelEl) discountLabelEl.textContent = "Discount";
+        if (subtotalEl) subtotalEl.textContent = "₹0.00";
+        if (discountEl) discountEl.textContent = "₹0.00";
+        if (totalEl) totalEl.textContent = "₹0.00";
+        return;
+    }
+
+    let html = "";
+    items.forEach(item => {
+        const price = item.salePrice ?? item.mrp ?? 0;
+        const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
+        const image = item.imageUrl || "assets/images/no-image.png";
+        const itemTotal = price * (item.quantity || 1);
+
+        let attributes = [];
+        if (item.colorName) attributes.push(`Color: ${item.colorName}`);
+        if (item.sizeName) attributes.push(`Size: ${item.sizeName}`);
+        const attrText = attributes.length ? `<p class="text-xs text-light-secondary-text mt-1">${attributes.join(", ")}</p>` : "";
+
+        html += `
+            <tr>
+                <td class="py-4 px-4 product-thumbnail">
+                    <div class="w-[60px] h-[60px] rounded-xl bg-[#F4F3F5] overflow-hidden">
+                        <img src="${image}" alt="${item.productName}" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                </td>
+                <td class="py-4 md:pr-4 pr-2 align-bottom w-full">
+                    <div class="flex flex-col gap-y-2">
+                        <a class="text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300 product-title" href="product-detail.php?id=${item.productId}">
+                            ${item.productName}
+                        </a>
+                        ${attrText}
+                        <div class="flex items-center justify-between mt-1">
+                            <p class="text-sm leading-[22px] font-normal text-light-secondary-text cart-item-quantity">
+                                ${item.quantity || 1} x ₹${price.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                            </p>
+                            <div class="flex items-center gap-x-1.5">
+                                ${oldPrice ? `<span class="line-through text-light-disabled-text font-normal product-total-price">₹${oldPrice.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>` : ''}
+                                <span class="text-primary font-semibold product-offer-price">₹${itemTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+
+    const subtotalEl = document.getElementById("checkout-subtotal");
+    const discountEl = document.getElementById("checkout-discount");
+    const totalEl = document.getElementById("checkout-total");
+    const discountLabelEl = document.getElementById("checkout-discount-label");
+    
+    if (discountLabelEl) discountLabelEl.textContent = "Discount";
+    if (subtotalEl) subtotalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+    if (discountEl) discountEl.textContent = "₹0.00";
+    if (totalEl) totalEl.textContent = `₹${grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+}
+
 function clearEntireCart() {
     const container = document.createElement("div");
 
@@ -614,10 +688,10 @@ async function applyCouponCode(savedCode = null) {
                 couponInput.value = result.couponCode || couponCode;
             }
             
-            const subtotalEl = document.getElementById("cart-page-subtotal");
-            const discountEl = document.getElementById("cart-page-discount");
-            const totalEl = document.getElementById("cart-page-total");
-            const discountLabelEl = document.getElementById("discount-label");
+            const subtotalEl = document.getElementById("cart-page-subtotal") || document.getElementById("checkout-subtotal");
+            const discountEl = document.getElementById("cart-page-discount") || document.getElementById("checkout-discount");
+            const totalEl = document.getElementById("cart-page-total") || document.getElementById("checkout-total");
+            const discountLabelEl = document.getElementById("discount-label") || document.getElementById("checkout-discount-label");
             
             const grandTotal = result.grandTotal || 0;
             const discountAmount = result.discountAmount || 0;
@@ -640,8 +714,8 @@ async function applyCouponCode(savedCode = null) {
             localStorage.removeItem("AppliedCoupon");
             if (couponInput) couponInput.value = "";
             
-            const discountLabelEl = document.getElementById("discount-label");
-            const discountEl = document.getElementById("cart-page-discount");
+            const discountLabelEl = document.getElementById("discount-label") || document.getElementById("checkout-discount-label");
+            const discountEl = document.getElementById("cart-page-discount") || document.getElementById("checkout-discount");
             if (discountLabelEl) discountLabelEl.textContent = "Discount";
             if (discountEl) discountEl.textContent = "₹0.00";
         }

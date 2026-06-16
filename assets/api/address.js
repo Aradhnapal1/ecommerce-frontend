@@ -547,3 +547,66 @@ window.deleteAddress = function(id) {
         toast.hideToast();
     });
 };
+
+
+
+// order get 
+
+async function loadOrders() {
+    try {
+        const userToken = localStorage.getItem("UserToken");
+
+        const response = await fetch(
+            "https://ecommerce-backend.workarya.com/api/orders/all",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+            console.log("No orders found");
+            return;
+        }
+
+        const tbody = document.getElementById("orders-table-body");
+
+        tbody.innerHTML = result.data.map(order => `
+            <tr class="border-t">
+                <td class="p-3">${order.orderNumber}</td>
+                <td class="p-3">${order.fullName}</td>
+                <td class="p-3">${order.mobile}</td>
+                <td class="p-3">₹${Number(order.finalAmount).toLocaleString()}</td>
+                <td class="p-3">${order.paymentMethod}</td>
+                <td class="p-3">${order.paymentStatus}</td>
+                <td class="p-3">${order.orderStatus}</td>
+                <td class="p-3">
+                    ${new Date(order.createdAt).toLocaleDateString("en-IN")}
+                </td>
+             
+        <td class="p-3">
+    <button
+        onclick="viewOrderDetails(${order.id})"
+        class="text-blue-600 hover:text-blue-800">
+        <i class="fa-solid fa-eye"></i>
+    </button>
+</td>
+            </tr>
+        `).join("");
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+loadOrders();
+});

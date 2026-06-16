@@ -44,6 +44,9 @@
     <!-- ========== Toastify CSS & JS ========== -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- Script Api Js  -->
      <script src="./assets/api/domin.js"></script>
@@ -53,7 +56,7 @@
      <script src="./assets/api/product-detail.js"></script>
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
-     <script src="./assets/api/cart.js"></script>
+     <!-- <script src="./assets/api/cart.js"></script> -->
      <script src="./assets/api/cart-action.js"></script>
      <script src="./assets/api/address.js"></script>
 

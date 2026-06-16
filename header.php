@@ -54,7 +54,7 @@
      <script src="./assets/api/wishlist.js"></script>
      <script src="./assets/api/cart.js"></script>
      <script src="./assets/api/cart-action.js"></script>
-     <script src="./assets/api/checkout.js"></script>
+     <script src="./assets/api/address.js"></script>
 
      
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

@@ -36,7 +36,7 @@
                   <h5>Shipping Address</h5>
                 </div>
                 <div class="md:px-6 px-3 py-6">
-                <form class="flex flex-col gap-y-6">
+                <form id="add-address-form" class="flex flex-col gap-y-6">
                 <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
                   <div class="xl:col-span-1 md:col-span-1 col-span-1">
                     <div class="relative w-full">
@@ -247,18 +247,28 @@
                 </div>
                 <!-- Button -->
                 <div class="flex items-center md:justify-end gap-x-6">
-                  <button
+                  <button type="button"
                     class="btn btn-default outline btn-large shadow-none md:px-[33px] w-[45%] md:w-auto py-2.5 rounded-[100px]">
                     Cancel
                   </button>
-                  <button class="btn btn-primary btn-large md:px-[41px] w-[45%] md:w-auto py-[11px] rounded-[100px]">
+                  <button type="submit" class="btn btn-primary btn-large md:px-[41px] w-[45%] md:w-auto py-[11px] rounded-[100px]">
                     Save
                   </button>
                 </div>
               </form>
                 </div>
               </div>
-              <!-- Payment -->
+              <!-- Saved Addresses -->
+              <div class="border border-gray-300 rounded-2xl">
+                <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
+                  <h5 class="text-light-primary-text">Saved Addresses</h5>
+                </div>
+                <div class="md:px-6 px-3 py-6">
+                  <div class="payment-methods flex flex-col gap-y-4" id="saved-addresses-container">
+                    <p class="text-light-secondary-text">Loading addresses...</p>
+                  </div>
+                </div>
+              </div>
               <div class="border border-gray-300 rounded-2xl">
                 <div class="py-4 px-6 bg-gray-200 rounded-t-2xl">
                   <h5 class="text-light-primary-text">Payment</h5>

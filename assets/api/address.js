@@ -2,11 +2,17 @@ const API_BASE_ADDRESS = typeof domin !== "undefined" ? domin : "https://ecommer
 
 document.addEventListener("DOMContentLoaded", function () {
     const addressContainer = document.getElementById("saved-addresses-container");
+    const dashboardAddressContainer = document.getElementById("my-dashboard-addresses-container");
     const addAddressForm = document.getElementById("add-address-form");
 
     // Load addresses on page load if container exists
     if (addressContainer) {
         loadSavedAddresses();
+    }
+
+    // Load addresses on dashboard page if container exists
+    if (dashboardAddressContainer) {
+        loadDashboardAddresses();
     }
 
     // Handle Add New Address
@@ -87,6 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     addAddressForm.reset();
                     if (addressContainer) {
                         loadSavedAddresses();
+                    }
+                    if (dashboardAddressContainer) {
+                        loadDashboardAddresses();
                     }
                 } else {
                     if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to add address"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
@@ -189,5 +198,95 @@ async function loadSavedAddresses() {
     } catch (error) {
         console.error("Error fetching addresses:", error);
         container.innerHTML = '<p class="text-error">Failed to load addresses.</p>';
+    }
+}
+
+
+// my dashbaord
+
+
+async function loadDashboardAddresses() {
+    const container = document.getElementById("my-dashboard-addresses-container");
+    if (!container) return;
+
+    // Update container to use CSS Grid for exactly 3 items per row on large screens
+    container.className = "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6";
+
+    const token = localStorage.getItem("UserToken");
+    if (!token) {
+        container.innerHTML = '<p class="text-light-secondary-text p-6">Please log in to view your addresses.</p>';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_ADDRESS}/api/address/list`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+        let addresses = [];
+        if (Array.isArray(result.data)) addresses = result.data;
+        else if (Array.isArray(result)) addresses = result;
+
+        if (addresses.length === 0) {
+            container.innerHTML = '<p class="text-light-secondary-text p-6">No saved addresses found. You can add one from the checkout page or your account settings.</p>';
+            return;
+        }
+
+        let html = "";
+        addresses.forEach(addr => {
+            const addrTypeDisplay = (addr.addressType && addr.addressType.toLowerCase() !== 'on') ? addr.addressType : "Home";
+            
+            html += `
+            <div class="order-history-table-wrapper border-gray-300 rounded-2xl border overflow-x-auto w-full">
+              <table class="w-full order-history-table">
+                <thead>
+                  <tr class="border-b border-gray-300">
+                    <th class="text-left py-4 px-4">
+                      <div class="flex items-center justify-between">
+                        <p class="lg:text-xl lg:leading-[30px] text-lg leading-7 text-light-primary-text inline-flex items-center gap-x-3">
+                          <span class="inline-flex items-center justify-center">
+                            <i class="hgi hgi-stroke hgi-location-06 text-2xl leading-6 font-normal"></i>
+                          </span>
+                          ${addrTypeDisplay} Address
+                        </p>
+                        <a href="my-account.php?tab=edit-address&id=${addr.id}" class="btn btn-default btn-small outline rounded-[80px] shadow-none">
+                          <span class="inline-flex items-center justify-center">
+                            <i class="hgi hgi-stroke hgi-edit-02 text-[18px] leading-[18px] text-light-primary-text"></i>
+                          </span>
+                          Change
+                        </a>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="px-4 py-4">
+                      <div>
+                        <ul class="flex flex-col gap-1">
+                          <li class="text-light-primary-text font-semibold">${addr.fullName}</li>
+                          <li class="text-light-secondary-text">${addr.addressLine1}${addr.addressLine2 ? ', ' + addr.addressLine2 : ''}</li>
+                          <li class="text-light-secondary-text">${addr.city}, ${addr.state} - ${addr.pincode}</li>
+                          <li class="text-light-secondary-text">${addr.country}</li>
+                          <li class="text-light-secondary-text mt-2">Mobile: <span class="text-light-primary-text font-medium">${addr.mobile}</span></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+
+    } catch (error) {
+        console.error("Error fetching dashboard addresses:", error);
+        container.innerHTML = '<p class="text-error p-6">Failed to load addresses.</p>';
     }
 }

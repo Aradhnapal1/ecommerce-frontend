@@ -137,7 +137,7 @@ async function loadSavedAddresses() {
         addresses.forEach((addr, index) => {
             const isChecked = addr.isDefault || index === 0 ? "checked" : "";
             const displayStyle = isChecked ? "block" : "none";
-            const addrTypeDisplay = (addr.addressType && addr.addressType !== 'on') ? addr.addressType : "Dev";
+            const addrTypeDisplay = (addr.addressType && addr.addressType !== 'on') ? addr.addressType : "HOME";
 
             html += `
             <div class="border border-gray-300 w-full address-item px-4 py-4 rounded-xl cursor-pointer hover:border-primary transition-all">

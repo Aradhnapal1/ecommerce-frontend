@@ -2224,16 +2224,43 @@
                     <h5 class="text-light-primary-text">Shipping Address</h5>
                   </div>
                   <div class="px-6 py-6">
-                    <form class="flex flex-col gap-y-6">
-                      <div
-                        class="grid xl:grid-cols-12 lg:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6 w-full"
-                      >
-                        <div
-                          class="grid grid-cols-12 gap-x-4 gap-y-6 w-full col-span-6"
-                        >
-                          <div class="md:col-span-6 col-span-12">
+                    <form id="edit-address-form" class="flex flex-col gap-y-6">
+                      <input type="hidden" id="edit_address_id" />
+                      <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
+                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                          <div class="relative w-full">
+                            <input type="text" id="edit_full_name" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Full Name" />
+                            <label for="edit_full_name" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Full Name</label>
+                          </div>
+                        </div>
+                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                          <div class="relative w-full">
+                            <input type="tel" id="edit_phone_number" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Phone Number" />
+                            <label for="edit_phone_number" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Phone Number</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
+                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                          <div class="relative w-full">
+                            <input type="tel" id="edit_alternate_mobile" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Alternative Mobile Number" />
+                            <label for="edit_alternate_mobile" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Alternative Mobile Number</label>
+                          </div>
+                        </div>
+                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                          <div class="relative w-full">
+                            <input type="text" id="edit_pincode" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Pin Code" />
+                            <label for="edit_pincode" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Pin Code</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="grid xl:grid-cols-12 lg:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6 w-full">
+                        <div class="grid grid-cols-12 gap-x-4 gap-y-6 w-full col-span-6">
+                          <div class="md:col-span-12 col-span-12">
                             <div class="relative w-full h-full">
-                              <select class="address-select label changed">
+                              <select id="edit_country_region" class="address-select label changed">
                                 <option value="1">United States</option>
                                 <option value="2">Canada</option>
                                 <option value="3">United Kingdom</option>
@@ -2245,45 +2272,24 @@
                                 <option value="9">Bangladesh</option>
                                 <option value="10">Sri Lanka</option>
                               </select>
-                              <label for="country" class="nice-select-label"
+                              <label for="edit_country_region" class="nice-select-label"
                                 >Country / Region</label
                               >
                             </div>
                           </div>
-                          <div class="md:col-span-6 col-span-12">
-                            <div class="relative w-full">
-                              <input
-                                type="text"
-                                id="shipping_city"
-                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                                placeholder="City"
-                                value="New York"
-                              />
-
-                              <label
-                                for="shipping_city"
-                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
-                              >
-                                City
-                              </label>
-                            </div>
-                          </div>
                         </div>
-                        <div
-                          class="grid grid-cols-12 gap-x-4 gap-y-6 w-full col-span-6"
-                        >
+                        <div class="grid grid-cols-12 gap-x-4 gap-y-6 w-full col-span-6">
                           <div class="md:col-span-6 col-span-12">
                             <div class="relative w-full">
                               <input
                                 type="text"
-                                id="shipping_state"
+                                id="edit_state"
                                 class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
                                 placeholder="State"
-                                value="New York"
                               />
 
                               <label
-                                for="shipping_state"
+                                for="edit_state"
                                 class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
                               >
                                 State
@@ -2293,38 +2299,41 @@
                           <div class="md:col-span-6 col-span-12">
                             <div class="relative w-full">
                               <input
-                                type="tel"
-                                id="shipping_zip_code"
+                                type="text"
+                                id="edit_city"
                                 class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                                placeholder="Zip Code"
-                                value="10001"
+                                placeholder="City"
                               />
 
                               <label
-                                for="shipping_zip_code"
+                                for="edit_city"
                                 class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
                               >
-                                Zip Code
+                                City
                               </label>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="relative w-full">
-                        <textarea
-                          id="shipping_address_comment"
-                          class="form-control peer input-group medium rounded-[20px] ps-4 pe-6 resize-none placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                          rows="4"
-                          placeholder="Apartments, suit, unit, etc ( Optional)"
-                        ></textarea>
 
-                        <label
-                          for="shipping_address_comment"
-                          class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-6 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
-                        >
-                          Apartments, suit, unit, etc ( Optional)
-                        </label>
+                      <!-- Address Line 1 -->
+                      <div class="relative w-full">
+                        <input type="text" id="edit_address_line1" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Address Line 1" />
+                        <label for="edit_address_line1" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Address Line 1</label>
                       </div>
+
+                      <!-- Address Line 2 -->
+                      <div class="relative w-full">
+                        <input type="text" id="edit_address_line2" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Address Line 2" />
+                        <label for="edit_address_line2" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Address Line 2</label>
+                      </div>
+
+                      <!-- Landmark -->
+                      <div class="relative w-full">
+                        <input type="text" id="edit_landmark" class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none" placeholder="Landmark" />
+                        <label for="edit_landmark" class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">Landmark</label>
+                      </div>
+
 
                       <!-- Delivery Schedule -->
 
@@ -2343,9 +2352,9 @@
                                 class="relative inline-flex w-5 h-5 items-center justify-center"
                               >
                                 <input
-                                  checked
                                   type="radio"
-                                  name="address-type"
+                                  name="edit-address-type"
+                                  value="HOME"
                                   class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"
                                 />
 
@@ -2373,7 +2382,8 @@
                               >
                                 <input
                                   type="radio"
-                                  name="address-type"
+                                  name="edit-address-type"
+                                  value="OFFICE"
                                   class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"
                                 />
 
@@ -2401,7 +2411,8 @@
                               >
                                 <input
                                   type="radio"
-                                  name="address-type"
+                                  name="edit-address-type"
+                                  value="OTHER"
                                   class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"
                                 />
 
@@ -2421,17 +2432,26 @@
                           </label>
                         </div>
                       </div>
+
+                      <!-- Default Checkbox -->
+                      <div class="flex items-center mt-2">
+                          <input type="checkbox" id="edit_is_default" class="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2">
+                          <label for="edit_is_default" class="ml-2 text-sm font-medium text-gray-900">Set as Default Address</label>
+                      </div>
+
                       <!-- Button -->
                       <div class="flex items-center md:justify-end gap-x-6">
                         <button
+                          type="button"
                           class="btn btn-default outline btn-large md:px-[33px] w-[45%] md:w-auto py-2.5 rounded-[100px] shadow-none"
                         >
                           Cancel
                         </button>
                         <button
+                          type="submit"
                           class="btn btn-primary btn-large md:px-[41px] w-[45%] md:w-auto py-[11px] rounded-[100px]"
                         >
-                          Save
+                          Update
                         </button>
                       </div>
                     </form>

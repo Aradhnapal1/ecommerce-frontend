@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const addressContainer = document.getElementById("saved-addresses-container");
     const dashboardAddressContainer = document.getElementById("my-dashboard-addresses-container");
     const addAddressForm = document.getElementById("add-address-form");
+    const editAddressForm = document.getElementById("edit-address-form");
+
+    // Prefill form if we are on edit address tab
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    const editId = urlParams.get('id');
+    if (tab === 'edit-address' && editId) {
+        prefetchAddressForEdit(editId);
+    }
 
     // Load addresses on page load if container exists
     if (addressContainer) {
@@ -109,6 +118,128 @@ document.addEventListener("DOMContentLoaded", function () {
                     saveBtn.innerHTML = originalBtnText;
                 }
             }
+        });
+    }
+
+    // Handle Edit Address
+    if (editAddressForm) {
+        editAddressForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            
+            const token = localStorage.getItem("UserToken");
+            if (!token) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please login to edit address", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                return;
+            }
+
+            const id = document.getElementById("edit_address_id")?.value;
+            if (!id) return;
+
+            const saveBtn = editAddressForm.querySelector('button[type="submit"]');
+            const originalBtnText = saveBtn ? saveBtn.innerHTML : "Update";
+            if (saveBtn) {
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = "Updating...";
+            }
+
+            const fullName = document.getElementById("edit_full_name")?.value.trim();
+            const mobile = document.getElementById("edit_phone_number")?.value.trim();
+            const alternateMobile = document.getElementById("edit_alternate_mobile")?.value.trim();
+            const pincode = document.getElementById("edit_pincode")?.value.trim();
+            
+            const countrySelect = document.getElementById("edit_country_region");
+            const country = countrySelect ? countrySelect.options[countrySelect.selectedIndex].text : "India";
+            
+            const state = document.getElementById("edit_state")?.value.trim();
+            const city = document.getElementById("edit_city")?.value.trim();
+            const addressLine1 = document.getElementById("edit_address_line1")?.value.trim();
+            const addressLine2 = document.getElementById("edit_address_line2")?.value.trim();
+            const landmark = document.getElementById("edit_landmark")?.value.trim();
+            
+            const addressTypeElement = document.querySelector('input[name="edit-address-type"]:checked');
+            let addressType = addressTypeElement ? addressTypeElement.value : "HOME";
+
+            const isDefault = document.getElementById("edit_is_default")?.checked || false;
+
+            if (!fullName || !mobile || !pincode || !state || !city || !addressLine1) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "❌ Please fill all required fields", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                if (saveBtn) {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = originalBtnText;
+                }
+                return;
+            }
+
+            const payload = {
+                fullName: fullName,
+                mobile: mobile,
+                alternateMobile: alternateMobile,
+                addressLine1: addressLine1,
+                addressLine2: addressLine2,
+                landmark: landmark,
+                city: city,
+                state: state,
+                country: country,
+                pincode: pincode,
+                addressType: addressType,
+                isDefault: isDefault
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_ADDRESS}/api/address/update/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (response.ok || result.success || result.status) {
+                    if (typeof Toastify !== "undefined") Toastify({ text: "✅ Address updated successfully!", duration: 3000, style: { background: "#00b09b" } }).showToast();
+                    
+                    setTimeout(() => {
+                        window.location.href = "my-account.php?tab=address";
+                    }, 1500);
+                } else {
+                    if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to update address"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
+                }
+            } catch (error) {
+                console.error("Error updating address:", error);
+                if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server error while updating address", duration: 3000, style: { background: "#ff416c" } }).showToast();
+            } finally {
+                if (saveBtn) {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = originalBtnText;
+                }
+            }
+        });
+    }
+
+    // Handle Edit Address Cancel Button
+    const editCancelBtn = document.querySelector('#edit-address-form button[type="button"]');
+    if (editCancelBtn) {
+        editCancelBtn.addEventListener('click', function() {
+            document.querySelectorAll('.menu-tab-pane').forEach(pane => pane.classList.add('hidden'));
+            const addressPane = document.getElementById('address');
+            if (addressPane) addressPane.classList.remove('hidden');
+            
+            const url = new URL(window.location);
+            url.searchParams.set('tab', 'address');
+            url.searchParams.delete('id');
+            window.history.pushState({}, '', url);
+        });
+    }
+
+    // Handle Add Address Cancel Button
+    const addCancelBtn = document.querySelector('#add-address-form button[type="button"]');
+    if (addCancelBtn) {
+        addCancelBtn.addEventListener('click', function() {
+            document.querySelectorAll('.menu-tab-pane').forEach(pane => pane.classList.add('hidden'));
+            const addressPane = document.getElementById('address');
+            if (addressPane) addressPane.classList.remove('hidden');
         });
     }
 });
@@ -255,12 +386,12 @@ async function loadDashboardAddresses() {
                           ${addrTypeDisplay} Address
                         </p>
                       <div class="flex items-center gap-x-2">
-                        <a href="my-account.php?tab=edit-address&id=${addr.id}" class="btn btn-default btn-small outline rounded-[80px] shadow-none">
+                        <button type="button" onclick="openEditAddress(${addr.id})" class="btn btn-default btn-small outline rounded-[80px] shadow-none edit-address-button">
                           <span class="inline-flex items-center justify-center">
                             <i class="hgi hgi-stroke hgi-edit-02 text-[18px] leading-[18px] text-light-primary-text"></i>
                           </span>
                           Change
-                        </a>
+                        </button>
                         <button onclick="deleteAddress(${addr.id})" class="btn btn-default btn-small outline rounded-[80px] shadow-none  transition-colors group" title="Delete">
                           <span class="inline-flex items-center justify-center">
                             <i class="hgi hgi-stroke hgi-delete-01 text-[18px] leading-[18px] text-error  transition-colors"></i>
@@ -297,6 +428,68 @@ async function loadDashboardAddresses() {
         container.innerHTML = '<p class="text-error p-6">Failed to load addresses.</p>';
     }
 }
+
+async function prefetchAddressForEdit(id) {
+    const token = localStorage.getItem("UserToken");
+    if (!token) return;
+
+    try {
+        const response = await fetch(`${API_BASE_ADDRESS}/api/address/list`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+        let addresses = [];
+        if (Array.isArray(result.data)) addresses = result.data;
+        else if (Array.isArray(result)) addresses = result;
+
+        const address = addresses.find(a => String(a.id) === String(id));
+        if (address) {
+            document.getElementById("edit_address_id").value = address.id;
+            document.getElementById("edit_full_name").value = address.fullName || "";
+            document.getElementById("edit_phone_number").value = address.mobile || "";
+            document.getElementById("edit_alternate_mobile").value = address.alternateMobile || "";
+            document.getElementById("edit_pincode").value = address.pincode || "";
+            document.getElementById("edit_state").value = address.state || "";
+            document.getElementById("edit_city").value = address.city || "";
+            document.getElementById("edit_address_line1").value = address.addressLine1 || "";
+            document.getElementById("edit_address_line2").value = address.addressLine2 || "";
+            document.getElementById("edit_landmark").value = address.landmark || "";
+            
+            let addrType = (address.addressType && address.addressType !== 'on') ? address.addressType.toUpperCase() : "HOME";
+            const typeRadio = document.querySelector(`input[name="edit-address-type"][value="${addrType}"]`);
+            if (typeRadio) typeRadio.checked = true;
+
+            const defaultCheckbox = document.getElementById("edit_is_default");
+            if (defaultCheckbox) {
+                defaultCheckbox.checked = address.isDefault === true || String(address.isDefault) === "1";
+            }
+        }
+    } catch (error) {
+        console.error("Error prefetching address for edit:", error);
+    }
+}
+
+// Function to Open Edit Address Form programmatically
+window.openEditAddress = function(id) {
+    document.querySelectorAll('.menu-tab-pane').forEach(pane => pane.classList.add('hidden'));
+    
+    const editPane = document.getElementById('edit-address');
+    if (editPane) {
+        editPane.classList.remove('hidden');
+    }
+    
+    const url = new URL(window.location);
+    url.searchParams.set('tab', 'edit-address');
+    url.searchParams.set('id', id);
+    window.history.pushState({}, '', url);
+    
+    prefetchAddressForEdit(id);
+};
 
 // Function to Handle Address Deletion
 window.deleteAddress = function(id) {

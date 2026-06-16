@@ -317,13 +317,6 @@
                                         <span>Order Tracking</span>
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a href="order-detail.php">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Order Details</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 

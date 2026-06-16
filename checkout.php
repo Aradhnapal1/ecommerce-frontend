@@ -298,6 +298,7 @@
                             >
                               <input
                                 checked
+                                value="RAZORPAY"
                                 type="radio"
                                 name="payment-method"
                                 class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"
@@ -336,6 +337,7 @@
                               class="relative inline-flex w-5 h-5 items-center justify-center"
                             >
                               <input
+                                value="COD"
                                 type="radio"
                                 name="payment-method"
                                 class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"

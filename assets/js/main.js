@@ -825,12 +825,6 @@
     $("#address").removeClass("hidden").addClass("active fade").fadeIn();
   });
 
-  $(".logout-button").on("click.sellzy", function (e) {
-    e.preventDefault();
-    isAnythingOpen();
-    showSidebar(".logout-modal");
-  });
-
   /*------ Banner with Filter Button  ------*/
   $(".filter-button").on("click.sellzy", function () {
     const parent = $(this).closest(".filter-dropdown");

@@ -187,6 +187,54 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Handle Logout Action
+    document.body.addEventListener("click", function (e) {
+        const logoutBtn = e.target.closest(".logout-button");
+        if (logoutBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const container = document.createElement("div");
+            container.innerHTML = `
+                <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+                    Are you sure you want to log out?
+                </div>
+                <div style="display:flex;justify-content:center;gap:10px;">
+                    <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">Yes, Logout</button>
+                    <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">Cancel</button>
+                </div>
+            `;
+
+            if (typeof Toastify !== "undefined") {
+                const toast = Toastify({
+                    node: container,
+                    duration: -1,
+                    close: false,
+                    gravity: "top",
+                    position: "center",
+                    style: {
+                        background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                        borderRadius: "10px"
+                    }
+                });
+                toast.showToast();
+
+                container.querySelector(".toast-yes-btn").addEventListener("click", () => {
+                    toast.hideToast();
+                    localStorage.removeItem("UserToken");
+                    showSuccess("Logged out successfully.");
+                    setTimeout(() => {
+                        window.location.href = "index.php"; 
+                    }, 1000);
+                });
+
+                container.querySelector(".toast-no-btn").addEventListener("click", () => {
+                    toast.hideToast();
+                });
+            }
+        }
+    }, true);
 });
 
 function showSuccess(message) {

@@ -552,6 +552,135 @@ window.deleteAddress = function(id) {
 
 // order get 
 
+window.viewOrderDetails = async function(orderId) {
+    const modal = document.getElementById("orderDetailsModal");
+    const modalContent = document.getElementById("orderDetailsModalContent");
+    const modalOrderNumber = document.getElementById("modalOrderNumber");
+    const closeBtn = document.getElementById("closeOrderModalBtn");
+
+    if (!modal || !modalContent || !closeBtn || !modalOrderNumber) return;
+
+    // Show modal and loader
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modalContent.innerHTML = `
+        <div class="flex justify-center items-center py-10">
+            <div class="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-primary"></div>
+        </div>
+    `;
+    modalOrderNumber.textContent = "Loading...";
+
+    try {
+        const token = localStorage.getItem("UserToken");
+        const [orderResponse, addressResponse] = await Promise.all([
+            fetch(`${API_BASE_ADDRESS}/api/orders/${orderId}`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            }),
+            fetch(`${API_BASE_ADDRESS}/api/address/list`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+        ]);
+
+        const orderResult = await orderResponse.json();
+        if (!orderResult.success) {
+            throw new Error(orderResult.message || "Failed to fetch order details.");
+        }
+
+        const { order, items } = orderResult.data;
+
+        const addressResult = await addressResponse.json();
+        let shippingAddress = null;
+        if (addressResult.success && Array.isArray(addressResult.data)) {
+            shippingAddress = addressResult.data.find(addr => addr.id === order.addressId);
+        }
+
+        const orderDate = new Date(order.createdAt).toLocaleDateString('en-GB', {
+            day: 'numeric', month: 'short', year: 'numeric'
+        });
+
+        modalOrderNumber.innerHTML = `Order <span class="text-primary font-semibold">#${order.orderNumber}</span>`;
+
+        let shippingAddressHtml = '';
+        if (shippingAddress) {
+            shippingAddressHtml = `
+                <div>
+                    <h6 class="font-semibold mb-2">Shipping Address</h6>
+                    <div class="border rounded-lg p-4 text-sm bg-gray-50 space-y-1">
+                        <p class="font-bold text-base">${shippingAddress.fullName}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.addressLine1}${shippingAddress.addressLine2 ? ', ' + shippingAddress.addressLine2 : ''}${shippingAddress.landmark ? ', ' + shippingAddress.landmark : ''}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.city}, ${shippingAddress.state} - ${shippingAddress.pincode}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.country}</p>
+                        <p class="text-light-secondary-text mt-2"><b>Mobile:</b> ${shippingAddress.mobile}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        let itemsHtml = items.map(item => `
+            <li class="py-4 border-b border-gray-200 last:border-b-0">
+                <div class="flex gap-x-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-lg shrink-0">
+                        <img src="${item.productImageUrl || 'assets/images/no-image.png'}" alt="${item.productName}" class="w-full h-full rounded-lg object-contain" />
+                    </div>
+                    <div class="flex flex-col gap-y-1 flex-1">
+                        <a href="product-detail.php?id=${item.productId}" class="text-light-primary-text font-semibold text-sm line-clamp-2 hover:text-primary">${item.productName}</a>
+                        <div class="flex items-center justify-between text-sm mt-auto">
+                            <p class="text-light-secondary-text">
+                                Qty: <span class="font-semibold text-light-primary-text">${item.quantity}</span>
+                            </p>
+                            <p class="font-semibold text-light-primary-text">
+                                ₹${Number(item.price).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+
+        modalContent.innerHTML = `
+            <div class="flex flex-col gap-y-6">
+                <div class="border rounded-lg p-4 space-y-2 text-sm bg-gray-50">
+                     <p class="flex justify-between"><span>Payment Method:</span> <span class="font-semibold">${order.paymentMethod}</span></p>
+                     <p class="flex justify-between"><span>Payment Status:</span> <span class="font-semibold text-warning-dark">${order.paymentStatus}</span></p>
+                     <p class="flex justify-between"><span>Order Status:</span> <span class="font-semibold text-success-dark">${order.orderStatus}</span></p>
+                     <p class="flex justify-between"><span>Order Date:</span> <span class="font-semibold">${orderDate}</span></p>
+                </div>
+                <div>
+                    ${shippingAddressHtml}
+                </div>
+                <div>
+                    <h6 class="font-semibold mb-2">Items (${items.length})</h6>
+                    <ul class="flex flex-col">
+                        ${itemsHtml}
+                    </ul>
+                </div>
+                <div class="border-t pt-4 space-y-2 text-sm">
+                    <p class="flex justify-between"><span>Subtotal:</span> <span class="font-semibold">₹${Number(order.subtotal).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                    <p class="flex justify-between"><span>Discount:</span> <span class="font-semibold text-error">-₹${Number(order.discountAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                    <p class="flex justify-between font-bold text-base mt-2"><span>Total:</span> <span>₹${Number(order.finalAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                </div>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error("Error fetching order details:", error);
+        modalContent.innerHTML = `<p class="text-error p-6">${error.message || 'Failed to load order details.'}</p>`;
+    }
+
+    const closeModal = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    };
+
+    closeBtn.onclick = closeModal;
+
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}
+
 async function loadOrders() {
     try {
         const userToken = localStorage.getItem("UserToken");
@@ -569,8 +698,9 @@ async function loadOrders() {
 
         const result = await response.json();
 
-        if (!result.success) {
-            console.log("No orders found");
+        if (!result.success || !result.data || result.data.length === 0) {
+            const tbody = document.getElementById("orders-table-body");
+            if (tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center p-6 text-light-secondary-text">No orders found.</td></tr>`;
             return;
         }
 
@@ -601,12 +731,13 @@ async function loadOrders() {
 
     } catch (error) {
         console.error("Error:", error);
+        const tbody = document.getElementById("orders-table-body");
+        if (tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center p-6 text-error">Failed to load orders.</td></tr>`;
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
-
-loadOrders();
+    if (document.getElementById("orders-table-body")) {
+        loadOrders();
+    }
 });

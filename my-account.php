@@ -1332,5 +1332,23 @@
 </section>
 <!-- ========== My Account Section End ========== -->
 
+<!-- Order Details Modal -->
+<div id="orderDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-lg w-full max-w-xl max-h-[90vh] flex flex-col">
+        <div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white rounded-t-2xl z-10">
+            <h4 class="text-lg font-semibold" id="modalOrderNumber">Order Details</h4>
+            <button id="closeOrderModalBtn" class="text-gray-500 hover:text-gray-800">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+        </div>
+        <div id="orderDetailsModalContent" class="p-6 overflow-y-auto">
+            <!-- Dynamic content will be loaded here -->
+            <div class="flex justify-center items-center py-10">
+                <div class="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-primary"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php include 'footer.php'; ?>

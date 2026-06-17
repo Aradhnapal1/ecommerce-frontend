@@ -205,12 +205,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             <a href="shop.php">Shop</a>
 
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#">Sellers</a>
 
-                        </li>
+                        </li> -->
 
-                        <li><a href='my-account.php'>My Account</a></li>
+                        <!-- <li><a href='my-account.php'>My Account</a></li> -->
                         <li><a href='blog-grid.php'>Blog Grid</a></li>
                         <li><a href='contact.php'>Contact</a></li>
                     </ul>
@@ -1649,8 +1649,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             Need Support ?
                             <span>Call Us</span>
                             <a href="#"
-                                class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800">(480)
-                                555-0103</a>
+                                class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800"> +91 9315957014</a>
                         </p>
                         <div>
                             <ul class="flex items-center gap-x-[19px]">
@@ -1808,9 +1807,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     class="text-sm leading-[22px] text-white pr-[19px] mr-[19px] py-3.5 relative after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2">My
                                     Wishlist</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#" class="text-sm leading-[22px] text-white py-3.5">Order Tracking</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -2155,7 +2154,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             </li> -->
 
                             <li><a href='blog-grid.php'>Blog </a></li>
-                            <li><a href='my-account.php'>My Account</a></li>
+                            <!-- <li><a href='my-account.php'>My Account</a></li> -->
                             <li>
                                 <a href='contact.php'>Contact </a>
                             </li>
@@ -2169,7 +2168,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             </span>
                             <span class="flex flex-col text-sm leading-[22px]">
                                 24/7 Support
-                                <span class="text-base leading-6 text-light-primary-text">888-777-999</span>
+                                <span class="text-base leading-6 text-light-primary-text">+919315957014</span>
                             </span>
                         </p>
                     </div>

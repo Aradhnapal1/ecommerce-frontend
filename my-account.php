@@ -96,6 +96,7 @@
                 <table class="w-full min-w-[1000px]">
                   <thead>
                     <tr class="bg-gray-50 text-sm text-gray-600">
+                      <th class="px-6 py-4 text-left font-semibold">Order ID</th>
                       <th class="px-6 py-4 text-left font-semibold">Order No</th>
                       <th class="px-6 py-4 text-left font-semibold">Customer</th>
                       <th class="px-6 py-4 text-left font-semibold">Mobile</th>

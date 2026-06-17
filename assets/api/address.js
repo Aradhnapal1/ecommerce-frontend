@@ -708,6 +708,7 @@ async function loadOrders() {
 
         tbody.innerHTML = result.data.map(order => `
             <tr class="border-t">
+            <td class="p-3">#${order.id}</td>
                 <td class="p-3">${order.orderNumber}</td>
                 <td class="p-3">${order.fullName}</td>
                 <td class="p-3">${order.mobile}</td>

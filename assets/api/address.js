@@ -728,11 +728,11 @@ async function loadOrders() {
 </td>
                 <td class="p-3 text-center">
                     ${order.orderStatus && order.orderStatus.toUpperCase() !== 'CANCELLED' ? 
-                        `<button onclick="cancelOrder(${order.id})" class="text-red-500 hover:text-red-700 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md text-sm transition-colors font-medium" title="Cancel Order">
+                        `<button onclick="cancelOrder(${order.id})" class="text-error  bg-error/10 hover:bg-error border border-error/20 hover:border-error px-4 py-1.5 rounded-lg text-sm transition-all duration-300 font-semibold shadow-sm" title="Cancel Order">
                             Cancel
                         </button>` 
                         : 
-                        `<span class="text-gray-400 text-sm font-medium">Cancelled</span>`
+                        `<span class="inline-block text-gray-500 bg-gray-100 border border-gray-300 px-4 py-1.5 rounded-lg text-sm font-semibold shadow-sm cursor-not-allowed">Cancelled</span>`
                     }
                 </td>
             </tr>

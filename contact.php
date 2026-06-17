@@ -225,26 +225,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="w-full pb-6 wow animate__animated animate__fadeInUp"
-                  data-wow-delay=".2s"
-                >
-                  <div class="relative w-full">
-                    <input
-                      type="text"
-                      id="subject"
-                      class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                      placeholder="Subject"
-                    />
-
-                    <label
-                      for="subject"
-                      class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
-                    >
-                      Subject
-                    </label>
-                  </div>
-                </div>
+               
                 <div
                   class="w-full pb-10 wow animate__animated animate__fadeInUp"
                   data-wow-delay=".2s"
@@ -273,7 +254,7 @@
                   <div
                     class="btn btn-large btn-primary rounded-[100px] px-[35px] py-[11px]"
                   >
-                    <a href="#">Send Your Message</a>
+                <a href="#" id="submit-contact-btn">Send Your Message</a>
                   </div>
                 </div>
               </div>
@@ -418,3 +399,6 @@
 
 
     <?php include 'footer.php'; ?>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="assets/api/contact.js"></script>

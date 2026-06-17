@@ -1805,7 +1805,7 @@ others css
     background-color: #8EBDD1;
   }
   .bg-\[\#9EE872\] {
-    background-color: #9EE872;
+    background-color: #088178;
   }
   .bg-\[\#74CAFF\] {
     background-color: #74CAFF;
@@ -6024,7 +6024,7 @@ others css
     @media (width >= 64rem) {
       &::before {
         content: var(--tw-content);
-        background-color: #9EE872;
+        background-color: #088178;
       }
     }
   }
@@ -6136,7 +6136,7 @@ others css
     @media (width >= 64rem) {
       &::after {
         content: var(--tw-content);
-        background-color: #9EE872;
+        background-color: #088178;
       }
     }
   }

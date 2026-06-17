@@ -726,6 +726,15 @@ async function loadOrders() {
         <i class="fa-solid fa-eye"></i>
     </button>
 </td>
+                <td class="p-3 text-center">
+                    ${order.orderStatus && order.orderStatus.toUpperCase() !== 'CANCELLED' ? 
+                        `<button onclick="cancelOrder(${order.id})" class="text-red-500 hover:text-red-700 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md text-sm transition-colors font-medium" title="Cancel Order">
+                            Cancel
+                        </button>` 
+                        : 
+                        `<span class="text-gray-400 text-sm font-medium">Cancelled</span>`
+                    }
+                </td>
             </tr>
         `).join("");
 
@@ -735,6 +744,62 @@ async function loadOrders() {
         if (tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center p-6 text-error">Failed to load orders.</td></tr>`;
     }
 }
+
+window.cancelOrder = function(orderId) {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to cancel this order?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">Yes, Cancel</button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">No</button>
+        </div>
+    `;
+
+    const toast = Toastify({
+        node: container,
+        duration: -1,
+        close: false,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+            borderRadius: "10px"
+        }
+    });
+    toast.showToast();
+
+    container.querySelector(".toast-yes-btn").addEventListener("click", async () => {
+        toast.hideToast();
+        
+        const token = localStorage.getItem("UserToken");
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${API_BASE_ADDRESS}/api/orders/${orderId}/cancel`, {
+                method: "PUT",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const result = await response.json();
+
+            if (response.ok && (result.success === true || result.status === true)) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "✅ Order cancelled successfully", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                loadOrders(); // Refresh table
+            } else {
+                if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to cancel order"}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            }
+        } catch (error) {
+            console.error("CANCEL ERROR:", error);
+            if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        }
+    });
+
+    container.querySelector(".toast-no-btn").addEventListener("click", () => {
+        toast.hideToast();
+    });
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("orders-table-body")) {

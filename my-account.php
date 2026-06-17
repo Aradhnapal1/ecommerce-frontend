@@ -105,6 +105,7 @@
                       <th class="px-6 py-4 text-left font-semibold">Order Status</th>
                       <th class="px-6 py-4 text-left font-semibold">Date</th>
                         <th class="px-6 py-4 text-left font-semibold">View Details</th>
+                        <th class="px-6 py-4 text-left font-semibold">Cancel Order</th>
                     </tr>
                   </thead>
 

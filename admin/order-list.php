@@ -59,6 +59,7 @@
                                         <th>Created Date</th>
                                         <th>Action</th>
                                         <th>Update Status</th>
+                                        <th>Update Payment Status</th>
                                     </tr>
                                 </thead>
 

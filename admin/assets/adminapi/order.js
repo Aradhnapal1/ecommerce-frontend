@@ -29,6 +29,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
+
+    // Check if we are on the payment status update page
+    const paymentStatusForm = document.getElementById("payment-status-form");
+    if (paymentStatusForm) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id');
+        if (!orderId) {
+            document.getElementById("payment-status-container").innerHTML = '<div class="alert alert-danger">No Order ID found in the URL.</div>';
+            paymentStatusForm.style.display = 'none';
+        } else {
+            paymentStatusForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                updatePaymentStatus(orderId);
+            });
+        }
+    }
 });
 async function loadOrders() {
     try {
@@ -77,6 +93,11 @@ async function loadOrders() {
                             <i class="fa fa-edit" style="color: #ffc107; font-size: 16px;"></i>
                         </a>
                     </td>
+                    <td>
+                        <a href="payment-status.php?id=${order.id}" title="Update Payment Status" class="px-2">
+                            <i class="fa fa-credit-card" style="color: #28a745; font-size: 16px;"></i>
+                        </a>
+                    </td>
                 </tr>
             `;
         });
@@ -86,7 +107,7 @@ async function loadOrders() {
 
         document.getElementById("ordertable").innerHTML = `
             <tr>
-                <td colspan="10" class="text-center text-danger">
+                <td colspan="15" class="text-center text-danger">
                     Failed to load orders
                 </td>
             </tr>
@@ -232,5 +253,40 @@ async function updateOrderStatus(orderId) {
         if (typeof Toastify !== "undefined") Toastify({ text: `❌ Error: ${error.message}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
         submitBtn.disabled = false;
         submitBtn.innerText = "Update Status";
+    }
+}
+
+async function updatePaymentStatus(orderId) {
+    const statusSelect = document.getElementById("payment_status");
+    const newStatus = statusSelect.value;
+    const submitBtn = document.getElementById("update-payment-status-btn");
+    
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Updating...";
+
+    try {
+        const adminToken = localStorage.getItem("adminToken");
+        const response = await fetch(`${domin}/api/orders/${orderId}/payment-status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${adminToken}`
+            },
+            body: JSON.stringify({ paymentStatus: newStatus })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && (result.success || result.status)) {
+            if (typeof Toastify !== "undefined") Toastify({ text: "✅ Payment Status Updated Successfully!", duration: 3000, style: { background: "#00b09b" } }).showToast();
+            setTimeout(() => { window.location.href = "order-list.php"; }, 1500);
+        } else {
+            throw new Error(result.message || "Failed to update payment status");
+        }
+    } catch (error) {
+        console.error("Payment Status Update Error:", error);
+        if (typeof Toastify !== "undefined") Toastify({ text: `❌ Error: ${error.message}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Update Payment Status";
     }
 }

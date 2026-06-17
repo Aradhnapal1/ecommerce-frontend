@@ -1283,7 +1283,7 @@
                   <h5 class="text-light-primary-text">Password Change</h5>
                 </div>
                 <div class="px-6 py-6">
-                  <form class="flex flex-col gap-y-6">
+                <form id="change-password-form" class="flex flex-col gap-y-6">
                     <div class="relative w-full">
                       <input type="password" id="password"
                         class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
@@ -1316,8 +1316,8 @@
                     </div>
                     <!-- Button -->
                     <div class="text-end">
-                      <button
-                        class="btn btn-primary btn-large md:px-[22px] w-[45%] md:w-auto py-[11px] rounded-[100px]">
+                    <button type="submit" id="change-password-btn"
+                      class="btn btn-primary btn-large md:px-[22px] w-[45%] md:w-auto py-[11px] rounded-[100px] transition-all">
                         Save Changes
                       </button>
                     </div>

@@ -1,6 +1,7 @@
 const REGISTER_API = `${domin}/api/user/register`;
 const VERIFY_OTP_API = `${domin}/api/user/verify-otp`;
 const LOGIN_API = `${domin}/api/user/login`;
+const CHANGE_PASSWORD_API = `${domin}/api/user/change-password`;
 
 let registeredEmail = "";
 
@@ -184,6 +185,65 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = "Sign In";
+            }
+        });
+    }
+
+    // Handle Change Password
+    const changePasswordForm = document.getElementById("change-password-form");
+    if (changePasswordForm) {
+        changePasswordForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const oldPassword = document.getElementById("password")?.value.trim();
+            const newPassword = document.getElementById("new_password")?.value.trim();
+            const confirmPassword = document.getElementById("confirm_new_password")?.value.trim();
+
+            if (!oldPassword || !newPassword || !confirmPassword) {
+                return showError("Please fill all password fields.");
+            }
+
+            if (newPassword !== confirmPassword) {
+                return showError("New password and confirm password do not match.");
+            }
+
+            const userToken = localStorage.getItem("UserToken");
+            if (!userToken) {
+                return showError("Please log in first to change your password.");
+            }
+
+            const changePwdBtn = document.getElementById("change-password-btn");
+            changePwdBtn.disabled = true;
+            const originalText = changePwdBtn.innerHTML;
+            changePwdBtn.innerHTML = "Saving...";
+
+            try {
+                const response = await fetch(CHANGE_PASSWORD_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${userToken}`
+                    },
+                    body: JSON.stringify({
+                        oldPassword: oldPassword,
+                        newPassword: newPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status !== false && data.success !== false) {
+                    showSuccess(data.message || "Password changed successfully!");
+                    changePasswordForm.reset();
+                } else {
+                    showError(data.message || "Failed to change password.");
+                }
+            } catch (error) {
+                console.error("Change Password Error:", error);
+                showError("Something went wrong while changing the password.");
+            } finally {
+                changePwdBtn.disabled = false;
+                changePwdBtn.innerHTML = originalText;
             }
         });
     }

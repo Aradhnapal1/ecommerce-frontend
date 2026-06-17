@@ -547,3 +547,263 @@ window.deleteAddress = function(id) {
         toast.hideToast();
     });
 };
+
+
+
+// order get 
+
+window.viewOrderDetails = async function(orderId) {
+    const modal = document.getElementById("orderDetailsModal");
+    const modalContent = document.getElementById("orderDetailsModalContent");
+    const modalOrderNumber = document.getElementById("modalOrderNumber");
+    const closeBtn = document.getElementById("closeOrderModalBtn");
+
+    if (!modal || !modalContent || !closeBtn || !modalOrderNumber) return;
+
+    // Show modal and loader
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modalContent.innerHTML = `
+        <div class="flex justify-center items-center py-10">
+            <div class="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-primary"></div>
+        </div>
+    `;
+    modalOrderNumber.textContent = "Loading...";
+
+    try {
+        const token = localStorage.getItem("UserToken");
+        const [orderResponse, addressResponse] = await Promise.all([
+            fetch(`${API_BASE_ADDRESS}/api/orders/${orderId}`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            }),
+            fetch(`${API_BASE_ADDRESS}/api/address/list`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+        ]);
+
+        const orderResult = await orderResponse.json();
+        if (!orderResult.success) {
+            throw new Error(orderResult.message || "Failed to fetch order details.");
+        }
+
+        const { order, items } = orderResult.data;
+
+        const addressResult = await addressResponse.json();
+        let shippingAddress = null;
+        if (addressResult.success && Array.isArray(addressResult.data)) {
+            shippingAddress = addressResult.data.find(addr => addr.id === order.addressId);
+        }
+
+        const orderDate = new Date(order.createdAt).toLocaleDateString('en-GB', {
+            day: 'numeric', month: 'short', year: 'numeric'
+        });
+
+        modalOrderNumber.innerHTML = `Order <span class="text-primary font-semibold">#${order.orderNumber}</span>`;
+
+        let shippingAddressHtml = '';
+        if (shippingAddress) {
+            shippingAddressHtml = `
+                <div>
+                    <h6 class="font-semibold mb-2">Shipping Address</h6>
+                    <div class="border rounded-lg p-4 text-sm bg-gray-50 space-y-1">
+                        <p class="font-bold text-base">${shippingAddress.fullName}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.addressLine1}${shippingAddress.addressLine2 ? ', ' + shippingAddress.addressLine2 : ''}${shippingAddress.landmark ? ', ' + shippingAddress.landmark : ''}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.city}, ${shippingAddress.state} - ${shippingAddress.pincode}</p>
+                        <p class="text-light-secondary-text">${shippingAddress.country}</p>
+                        <p class="text-light-secondary-text mt-2"><b>Mobile:</b> ${shippingAddress.mobile}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        let itemsHtml = items.map(item => `
+            <li class="py-4 border-b border-gray-200 last:border-b-0">
+                <div class="flex gap-x-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-lg shrink-0">
+                        <img src="${item.productImageUrl || 'assets/images/no-image.png'}" alt="${item.productName}" class="w-full h-full rounded-lg object-contain" />
+                    </div>
+                    <div class="flex flex-col gap-y-1 flex-1">
+                        <a href="product-detail.php?id=${item.productId}" class="text-light-primary-text font-semibold text-sm line-clamp-2 hover:text-primary">${item.productName}</a>
+                        <div class="flex items-center justify-between text-sm mt-auto">
+                            <p class="text-light-secondary-text">
+                                Qty: <span class="font-semibold text-light-primary-text">${item.quantity}</span>
+                            </p>
+                            <p class="font-semibold text-light-primary-text">
+                                ₹${Number(item.price).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+
+        modalContent.innerHTML = `
+            <div class="flex flex-col gap-y-6">
+                <div class="border rounded-lg p-4 space-y-2 text-sm bg-gray-50">
+                     <p class="flex justify-between"><span>Payment Method:</span> <span class="font-semibold">${order.paymentMethod}</span></p>
+                     <p class="flex justify-between"><span>Payment Status:</span> <span class="font-semibold text-warning-dark">${order.paymentStatus}</span></p>
+                     <p class="flex justify-between"><span>Order Status:</span> <span class="font-semibold text-success-dark">${order.orderStatus}</span></p>
+                     <p class="flex justify-between"><span>Order Date:</span> <span class="font-semibold">${orderDate}</span></p>
+                </div>
+                <div>
+                    ${shippingAddressHtml}
+                </div>
+                <div>
+                    <h6 class="font-semibold mb-2">Items (${items.length})</h6>
+                    <ul class="flex flex-col">
+                        ${itemsHtml}
+                    </ul>
+                </div>
+                <div class="border-t pt-4 space-y-2 text-sm">
+                    <p class="flex justify-between"><span>Subtotal:</span> <span class="font-semibold">₹${Number(order.subtotal).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                    <p class="flex justify-between"><span>Discount:</span> <span class="font-semibold text-error">-₹${Number(order.discountAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                    <p class="flex justify-between font-bold text-base mt-2"><span>Total:</span> <span>₹${Number(order.finalAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></p>
+                </div>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error("Error fetching order details:", error);
+        modalContent.innerHTML = `<p class="text-error p-6">${error.message || 'Failed to load order details.'}</p>`;
+    }
+
+    const closeModal = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    };
+
+    closeBtn.onclick = closeModal;
+
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}
+
+async function loadOrders() {
+    try {
+        const userToken = localStorage.getItem("UserToken");
+
+        const response = await fetch(
+            "https://ecommerce-backend.workarya.com/api/orders/all",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!result.success || !result.data || result.data.length === 0) {
+            const tbody = document.getElementById("orders-table-body");
+            if (tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center p-6 text-light-secondary-text">No orders found.</td></tr>`;
+            return;
+        }
+
+        const tbody = document.getElementById("orders-table-body");
+
+        tbody.innerHTML = result.data.map(order => `
+            <tr class="border-t">
+            <td class="p-3">#${order.id}</td>
+                <td class="p-3">${order.orderNumber}</td>
+                <td class="p-3">${order.fullName}</td>
+                <td class="p-3">${order.mobile}</td>
+                <td class="p-3">₹${Number(order.finalAmount).toLocaleString()}</td>
+                <td class="p-3">${order.paymentMethod}</td>
+                <td class="p-3">${order.paymentStatus}</td>
+                <td class="p-3">${order.orderStatus}</td>
+                <td class="p-3">
+                    ${new Date(order.createdAt).toLocaleDateString("en-IN")}
+                </td>
+             
+        <td class="p-3">
+    <button
+        onclick="viewOrderDetails(${order.id})"
+        class="text-blue-600 hover:text-blue-800">
+        <i class="fa-solid fa-eye"></i>
+    </button>
+</td>
+                <td class="p-3 text-center">
+                    ${order.orderStatus && order.orderStatus.toUpperCase() !== 'CANCELLED' ? 
+                        `<button onclick="cancelOrder(${order.id})" class="text-error  bg-error/10 hover:bg-error border border-error/20 hover:border-error px-4 py-1.5 rounded-lg text-sm transition-all duration-300 font-semibold shadow-sm" title="Cancel Order">
+                            Cancel
+                        </button>` 
+                        : 
+                        `<span class="inline-block text-gray-500 bg-gray-100 border border-gray-300 px-4 py-1.5 rounded-lg text-sm font-semibold shadow-sm cursor-not-allowed">Cancelled</span>`
+                    }
+                </td>
+            </tr>
+        `).join("");
+
+    } catch (error) {
+        console.error("Error:", error);
+        const tbody = document.getElementById("orders-table-body");
+        if (tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center p-6 text-error">Failed to load orders.</td></tr>`;
+    }
+}
+
+window.cancelOrder = function(orderId) {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;text-align:center;color:#fff;">
+            Are you sure you want to cancel this order?
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;">
+            <button class="toast-yes-btn" style="background:#fff;color:#ff416c;border:none;padding:6px 15px;border-radius:5px;font-weight:bold;cursor:pointer;">Yes, Cancel</button>
+            <button class="toast-no-btn" style="background:transparent;color:#fff;border:1px solid #fff;padding:6px 15px;border-radius:5px;cursor:pointer;">No</button>
+        </div>
+    `;
+
+    const toast = Toastify({
+        node: container,
+        duration: -1,
+        close: false,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+            borderRadius: "10px"
+        }
+    });
+    toast.showToast();
+
+    container.querySelector(".toast-yes-btn").addEventListener("click", async () => {
+        toast.hideToast();
+        
+        const token = localStorage.getItem("UserToken");
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${API_BASE_ADDRESS}/api/orders/${orderId}/cancel`, {
+                method: "PUT",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const result = await response.json();
+
+            if (response.ok && (result.success === true || result.status === true)) {
+                if (typeof Toastify !== "undefined") Toastify({ text: "✅ Order cancelled successfully", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                loadOrders(); // Refresh table
+            } else {
+                if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to cancel order"}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            }
+        } catch (error) {
+            console.error("CANCEL ERROR:", error);
+            if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+        }
+    });
+
+    container.querySelector(".toast-no-btn").addEventListener("click", () => {
+        toast.hideToast();
+    });
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.getElementById("orders-table-body")) {
+        loadOrders();
+    }
+});

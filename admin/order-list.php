@@ -58,7 +58,7 @@
                                         <th>Coupon Code</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
-                                        <th>Update Status</th>
+                                        <th>Update Order Status</th>
                                         <th>Update Payment Status</th>
                                     </tr>
                                 </thead>

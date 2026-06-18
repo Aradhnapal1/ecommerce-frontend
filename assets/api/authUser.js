@@ -23,10 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // If on my-account page, load profile
-        if (window.location.pathname.includes("my-account.php")) {
-            loadUserProfile();
-        }
+        // Load user profile globally to show header image/initials
+        loadUserProfile();
     }
 
     const registerForm = document.getElementById("userRegisterForm");
@@ -344,13 +342,48 @@ async function loadUserProfile() {
             const profileImagePreview = document.getElementById("profileImagePreview");
             let profileImg = user.profile_image || user.profileImage || user.profileImageUrl || user.profile_image_url || user.image || user.avatar;
             
-            if (profileImg && String(profileImg).trim() !== "" && profileImg !== "null" && profileImg !== "undefined" && profileImagePreview) {
+            let isValidImage = false;
+            if (profileImg && String(profileImg).trim() !== "" && profileImg !== "null" && profileImg !== "undefined") {
+                isValidImage = true;
                 // If the path is relative, prepend the backend domain to it
                 if (!profileImg.startsWith("http") && !profileImg.startsWith("data:") && !profileImg.startsWith("assets/")) {
                     const baseUrl = typeof domin !== "undefined" ? domin.replace(/\/$/, "") : "https://ecommerce-backend.workarya.com";
                     profileImg = `${baseUrl}/${profileImg.replace(/^\//, "")}`;
                 }
-                profileImagePreview.src = profileImg;
+                if (profileImagePreview) {
+                    profileImagePreview.src = profileImg;
+                }
+            }
+
+            // Update Header Profile Info
+            const headerProfileDefault = document.getElementById("headerProfileDefault");
+            const headerProfileInitials = document.getElementById("headerProfileInitials");
+            const headerProfileImage = document.getElementById("headerProfileImage");
+
+            if (headerProfileDefault && headerProfileInitials && headerProfileImage) {
+                headerProfileDefault.classList.add("hidden");
+                headerProfileDefault.classList.remove("inline-flex");
+                headerProfileInitials.classList.add("hidden");
+                headerProfileInitials.classList.remove("inline-flex");
+                headerProfileImage.classList.add("hidden");
+                headerProfileImage.classList.remove("block");
+
+                const firstInitial = (user.first_name || user.firstName || "").charAt(0).toUpperCase();
+                const lastInitial = (user.last_name || user.lastName || "").charAt(0).toUpperCase();
+                const initials = firstInitial + lastInitial;
+
+                if (isValidImage) {
+                    headerProfileImage.src = profileImg;
+                    headerProfileImage.classList.remove("hidden");
+                    headerProfileImage.classList.add("block");
+                } else if (initials) {
+                    headerProfileInitials.textContent = initials;
+                    headerProfileInitials.classList.remove("hidden");
+                    headerProfileInitials.classList.add("inline-flex");
+                } else {
+                    headerProfileDefault.classList.remove("hidden");
+                    headerProfileDefault.classList.add("inline-flex");
+                }
             }
         }
     } catch (error) {

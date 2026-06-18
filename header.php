@@ -1921,10 +1921,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     </ul>
                                 </li>
                                 <li class="items-center gap-x-4 cursor-pointer relative group user-only-block" style="display: none;">
-                                    <p class="flex items-center">
-                                        <span class="inline-flex items-center justify-center bg-primary w-12 h-12 rounded-full">
+                                    <p class="flex items-center" id="headerProfileIconContainer">
+                                        <span id="headerProfileDefault" class="inline-flex items-center justify-center bg-primary w-12 h-12 rounded-full">
                                             <i class="hgi hgi-stroke hgi-user text-2xl text-white"></i>
                                         </span>
+                                        <span id="headerProfileInitials" class="hidden items-center justify-center bg-primary w-12 h-12 rounded-full text-white font-bold text-lg uppercase tracking-widest">
+                                        </span>
+                                        <img id="headerProfileImage" src="" alt="Profile" class="hidden w-12 h-12 rounded-full object-cover border border-gray-200" />
                                     </p>
                                     <p class="flex flex-col text-light-secondary-text text-sm leading-[22px]">
                                         Welcome

@@ -63,6 +63,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
      
      <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
      <script src="./assets/api/authUser.js"></script>
+     <script src="./assets/api/review.js"></script>
 
 </head>
 

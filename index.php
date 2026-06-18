@@ -78,7 +78,7 @@
                 data-wow-delay=".2s">
                 <div class="flex flex-col gap-y-6">
                     <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300'
-                        href='product-detail.php'>
+                        href='product-detail.php?id=43'>
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/macbook.png" alt="MacBook" class="rounded-2xl" />
@@ -107,7 +107,7 @@
                         </div>
                     </a>
                     <a class='flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300'
-                        href='product-detail.php'>
+                        href='product-detail.php?id=44'>
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/redphone.png" alt="Red Phone" class="rounded-2xl" />
@@ -140,7 +140,7 @@
             <div class="xl:col-span-4 col-span-12 xl:row-start-1 wow animate__animated animate__fadeInUp"
                 data-wow-delay=".3s">
                 <a class='border border-gray-300 rounded-2xl group hover:border-primary transition-all duration-300 flex flex-col'
-                    href='product-detail.php'>
+                    href='product-detail.php?id=45'>
                     <div class="max-w-[528px] flex items-center justify-center w-full mx-auto">
                         <img src="assets/images/home-5/smart-watch-1.png" alt="Smart Watch" class="rounded-t-2xl" />
                     </div>
@@ -160,7 +160,7 @@
                 data-wow-delay=".4s">
                 <div class="flex flex-col gap-y-6">
                     <a
-                        class="flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300">
+                        class="flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300" href="product-detail.php?id=46">
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/ipad-1.png" alt="iPad" class="rounded-2xl" />
@@ -189,7 +189,7 @@
                         </div>
                     </a>
                     <a
-                        class="flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300">
+                        class="flex flex-col lg:flex-row border-gray-300 border rounded-2xl group hover:border-primary transition-all duration-300" href="product-detail.php?id=47">
                         <div
                             class="p-4 lg:border-r border-b lg:border-b-0 border-gray-300 lg:max-w-[190px] flex items-center justify-center w-full">
                             <img src="assets/images/home-5/samsung-phone-2.png" alt="Samsung Phone"
@@ -276,4 +276,5 @@
 </section>
 <!-- ========== CTA Section End ========== -->
 <!-- ========== Smart Section End ========== -->
+<script src="assets/api/review.js"></script>
 <?php include 'footer.php'; ?>

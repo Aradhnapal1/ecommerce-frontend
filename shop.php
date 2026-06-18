@@ -179,7 +179,7 @@
                             class="price-range-min-value form-control"
                             readonly
                             type="text"
-                            value=""
+                            value="0"
                           />
                         </div>
                         <span
@@ -199,7 +199,7 @@
                             class="price-range-max-value form-control"
                             readonly
                             type="text"
-                            value=""
+                            value="100"
                           />
                         </div>
                       </div>
@@ -425,7 +425,229 @@
                     </div>
                   </div>
                   <!-- Discount-content -->
-                  
+                  <div
+                    class="widget-discount wow animate__animated animate__fadeInUp"
+                    data-wow-delay=".2s"
+                  >
+                    <div
+                      class="flex flex-col gap-y-4 py-8 border-b border-gray-300"
+                    >
+                      <div
+                        class="flex items-center justify-between widget-discount-title"
+                      >
+                        <h6>Discount</h6>
+                        <a
+                          href="#"
+                          class="text-base leading-[26px] hover:underline hover:text-primary transition-colors duration-300 ease-in-out"
+                          >Reset</a
+                        >
+                      </div>
+                      <div class="discount">
+                        <ul id="filter-discount-list" class="flex flex-col gap-y-2">
+                          <li class="discount-items">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  upto 5%
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (10)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="discount-items">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  5% - 10%
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (8)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="discount-items">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  10% - 15%
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (32)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="discount-items">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  15% - 25%
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (12)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="discount-items">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  More than 25%
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (12)
+                              </span>
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <!-- Brand-content -->
                   <div
                     class="widget-brand wow animate__animated animate__fadeInUp"
@@ -735,7 +957,225 @@
                     </div>
                   </div>
                   <!-- Discount-content -->
-                
+                  <div
+                    class="widget-pack-size wow animate__animated animate__fadeInUp"
+                    data-wow-delay=".2s"
+                  >
+                    <div class="flex flex-col gap-y-4 pt-8">
+                      <div class="flex items-center justify-between">
+                        <h6>Pack Size</h6>
+                        <a
+                          href="#"
+                          class="text-base leading-[26px] hover:underline hover:text-primary transition-colors duration-300 ease-in-out"
+                          >Reset</a
+                        >
+                      </div>
+                      <div class="pack-size-lists">
+                        <ul class="flex flex-col gap-y-2">
+                          <li class="pack-size-list-item">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  400 to 500 g
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (40)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="pack-size-list-item">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  500 to 700 g
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (20)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="pack-size-list-item">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  700 to 1 kg
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (32)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="pack-size-list-item">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  120 - 150 g each vacuum
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (20)
+                              </span>
+                            </label>
+                          </li>
+                          <li class="pack-size-list-item">
+                            <label
+                              class="group flex items-center justify-between w-full cursor-pointer"
+                            >
+                              <span class="flex items-center gap-x-2">
+                                <!-- custom checkbox wrapper -->
+                                <span
+                                  class="group-has-[input:checked]:group-hover:bg-[#00AB55]/8 flex items-center justify-center w-9 h-9 bg-transparent rounded-full group-hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out"
+                                >
+                                  <span
+                                    class="relative inline-flex w-5 h-5 items-center justify-center"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-none border-gray-300 rounded-sm bg-white checked:bg-primary transition-all duration-300 ease-in-out"
+                                    />
+
+                                    <!-- checkbox tick icon -->
+                                    <span
+                                      class="absolute inset-0 inline-flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-all"
+                                    >
+                                      <i
+                                        class="hgi hgi-stroke hgi-tick-02 text-[18px] leading-[18px]"
+                                      ></i>
+                                    </span>
+                                  </span>
+                                </span>
+                                <span
+                                  class="text-light-primary-text group-hover:text-primary transition-colors duration-300 ease-in-out"
+                                >
+                                  1 pc
+                                </span>
+                              </span>
+                              <span
+                                class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+                              >
+                                (09)
+                              </span>
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -806,5 +1246,6 @@
         <!-- ========== API JS ========== -->
     <script src="assets/api/domin.js"></script>
     <script src="assets/api/product.js"></script>
+    <script src="assets/api/review.js"></script>
 
    <?php include 'footer.php'; ?>

@@ -2,6 +2,15 @@
     const API_BASE = typeof domin !== "undefined" ? domin : "https://ecommerce-backend.workarya.com";
     const PAGE_SIZE = 20;
 
+    let globalVariants = [];
+    let variantsPromise = fetch(API_BASE + "/api/variant/getallvariants")
+        .then(res => res.json())
+        .then(res => res?.data || res?.value?.data || [])
+        .catch(err => {
+            console.error("Variants fetch error:", err);
+            return [];
+        });
+
     const SORT_MAP = {
         popularity: "popularity",
         "low-to-high-price": "price_low",
@@ -32,6 +41,68 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         initHeaderSearch();
+
+        // Setup card color swatch clicks globally
+        document.body.addEventListener("click", function (e) {
+            const swatch = e.target.closest(".card-color-swatch");
+            if (!swatch) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = swatch.closest(".product-card-1");
+            if (!card) return;
+
+            // Update active class
+            const swatches = card.querySelectorAll(".card-color-swatch");
+            swatches.forEach(function (s) { s.classList.remove("ring-2", "ring-primary", "ring-offset-1", "active-swatch"); });
+            swatch.classList.add("ring-2", "ring-primary", "ring-offset-1", "active-swatch");
+
+            // Update image
+            const img = card.querySelector(".product-image-container img");
+            if (img && swatch.getAttribute("data-image") && swatch.getAttribute("data-image") !== "undefined") {
+                img.src = swatch.getAttribute("data-image");
+            }
+
+            // Update price
+            const currentPrice = card.querySelector(".current-price");
+            if (currentPrice) currentPrice.textContent = swatch.getAttribute("data-price");
+
+            const oldPrice = card.querySelector(".old-price");
+            if (oldPrice) {
+                const mrpText = swatch.getAttribute("data-mrp");
+                const priceText = swatch.getAttribute("data-price");
+                
+                const mrpVal = parseFloat((mrpText || "0").replace(/[^\d.-]/g, ''));
+                const priceVal = parseFloat((priceText || "0").replace(/[^\d.-]/g, ''));
+                
+                if (mrpVal > priceVal) {
+                    oldPrice.textContent = mrpText;
+                    oldPrice.style.display = "inline-block";
+                } else {
+                    oldPrice.style.display = "none";
+                }
+            }
+
+            const discountBadge = card.querySelector(".discount-percentage, .product-discount-badge");
+            if (discountBadge) {
+                const discount = parseInt(swatch.getAttribute("data-discount")) || 0;
+                if (discount > 0) {
+                    discountBadge.textContent = discount + "% OFF";
+                    discountBadge.style.display = "inline-block";
+                } else {
+                    discountBadge.style.display = "none";
+                }
+            }
+
+            // Update variant ID on buttons
+            const variantId = swatch.getAttribute("data-variant-id");
+            const addToCartBtn = card.querySelector(".add-to-cart-btn");
+            if (addToCartBtn) addToCartBtn.setAttribute("data-variant-id", variantId || "");
+            
+            const addToWishlistBtn = card.querySelector(".add-to-wishlist-btn");
+            if (addToWishlistBtn) addToWishlistBtn.setAttribute("data-variant-id", variantId || "");
+        });
 
         if (document.getElementById("product-grid")) {
             initShopPage();
@@ -187,6 +258,94 @@ if (document.getElementById("top-discounted-products")) {
         const detailUrl = productId
             ? "product-detail.php?id=" + productId
             : "product-detail.php";
+            
+        const variants = globalVariants.filter(v => String(v.productId) === String(productId) && v.isActive !== false);
+
+        const allColors = [];
+        if (product.colorName || product.colorCode || product.hexCode || product.color || product.color_name || product.color_code || product.hex_code) {
+            allColors.push({
+                colorCode: product.colorCode || product.hexCode || product.color_code || product.hex_code || product.colorName || product.color_name || product.color || "#cccccc",
+                colorName: product.colorName || product.color_name || product.color || "Default",
+                imageUrl: getProductImage(product),
+                salePrice: salePrice,
+                mrp: mrp,
+                discountPercent: getDiscountPercent(product),
+                variantId: variantId
+            });
+        }
+        
+        variants.forEach(function(v) {
+            if (typeof v === 'string') {
+                allColors.push({ colorCode: v, colorName: v, imageUrl: getProductImage(product), salePrice: salePrice, mrp: mrp, discountPercent: getDiscountPercent(product), variantId: variantId });
+            } else if (v && (v.colorName || v.colorCode || v.hexCode || v.color || v.color_name || v.color_code || v.hex_code)) {
+                const vSalePrice = v.salePrice ?? v.price ?? v.basePrice ?? salePrice;
+                const vMrp = v.mrp ?? v.originalPrice ?? vSalePrice;
+                let vDiscount = v.discountPrice ?? v.discountPercent ?? v.discountPercentage ?? 0;
+                if (!vDiscount && vMrp > vSalePrice) vDiscount = Math.round(((vMrp - vSalePrice) / vMrp) * 100);
+
+                allColors.push({
+                    colorCode: v.colorCode || v.hexCode || v.color_code || v.hex_code || v.colorName || v.color_name || v.color || "#cccccc",
+                    colorName: v.colorName || v.color_name || v.color || "Variant",
+                    imageUrl: v.variantImageUrl || v.imageUrl || v.image || getProductImage(product),
+                    salePrice: vSalePrice,
+                    mrp: vMrp,
+                    discountPercent: Math.round(Number(vDiscount)) || 0,
+                    variantId: v.id || v.variantId || variantId
+                });
+            }
+        });
+        
+        if (Array.isArray(product.colors)) {
+            product.colors.forEach(function(c) {
+                if (typeof c === 'string') {
+                    allColors.push({ colorCode: c, colorName: c, imageUrl: getProductImage(product), salePrice: salePrice, mrp: mrp, discountPercent: getDiscountPercent(product), variantId: variantId });
+                } else if (c && (c.colorCode || c.hexCode || c.colorName || c.color || c.color_code || c.hex_code || c.color_name)) {
+                    const cSalePrice = c.salePrice ?? c.price ?? c.basePrice ?? salePrice;
+                    const cMrp = c.mrp ?? c.originalPrice ?? cSalePrice;
+                    let cDiscount = c.discountPrice ?? c.discountPercent ?? c.discountPercentage ?? 0;
+                    if (!cDiscount && cMrp > cSalePrice) cDiscount = Math.round(((cMrp - cSalePrice) / cMrp) * 100);
+
+                    allColors.push({
+                        colorCode: c.colorCode || c.hexCode || c.color_code || c.hex_code || c.colorName || c.color_name || c.color || "#cccccc",
+                        colorName: c.colorName || c.color_name || c.color || "Variant",
+                        imageUrl: c.variantImageUrl || c.imageUrl || c.image || getProductImage(product),
+                        salePrice: cSalePrice,
+                        mrp: cMrp,
+                        discountPercent: Math.round(Number(cDiscount)) || 0,
+                        variantId: c.id || c.variantId || variantId
+                    });
+                }
+            });
+        }
+
+        const uniqueColors = [];
+        const seenColors = new Set();
+        allColors.forEach(function(c) {
+            let code = String(c.colorCode).toLowerCase().replace(/\s+/g, '');
+            if (code === "default") code = "#cccccc";
+            if (!seenColors.has(code)) {
+                seenColors.add(code);
+                c.colorCode = code;
+                uniqueColors.push(c);
+            }
+        });
+
+        let colorsHtml = '';
+        if (uniqueColors.length > 0) {
+            colorsHtml = '<div class="product-colors flex items-center flex-wrap gap-2 mt-1 mb-3" onclick="event.preventDefault();">';
+            uniqueColors.forEach(function(color, idx) {
+                const activeClass = idx === 0 ? "ring-2 ring-primary ring-offset-1 active-swatch" : "";
+                colorsHtml += '<button type="button" title="' + String(color.colorName).replace(/"/g, '&quot;') + '" ' +
+                    'class="card-color-swatch w-5 h-5 rounded-full border border-gray-300 shadow-sm ' + activeClass + '" ' +
+                    'style="background-color: ' + color.colorCode + ';" ' +
+                    'data-image="' + String(color.imageUrl).replace(/"/g, '&quot;') + '" ' +
+                    'data-price="' + formatPrice(color.salePrice) + '" ' +
+                    'data-mrp="' + formatPrice(color.mrp) + '" ' +
+                    'data-discount="' + color.discountPercent + '" ' +
+                    'data-variant-id="' + color.variantId + '"></button>';
+            });
+            colorsHtml += '</div>';
+        }
 
         const hoverActionsHtml = '<div class="product-btn-actions absolute bottom-0 right-0 left-0 flex justify-center z-9 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:bottom-3">' +
             '<ul class="flex items-center gap-x-px">' +
@@ -248,12 +407,13 @@ if (document.getElementById("top-discounted-products")) {
                   "</span>"
                 : "") +
             "</div>" +
+            colorsHtml +
             '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
             '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + variantId + '">' +
             '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
             '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
-            "<span>Add to Cart</span></a></div></div></div></div>"
+            "<span>Add to Cart</span></a></div> </div></div></div>"
         );
     }
 
@@ -500,6 +660,8 @@ if (document.getElementById("top-discounted-products")) {
             } else {
                 result = await fetchFilteredProducts(shopState);
             }
+
+            globalVariants = await variantsPromise;
 
             renderProducts(result.items);
             updateResultsCount(
@@ -1094,6 +1256,7 @@ if (document.getElementById("top-discounted-products")) {
         try {
             const response = await fetch(API_BASE + "/api/product/top-discounted");
 
+            globalVariants = await variantsPromise;
             if (!response.ok) {
                 throw new Error("HTTP Error: " + response.status);
             }
@@ -1138,6 +1301,94 @@ if (document.getElementById("top-discounted-products")) {
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
         const discountPercent = getDiscountPercent(product);
         const detailUrl = buildProductDetailUrl(product);
+        
+        const variants = globalVariants.filter(v => String(v.productId) === String(productId) && v.isActive !== false);
+
+        const allColors = [];
+        if (product.colorName || product.colorCode || product.hexCode || product.color || product.color_name || product.color_code || product.hex_code) {
+            allColors.push({
+                colorCode: product.colorCode || product.hexCode || product.color_code || product.hex_code || product.colorName || product.color_name || product.color || "#cccccc",
+                colorName: product.colorName || product.color_name || product.color || "Default",
+                imageUrl: getProductImage(product),
+                salePrice: salePrice,
+                mrp: mrp,
+                discountPercent: discountPercent,
+                variantId: productId
+            });
+        }
+        
+        variants.forEach(function(v) {
+            if (typeof v === 'string') {
+                allColors.push({ colorCode: v, colorName: v, imageUrl: getProductImage(product), salePrice: salePrice, mrp: mrp, discountPercent: discountPercent, variantId: productId });
+            } else if (v && (v.colorName || v.colorCode || v.hexCode || v.color || v.color_name || v.color_code || v.hex_code)) {
+                const vSalePrice = v.salePrice ?? v.price ?? v.basePrice ?? salePrice;
+                const vMrp = v.mrp ?? v.originalPrice ?? vSalePrice;
+                let vDiscount = v.discountPrice ?? v.discountPercent ?? v.discountPercentage ?? 0;
+                if (!vDiscount && vMrp > vSalePrice) vDiscount = Math.round(((vMrp - vSalePrice) / vMrp) * 100);
+
+                allColors.push({
+                    colorCode: v.colorCode || v.hexCode || v.color_code || v.hex_code || v.colorName || v.color_name || v.color || "#cccccc",
+                    colorName: v.colorName || v.color_name || v.color || "Variant",
+                    imageUrl: v.variantImageUrl || v.imageUrl || v.image || getProductImage(product),
+                    salePrice: vSalePrice,
+                    mrp: vMrp,
+                    discountPercent: Math.round(Number(vDiscount)) || 0,
+                    variantId: v.id || v.variantId || productId
+                });
+            }
+        });
+        
+        if (Array.isArray(product.colors)) {
+            product.colors.forEach(function(c) {
+                if (typeof c === 'string') {
+                    allColors.push({ colorCode: c, colorName: c, imageUrl: getProductImage(product), salePrice: salePrice, mrp: mrp, discountPercent: discountPercent, variantId: productId });
+                } else if (c && (c.colorCode || c.hexCode || c.colorName || c.color || c.color_code || c.hex_code || c.color_name)) {
+                    const cSalePrice = c.salePrice ?? c.price ?? c.basePrice ?? salePrice;
+                    const cMrp = c.mrp ?? c.originalPrice ?? cSalePrice;
+                    let cDiscount = c.discountPrice ?? c.discountPercent ?? c.discountPercentage ?? 0;
+                    if (!cDiscount && cMrp > cSalePrice) cDiscount = Math.round(((cMrp - cSalePrice) / cMrp) * 100);
+
+                    allColors.push({
+                        colorCode: c.colorCode || c.hexCode || c.color_code || c.hex_code || c.colorName || c.color_name || c.color || "#cccccc",
+                        colorName: c.colorName || c.color_name || c.color || "Variant",
+                        imageUrl: c.variantImageUrl || c.imageUrl || c.image || getProductImage(product),
+                        salePrice: cSalePrice,
+                        mrp: cMrp,
+                        discountPercent: Math.round(Number(cDiscount)) || 0,
+                        variantId: c.id || c.variantId || productId
+                    });
+                }
+            });
+        }
+
+        const uniqueColors = [];
+        const seenColors = new Set();
+        allColors.forEach(function(c) {
+            let code = String(c.colorCode).toLowerCase().replace(/\s+/g, '');
+            if (code === "default") code = "#cccccc";
+            if (!seenColors.has(code)) {
+                seenColors.add(code);
+                c.colorCode = code;
+                uniqueColors.push(c);
+            }
+        });
+
+        let colorsHtml = '';
+        if (uniqueColors.length > 0) {
+            colorsHtml = '<div class="product-colors flex items-center flex-wrap gap-2 mt-1 mb-3" onclick="event.preventDefault();">';
+            uniqueColors.forEach(function(color, idx) {
+                const activeClass = idx === 0 ? "ring-2 ring-primary ring-offset-1 active-swatch" : "";
+                colorsHtml += '<button type="button" title="' + String(color.colorName).replace(/"/g, '&quot;') + '" ' +
+                    'class="card-color-swatch w-5 h-5 rounded-full border border-gray-300 shadow-sm ' + activeClass + '" ' +
+                    'style="background-color: ' + color.colorCode + ';" ' +
+                    'data-image="' + String(color.imageUrl).replace(/"/g, '&quot;') + '" ' +
+                    'data-price="' + formatPrice(color.salePrice) + '" ' +
+                    'data-mrp="' + formatPrice(color.mrp) + '" ' +
+                    'data-discount="' + color.discountPercent + '" ' +
+                    'data-variant-id="' + color.variantId + '"></button>';
+            });
+            colorsHtml += '</div>';
+        }
 
         return (
             '<div class="xl:col-span-4 col-span-12 md:col-span-6 wow animate__animated animate__fadeInUp group hover:border-primary transition-all duration-300 border rounded-2xl border-gray-300" data-wow-delay=".' +
@@ -1177,7 +1428,7 @@ if (document.getElementById("top-discounted-products")) {
                   formatPrice(mrp) +
                   "</span>"
                 : "") +
-            "</div></div></a></div>"
+            "</div>" + colorsHtml + "</div></a></div>"
         );
     }
 })();

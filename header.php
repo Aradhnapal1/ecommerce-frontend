@@ -464,7 +464,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 class="text-light-disabled-text text-center relative before:absolute before:-z-1 before:top-1/2 before:-translate-y-1/2 before:w-full before:h-px before:bg-gray-300 before:left-0">
                 <span class="bg-white px-4 z-1">Or log in with</span>
             </p>
-            <div class="flex items-center gap-x-4">
+            <!-- <div class="flex items-center gap-x-4">
                 <button class="btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -492,7 +492,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                     Facebook
                 </button>
-            </div>
+            </div> -->
             <div class="login-form">
                 <form class="flex flex-col gap-y-6" id="userLoginForm">
                     <div class="relative w-full">

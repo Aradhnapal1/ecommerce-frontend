@@ -86,7 +86,7 @@
             <div
               class="border border-gray-300 rounded-2xl md:px-6 md:py-6 px-3 py-4 flex flex-col gap-y-6"
             >
-              <div>
+              <!-- <div>
                 <a
                   href="#"
                   class="w-full px-4 py-4 inline-flex items-center gap-x-2 bg-[rgba(0,171,85,0.08)] text-light-primary-text text-sm leading-[22px] font-bold rounded-[100px]"
@@ -100,7 +100,7 @@
                     >Free Shopping</span
                   >
                 </a>
-              </div>
+              </div> -->
               <div class="border border-gray-300 md:p-6 p-3 rounded-2xl">
                 <div class="flex flex-col gap-y-6">
                   <h5>Order Summary</h5>

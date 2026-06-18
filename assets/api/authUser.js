@@ -1,6 +1,8 @@
 const REGISTER_API = `${domin}/api/user/register`;
 const VERIFY_OTP_API = `${domin}/api/user/verify-otp`;
 const LOGIN_API = `${domin}/api/user/login`;
+const GET_PROFILE_API = `${domin}/api/user/profile`;
+const UPDATE_PROFILE_API = `${domin}/api/user/update-profile`;
 const CHANGE_PASSWORD_API = `${domin}/api/user/change-password`;
 
 let registeredEmail = "";
@@ -20,6 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 el.style.display = "block";
             }
         });
+
+        // If on my-account page, load profile
+        if (window.location.pathname.includes("my-account.php")) {
+            loadUserProfile();
+        }
     }
 
     const registerForm = document.getElementById("userRegisterForm");
@@ -295,6 +302,133 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }, true);
+});
+
+async function loadUserProfile() {
+    const token = localStorage.getItem("UserToken");
+    if (!token) return;
+
+    try {
+        const response = await fetch(GET_PROFILE_API, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        const result = await response.json();
+
+        if (response.ok || result.status || result.success || result?.value?.status === true) {
+            const user = result.data || result.value?.data || result;
+            
+            if (document.getElementById("FirstName")) {
+                document.getElementById("FirstName").value = user.first_name || user.firstName || "";
+            }
+            if (document.getElementById("LastName")) {
+                document.getElementById("LastName").value = user.last_name || user.lastName || "";
+            }
+            if (document.getElementById("PhoneNumber")) {
+                document.getElementById("PhoneNumber").value = user.phone_number || user.phoneNumber || "";
+            }
+            if (document.getElementById("Email")) {
+                document.getElementById("Email").value = user.email || "";
+            }
+
+            const dob = user.date_of_birth || user.dateOfBirth;
+            if (dob && document.getElementById("DateOfBirth")) {
+                document.getElementById("DateOfBirth").value = dob.split('T')[0];
+            }
+
+            const gender = user.gender || user.Gender;
+            if (gender) {
+                const genderRadio = document.querySelector(`input[name="Gender"][value="${gender}"]`);
+                if (genderRadio) genderRadio.checked = true;
+            }
+
+            const profileImagePreview = document.getElementById("profileImagePreview");
+            let profileImg = user.profile_image || user.profileImage || user.profileImageUrl || user.profile_image_url || user.image || user.avatar;
+            
+            if (profileImg && String(profileImg).trim() !== "" && profileImg !== "null" && profileImg !== "undefined" && profileImagePreview) {
+                // If the path is relative, prepend the backend domain to it
+                if (!profileImg.startsWith("http") && !profileImg.startsWith("data:") && !profileImg.startsWith("assets/")) {
+                    const baseUrl = typeof domin !== "undefined" ? domin.replace(/\/$/, "") : "https://ecommerce-backend.workarya.com";
+                    profileImg = `${baseUrl}/${profileImg.replace(/^\//, "")}`;
+                }
+                profileImagePreview.src = profileImg;
+            }
+        }
+    } catch (error) {
+        console.error("Failed to load user profile:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const profileImageInput = document.getElementById("ProfileImage");
+    const profileImagePreview = document.getElementById("profileImagePreview");
+
+    if (profileImageInput && profileImagePreview) {
+        profileImageInput.addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    const updateProfileForm = document.getElementById("updateProfileForm");
+    if (updateProfileForm) {
+        updateProfileForm.addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const token = localStorage.getItem("UserToken");
+            if (!token) {
+                return showError("You must be logged in to update your profile.");
+            }
+
+            const formData = new FormData();
+            formData.append("FirstName", document.getElementById("FirstName").value);
+            formData.append("LastName", document.getElementById("LastName").value);
+            formData.append("PhoneNumber", document.getElementById("PhoneNumber").value);
+            formData.append("DateOfBirth", document.getElementById("DateOfBirth").value);
+            
+            const selectedGender = document.querySelector('input[name="Gender"]:checked');
+            if (selectedGender) {
+                formData.append("Gender", selectedGender.value);
+            }
+
+            const profileImageFile = document.getElementById("ProfileImage").files[0];
+            if (profileImageFile) {
+                formData.append("ProfileImage", profileImageFile);
+            }
+
+            const updateBtn = document.getElementById("updateProfileBtn");
+            updateBtn.disabled = true;
+            updateBtn.innerHTML = "Saving...";
+
+            try {
+                const response = await fetch(UPDATE_PROFILE_API, {
+                    method: "PUT",
+                    headers: { "Authorization": `Bearer ${token}` },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok || result.status || result.success || result?.value?.status === true) {
+                    showSuccess(result.message || result?.value?.message || "Profile updated successfully!");
+                    loadUserProfile(); // Re-fetch and prefill the updated data
+                } else {
+                    showError(result.message || result?.value?.message || "Failed to update profile.");
+                }
+            } catch (error) {
+                console.error("Profile update error:", error);
+                showError("An error occurred while updating your profile.");
+            } finally {
+                updateBtn.disabled = false;
+                updateBtn.innerHTML = "Save";
+            }
+        });
+    }
 });
 
 function showSuccess(message) {

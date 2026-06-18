@@ -1196,11 +1196,12 @@
                 <div class="px-6 py-6">
                   <div class="flex flex-col gap-y-6">
                     <div class="flex items-center justify-center">
-                      <div
-                        class="w-[144px] h-[144px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-full hover:border-primary transition-all duration-300 ease-in-out">
+                      <div class="w-[144px] h-[144px] relative">
+                        <img id="profileImagePreview" src="assets/images/avatar.png" alt="Profile Preview"
+                          class="w-full h-full rounded-full object-cover">
                         <label
-                          class="flex flex-col items-center justify-center w-[128px] h-[128px] bg-[#F4F5F6] rounded-full cursor-pointer">
-                          <input type="file" class="hidden" />
+                          class="absolute bottom-0 right-0 flex items-center justify-center w-8 h-8 bg-primary rounded-full cursor-pointer hover:bg-primary-dark">
+                          <input type="file" id="ProfileImage" class="hidden" accept="image/*" />
                           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M3 8C3 8.55 3.45 9 4 9C4.55 9 5 8.55 5 8V6H7C7.55 6 8 5.55 8 5C8 4.45 7.55 4 7 4H5V2C5 1.45 4.55 1 4 1C3.45 1 3 1.45 3 2V4H1C0.45 4 0 4.45 0 5C0 5.55 0.45 6 1 6H3V8Z"
@@ -1209,20 +1210,19 @@
                             <path fill-rule="evenodd" clip-rule="evenodd"
                               d="M17.83 6H21C22.1 6 23 6.9 23 8V20C23 21.1 22.1 22 21 22H5C3.9 22 3 21.1 3 20V9.72C3.3 9.89 3.63 10 4 10C5.1 10 6 9.1 6 8V7H7C8.1 7 9 6.1 9 5C9 4.63 8.89 4.3 8.72 4H15.12C15.68 4 16.22 4.24 16.59 4.65L17.83 6ZM8 14C8 16.76 10.24 19 13 19C15.76 19 18 16.76 18 14C18 11.24 15.76 9 13 9C10.24 9 8 11.24 8 14Z"
                               fill="#495057" />
-                          </svg>
-                          <span class="mt-1 text-xs leading-[18px]">Upload photo</span>
+                          </svg>                          
                         </label>
                       </div>
                     </div>
-                    <form class="flex flex-col gap-y-6">
+                    <form id="updateProfileForm" class="flex flex-col gap-y-6">
                       <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
                         <div class="xl:col-span-1 md:col-span-1 col-span-1">
                           <div class="relative w-full">
-                            <input type="text" id="first_name"
+                            <input type="text" id="FirstName"
                               class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
                               placeholder="First Name" />
 
-                            <label for="first_name"
+                            <label for="FirstName"
                               class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
                               First Name
                             </label>
@@ -1230,11 +1230,11 @@
                         </div>
                         <div class="xl:col-span-1 md:col-span-1 col-span-1">
                           <div class="relative w-full">
-                            <input type="text" id="last_name"
+                            <input type="text" id="LastName"
                               class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
                               placeholder="Last Name" />
 
-                            <label for="last_name"
+                            <label for="LastName"
                               class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
                               Last Name
                             </label>
@@ -1244,32 +1244,51 @@
                       <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
                         <div class="xl:col-span-1 md:col-span-1 col-span-1">
                           <div class="relative w-full">
-                            <input type="tel" id="phone_number"
+                            <input type="tel" id="PhoneNumber"
                               class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
                               placeholder="Phone Number" />
 
-                            <label for="phone_number"
+                            <label for="PhoneNumber"
                               class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
                               Phone Number
                             </label>
                           </div>
                         </div>
-                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                         <div class="xl:col-span-1 md:col-span-1 col-span-1">
                           <div class="relative w-full">
-                            <input type="email" id="email_address"
+                            <input type="date" id="DateOfBirth"
                               class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                              placeholder="Email Address (Optional)" />
-
-                            <label for="email_address"
+                              placeholder="Date of Birth" />
+                            <label for="DateOfBirth"
                               class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                              Email Address (Optional)
+                              Date of Birth
+                            </label>
+                          </div>
+                        </div>
+                       
+                      </div>
+                      <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 md:gap-x-4 gap-x-0 gap-y-6">
+                        
+                        <div class="xl:col-span-1 md:col-span-1 col-span-1">
+                          <div class="relative w-full flex items-center h-full gap-x-4">
+                            <label class="flex items-center">
+                              <input type="radio" name="Gender" value="Male" class="form-radio h-4 w-4 text-primary">
+                              <span class="ml-2 text-light-primary-text">Male</span>
+                            </label>
+                            <label class="flex items-center">
+                              <input type="radio" name="Gender" value="Female" class="form-radio h-4 w-4 text-primary">
+                              <span class="ml-2 text-light-primary-text">Female</span>
+                            </label>
+                            <label class="flex items-center">
+                              <input type="radio" name="Gender" value="Other" class="form-radio h-4 w-4 text-primary">
+                              <span class="ml-2 text-light-primary-text">Other</span>
                             </label>
                           </div>
                         </div>
                       </div>
                       <!-- Button -->
                       <div class="text-end">
-                        <button
+                        <button type="submit" id="updateProfileBtn"
                           class="btn btn-primary btn-large md:px-[42px] w-[45%] md:w-auto py-[11px] rounded-[100px]">
                           Save
                         </button>

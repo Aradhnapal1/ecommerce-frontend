@@ -498,11 +498,11 @@
     safeInit(function () {
       if (typeof noUiSlider === "undefined") return;
       noUiSlider.create(priceRangeSlider, {
-      start: [0, 100],
+      start: [0, 100000],
       connect: true,
       range: {
         min: 0,
-        max: 100,
+        max: 100000,
       },
       // make numbers whole
       format: {
@@ -872,57 +872,57 @@
   });
 
   /*------ Filter Sidebar ----*/
-  const filterSidebarMenu = $("#filter-menu-btn");
-  const filterSidebar = $("#filter-sidebar");
-  const filterSidebarMenuClose = $("#filter-side-bar-menu-close");
+  // const filterSidebarMenu = $("#filter-menu-btn");
+  // const filterSidebar = $("#filter-sidebar");
+  // const filterSidebarMenuClose = $("#filter-side-bar-menu-close");
 
-  if (filterSidebarMenu.length) {
-    filterSidebarMenu.on("click.sellzy", function () {
-      $(filterSidebar).attr("data-state", "open");
-      $body.addClass("overflow-hidden");
-    });
-  }
+  // if (filterSidebarMenu.length) {
+  //   filterSidebarMenu.on("click.sellzy", function () {
+  //     $(filterSidebar).attr("data-state", "open");
+  //     $body.addClass("overflow-hidden");
+  //   });
+  // }
 
-  if (filterSidebarMenuClose.length) {
-    filterSidebarMenuClose.on("click.sellzy", function () {
-      $(filterSidebar).attr("data-state", "close");
-      $body.removeClass("overflow-hidden");
-    });
-  }
-  const filterPriceRangeSlider = document.getElementById(
-    "filter-price-range-slider"
-  );
-  if (filterPriceRangeSlider) {
-    safeInit(function () {
-      if (typeof noUiSlider === "undefined") return;
+  // if (filterSidebarMenuClose.length) {
+  //   filterSidebarMenuClose.on("click.sellzy", function () {
+  //     $(filterSidebar).attr("data-state", "close");
+  //     $body.removeClass("overflow-hidden");
+  //   });
+  // }
+  // const filterPriceRangeSlider = document.getElementById(
+  //   "filter-price-range-slider"
+  // );
+  // if (filterPriceRangeSlider) {
+  //   safeInit(function () {
+  //     if (typeof noUiSlider === "undefined") return;
 
-      noUiSlider.create(filterPriceRangeSlider, {
-        start: [0, 100],
-        connect: true,
-        range: {
-          min: 0,
-          max: 100,
-        },
-        format: {
-          to: (value) => value,
-          from: (value) => value,
-        },
-      });
+  //     noUiSlider.create(filterPriceRangeSlider, {
+  //       start: [0, 1000],
+  //       connect: true,
+  //       range: {
+  //         min: 0,
+  //         max: 1000,
+  //       },
+  //       format: {
+  //         to: (value) => value,
+  //         from: (value) => value,
+  //       },
+  //     });
 
-      filterPriceRangeSlider.noUiSlider.on("update", (values) => {
-        $(".filter-price-range-min-value").val(Number(values[0]).toFixed(0));
-        $(".filter-price-range-max-value").val(Number(values[1]).toFixed(0));
-      });
+  //     filterPriceRangeSlider.noUiSlider.on("update", (values) => {
+  //       $(".filter-price-range-min-value").val(Number(values[0]).toFixed(0));
+  //       $(".filter-price-range-max-value").val(Number(values[1]).toFixed(0));
+  //     });
 
-      addCleanup(function () {
-        try {
-          if (filterPriceRangeSlider.noUiSlider) {
-            filterPriceRangeSlider.noUiSlider.destroy();
-          }
-        } catch (e) {}
-      });
-    });
-  }
+  //     addCleanup(function () {
+  //       try {
+  //         if (filterPriceRangeSlider.noUiSlider) {
+  //           filterPriceRangeSlider.noUiSlider.destroy();
+  //         }
+  //       } catch (e) {}
+  //     });
+  //   });
+  // }
 
   /*------ Quick View Sidebar ------*/
   const quickViewSidebarBtn = $(".quick-view-sidebar-btn");

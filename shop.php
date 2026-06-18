@@ -179,7 +179,7 @@
                             class="price-range-min-value form-control"
                             readonly
                             type="text"
-                            value="0"
+                            value=""
                           />
                         </div>
                         <span
@@ -199,7 +199,7 @@
                             class="price-range-max-value form-control"
                             readonly
                             type="text"
-                            value="100"
+                            value=""
                           />
                         </div>
                       </div>

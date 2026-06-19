@@ -11,6 +11,19 @@
             return [];
         });
 
+    let globalColors = new Map();
+    let colorsPromise = fetch(API_BASE + "/api/colors/get-all")
+        .then(res => res.json())
+        .then(res => {
+            const colors = res?.data || res?.value?.data || [];
+            colors.forEach(color => globalColors.set(String(color.id), color.colorCode));
+        })
+        .then(res => res?.data || res?.value?.data || [])
+        .catch(err => {
+            console.error("Variants fetch error:", err);
+            return [];
+        });
+
     const SORT_MAP = {
         popularity: "popularity",
         "low-to-high-price": "price_low",
@@ -430,6 +443,175 @@ if (document.getElementById("top-discounted-products")) {
         grid.innerHTML = items.map(renderProductCard).join("");
     }
 
+    function getProductImages(product, baseProduct) {
+        const images = [];
+        const mainImg = product.variantImageUrl || product.productImageUrl || product.imageUrl || product.image;
+
+        if (mainImg) {
+            images.push(mainImg);
+        }
+
+        (product.galleryImages || []).forEach(function (image) {
+            if (image && !images.includes(image)) {
+                images.push(image);
+            }
+        });
+
+        if (!images.length && baseProduct) {
+            return getProductImages(baseProduct);
+        }
+
+        if (!images.length) {
+            images.push("assets/images/vitamin-c.png");
+        }
+
+        return images;
+    }
+
+    function resolveQuickViewColorCode(opt) {
+        const candidates = [
+            opt.colorCode,
+            opt.hexCode,
+            opt.color,
+            opt.colorName,
+            opt.color_name,
+            opt.color_code,
+            opt.hex_code,
+            opt.id,
+            opt.variantId
+        ].filter(Boolean).map(String);
+
+        for (const value of candidates) {
+            const normalized = value.trim();
+            if (!normalized) continue;
+            if (/^\d+$/.test(normalized) && globalColors.has(normalized)) {
+                return globalColors.get(normalized);
+            }
+            if (/^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(normalized)) {
+                return normalized;
+            }
+            if (/^[a-z]+$/i.test(normalized)) {
+                return normalized;
+            }
+            if (globalColors.has(normalized)) {
+                return globalColors.get(normalized);
+            }
+        }
+
+        return "#cccccc";
+    }
+
+    function buildQuickViewColorSwatches(product, variants) {
+        const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
+        const mrp = product.mrp ?? product.originalPrice ?? salePrice;
+
+        const allOptions = [];
+
+        // Add base product as the first option
+        allOptions.push({
+            ...product,
+            isBase: true,
+            displayColorName: product.colorName || "Default",
+            gallery: getProductImages(product),
+            salePrice: salePrice,
+            mrp: mrp,
+            discountPercent: getDiscountPercent(product),
+            id: product.variantId || ""
+        });
+
+        // Add variants
+        variants.forEach(function(v) {
+            if (v && (v.colorName || v.colorCode || v.hexCode || v.color)) {
+                allOptions.push({
+                    ...v,
+                    isBase: false,
+                    displayColorName: v.colorName || "Variant",
+                    gallery: getProductImages(v, product),
+                    salePrice: v.salePrice ?? v.price ?? v.basePrice ?? salePrice,
+                    mrp: v.mrp ?? v.originalPrice ?? (v.salePrice ?? v.price ?? v.basePrice ?? salePrice),
+                    discountPercent: getDiscountPercent(v)
+                });
+            }
+        });
+
+        // Remove duplicates based on color code
+        const uniqueOptions = [];
+        const seenColors = new Set();
+        allOptions.forEach(function(opt) {
+            let colorCode = String(opt.hexCode || opt.colorCode || opt.color || opt.displayColorName).toLowerCase().replace(/\s+/g, '');
+            if (colorCode === "default") colorCode = "#cccccc";
+            if (!seenColors.has(colorCode)) {
+                seenColors.add(colorCode);
+                opt.colorCode = colorCode;
+                uniqueOptions.push(opt);
+            }
+        });
+
+        if (uniqueOptions.length <= 1) {
+            return { html: '', options: [] };
+        }
+
+        let html = "";
+        uniqueOptions.forEach(function(opt, idx) {
+            const isActive = idx === 0;
+            const dataAttr = opt.isBase ? 'data-is-base="true"' : 'data-variant-id="' + opt.id + '"';
+            
+            const colorCode = resolveQuickViewColorCode(opt);
+            
+            let buttonClasses = "quick-view-color-swatch variant-color-btn cursor-pointer flex items-center justify-center rounded-full size-10 border transition-all ";
+            buttonClasses += isActive ? "border-primary ring-2 ring-primary ring-offset-2" : "border-gray-300 hover:border-primary";
+            let buttonStyle = 'style="background-color: ' + colorCode + ';"';
+
+            html += 
+                '<div class="color-variation-item">' +
+                '<button type="button" ' + dataAttr + ' title="' + escapeHtmlAttr(opt.displayColorName) + '" class="' + buttonClasses + '" ' + buttonStyle + ' data-gallery=\'' + escapeHtmlAttr(JSON.stringify(opt.gallery)) + '\' ' +
+                'data-price="' + escapeHtmlAttr(formatPrice(opt.salePrice)) + '" ' +
+                'data-mrp="' + escapeHtmlAttr(formatPrice(opt.mrp)) + '" ' +
+                'data-discount="' + opt.discountPercent + '"></button></div>';
+        });
+
+        return { html: html, options: uniqueOptions };
+    }
+
+    function handleQuickViewSwatchClick(swatch) {
+        const sidebar = swatch.closest(".quick-view-sidebar");
+        if (!sidebar) return;
+
+        // Update active class for swatches
+        sidebar.querySelectorAll(".quick-view-color-swatch").forEach(s => s.classList.remove("border-primary", "ring-2", "ring-primary", "ring-offset-2"));
+        swatch.classList.add("border-primary", "ring-2", "ring-primary", "ring-offset-2");
+
+        // Update image gallery
+        const imagesWrapper = sidebar.querySelector(".product-images-wrapper .space-y-4");
+        if (imagesWrapper) {
+            try {
+                const gallery = JSON.parse(swatch.dataset.gallery || "[]");
+                imagesWrapper.innerHTML = gallery.map(img => `<img class="max-h-[300px] w-full rounded-xl object-contain bg-[#F4F3F5]" src="${img}" alt="product-image" />`).join("");
+            } catch (e) {
+                console.error("Failed to parse gallery data:", e);
+            }
+        }
+
+        // Update price
+        const currentPriceEl = sidebar.querySelector(".current-price");
+        if (currentPriceEl) currentPriceEl.textContent = swatch.dataset.price;
+
+        const oldPriceEl = sidebar.querySelector(".old-price");
+        if (oldPriceEl) {
+            const mrpVal = parseFloat((swatch.dataset.mrp || "0").replace(/[^\d.-]/g, ''));
+            const priceVal = parseFloat((swatch.dataset.price || "0").replace(/[^\d.-]/g, ''));
+            oldPriceEl.textContent = mrpVal > priceVal ? swatch.dataset.mrp : "";
+            oldPriceEl.style.display = mrpVal > priceVal ? "inline-block" : "none";
+        }
+
+        const discountBadge = sidebar.querySelector(".product-discount-badge");
+        if (discountBadge) {
+            const discount = parseInt(swatch.dataset.discount) || 0;
+            discountBadge.textContent = discount > 0 ? discount + "% OFF" : "";
+            discountBadge.style.display = discount > 0 ? "inline-block" : "none";
+        }
+    }
+
     function initQuickView() {
         document.body.addEventListener("click", async function (e) {
             const btn = e.target.closest(".quick-view-sidebar-btn");
@@ -461,7 +643,15 @@ if (document.getElementById("top-discounted-products")) {
             const titleEl = sidebar.querySelector("h4");
             if (titleEl) titleEl.textContent = "Loading...";
 
+            // Clear previous variant info
+            const colorSection = sidebar.querySelector(".color-variation-section");
+            if (colorSection) {
+                colorSection.classList.add("hidden");
+                colorSection.querySelector(".color-variation-items").innerHTML = "";
+            }
+
             try {
+                await Promise.all([variantsPromise, colorsPromise]);
                 const response = await fetch(API_BASE + "/api/product/getproductbyid/" + encodeURIComponent(productId));
                 if (!response.ok) throw new Error("HTTP Error: " + response.status);
                 const result = await response.json();
@@ -491,30 +681,43 @@ if (document.getElementById("top-discounted-products")) {
 
                     const imagesWrapper = sidebar.querySelector(".product-images-wrapper .space-y-4");
                     if (imagesWrapper) {
-                        const images = [];
-                        if (product.productImageUrl) images.push(product.productImageUrl);
-                        (product.galleryImages || []).forEach(img => { if (img && !images.includes(img)) images.push(img); });
-                        if (!images.length) images.push("assets/images/vitamin-c.png");
-                        imagesWrapper.innerHTML = images.map(img => `<img class="max-h-[300px] w-full rounded-xl object-contain bg-[#F4F3F5]" src="${img}" alt="product-image" />`).join("");
+                        imagesWrapper.innerHTML = getProductImages(product).map(img => `<img class="max-h-[300px] w-full rounded-xl object-contain bg-[#F4F3F5]" src="${img}" alt="product-image" />`).join("");
                     }
                     const descEl = sidebar.querySelector(".accordion-body");
                     if (descEl) descEl.innerHTML = product.description || product.shortDescription || '<p class="text-light-secondary-text">No description available.</p>';
 
                     const colorSection = sidebar.querySelector(".color-variation-section");
-                    if (colorSection) {
-                        const colorName = product.colorName;
-                        if (!colorName) {
-                            colorSection.classList.add("hidden");
-                        } else {
-                            colorSection.classList.remove("hidden");
-                            const selectedColor = colorSection.querySelector(".color-variation-selected-color");
-                            if (selectedColor) selectedColor.textContent = colorName;
-                            const items = colorSection.querySelector(".color-variation-items");
-                            if (items) {
-                                items.innerHTML = '<div class="color-variation-item">' +
-                                    '<button type="button" data-color-text="' + (product.colorSlug || colorName).toLowerCase() + '" class="cursor-pointer flex items-center justify-center rounded-full size-10 border border-primary hover:bg-[rgba(145,158,171,0.08)] px-3">' +
-                                    '<span class="text-sm font-semibold capitalize">' + colorName + "</span></button></div>";
-                            }
+                    const variants = globalVariants.filter(v => String(v.productId) === String(product.id || product.productId));
+                    const { html: colorSwatchesHtml, options: uniqueOptions } = buildQuickViewColorSwatches(product, variants);
+
+                    if (colorSection && colorSwatchesHtml) {
+                        colorSection.classList.remove("hidden");
+                        const selectedColorEl = colorSection.querySelector(".color-variation-selected-color");
+                        if (selectedColorEl) {
+                            selectedColorEl.textContent = uniqueOptions.length ? uniqueOptions[0].displayColorName : (product.colorName || "");
+                        }
+                        const itemsContainer = colorSection.querySelector(".color-variation-items");
+                        if (itemsContainer) {
+                            itemsContainer.innerHTML = colorSwatchesHtml;
+                            
+                            itemsContainer.addEventListener('click', function(e) {
+                                const swatch = e.target.closest('.quick-view-color-swatch');
+                                if (!swatch) return;
+
+                                handleQuickViewSwatchClick(swatch);
+
+                                const variantId = swatch.dataset.variantId || "";
+                                const addToCartBtn = sidebar.querySelector(".add-to-cart-btn");
+                                if (addToCartBtn) addToCartBtn.setAttribute("data-variant-id", variantId);
+                                
+                                const buyNowBtn = sidebar.querySelector(".buy-now-btn");
+                                if (buyNowBtn) buyNowBtn.setAttribute("data-variant-id", variantId);
+
+                                const selectedColorEl = colorSection.querySelector(".color-variation-selected-color");
+                                if (selectedColorEl) {
+                                    selectedColorEl.textContent = swatch.getAttribute('title') || '';
+                                }
+                            });
                         }
                     }
 

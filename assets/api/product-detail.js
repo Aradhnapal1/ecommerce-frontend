@@ -355,8 +355,10 @@
             if (mrp > salePrice) {
                 oldPrice.textContent = formatDetailPrice(mrp);
                 oldPrice.classList.remove("hidden");
+                  oldPrice.classList.add("line-through");
             } else {
                 oldPrice.classList.add("hidden");
+                   oldPrice.classList.remove("line-through");
             }
         }
 

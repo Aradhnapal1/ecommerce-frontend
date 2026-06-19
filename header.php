@@ -840,6 +840,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <i class="hgi hgi-stroke hgi-plus-sign text-xl leading-5"></i>
                                 </button>
                             </div> -->
+                            
                             <div class="flex-1">
                                 <a href="#" class="btn btn-warning btn-large rounded-[80px] w-full">
                                     Buy Now

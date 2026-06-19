@@ -92,6 +92,7 @@
                 if (mrpVal > priceVal) {
                     oldPrice.textContent = mrpText;
                     oldPrice.style.display = "inline-block";
+                    
                 } else {
                     oldPrice.style.display = "none";
                 }

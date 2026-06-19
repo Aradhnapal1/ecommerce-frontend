@@ -684,7 +684,7 @@ function renderHomeProductCard(product, index) {
         formatHomePrice(salePrice) +
         "</span>" +
         (mrp > salePrice
-            ? '<span class="old-price text-[18px] leading-7 font-urbanist font-semibold text-light-disabled-text line-through">' +
+            ? '<span class="old-price text-[18px] leading-7 font-urbanist font-semibold text-light-disabled-text line-through ">' +
               formatHomePrice(mrp) +
               "</span>"
             : "") +

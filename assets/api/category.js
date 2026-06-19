@@ -1,6 +1,19 @@
 const API_BASE = typeof domin !== "undefined" ? domin : "https://ecommerce-backend.workarya.com";
 const HOME_PRODUCT_PAGE_SIZE = 10;
 
+// Global variants for color swatch functionality
+let globalVariants = [];
+let variantsPromise = fetch(API_BASE + "/api/variant/getallvariants")
+    .then(res => res.json())
+    .then(res => {
+        globalVariants = res?.data || res?.value?.data || [];
+        return globalVariants;
+    })
+    .catch(err => {
+        console.error("Variants fetch error:", err);
+        return [];
+    });
+
 document.addEventListener("DOMContentLoaded", function () {
 
     loadCategories();
@@ -473,6 +486,107 @@ function escapeHtmlAttr(value) {
         .replace(/>/g, "&gt;");
 }
 
+function buildHomeColorSwatches(product) {
+    const productId = product.id || product.productId || "";
+    const variants = globalVariants.filter(function(v) {
+        return String(v.productId) === String(productId) && v.isActive !== false;
+    });
+
+    const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
+    const mrp = product.mrp ?? product.originalPrice ?? salePrice;
+    const variantId = product.variantId || "";
+
+    const allColors = [];
+    
+    // Add product's own color if available
+    if (product.colorName || product.colorCode || product.hexCode || product.color || product.color_name || product.color_code || product.hex_code) {
+        allColors.push({
+            colorCode: product.colorCode || product.hexCode || product.color_code || product.hex_code || product.colorName || product.color_name || product.color || "#cccccc",
+            colorName: product.colorName || product.color_name || product.color || "Default",
+            imageUrl: getHomeProductImage(product),
+            salePrice: salePrice,
+            mrp: mrp,
+            discountPercent: product.discountPercent || Math.round(((mrp - salePrice) / mrp) * 100) || 0,
+            variantId: variantId
+        });
+    }
+
+    // Add variants
+    variants.forEach(function(v) {
+        if (v && (v.colorName || v.colorCode || v.hexCode || v.color || v.color_name || v.color_code || v.hex_code)) {
+            const vSalePrice = v.salePrice ?? v.price ?? v.basePrice ?? salePrice;
+            const vMrp = v.mrp ?? v.originalPrice ?? vSalePrice;
+            let vDiscount = v.discountPrice ?? v.discountPercent ?? v.discountPercentage ?? 0;
+            if (!vDiscount && vMrp > vSalePrice) vDiscount = Math.round(((vMrp - vSalePrice) / vMrp) * 100);
+
+            allColors.push({
+                colorCode: v.colorCode || v.hexCode || v.color_code || v.hex_code || v.colorName || v.color_name || v.color || "#cccccc",
+                colorName: v.colorName || v.color_name || v.color || "Variant",
+                imageUrl: v.variantImageUrl || v.imageUrl || v.image || getHomeProductImage(product),
+                salePrice: vSalePrice,
+                mrp: vMrp,
+                discountPercent: Math.round(Number(vDiscount)) || 0,
+                variantId: v.id || v.variantId || variantId
+            });
+        }
+    });
+
+    // Add product colors array if available
+    if (Array.isArray(product.colors)) {
+        product.colors.forEach(function(c) {
+            if (c && (c.colorCode || c.hexCode || c.colorName || c.color || c.color_code || c.hex_code || c.color_name)) {
+                const cSalePrice = c.salePrice ?? c.price ?? c.basePrice ?? salePrice;
+                const cMrp = c.mrp ?? c.originalPrice ?? cSalePrice;
+                let cDiscount = c.discountPrice ?? c.discountPercent ?? c.discountPercentage ?? 0;
+                if (!cDiscount && cMrp > cSalePrice) cDiscount = Math.round(((cMrp - cSalePrice) / cMrp) * 100);
+
+                allColors.push({
+                    colorCode: c.colorCode || c.hexCode || c.color_code || c.hex_code || c.colorName || c.color_name || c.color || "#cccccc",
+                    colorName: c.colorName || c.color_name || c.color || "Variant",
+                    imageUrl: c.variantImageUrl || c.imageUrl || c.image || getHomeProductImage(product),
+                    salePrice: cSalePrice,
+                    mrp: cMrp,
+                    discountPercent: Math.round(Number(cDiscount)) || 0,
+                    variantId: c.id || c.variantId || variantId
+                });
+            }
+        });
+    }
+
+    // Remove duplicate colors
+    const uniqueColors = [];
+    const seenColors = new Set();
+    allColors.forEach(function(c) {
+        let code = String(c.colorCode).toLowerCase().replace(/\s+/g, '');
+        if (code === "default") code = "#cccccc";
+        if (!seenColors.has(code)) {
+            seenColors.add(code);
+            c.colorCode = code;
+            uniqueColors.push(c);
+        }
+    });
+
+    // Build HTML
+    let colorsHtml = '';
+    if (uniqueColors.length > 0) {
+        colorsHtml = '<div class="product-colors flex items-center flex-wrap gap-2 mt-1 mb-3" onclick="event.preventDefault();">';
+        uniqueColors.forEach(function(color, idx) {
+            const activeClass = idx === 0 ? "ring-2 ring-primary ring-offset-1 active-swatch" : "";
+            colorsHtml += '<button type="button" title="' + escapeHtmlAttr(color.colorName) + '" ' +
+                'class="card-color-swatch w-5 h-5 rounded-full border border-gray-300 shadow-sm ' + activeClass + '" ' +
+                'style="background-color: ' + color.colorCode + ';" ' +
+                'data-image="' + escapeHtmlAttr(color.imageUrl) + '" ' +
+                'data-price="' + escapeHtmlAttr(formatHomePrice(color.salePrice)) + '" ' +
+                'data-mrp="' + escapeHtmlAttr(formatHomePrice(color.mrp)) + '" ' +
+                'data-discount="' + color.discountPercent + '" ' +
+                'data-variant-id="' + color.variantId + '"></button>';
+        });
+        colorsHtml += '</div>';
+    }
+
+    return colorsHtml;
+}
+
 function renderHomeProductHoverActions(product) {
     const productId = product.id || product.productId || "";
     const variantId = product.variantId || "";
@@ -509,6 +623,7 @@ function renderHomeProductCard(product, index) {
     const detailUrl = buildProductDetailUrl(product);
     const ratingWidth = getHomeProductRating(product);
     const reviewCount = getHomeReviewCount(product);
+    const colorSwatchesHtml = buildHomeColorSwatches(product);
 
     return (
         '<div class="col-span-1 h-full wow animate__animated animate__fadeInUp" data-wow-delay=".' +
@@ -562,6 +677,7 @@ function renderHomeProductCard(product, index) {
               "</span>"
             : "") +
         "</div>" +
+        colorSwatchesHtml +
         '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
         '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + (product.variantId || "") + '">' +
         '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +

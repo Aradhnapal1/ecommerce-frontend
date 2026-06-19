@@ -611,6 +611,29 @@
     let currentReviewPage = 1;
     const REVIEWS_PER_PAGE = 5;
 
+    function sortAndRerenderReviews(sortBy) {
+        switch (sortBy) {
+            case 'newest':
+                allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                break;
+            case 'oldest':
+                allReviews.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                break;
+            case 'rating_desc': // Assuming 'rating' means highest to lowest
+                allReviews.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
+                break;
+            case 'rating_asc': // A low-to-high option might be useful too
+                allReviews.sort((a, b) => (parseFloat(a.rating) || 0) - (parseFloat(b.rating) || 0));
+                break;
+            default:
+                // Default to newest
+                allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                break;
+        }
+        currentReviewPage = 1;
+        renderReviewPage();
+    }
+
     function injectRatingDropdownHTML() {
         const form = document.getElementById("add-review-form");
         if (!form || document.getElementById("review-rating-select")) {
@@ -693,6 +716,8 @@
                     } catch (error) {
                         console.error("Error adding review:", error);
                         if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
                     } finally {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalText;
@@ -701,6 +726,14 @@
             }
         }
         
+        const sortingSelect = document.getElementById("sorting");
+        if (sortingSelect) {
+            // Use 'change' on the actual select, not the nice-select wrapper
+            sortingSelect.addEventListener('change', function(e) {
+                sortAndRerenderReviews(e.target.value);
+            });
+        }
+
         loadProductReviews(productId);
     }
 
@@ -856,29 +889,24 @@
             }
             
             html += `
-                  <li class="comment py-4 border-b border-gray-200 last:border-0">
+                  <li class="comment">
                     <div class="comment-body">
                       <div class="comment-avatar-card flex items-center gap-x-4 mb-3">
-                        <div class="comment-author-avatar size-12 rounded-full bg-gray-200 shrink-0">
+                        <div class="comment-author-avatar size-12 rounded-full">
                           ${avatarHtml}
                         </div>
-                        <div class="comment-author-info flex-1 flex flex-col">
+                        <div class="comment-author-info flex-1">
                           <p class="comment-author font-semibold text-light-primary-text">
                             ${r.firstName || 'Anonymous'} ${r.lastName || ''}
                           </p>
-                          <span class="text-xs text-light-disabled-text">${dateStr}</span>
                         </div>
                       </div>
                       <div class="flex items-center mb-3">
-                        <div class="rating-section flex items-center relative pr-3">
+                        <div class="rating-section flex items-center relative after:absolute after:h-[22px] after:w-px after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-gray-300 pr-3">
                           <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
                             <div style="width: ${ratingWidth}%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
                           </div>
-                          <span class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text">${r.rating}</span>
-                        </div>
-                        <div class="flex items-center gap-x-1 pl-3 border-l border-gray-300">
-                          <i class="hgi hgi-stroke hgi-tick-02 text-primary"></i>
-                          <p class="text-primary text-sm leading-[22px]">Verified user</p>
+                          <span class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text">${parseFloat(r.rating).toFixed(1)}</span>
                         </div>
                       </div>
                       <div class="comment-content pl-0! pr-0! mb-3">

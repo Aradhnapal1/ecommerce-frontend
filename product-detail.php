@@ -1003,16 +1003,99 @@
                   </form>
                 </div>
               </div>
-              <div class="comment-list-wrapper p-6">
-                <div
-                  class="comment-list-title flex items-center justify-between pb-6 border-b border-gray-300 mb-6"
-                >
-                  <h5>Customer Ratings & Review</h5>
+            <div class="comment-list-wrapper p-6">
+                <div class="comment-list-title flex items-center justify-between pb-6 border-b border-gray-300 mb-6">
+                  <h5>Customer Ratings &amp; Review</h5>
+                  <div class="relative min-w-[100px]">
+                    <select id="sorting" class="rounded-[100px]! filter-select label" style="display: none;">
+                      <option value="newest" selected="">Newest</option>
+                      <option value="oldest">Oldest</option>
+                      <option value="popular">Popular</option>
+                      <option value="rating">Rating</option>
+                      <option value="relevance">Relevance</option>
+                      <option value="comment-count">Comment Count</option>
+                    </select><div class="nice-select rounded-[100px]! filter-select label" tabindex="0"><span class="current">Newest</span><ul class="list"><li data-value="newest" class="option selected">Newest</li><li data-value="oldest" class="option">Oldest</li><li data-value="popular" class="option">Popular</li><li data-value="rating" class="option">Rating</li><li data-value="relevance" class="option">Relevance</li><li data-value="comment-count" class="option">Comment Count</li></ul></div>
+                    <label for="sorting" class="nice-select-label">Sorting</label>
+                  </div>
                 </div>
                 <ol class="comment-list">
+
+                  <li class="comment">
+                    <div class="comment-body">
+                      <div class="comment-avatar-card flex items-center gap-x-4 mb-3">
+                        <div class="comment-author-avatar size-12 rounded-full">
+                          <img src="assets/images/blog/user-avatar-1.png" alt="Comment Author Avatar" class="rounded-full">
+                        </div>
+                        <div class="comment-author-info flex-1">
+                          <p class="comment-author font-semibold text-light-primary-text">
+                            Brooklyn Simmons
+                          </p>
+                        </div>
+                      </div>
+                      <div class="flex items-center mb-3">
+                        <div class="rating-section flex items-center relative after:absolute after:h-[22px] after:w-px after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-gray-300 pr-3">
+                          <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
+                            <div style="width: 80%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
+                          </div>
+                          <span class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text">4.5</span>
+                        </div>
+                      </div>
+                      <div class="comment-content pl-0! pr-0! mb-3">
+                        <p class="text-light-primary-text">
+                          Very nice ! On the other hand, we denounce with
+                          righteous indignation and dislike men who are so
+                          beguiled and demoralized by the
+                        </p>
+                      </div>
+                    </div>
+                  </li>
                 </ol>
                 <div class="comment-pagination-wrapper mt-6">
-                  <ul class="flex items-center justify-center gap-x-1.5 comment-pagination"></ul>
+                  <ul class="flex items-center justify-center gap-x-1.5 comment-pagination">
+                    <li class="group comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 group-hover:font-semibold group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        <span class="inline-flex items-center justify-center">
+                          <i class="hgi hgi-stroke hgi-arrow-left-01 text-[20px] group-hover:font-semibold leading-5 text-light-primary-text group-hover:text-primary"></i></span>
+                      </a>
+                    </li>
+                    <li class="group comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] active">
+                        1
+                      </a>
+                    </li>
+                    <li class="group blog-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        2
+                      </a>
+                    </li>
+                    <li class="group comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        3
+                      </a>
+                    </li>
+                    <li class="group blog-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        4
+                      </a>
+                    </li>
+                    <li class="group comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        5
+                      </a>
+                    </li>
+                    <li class="comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white">
+                        <span class="inline-flex items-center justify-center">
+                          <i class="hgi hgi-stroke hgi-more-horizontal text-[20px] leading-5 text-light-primary-text"></i></span>
+                      </a>
+                    </li>
+                    <li class="group comment-pagination-item">
+                      <a href="#" class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out">
+                        <span class="inline-flex items-center justify-center">
+                          <i class="hgi hgi-stroke hgi-arrow-right-01 text-[20px] leading-5 group-hover:font-semibold text-light-primary-text group-hover:text-primary"></i></span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

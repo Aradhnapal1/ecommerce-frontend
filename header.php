@@ -823,12 +823,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         </div>
                     </div>
                     <div class="product-add-to-cart-btn-section">
-                        <p class="font-semibold text-light-primary-text mb-4">
+                        <!-- <p class="font-semibold text-light-primary-text mb-4">
                             Quantity:
-                        </p>
+                        </p> -->
                         <div
                             class="flex items-center justify-between gap-x-4 gap-y-4 flex-wrap md:flex-nowrap md:gap-y-0">
-                            <div
+                            <!-- <div
                                 class="quantity-section flex-1 max-w-[126px] border border-gray-300 rounded-[80px] px-4 py-[11px] flex items-center justify-between">
                                 <button class="quantity-btn inline-flex items-center justify-center hover:text-primary">
                                     <i class="hgi hgi-stroke hgi-minus-sign text-xl leading-5"></i>
@@ -839,7 +839,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                 <button class="quantity-btn inline-flex items-center justify-center hover:text-primary">
                                     <i class="hgi hgi-stroke hgi-plus-sign text-xl leading-5"></i>
                                 </button>
-                            </div>
+                            </div> -->
                             <div class="flex-1">
                                 <a href="#" class="btn btn-warning btn-large rounded-[80px] w-full">
                                     Buy Now

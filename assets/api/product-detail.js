@@ -473,6 +473,7 @@
             pendingProduct = product;
             renderProductDetail(product, variants);
             renderProductSliders(product);
+            initReviews(productId);
         } catch (error) {
             console.error("Product detail error:", error);
             showProductDetailError("Unable to load product details.");
@@ -605,4 +606,352 @@
     }
 
     bootProductDetailPage();
+
+    let allReviews = [];
+    let currentReviewPage = 1;
+    const REVIEWS_PER_PAGE = 5;
+
+    function injectRatingDropdownHTML() {
+        const form = document.getElementById("add-review-form");
+        if (!form || document.getElementById("review-rating-select")) {
+            return; // Form not found or dropdown already exists
+        }
+
+        const ratingContainer = document.createElement('div');
+        ratingContainer.className = 'mb-4';
+        ratingContainer.innerHTML = `
+            <select id="review-rating-select" name="rating" class="form-control w-full md:w-1/3 rounded-[10px] border-gray-300">
+                <option value="0" disabled selected>Select a rating</option>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+            </select>`;
+        form.insertBefore(ratingContainer, form.firstChild);
+    }
+
+    function initReviews(productId) {
+        const token = localStorage.getItem("UserToken");
+        const formWrapper = document.getElementById("comment-forms");
+        
+        if (!token) {
+            if (formWrapper) {
+                formWrapper.innerHTML = '<div class="p-6 text-center border md:border-gray-300 md:rounded-3xl"><p class="text-light-secondary-text mb-4">Please log in to write a review.</p><a href="login.php" class="btn btn-primary login-page-btn outline rounded-[100px] py-[11px] px-6">Log In</a></div>';
+            }
+        } else {
+            // Inject rating dropdown HTML if it doesn't exist
+            injectRatingDropdownHTML();
+
+            const form = document.getElementById("add-review-form");
+            if (form) {
+                form.addEventListener("submit", async function(e) {
+                    e.preventDefault();
+                    const ratingSelect = document.getElementById("review-rating-select");
+                    const rating = ratingSelect ? ratingSelect.value : 0;
+                    const comment = document.getElementById("post_comment").value;
+                    
+                    if (rating == 0) {
+                        if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please select a rating", duration: 3000, style: { background: "#ffc107", color: "#000" } }).showToast();
+                        return;
+                    }
+                    if (!comment.trim()) {
+                        if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please enter a comment", duration: 3000, style: { background: "#ffc107", color: "#000" } }).showToast();
+                        return;
+                    }
+
+                    const submitBtn = document.getElementById("submit-review-btn");
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = "Posting...";
+
+                    try {
+                        const response = await fetch(`${apiBase}/api/review/add`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                productId: parseInt(productId),
+                                rating: parseInt(rating),
+                                comment: comment.trim()
+                            })
+                        });
+
+                        const result = await response.json();
+                        if (response.ok && result.success) {
+                            if (typeof Toastify !== "undefined") Toastify({ text: "✅ Review added successfully", duration: 3000, style: { background: "#00b09b" } }).showToast();
+                            form.reset();
+                            if (ratingSelect) ratingSelect.value = "0";
+                            
+                            // Re-fetch reviews
+                            loadProductReviews(productId);
+                        } else {
+                            if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to add review"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
+                        }
+                    } catch (error) {
+                        console.error("Error adding review:", error);
+                        if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+            }
+        }
+        
+        loadProductReviews(productId);
+    }
+
+    async function loadProductReviews(productId) {
+        try {
+            const response = await fetch(`${apiBase}/api/review/product/${productId}`);
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                allReviews = result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                currentReviewPage = 1;
+                
+                // Update Overview
+                renderReviewOverview(allReviews);
+                
+                // Render List
+                renderReviewPage();
+                
+                // Update the tab title count
+                const tabTitles = document.querySelectorAll('button[data-tab="reviews"]');
+                tabTitles.forEach(t => t.textContent = `Reviews (${allReviews.length})`);
+            } else {
+                renderReviewOverview([]);
+                renderReviewPage();
+            }
+        } catch (error) {
+            console.error("Error loading reviews:", error);
+        }
+    }
+
+    function renderReviewOverview(reviews) {
+        const total = reviews.length;
+        const overviewContainer = document.querySelector('.rating-overview');
+        if (!overviewContainer) return;
+
+        if (total === 0) {
+             overviewContainer.innerHTML = `
+                <div class="md:col-span-4 col-span-12 flex items-center justify-center py-6 md:py-0">
+                  <div class="rating-heading space-y-2 text-center">
+                    <p class="font-semibold text-light-primary-text">Average Rating</p>
+                    <h2 class="text-error">0/5</h2>
+                    <div class="rating-section flex items-center justify-center">
+                      <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
+                        <div style="width: 0%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
+                      </div>
+                    </div>
+                    <p>(0 reviews)</p>
+                  </div>
+                </div>
+                <div class="md:col-span-4 col-span-12 p-6 flex items-center justify-center">
+                  <div class="list-rating space-y-6 w-full">
+                    ${[5, 4, 3, 2, 1].map(star => {
+                        return `
+                        <div class="flex gap-x-4 items-center">
+                          <span class="font-semibold text-light-primary-text">${star} Star</span>
+                          <div class="progress w-full flex-1 h-1.5 bg-[rgba(145,158,171,0.24)] rounded-[50px] overflow-hidden">
+                            <div style="width: 0%" class="progress-bar h-full bg-primary rounded-[50px]"></div>
+                          </div>
+                          <span>0</span>
+                        </div>
+                        `;
+                    }).join("")}
+                  </div>
+                </div>
+                <div class="md:col-span-4 col-span-12 flex items-center justify-center py-6 md:py-0">
+                  <a href="#comment-forms" class="btn btn-primary outline btn-large rounded-[100px]">Write a Review</a>
+                </div>
+            `;
+            return;
+        }
+        
+        let sum = 0;
+        let counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+        
+        reviews.forEach(r => {
+            const rVal = parseFloat(r.rating) || 0;
+            sum += rVal;
+            const intRating = Math.round(rVal);
+            if (counts[intRating] !== undefined) {
+                counts[intRating]++;
+            } else if (intRating > 5) counts[5]++;
+            else if (intRating < 1) counts[1]++;
+        });
+        
+        const avg = sum / total;
+        const avgWidth = (avg / 5) * 100;
+        
+        overviewContainer.innerHTML = `
+            <div class="md:col-span-4 col-span-12 flex items-center justify-center py-6 md:py-0">
+              <div class="rating-heading space-y-2 text-center">
+                <p class="font-semibold text-light-primary-text">Average Rating</p>
+                <h2 class="text-error">${avg.toFixed(1)}/5</h2>
+                <div class="rating-section flex items-center justify-center">
+                  <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
+                    <div style="width: ${avgWidth}%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
+                  </div>
+                </div>
+                <p>(${total} review${total > 1 ? 's' : ''})</p>
+              </div>
+            </div>
+            <div class="md:col-span-4 col-span-12 p-6 flex items-center justify-center">
+              <div class="list-rating space-y-6 w-full">
+                ${[5, 4, 3, 2, 1].map(star => {
+                    const count = counts[star];
+                    const pct = total > 0 ? (count / total) * 100 : 0;
+                    return `
+                    <div class="flex gap-x-4 items-center">
+                      <span class="font-semibold text-light-primary-text">${star} Star</span>
+                      <div class="progress w-full flex-1 h-1.5 bg-[rgba(145,158,171,0.24)] rounded-[50px] overflow-hidden">
+                        <div style="width: ${pct}%" class="progress-bar h-full bg-primary rounded-[50px]"></div>
+                      </div>
+                      <span>${count}</span>
+                    </div>
+                    `;
+                }).join("")}
+              </div>
+            </div>
+            <div class="md:col-span-4 col-span-12 flex items-center justify-center py-6 md:py-0">
+              <a href="#comment-forms" class="btn btn-primary outline btn-large rounded-[100px]">Write a Review</a>
+            </div>
+        `;
+    }
+
+    window.renderReviewPage = renderReviewPage;
+    function renderReviewPage() {
+        const listContainer = document.querySelector('.comment-list');
+        const paginationContainer = document.querySelector('.comment-pagination');
+        
+        if (!listContainer) return;
+        
+        if (allReviews.length === 0) {
+            listContainer.innerHTML = '<li class="text-center text-light-secondary-text py-4">No reviews yet. Be the first to review this product!</li>';
+            if (paginationContainer) paginationContainer.innerHTML = '';
+            return;
+        }
+        
+        const start = (currentReviewPage - 1) * REVIEWS_PER_PAGE;
+        const end = start + REVIEWS_PER_PAGE;
+        const paginatedReviews = allReviews.slice(start, end);
+        
+        let html = '';
+        paginatedReviews.forEach(r => {
+            const ratingWidth = (parseFloat(r.rating) / 5) * 100;
+            const dateStr = new Date(r.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            let avatarHtml = '';
+            if (r.profileImageUrl) {
+                avatarHtml = `<img src="${r.profileImageUrl}" alt="Avatar" class="rounded-full w-full h-full object-cover" />`;
+            } else {
+                const initialF = r.firstName ? r.firstName.charAt(0).toUpperCase() : '';
+                const initialL = r.lastName ? r.lastName.charAt(0).toUpperCase() : '';
+                avatarHtml = `<span class="flex items-center justify-center w-full h-full bg-primary text-white font-bold text-lg rounded-full">${initialF}${initialL}</span>`;
+            }
+            
+            html += `
+                  <li class="comment py-4 border-b border-gray-200 last:border-0">
+                    <div class="comment-body">
+                      <div class="comment-avatar-card flex items-center gap-x-4 mb-3">
+                        <div class="comment-author-avatar size-12 rounded-full bg-gray-200 shrink-0">
+                          ${avatarHtml}
+                        </div>
+                        <div class="comment-author-info flex-1 flex flex-col">
+                          <p class="comment-author font-semibold text-light-primary-text">
+                            ${r.firstName || 'Anonymous'} ${r.lastName || ''}
+                          </p>
+                          <span class="text-xs text-light-disabled-text">${dateStr}</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center mb-3">
+                        <div class="rating-section flex items-center relative pr-3">
+                          <div class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">
+                            <div style="width: ${ratingWidth}%" class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>
+                          </div>
+                          <span class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text">${r.rating}</span>
+                        </div>
+                        <div class="flex items-center gap-x-1 pl-3 border-l border-gray-300">
+                          <i class="hgi hgi-stroke hgi-tick-02 text-primary"></i>
+                          <p class="text-primary text-sm leading-[22px]">Verified user</p>
+                        </div>
+                      </div>
+                      <div class="comment-content pl-0! pr-0! mb-3">
+                        <p class="text-light-primary-text">${r.comment}</p>
+                      </div>
+                    </div>
+                  </li>
+            `;
+        });
+        
+        listContainer.innerHTML = html;
+        
+        // Render Pagination
+        if (paginationContainer) {
+            const totalPages = Math.ceil(allReviews.length / REVIEWS_PER_PAGE);
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+            } else {
+                let pHTML = '';
+                
+                // Prev
+                pHTML += `
+                    <li class="group comment-pagination-item">
+                      <a href="javascript:void(0)" class="review-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 group-hover:font-semibold group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out ${currentReviewPage === 1 ? 'opacity-50 pointer-events-none' : ''}" data-page="${currentReviewPage - 1}">
+                        <span class="inline-flex items-center justify-center">
+                          <i class="hgi hgi-stroke hgi-arrow-left-01 text-[20px] group-hover:font-semibold leading-5 text-light-primary-text group-hover:text-primary"></i>
+                        </span>
+                      </a>
+                    </li>
+                `;
+                
+                // Pages
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || Math.abs(i - currentReviewPage) <= 1) {
+                        pHTML += `
+                            <li class="group comment-pagination-item">
+                              <a href="javascript:void(0)" class="review-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] ${i === currentReviewPage ? 'active bg-primary text-white border-primary' : 'text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out'}" data-page="${i}">
+                                ${i}
+                              </a>
+                            </li>
+                        `;
+                    } else if (Math.abs(i - currentReviewPage) === 2) {
+                        pHTML += `<li class="comment-pagination-item"><span class="inline-flex items-center justify-center md:size-10 size-9 text-light-disabled-text">...</span></li>`;
+                    }
+                }
+                
+                // Next
+                pHTML += `
+                    <li class="group comment-pagination-item">
+                      <a href="javascript:void(0)" class="review-page-btn inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out ${currentReviewPage === totalPages ? 'opacity-50 pointer-events-none' : ''}" data-page="${currentReviewPage + 1}">
+                        <span class="inline-flex items-center justify-center">
+                          <i class="hgi hgi-stroke hgi-arrow-right-01 text-[20px] leading-5 group-hover:font-semibold text-light-primary-text group-hover:text-primary"></i>
+                        </span>
+                      </a>
+                    </li>
+                `;
+                
+                paginationContainer.innerHTML = pHTML;
+                
+                // Bind events
+                paginationContainer.querySelectorAll('.review-page-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const page = parseInt(this.getAttribute('data-page'));
+                        if (page && page !== currentReviewPage && page >= 1 && page <= totalPages) {
+                            currentReviewPage = page;
+                            window.renderReviewPage();
+                            // scroll to reviews top
+                            const tabs = document.getElementById("product-details-tabs");
+                            if (tabs) tabs.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+        }
+    }
 })();

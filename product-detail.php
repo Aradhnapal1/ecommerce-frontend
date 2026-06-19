@@ -954,20 +954,20 @@
                     <p class="text-light-primary-text font-medium">
                       Your review about this product:
                     </p>
-                    <div
-                      class="rating-section flex items-center justify-center"
-                    >
-                      <div
-                        class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]"
-                      >
-                        <div
-                          style="width: 0%"
-                          class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"
-                        ></div>
+                    <div id="interactive-star-rating" class="rating-section flex items-center justify-center cursor-pointer relative" style="width: 90px; height: 18px;">
+                      <div class="bg-[url('../images/star-icon.png')] w-full h-full bg-repeat-x overflow-hidden bg-position-[0_0] absolute top-0 left-0"></div>
+                      <div id="interactive-star-fill" style="width: 0%" class="bg-[url('../images/star-icon.png')] h-full bg-repeat-x bg-position-[0_-18px] absolute top-0 left-0 pointer-events-none"></div>
+                      <div class="flex w-full h-full absolute top-0 left-0 z-10">
+                          <div class="flex-1 h-full" data-rating="1"></div>
+                          <div class="flex-1 h-full" data-rating="2"></div>
+                          <div class="flex-1 h-full" data-rating="3"></div>
+                          <div class="flex-1 h-full" data-rating="4"></div>
+                          <div class="flex-1 h-full" data-rating="5"></div>
                       </div>
                     </div>
+                    <input type="hidden" id="review-rating" value="0">
                   </div>
-                  <form class="comment-forms flex flex-col gap-y-6" action="#">
+                  <form id="add-review-form" class="comment-forms flex flex-col gap-y-6" action="#">
                     <div
                       class="input-group medium rounded-[20px] px-3.5 resize-none"
                     >
@@ -976,6 +976,7 @@
                         rows="4"
                         class="peer form-control placeholder-transparent focus:placeholder-transparent"
                         placeholder="Comment *"
+                        required
                       ></textarea>
                       <label
                         for="post_comment"
@@ -984,44 +985,16 @@
                         Comment *
                       </label>
                     </div>
-                    <div class="relative w-full">
-                      <input
-                        type="text"
-                        id="name"
-                        class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                        placeholder="Name *"
-                      />
-
-                      <label
-                        for="name"
-                        class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
-                      >
-                        Name *
-                      </label>
-                    </div>
-                    <div class="relative w-full">
-                      <input
-                        type="email"
-                        id="personal_email"
-                        class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                        placeholder="Email *"
-                      />
-
-                      <label
-                        for="personal_email"
-                        class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
-                      >
-                        Email *
-                      </label>
-                    </div>
 
                     <div class="flex md:justify-end justify-start gap-x-4">
                       <button
+                        type="reset"
                         class="btn btn-default outline btn-large rounded-[100px] w-[47%] md:w-auto py-[11px] shadow-none"
                       >
                         Cancel
                       </button>
                       <button
+                        type="submit" id="submit-review-btn"
                         class="btn btn-primary btn-large rounded-[100px] w-[47%] md:w-auto py-[11px]"
                       >
                         Post Review
@@ -1035,373 +1008,11 @@
                   class="comment-list-title flex items-center justify-between pb-6 border-b border-gray-300 mb-6"
                 >
                   <h5>Customer Ratings & Review</h5>
-                  <div class="relative min-w-[100px]">
-                    <select
-                      id="sorting"
-                      class="rounded-[100px]! filter-select label"
-                    >
-                      <option value="newest" selected>Newest</option>
-                      <option value="oldest">Oldest</option>
-                      <option value="popular">Popular</option>
-                      <option value="rating">Rating</option>
-                      <option value="relevance">Relevance</option>
-                      <option value="comment-count">Comment Count</option>
-                    </select>
-                    <label for="sorting" class="nice-select-label"
-                      >Sorting</label
-                    >
-                  </div>
                 </div>
                 <ol class="comment-list">
-                  <li class="comment">
-                    <div class="comment-body">
-                      <div
-                        class="comment-avatar-card flex items-center gap-x-4 mb-3"
-                      >
-                        <div class="comment-author-avatar size-12 rounded-full">
-                          <img
-                            src="assets/images/blog/user-avatar-1.png"
-                            alt="Comment Author Avatar"
-                            class="rounded-full"
-                          />
-                        </div>
-                        <div class="comment-author-info flex-1">
-                          <p
-                            class="comment-author font-semibold text-light-primary-text"
-                          >
-                            Robert Fox
-                          </p>
-                        </div>
-                      </div>
-                      <div class="flex items-center mb-3">
-                        <div
-                          class="rating-section flex items-center relative after:absolute after:h-[22px] after:w-px after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-gray-300 pr-3"
-                        >
-                          <div
-                            class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]"
-                          >
-                            <div
-                              style="width: 80%"
-                              class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"
-                            ></div>
-                          </div>
-                          <span
-                            class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text"
-                            >4.5</span
-                          >
-                        </div>
-                        <div class="flex items-center gap-x-1 pl-3">
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11.5269 3.13379L13.9331 3.67969L13.7065 6.13965L15.3335 8L13.7065 9.86035L13.9331 12.3203L11.5269 12.8662L10.2661 14.9932L7.99951 14.0195L5.73291 15L4.47314 12.873L2.06689 12.3271L2.29346 9.86035L0.666504 8L2.29346 6.13379L2.06689 3.66699L4.47314 3.12695L5.73291 1L7.99951 1.97363L10.2661 1L11.5269 3.13379ZM6.72607 9.17285L5.18018 7.62012L4.19287 8.60645L6.72607 11.1465L11.6128 6.24707L10.6265 5.25977L6.72607 9.17285Z"
-                              fill="#088178"
-                            />
-                          </svg>
-                          <p class="text-primary text-sm leading-[22px]">
-                            Verified purchase
-                          </p>
-                        </div>
-                      </div>
-                      <div class="comment-content pl-0! pr-0! mb-3">
-                        <p class="text-light-primary-text">
-                          Very nice ! On the other hand, we denounce with
-                          righteous indignation and dislike men who are so
-                          beguiled and demoralized by the
-                        </p>
-                      </div>
-                      <div
-                        class="comment-actions flex md:items-center md:flex-row flex-col gap-y-3 md:gap-y-0"
-                      >
-                        <p class="text-sm leading-[22px] md:pr-3">
-                          was this review helpful to you?
-                        </p>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pr-3 relative md:after:absolute md:after:h-5 md:after:w-px md:after:right-0 md:after:top-1/2 md:after:-translate-y-1/2 md:after:bg-gray-300"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-up text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Thank (234)
-                        </a>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pl-3"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-down text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Dislike (12)
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="comment">
-                    <div class="comment-body">
-                      <div
-                        class="comment-avatar-card flex items-center gap-x-4 mb-3"
-                      >
-                        <div class="comment-author-avatar size-12 rounded-full">
-                          <img
-                            src="assets/images/blog/user-avatar-1.png"
-                            alt="Comment Author Avatar"
-                            class="rounded-full"
-                          />
-                        </div>
-                        <div class="comment-author-info flex-1">
-                          <p
-                            class="comment-author font-semibold text-light-primary-text"
-                          >
-                            Jenny Wilson
-                          </p>
-                        </div>
-                      </div>
-                      <div class="flex items-center mb-3">
-                        <div
-                          class="rating-section flex items-center relative after:absolute after:h-[22px] after:w-px after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-gray-300 pr-3"
-                        >
-                          <div
-                            class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]"
-                          >
-                            <div
-                              style="width: 80%"
-                              class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"
-                            ></div>
-                          </div>
-                          <span
-                            class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text"
-                            >4.5</span
-                          >
-                        </div>
-                        <div class="flex items-center gap-x-1 pl-3">
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11.5269 3.13379L13.9331 3.67969L13.7065 6.13965L15.3335 8L13.7065 9.86035L13.9331 12.3203L11.5269 12.8662L10.2661 14.9932L7.99951 14.0195L5.73291 15L4.47314 12.873L2.06689 12.3271L2.29346 9.86035L0.666504 8L2.29346 6.13379L2.06689 3.66699L4.47314 3.12695L5.73291 1L7.99951 1.97363L10.2661 1L11.5269 3.13379ZM6.72607 9.17285L5.18018 7.62012L4.19287 8.60645L6.72607 11.1465L11.6128 6.24707L10.6265 5.25977L6.72607 9.17285Z"
-                              fill="#088178"
-                            />
-                          </svg>
-                          <p class="text-primary text-sm leading-[22px]">
-                            Verified purchase
-                          </p>
-                        </div>
-                      </div>
-                      <div class="comment-content pl-0! pr-0! mb-3">
-                        <p class="text-light-primary-text">
-                          Very nice ! On the other hand, we denounce with
-                          righteous indignation and dislike men who are so
-                          beguiled and demoralized by the
-                        </p>
-                      </div>
-                      <div
-                        class="comment-actions flex md:items-center md:flex-row flex-col gap-y-3 md:gap-y-0"
-                      >
-                        <p class="text-sm leading-[22px] md:pr-3">
-                          was this review helpful to you?
-                        </p>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pr-3 relative md:after:absolute md:after:h-5 md:after:w-px md:after:right-0 md:after:top-1/2 md:after:-translate-y-1/2 md:after:bg-gray-300"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-up text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Thank (234)
-                        </a>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pl-3"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-down text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Dislike (12)
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="comment">
-                    <div class="comment-body">
-                      <div
-                        class="comment-avatar-card flex items-center gap-x-4 mb-3"
-                      >
-                        <div class="comment-author-avatar size-12 rounded-full">
-                          <img
-                            src="assets/images/blog/user-avatar-1.png"
-                            alt="Comment Author Avatar"
-                            class="rounded-full"
-                          />
-                        </div>
-                        <div class="comment-author-info flex-1">
-                          <p
-                            class="comment-author font-semibold text-light-primary-text"
-                          >
-                            Brooklyn Simmons
-                          </p>
-                        </div>
-                      </div>
-                      <div class="flex items-center mb-3">
-                        <div
-                          class="rating-section flex items-center relative after:absolute after:h-[22px] after:w-px after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-gray-300 pr-3"
-                        >
-                          <div
-                            class="bg-[url('../images/star-icon.png')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]"
-                          >
-                            <div
-                              style="width: 80%"
-                              class="bg-[url('../images/star-icon.png')] h-4.5 bg-repeat-x bg-position-[0_-18px]"
-                            ></div>
-                          </div>
-                          <span
-                            class="text-sm leading-[22px] font-normal inline-flex ml-2 text-light-primary-text"
-                            >4.5</span
-                          >
-                        </div>
-                        <div class="flex items-center gap-x-1 pl-3">
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11.5269 3.13379L13.9331 3.67969L13.7065 6.13965L15.3335 8L13.7065 9.86035L13.9331 12.3203L11.5269 12.8662L10.2661 14.9932L7.99951 14.0195L5.73291 15L4.47314 12.873L2.06689 12.3271L2.29346 9.86035L0.666504 8L2.29346 6.13379L2.06689 3.66699L4.47314 3.12695L5.73291 1L7.99951 1.97363L10.2661 1L11.5269 3.13379ZM6.72607 9.17285L5.18018 7.62012L4.19287 8.60645L6.72607 11.1465L11.6128 6.24707L10.6265 5.25977L6.72607 9.17285Z"
-                              fill="#088178"
-                            />
-                          </svg>
-                          <p class="text-primary text-sm leading-[22px]">
-                            Verified purchase
-                          </p>
-                        </div>
-                      </div>
-                      <div class="comment-content pl-0! pr-0! mb-3">
-                        <p class="text-light-primary-text">
-                          Very nice ! On the other hand, we denounce with
-                          righteous indignation and dislike men who are so
-                          beguiled and demoralized by the
-                        </p>
-                      </div>
-                      <div
-                        class="comment-actions flex md:items-center md:flex-row flex-col gap-y-3 md:gap-y-0"
-                      >
-                        <p class="text-sm leading-[22px] md:pr-3">
-                          was this review helpful to you?
-                        </p>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pr-3 relative md:after:absolute md:after:h-5 md:after:w-px md:after:right-0 md:after:top-1/2 md:after:-translate-y-1/2 md:after:bg-gray-300"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-up text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Thank (234)
-                        </a>
-                        <a
-                          href="#"
-                          class="comment-action-item text-sm leading-[22px] inline-flex items-center gap-x-1 md:pl-3"
-                        >
-                          <i
-                            class="hgi hgi-stroke hgi-thumbs-down text-lg leading-[18px] text-light-primary-text"
-                          ></i>
-                          Dislike (12)
-                        </a>
-                      </div>
-                    </div>
-                  </li>
                 </ol>
                 <div class="comment-pagination-wrapper mt-6">
-                  <ul
-                    class="flex items-center justify-center gap-x-1.5 comment-pagination"
-                  >
-                    <li class="group comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white cursor-pointer border border-gray-300 group-hover:font-semibold group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        <span class="inline-flex items-center justify-center">
-                          <i
-                            class="hgi hgi-stroke hgi-arrow-left-01 text-[20px] group-hover:font-semibold leading-5 text-light-primary-text group-hover:text-primary"
-                          ></i
-                        ></span>
-                      </a>
-                    </li>
-                    <li class="group comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] active"
-                      >
-                        1
-                      </a>
-                    </li>
-                    <li class="group blog-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li class="group comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        3
-                      </a>
-                    </li>
-                    <li class="group blog-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        4
-                      </a>
-                    </li>
-                    <li class="group comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] text-base leading-6 text-light-primary-text group-hover:text-primary group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        5
-                      </a>
-                    </li>
-                    <li class="comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] bg-white"
-                      >
-                        <span class="inline-flex items-center justify-center">
-                          <i
-                            class="hgi hgi-stroke hgi-more-horizontal text-[20px] leading-5 text-light-primary-text"
-                          ></i
-                        ></span>
-                      </a>
-                    </li>
-                    <li class="group comment-pagination-item">
-                      <a
-                        href="#"
-                        class="inline-flex items-center justify-center md:size-10 size-9 rounded-[50px] group-hover:font-semibold bg-white cursor-pointer border border-gray-300 group-hover:border-primary group-hover:bg-[rgba(0,171,85,0.08)] transition-colors duration-300 ease-in-out"
-                      >
-                        <span class="inline-flex items-center justify-center">
-                          <i
-                            class="hgi hgi-stroke hgi-arrow-right-01 text-[20px] leading-5 group-hover:font-semibold text-light-primary-text group-hover:text-primary"
-                          ></i
-                        ></span>
-                      </a>
-                    </li>
-                  </ul>
+                  <ul class="flex items-center justify-center gap-x-1.5 comment-pagination"></ul>
                 </div>
               </div>
             </div>

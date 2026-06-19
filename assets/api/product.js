@@ -603,6 +603,7 @@ if (document.getElementById("top-discounted-products")) {
             const priceVal = parseFloat((swatch.dataset.price || "0").replace(/[^\d.-]/g, ''));
             oldPriceEl.textContent = mrpVal > priceVal ? swatch.dataset.mrp : "";
             oldPriceEl.style.display = mrpVal > priceVal ? "inline-block" : "none";
+            oldPriceEl.style.textDecoration = mrpVal > priceVal ? "line-through" : "none";
         }
 
         const discountBadge = sidebar.querySelector(".product-discount-badge");
@@ -672,6 +673,7 @@ if (document.getElementById("top-discounted-products")) {
                     if (oldPriceEl) {
                         oldPriceEl.textContent = mrp > salePrice ? formatPrice(mrp) : "";
                         oldPriceEl.style.display = mrp > salePrice ? "inline-block" : "none";
+                        oldPriceEl.style.textDecoration = mrp > salePrice ? "line-through" : "none";
                     }
                     
                     const discountBadgeEls = sidebar.querySelectorAll(".product-discount-badge");

@@ -53,8 +53,6 @@
     };
 
     document.addEventListener("DOMContentLoaded", function () {
-        initHeaderSearch();
-
         // Setup card color swatch clicks globally
         document.body.addEventListener("click", function (e) {
             const swatch = e.target.closest(".card-color-swatch");
@@ -941,6 +939,18 @@ if (document.getElementById("top-discounted-products")) {
         }
     }
 
+    function debounce(fn, wait) {
+        let timer;
+        return function () {
+            const args = arguments;
+            const context = this;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, wait);
+        };
+    }
+
     function bindFilterEvents() {
         const applyFilters = debounce(function () {
             syncStateFromUI();
@@ -1372,85 +1382,6 @@ if (document.getElementById("top-discounted-products")) {
         bindFilterEvents();
         loadShopProducts();
     }
-
-    function debounce(fn, wait) {
-        let timer;
-        return function () {
-            clearTimeout(timer);
-            timer = setTimeout(fn, wait);
-        };
-    }
-
-    function initHeaderSearch() {
-        const inputs = document.querySelectorAll(".header-search-input");
-        if (!inputs.length) return;
-
-        inputs.forEach(function (input) {
-            const container = input.closest(".search-input-container");
-            const resultList = container
-                ? container.querySelector(".recommended-search-list")
-                : null;
-
-            const runSearch = debounce(async function () {
-                const query = input.value.trim();
-                if (!query || query.length < 2) {
-                    if (resultList) resultList.innerHTML = "";
-                    return;
-                }
-
-                try {
-                    const result = await fetchSearchProducts(query, 1, 5);
-                    if (!resultList) return;
-
-                    if (!result.items.length) {
-                        resultList.innerHTML =
-                            '<li class="py-2 text-light-secondary-text">No products found</li>';
-                        return;
-                    }
-
-                    resultList.innerHTML = result.items
-                        .map(function (product) {
-                            const productId = product.id || product.productId;
-                            const detailUrl = productId
-                                ? "product-detail.php?id=" + productId
-                                : "product-detail.php";
-
-                            const productName = product.productName || product.name || "Product";
-                            const displayProductName = truncateProductName(productName);
-
-                            return (
-                                '<li class="py-2">' +
-                                '<a href="' +
-                                detailUrl +
-                                '" class="flex items-center gap-3 hover:text-primary" title="' + String(productName).replace(/"/g, '&quot;') + '">' +
-                                '<img src="' +
-                                getProductImage(product) +
-                                '" alt="" class="w-10 h-10 rounded object-cover" />' +
-                                "<span>" +
-                                displayProductName +
-                                "</span></a></li>"
-                            );
-                        })
-                        .join("");
-                } catch (error) {
-                    console.error("Search error:", error);
-                }
-            }, 350);
-
-            input.addEventListener("input", runSearch);
-
-            input.addEventListener("keydown", function (event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    const query = input.value.trim();
-                    if (!query) return;
-                    window.location.href =
-                        "shop.php?q=" + encodeURIComponent(query);
-                }
-            });
-        });
-    }
-
 
     async function loadTopDiscountedProducts() {
         const container = document.getElementById("top-discounted-products");

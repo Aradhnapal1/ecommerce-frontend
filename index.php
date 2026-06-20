@@ -100,9 +100,9 @@
                                 <span class="text-sm leading-[22px] font-normal inline-block ml-1">(189)</span>
                             </div>
                             <div class="price-section flex items-center gap-x-3 mb-2">
-                                <span class="current-price text-base font-semibold text-primary">$27.49</span>
+                                <span class="current-price text-base font-semibold text-primary">₹27.49</span>
                                 <span
-                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">$29.99</span>
+                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">₹29.99</span>
                             </div>
                         </div>
                     </a>
@@ -129,9 +129,9 @@
                                 <span class="text-sm leading-[22px] font-normal inline-block ml-1">(189)</span>
                             </div>
                             <div class="price-section flex items-center gap-x-3 mb-2">
-                                <span class="current-price text-base font-semibold text-primary">$27.49</span>
+                                <span class="current-price text-base font-semibold text-primary">₹27.49</span>
                                 <span
-                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">$29.99</span>
+                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">₹29.99</span>
                             </div>
                         </div>
                     </a>
@@ -149,9 +149,9 @@
                             Samsung Galaxy Watch 6
                         </h4>
                         <div class="price-section flex items-center gap-x-3">
-                            <span class="current-price text-xl leading-[30px] font-bold text-primary">$28.56</span>
+                            <span class="current-price text-xl leading-[30px] font-bold text-primary">₹28.56</span>
                             <span
-                                class="old-price text-[18px] leading-7 font-normal text-light-disabled-text line-through">$29.56</span>
+                                class="old-price text-[18px] leading-7 font-normal text-light-disabled-text line-through">₹29.56</span>
                         </div>
                     </div>
                 </a>
@@ -182,9 +182,9 @@
                                 <span class="text-sm leading-[22px] font-normal inline-block ml-1">(189)</span>
                             </div>
                             <div class="price-section flex items-center gap-x-3 mb-2">
-                                <span class="current-price text-base font-semibold text-primary">$27.49</span>
+                                <span class="current-price text-base font-semibold text-primary">₹27.49</span>
                                 <span
-                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">$39.99</span>
+                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">₹39.99</span>
                             </div>
                         </div>
                     </a>
@@ -212,9 +212,9 @@
                                 <span class="text-sm leading-[22px] font-normal inline-block ml-1">(189)</span>
                             </div>
                             <div class="price-section flex items-center gap-x-3 mb-2">
-                                <span class="current-price text-base font-semibold text-primary">$27.49</span>
+                                <span class="current-price text-base font-semibold text-primary">₹27.49</span>
                                 <span
-                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">$39.99</span>
+                                    class="old-price text-base leading-[22px] font-normal text-light-disabled-text line-through">₹39.99</span>
                             </div>
                         </div>
                     </a>

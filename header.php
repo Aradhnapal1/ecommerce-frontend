@@ -53,6 +53,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
      <script src="./assets/api/banner.js"></script>
      <script src="./assets/api/category.js"></script>
      <script src="./assets/api/product.js"></script>
+     <script src="./assets/api/search.js"></script>
      <script src="./assets/api/product-detail.js"></script>
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
@@ -118,78 +119,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             <p class="font-semibold text-light-primary-text">
                                 Recent Search
                             </p>
-                            <button class="text-primary text-base leading-[26px] font-semibold cursor-pointer">
+                            <button type="button"
+                                class="reset-search-history-btn text-primary text-base leading-[26px] font-semibold cursor-pointer">
                                 Reset History
                             </button>
                         </div>
-                        <div class="flex flex-wrap items-center gap-2 recent-search-list mb-4">
-                            <button
-                                class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                Vitamin D Supplement
-                                <span
-                                    class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                    <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                </span>
-                            </button>
-                            <button
-                                class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                Pain Relief Spray
-                                <span
-                                    class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                    <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                </span>
-                            </button>
-                            <button
-                                class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                Baby Thermometer
-                                <span
-                                    class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                    <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                </span>
-                            </button>
+                        <div class="flex flex-wrap items-center gap-2 recent-search-list mb-4"></div>
+                        <div class="search-query-suggestions-wrapper hidden mb-4">
+                            <p class="text-base font-semibold text-light-primary-text mb-2">
+                                Suggestions
+                            </p>
+                            <div class="search-query-suggestions flex flex-col gap-y-1"></div>
                         </div>
-                        <div class="recommended-search-list-wrapper">
+                        <div class="recommended-search-list-wrapper hidden">
                             <p class="text-base font-semibold text-light-primary-text mb-4">
                                 Recommended
                             </p>
-                            <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300">
-                                <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                    <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                        <img src="assets/images/vitamin-c.png" alt="recommended-search-1" />
-                                    </div>
-                                    <p
-                                        class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                        <a href="#">Immunity booster</a>
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                    <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                        <img src="assets/images/hand-sanitizer-1.png" alt="recommended-search-1" />
-                                    </div>
-                                    <p
-                                        class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                        <a href="#">Hand Sanitizer 500ml</a>
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                    <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                        <img src="assets/images/combat.png" alt="recommended-search-1" />
-                                    </div>
-                                    <p
-                                        class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                        <a href="#">Heart health supplements</a>
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                    <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                        <img src="assets/images/vitamin-b12.png" alt="recommended-search-1" />
-                                    </div>
-                                    <p
-                                        class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                        <a href="#">Protein powder for women</a>
-                                    </p>
-                                </div>
-                            </div>
+                            <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300"></div>
                         </div>
                     </div>
                 </div>
@@ -729,8 +675,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 </div>
                 <div class="price-section flex items-center gap-x-3 mb-6">
                     <span
-                        class="current-price text-2xl leading-9 font-bold text-light-primary-text relative after:absolute after:h-6 after:w-px after:bg-gray-300 after:right-0 after:top-1/2 after:-translate-y-1/2 pr-3 inline-block">$62.97</span>
-                    <span class="old-price text-2xl leading-9 font-normal text-light-disabled-text">$39.99</span>
+                        class="current-price text-2xl leading-9 font-bold text-light-primary-text relative after:absolute after:h-6 after:w-px after:bg-gray-300 after:right-0 after:top-1/2 after:-translate-y-1/2 pr-3 inline-block">₹0</span>
+                    <span class="old-price text-2xl leading-9 font-normal text-light-disabled-text">₹0</span>
                     <span
                         class="product-discount-badge uppercase relative bg-error text-warning-lighter font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url('images/discount-shape.html')] after:bg-contain after:bg-no-repeat">15%
                         OFF</span>
@@ -1844,6 +1790,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     Search for the Items
                                 </label>
                             </div>
+                            <div data-state="close"
+                                class="search-result-container p-4 absolute w-full top-[calc(100%+10px)] left-0 border border-gray-300 shadow-light-z-12 bg-white rounded-3xl z-9 transform data-[state=close]:translate-y-4 data-[state=close]:opacity-0 data-[state=close]:invisible transition-all duration-300 ease-[cubic-bezier(0.645,0.045,0.355,1)] data-[state=open]:translate-y-0 data-[state=open]:opacity-100 data-[state=open]:visible">
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="font-semibold text-light-primary-text">
+                                        Recent Search
+                                    </p>
+                                    <button type="button"
+                                        class="reset-search-history-btn text-primary text-base leading-[26px] font-semibold cursor-pointer">
+                                        Reset History
+                                    </button>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 recent-search-list mb-4"></div>
+                                <div class="search-query-suggestions-wrapper hidden mb-4">
+                                    <p class="text-base font-semibold text-light-primary-text mb-2">
+                                        Suggestions
+                                    </p>
+                                    <div class="search-query-suggestions flex flex-col gap-y-1"></div>
+                                </div>
+                                <div class="recommended-search-list-wrapper hidden">
+                                    <p class="text-base font-semibold text-light-primary-text mb-4">
+                                        Recommended
+                                    </p>
+                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300"></div>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -2027,79 +1998,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <p class="font-semibold text-light-primary-text">
                                         Recent Search
                                     </p>
-                                    <button class="text-primary text-base leading-[26px] font-semibold cursor-pointer">
+                                    <button type="button"
+                                        class="reset-search-history-btn text-primary text-base leading-[26px] font-semibold cursor-pointer">
                                         Reset History
                                     </button>
                                 </div>
-                                <div class="flex flex-wrap items-center gap-2 recent-search-list mb-4">
-                                    <button
-                                        class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                        Vitamin D Supplement
-                                        <span
-                                            class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                            <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                        </span>
-                                    </button>
-                                    <button
-                                        class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                        Pain Relief Spray
-                                        <span
-                                            class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                            <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                        </span>
-                                    </button>
-                                    <button
-                                        class="recent-search-item btn text-sm leading-[22px] font-normal btn-default outline btn-medium pl-3 py-1.5 pr-1.5 rounded-[50px]">
-                                        Baby Thermometer
-                                        <span
-                                            class="inline-flex items-center justify-center size-4 bg-[rgba(145,158,171,0.32)] rounded-full">
-                                            <i class="hgi hgi-stroke hgi-cancel-01 text-xs text-white"></i>
-                                        </span>
-                                    </button>
+                                <div class="flex flex-wrap items-center gap-2 recent-search-list mb-4"></div>
+                                <div class="search-query-suggestions-wrapper hidden mb-4">
+                                    <p class="text-base font-semibold text-light-primary-text mb-2">
+                                        Suggestions
+                                    </p>
+                                    <div class="search-query-suggestions flex flex-col gap-y-1"></div>
                                 </div>
-                                <div class="recommended-search-list-wrapper">
+                                <div class="recommended-search-list-wrapper hidden">
                                     <p class="text-base font-semibold text-light-primary-text mb-4">
                                         Recommended
                                     </p>
-                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300">
-                                        <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                            <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                                <img src="assets/images/vitamin-c.png" alt="recommended-search-1" />
-                                            </div>
-                                            <p
-                                                class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                                <a href="#">Immunity booster</a>
-                                            </p>
-                                        </div>
-                                        <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                            <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                                <img src="assets/images/hand-sanitizer-1.png"
-                                                    alt="recommended-search-1" />
-                                            </div>
-                                            <p
-                                                class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                                <a href="#">Hand Sanitizer 500ml</a>
-                                            </p>
-                                        </div>
-                                        <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                            <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                                <img src="assets/images/combat.png" alt="recommended-search-1" />
-                                            </div>
-                                            <p
-                                                class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                                <a href="#">Heart health supplements</a>
-                                            </p>
-                                        </div>
-                                        <div class="flex items-center gap-x-4 py-2 first:pt-0 last:pb-0">
-                                            <div class="size-10 flex-none rounded-lg bg-[#F4F3F5]">
-                                                <img src="assets/images/vitamin-b12.png" alt="recommended-search-1" />
-                                            </div>
-                                            <p
-                                                class="text-base font-semibold text-light-primary-text hover:text-primary transition-colors duration-300">
-                                                <a href="#">Protein powder for women</a>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300"></div>
                                 </div>
                             </div>
                         </div>

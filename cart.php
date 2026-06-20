@@ -390,11 +390,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -487,11 +487,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -584,11 +584,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -681,11 +681,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -778,11 +778,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -875,11 +875,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"
@@ -971,11 +971,11 @@
                 <div class="price-section flex items-center gap-x-3 mb-2">
                   <span
                     class="current-price text-base font-semibold text-light-primary-text"
-                    >$27.49</span
+                    >₹27.49</span
                   >
                   <span
                     class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through"
-                    >$39.99</span
+                    >₹39.99</span
                   >
                   <span
                     class="discount-percentage text-sm leading-[22px] font-semibold text-error"

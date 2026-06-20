@@ -447,10 +447,10 @@
                                     </a>
                                     <div class="flex items-center gap-x-2">
                                       <p class="text-light-disabled-text line-through font-normal">
-                                        $29.99
+                                        ₹29.99
                                       </p>
                                       <p class="font-semibold text-light-primary-text">
-                                        $27.99
+                                        ₹27.99
                                       </p>
                                     </div>
                                   </div>
@@ -512,10 +512,10 @@
                                     </a>
                                     <div class="flex items-center gap-x-2">
                                       <p class="text-light-disabled-text line-through font-normal">
-                                        $29.99
+                                        ₹29.99
                                       </p>
                                       <p class="font-semibold text-light-primary-text">
-                                        $27.99
+                                        ₹27.99
                                       </p>
                                     </div>
                                   </div>
@@ -577,10 +577,10 @@
                                     </a>
                                     <div class="flex items-center gap-x-2">
                                       <p class="text-light-disabled-text line-through font-normal">
-                                        $29.99
+                                        ₹29.99
                                       </p>
                                       <p class="font-semibold text-light-primary-text">
-                                        $27.99
+                                        ₹27.99
                                       </p>
                                     </div>
                                   </div>
@@ -676,7 +676,7 @@
                                 Subtotal (MRP)
                               </p>
                               <span class="text-light-primary-text">
-                                $19
+                                ₹19
                               </span>
                             </li>
                             <li class="flex items-center justify-between">
@@ -702,7 +702,7 @@
 
                         <div class="flex items-center justify-between py-5 border-b border-gray-300">
                           <h5>Amount Payable</h5>
-                          <h5>$40.00</h5>
+                          <h5>₹40.00</h5>
                         </div>
                         <div>
                           <div class="flex items-center justify-between pt-10 gap-x-10">

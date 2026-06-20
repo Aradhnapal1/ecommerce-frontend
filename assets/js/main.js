@@ -256,20 +256,20 @@
   }
 
   /*------ Search Flow ----*/
-  $(".header-search-input").on("input.sellzy", function () {
+  $(".header-search-input").on("input.sellzy focus.sellzy", function () {
     const rawValue = $(this).val();
     const searchValue = typeof rawValue === "string" ? rawValue.trim() : "";
-    // Basic input validation (prevents unexpected values)
-    if (searchValue.length > 0 && searchValue.length <= 200) {
-      $(this)
-        .closest(".search-input-container")
-        .find(".search-result-container")
-        .attr("data-state", "open");
+    const $panel = $(this)
+      .closest(".search-input-container")
+      .find(".search-result-container");
+
+    if (
+      (searchValue.length > 0 && searchValue.length <= 200) ||
+      document.activeElement === this
+    ) {
+      $panel.attr("data-state", "open");
     } else {
-      $(this)
-        .closest(".search-input-container")
-        .find(".search-result-container")
-        .attr("data-state", "close");
+      $panel.attr("data-state", "close");
     }
   });
 

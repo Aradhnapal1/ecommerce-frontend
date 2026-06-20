@@ -173,7 +173,7 @@
                             class="input-group-addon inline-flex items-center justify-center leading-6"
                             data-align="inline-start"
                           >
-                            $
+                            ₹
                           </div>
                           <input
                             class="price-range-min-value form-control"
@@ -193,7 +193,7 @@
                             class="input-group-addon inline-flex items-center justify-center leading-6"
                             data-align="inline-start"
                           >
-                            $
+                            ₹
                           </div>
                           <input
                             class="price-range-max-value form-control"
@@ -1244,8 +1244,4 @@
     </div>
     <!-- ========== Filter with 3-column Section End ========== -->
         <!-- ========== API JS ========== -->
-    <script src="assets/api/domin.js"></script>
-    <script src="assets/api/product.js"></script>
-    <script src="assets/api/review.js"></script>
-
    <?php include 'footer.php'; ?>

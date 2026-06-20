@@ -7,3 +7,9 @@ function truncateProductName(name, wordLimit) {
     if (words.length <= limit) return words.join(" ");
     return words.slice(0, limit).join(" ") + "..";
 }
+
+function formatPrice(value) {
+    const amount = Number(value);
+    if (Number.isNaN(amount)) return "₹0";
+    return "₹" + amount.toLocaleString("en-IN");
+}

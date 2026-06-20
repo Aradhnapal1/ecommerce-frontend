@@ -616,14 +616,17 @@ window.viewOrderDetails = async function(orderId) {
             `;
         }
 
-        let itemsHtml = items.map(item => `
+        let itemsHtml = items.map(item => {
+            const fullName = item.productName || "";
+            const displayName = truncateProductName(fullName);
+            return `
             <li class="py-4 border-b border-gray-200 last:border-b-0">
                 <div class="flex gap-x-4">
                     <div class="w-20 h-20 bg-gray-100 rounded-lg shrink-0">
-                        <img src="${item.productImageUrl || 'assets/images/no-image.png'}" alt="${item.productName}" class="w-full h-full rounded-lg object-contain" />
+                        <img src="${item.productImageUrl || 'assets/images/no-image.png'}" alt="${displayName}" class="w-full h-full rounded-lg object-contain" />
                     </div>
                     <div class="flex flex-col gap-y-1 flex-1">
-                        <a href="product-detail.php?id=${item.productId}" class="text-light-primary-text font-semibold text-sm line-clamp-2 hover:text-primary">${item.productName}</a>
+                        <a href="product-detail.php?id=${item.productId}" class="text-light-primary-text font-semibold text-sm line-clamp-2 hover:text-primary" title="${fullName.replace(/"/g, '&quot;')}">${displayName}</a>
                         <div class="flex items-center justify-between text-sm mt-auto">
                             <p class="text-light-secondary-text">
                                 Qty: <span class="font-semibold text-light-primary-text">${item.quantity}</span>
@@ -635,7 +638,8 @@ window.viewOrderDetails = async function(orderId) {
                     </div>
                 </div>
             </li>
-        `).join('');
+        `;
+        }).join('');
 
         modalContent.innerHTML = `
             <div class="flex flex-col gap-y-6">

@@ -166,6 +166,7 @@ async function loadWishlist() {
                 const image = product.image || "assets/images/no-image.png";
                 const slug = product.slug || "";
                 const name = product.name || "Unknown Product";
+                const displayName = truncateProductName(name);
 
                 html += `
                 <tr class="py-4">
@@ -182,11 +183,11 @@ async function loadWishlist() {
                     <td data-title="Product" class="py-4 px-3 lg:px-0 product">
                         <div class="flex gap-x-4 gap-y-4 flex-col md:flex-row items-end md:items-start">
                             <div class="product-thumbnail max-w-[100px] w-[100px] h-[100px] rounded-2xl bg-[#F4F3F5]">
-                                <img src="${image}" alt="${name}" class="rounded-2xl object-cover w-full h-full" />
+                                <img src="${image}" alt="${displayName}" class="rounded-2xl object-cover w-full h-full" />
                             </div>
                             <div class="flex flex-col gap-y-3 items-end md:items-start">
-                                <a class="text-light-primary-text font-semibold truncate hover:text-primary transition-colors duration-300" href="product-detail.php?slug=${slug}">
-                                    ${name}
+                                <a class="text-light-primary-text font-semibold truncate hover:text-primary transition-colors duration-300" href="product-detail.php?slug=${slug}" title="${name.replace(/"/g, '&quot;')}">
+                                    ${displayName}
                                 </a>
                                 <p class="text-sm leading-[22px] font-medium text-primary product-category">
                                     ${product.itemType || 'Product'}

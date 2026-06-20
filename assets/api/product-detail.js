@@ -70,6 +70,140 @@
         return Math.round(Number(discount)) || 0;
     }
 
+    function getRelatedProductImage(product) {
+        return product.productImageUrl || product.imageUrl || product.image || "assets/images/vitamin-c.png";
+    }
+
+    function getRelatedDiscountLabel(product) {
+        const discount = product.discountPrice ?? product.discountPercent ?? product.discountPercentage ?? 0;
+        if (discount) {
+            return Math.round(Number(discount)) + "% OFF";
+        }
+
+        const salePrice = Number(product.salePrice ?? product.basePrice ?? 0);
+        const mrp = Number(product.mrp ?? salePrice);
+        if (mrp > salePrice) {
+            return Math.round(((mrp - salePrice) / mrp) * 100) + "% OFF";
+        }
+
+        return "";
+    }
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    function renderRelatedProductCard(product, index) {
+        const delay = ((index % 4) + 2) * 0.1;
+        const productId = product.id || product.productId || "";
+        const productName = product.productName || product.name || "Product";
+        const displayName = truncateProductName(productName);
+        const detailUrl = buildProductDetailUrl(product);
+        const image = getRelatedProductImage(product);
+        const salePrice = product.salePrice ?? product.basePrice ?? 0;
+        const mrp = product.mrp ?? salePrice;
+        const discountLabel = getRelatedDiscountLabel(product);
+        const rating = Number(product.averageRating) || 0;
+        const reviewCount = product.totalReviews || 0;
+        const ratingWidth = Math.min(100, Math.max(0, (rating / 5) * 100));
+        const safeName = escapeHtml(displayName);
+        const safeFullName = escapeHtml(productName);
+
+        return (
+            '<div data-wow-delay="' + delay + 's" class="border border-gray-300 rounded-2xl product-card-1 p-4 group related-product-item mx-3 wow animate__animated animate__fadeInUp">' +
+            '<div class="product-image-container relative">' +
+            '<div class="product-image rounded-xl bg-[#F4F3F5] mb-4 overflow-hidden">' +
+            '<a href="' + detailUrl + '">' +
+            '<img src="' + image + '" alt="' + safeFullName + '" class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />' +
+            "</a></div>" +
+            '<div class="product-btn-actions absolute bottom-0 right-0 left-0 flex justify-center z-9 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:bottom-3">' +
+            '<ul class="flex items-center gap-x-px">' +
+            '<li><a aria-label="Add to Wishlist" class="add-to-wishlist-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tl-sm rounded-bl-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '">' +
+            '<i class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-secondary-text"></i></a></li>' +
+            '<li><a aria-label="Compare" class="product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="compare.html">' +
+            '<i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i></a></li>' +
+            '<li><a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="#" data-product-id="' + productId + '">' +
+            '<i class="hgi hgi-stroke hgi-view text-2xl leading-6 text-light-primary-text"></i></a></li>' +
+            "</ul></div></div>" +
+            '<div class="product-content">' +
+            '<h5 class="text-base leading-6 font-semibold font-dm-sans mb-4">' +
+            '<a href="' + detailUrl + '" title="' + safeFullName + '">' + safeName + "</a></h5>" +
+            '<div class="rating-section flex items-center mb-4">' +
+            '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +
+            '<div style="width: ' + ratingWidth + '%" class="bg-[url(\'../images/star-icon.png\')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>' +
+            "</div>" +
+            '<span class="text-sm leading-[22px] font-normal inline-block ml-1">(' + reviewCount + ")</span>" +
+            "</div>" +
+            '<div class="price-section flex items-center gap-x-3 mb-2">' +
+            '<span class="current-price text-base font-semibold text-light-primary-text">' + formatDetailPrice(salePrice) + "</span>" +
+            (Number(mrp) > Number(salePrice)
+                ? '<span class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through">' + formatDetailPrice(mrp) + "</span>"
+                : "") +
+            (discountLabel
+                ? '<span class="discount-percentage text-sm leading-[22px] font-semibold text-error">' + discountLabel + "</span>"
+                : "") +
+            "</div>" +
+            '<div class="btn-section flex items-center gap-x-4">' +
+            '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '">' +
+            '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
+            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
+            '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
+            "<span>Add to Cart</span></a></div></div></div>"
+        );
+    }
+
+    async function loadRelatedProducts(productId) {
+        const section = document.getElementById("related-products-section");
+        const slider = document.getElementById("related-products-slider") || document.querySelector(".related-products-slider");
+
+        if (!slider || !productId) return;
+
+        if (section) section.style.visibility = "hidden";
+
+        try {
+            const response = await fetch(
+                apiBase + "/api/product/" + encodeURIComponent(productId) + "/related?limit=8"
+            );
+
+            if (!response.ok) {
+                throw new Error("HTTP Error: " + response.status);
+            }
+
+            const result = await response.json();
+            let items = [];
+
+            if (Array.isArray(result.data)) {
+                items = result.data;
+            } else if (Array.isArray(result)) {
+                items = result;
+            } else if (Array.isArray(result?.value?.data)) {
+                items = result.value.data;
+            }
+
+            if (!items.length) {
+                if (section) {
+                    section.style.display = "none";
+                    section.style.visibility = "";
+                }
+                return;
+            }
+
+            if (section) section.style.display = "";
+
+            const html = items.map(renderRelatedProductCard).join("");
+            reinitProductSlider(slider, html);
+            if (section) section.style.visibility = "";
+        } catch (error) {
+            console.error("Related products error:", error);
+            if (section) section.style.display = "none";
+            if (section) section.style.visibility = "";
+        }
+    }
+
     function reinitProductSlider(slider, html) {
         if (!slider) return;
 
@@ -300,7 +434,7 @@
         if (!tbody) return;
 
         const rows = [
-            ["Product Name", product.productName],
+            ["Product Name", truncateProductName(product.productName)],
             ["Brand", product.brandName],
             ["Category", product.categoryName],
             ["SKU", product.sku],
@@ -334,7 +468,7 @@
         document.title = (product.productName || "Product") + " - HyperScripts";
 
         const breadcrumbName = document.getElementById("product-breadcrumb-name");
-        if (breadcrumbName) breadcrumbName.textContent = product.productName || "Product Details";
+        if (breadcrumbName) breadcrumbName.textContent = truncateProductName(product.productName || "Product Details");
 
         const title = document.getElementById("product-title");
         if (title) {
@@ -476,6 +610,7 @@
             renderProductDetail(product, variants);
             renderProductSliders(product);
             initReviews(productId);
+            loadRelatedProducts(productId);
         } catch (error) {
             console.error("Product detail error:", error);
             showProductDetailError("Unable to load product details.");
@@ -542,11 +677,14 @@
                     quantity = parseInt(quantityInput.value) || 1;
                 }
 
-                const formData = new FormData();
-                formData.append("productId", productId);
-                formData.append("quantity", quantity);
-                if (variantId && variantId !== "undefined" && variantId !== "null") {
-                    formData.append("variantId", variantId);
+                if (typeof window.OrderAPI !== "undefined") {
+                    await window.OrderAPI.handleBuyNow({
+                        productId,
+                        quantity,
+                        variantId,
+                        buttonEl: buyNowBtn
+                    });
+                    return;
                 }
 
                 buyNowBtn.style.pointerEvents = "none";
@@ -555,13 +693,34 @@
                 buyNowBtn.innerHTML = "<span>Processing...</span>";
 
                 try {
+                    sessionStorage.setItem("buyNowItem", JSON.stringify({
+                        productId: parseInt(productId, 10),
+                        quantity,
+                        variantId: variantId && variantId !== "undefined" && variantId !== "null"
+                            ? parseInt(variantId, 10)
+                            : null
+                    }));
+                    sessionStorage.setItem("buyNowCheckout", "1");
+
                     const token = localStorage.getItem("UserToken");
                     const headers = {};
                     if (token) headers["Authorization"] = "Bearer " + token;
 
+                    await fetch(`${apiBase}/api/addcart/clear`, {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json", ...headers }
+                    });
+
+                    const formData = new FormData();
+                    formData.append("productId", productId);
+                    formData.append("quantity", quantity);
+                    if (variantId && variantId !== "undefined" && variantId !== "null") {
+                        formData.append("variantId", variantId);
+                    }
+
                     const response = await fetch(`${apiBase}/api/addcart/add`, {
                         method: "POST",
-                        headers: headers,
+                        headers,
                         body: formData
                     });
 
@@ -569,18 +728,15 @@
 
                     if (response.ok || result.status || result.success || result?.value?.status === true) {
                         if (typeof Toastify !== "undefined") Toastify({ text: "✅ Redirecting to checkout...", duration: 2000, style: { background: "#00b09b" } }).showToast();
-                        
-                        if (typeof window.currentCartCount !== "undefined" && typeof window.updateCartCountUI === "function") {
-                            window.updateCartCountUI(window.currentCartCount + quantity);
-                        }
-
-                        setTimeout(() => {
-                            window.location.href = "checkout.php";
-                        }, 1000);
+                        setTimeout(() => { window.location.href = "checkout.php"; }, 1000);
                     } else {
+                        sessionStorage.removeItem("buyNowItem");
+                        sessionStorage.removeItem("buyNowCheckout");
                         if (typeof Toastify !== "undefined") Toastify({ text: "❌ Failed to process: " + (result.message || "Unknown error"), duration: 3000, style: { background: "#ff416c" } }).showToast();
                     }
                 } catch (error) {
+                    sessionStorage.removeItem("buyNowItem");
+                    sessionStorage.removeItem("buyNowCheckout");
                     console.error("Error processing buy now:", error);
                     if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server Error", duration: 3000, style: { background: "#ff416c" } }).showToast();
                 } finally {

@@ -262,9 +262,7 @@ if (document.getElementById("top-discounted-products")) {
         const productId = product.id || product.productId || "";
         const variantId = product.variantId || "";
         const productName = product.productName || product.name || "Product";
-        
-        const nameWords = productName.split(" ");
-        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+        const displayProductName = truncateProductName(productName);
         
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;
@@ -660,7 +658,7 @@ if (document.getElementById("top-discounted-products")) {
                 let product = result?.data || (result?.value?.data && typeof result.value.data === "object" ? result.value.data : null);
                 
                 if (product) {
-                    if (titleEl) titleEl.textContent = product.productName || product.name || "Product";
+                    if (titleEl) titleEl.textContent = truncateProductName(product.productName || product.name || "Product");
                     const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
                     const mrp = product.mrp ?? product.originalPrice ?? salePrice;
                     let discountPercent = product.discountPrice ?? product.discountPercent ?? product.discountPercentage ?? 0;
@@ -1418,8 +1416,7 @@ if (document.getElementById("top-discounted-products")) {
                                 : "product-detail.php";
 
                             const productName = product.productName || product.name || "Product";
-                            const nameWords = productName.split(" ");
-                            const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+                            const displayProductName = truncateProductName(productName);
 
                             return (
                                 '<li class="py-2">' +
@@ -1499,9 +1496,7 @@ if (document.getElementById("top-discounted-products")) {
         const delay = delays[index % delays.length];
         const productId = product.id || product.productId;
         const productName = product.productName || product.name || "Product";
-
-        const nameWords = productName.split(" ");
-        const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+        const displayProductName = truncateProductName(productName);
 
         const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
         const mrp = product.mrp ?? product.originalPrice ?? salePrice;

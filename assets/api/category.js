@@ -625,10 +625,7 @@ function renderHomeProductCard(product, index) {
     const delay = ((index % 5) + 2) * 0.1;
     const productId = product.id || product.productId || "";
     const productName = product.productName || product.name || "Product";
-    
-    // Truncate product name to 5 words max
-    const nameWords = productName.split(" ");
-    const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
+    const displayProductName = truncateProductName(productName);
 
     const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
     const mrp = product.mrp ?? product.originalPrice ?? salePrice;
@@ -932,9 +929,7 @@ function initHomeQuickViewDelegation() {
             
             if (product) {
                 const productName = product.productName || product.name || "Product";
-                const nameWords = productName.split(" ");
-                const displayProductName = nameWords.length > 5 ? nameWords.slice(0, 5).join(" ") + "..." : productName;
-                if (titleEl) titleEl.textContent = displayProductName;
+                if (titleEl) titleEl.textContent = truncateProductName(productName);
 
                 const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
                 const mrp = product.mrp ?? product.originalPrice ?? salePrice;

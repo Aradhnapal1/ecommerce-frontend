@@ -1084,7 +1084,7 @@
     <!-- ========== Tabs Section End ========== -->
 
     <!-- ========== Related Products Section Start ========== -->
-    <section class="pb-[70px]">
+    <section id="related-products-section" class="pb-[70px]">
       <div class="container">
         <div class="flex items-center justify-between mb-12">
           <h3
@@ -1100,6 +1100,7 @@
         </div>
         <div
           data-slick='{"slidesToShow": 6, "slidesToScroll": 1, "loop": true, "arrows": true, "infinite": true, "appendArrows": ".related-products-slider-nav", "autoplay": true, "autoplaySpeed": 7000, "responsive": [{"breakpoint": 1441, "settings": {"slidesToShow": 4}}, {"breakpoint": 1025, "settings": {"slidesToShow": 3}}, {"breakpoint": 769, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'
+          id="related-products-slider"
           class="related-products-slider -mx-3 sellzy-slider"
         >
           <div

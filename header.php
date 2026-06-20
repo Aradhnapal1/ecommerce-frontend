@@ -57,6 +57,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
      <script src="./assets/api/blog.js"></script>
      <script src="./assets/api/wishlist.js"></script>
      <script src="./assets/api/contact.js"></script>
+     <script src="./assets/api/orders.js"></script>
      <script src="./assets/api/cart-action.js"></script>
      <script src="./assets/api/address.js"></script>
 

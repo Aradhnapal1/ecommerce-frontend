@@ -190,64 +190,17 @@ document.addEventListener("DOMContentLoaded", function () {
         placeOrderBtn.addEventListener("click", async function (e) {
             e.preventDefault();
 
-            const token = localStorage.getItem("UserToken");
-            if (!token) {
-                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please login to place an order", duration: 3000, style: { background: "#ff416c" } }).showToast();
-                return;
-            }
-
-            // 1. Get Selected Address
             const selectedAddressInput = document.querySelector('input[name="selected-address"]:checked');
-            if (!selectedAddressInput) {
-                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please select a shipping address", duration: 3000, style: { background: "#ff416c" } }).showToast();
-                return;
-            }
-            const addressId = selectedAddressInput.value;
-
-            // 2. Get Selected Payment Method
             const selectedPaymentInput = document.querySelector('input[name="payment-method"]:checked');
-            if (!selectedPaymentInput) {
-                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ Please select a payment method", duration: 3000, style: { background: "#ff416c" } }).showToast();
-                return;
-            }
-            const paymentMethod = selectedPaymentInput.value;
-
-            // 3. Get Coupon Code (from localStorage, as set by applyCouponCode)
             const couponCode = localStorage.getItem("AppliedCoupon") || "";
 
-            const payload = {
-                addressId: parseInt(addressId),
-                paymentMethod: paymentMethod,
-                couponCode: couponCode
-            };
-
-            placeOrderBtn.disabled = true;
-            const originalBtnText = placeOrderBtn.innerHTML;
-            placeOrderBtn.innerHTML = "Placing Order...";
-
-            try {
-                const response = await fetch(`${API_BASE_CART}/api/orders/create`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-                    body: JSON.stringify(payload)
+            if (typeof window.OrderAPI !== "undefined") {
+                await window.OrderAPI.handleOrderPlacement({
+                    addressId: selectedAddressInput ? selectedAddressInput.value : null,
+                    paymentMethod: selectedPaymentInput ? selectedPaymentInput.value : null,
+                    couponCode,
+                    buttonEl: placeOrderBtn
                 });
-
-                const result = await response.json();
-
-                if (response.ok && (result.status || result.success)) {
-                    if (typeof Toastify !== "undefined") Toastify({ text: "✅ Order placed successfully!", duration: 2000, style: { background: "#00b09b" } }).showToast();
-                    localStorage.removeItem("AppliedCoupon");
-                    setTimeout(() => { window.location.href = "order-successful.php"; }, 2000);
-                } else {
-                    if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to place order"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();
-                    placeOrderBtn.disabled = false;
-                    placeOrderBtn.innerHTML = originalBtnText;
-                }
-            } catch (error) {
-                console.error("Error placing order:", error);
-                if (typeof Toastify !== "undefined") Toastify({ text: "❌ Server error while placing order", duration: 3000, style: { background: "#ff416c" } }).showToast();
-                placeOrderBtn.disabled = false;
-                placeOrderBtn.innerHTML = originalBtnText;
             }
         });
     }
@@ -300,6 +253,8 @@ async function fetchGlobalCart() {
                         const price = item.salePrice ?? item.mrp ?? 0;
                         const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
                         const image = item.imageUrl || "assets/images/no-image.png";
+                        const fullName = item.productName || "";
+                        const displayName = truncateProductName(fullName);
                         
                         let attributes = [];
                         if (item.colorName) attributes.push(`Color: ${item.colorName}`);
@@ -309,12 +264,12 @@ async function fetchGlobalCart() {
                         return `
                             <div class="cart-product-item flex flex-col sm:flex-row items-center sm:gap-x-4 gap-y-2 sm:gap-y-0 p-4 border border-gray-300 rounded-2xl">
                                 <a class='cart-product-item-image sm:w-[102px] sm:h-[102px] rounded-xl bg-[#F4F3F5] overflow-hidden relative' href='product-detail.php?id=${item.productId}'>
-                                    <img src="${image}" alt="${item.productName}" class="w-full h-full object-cover rounded-xl" />
+                                    <img src="${image}" alt="${displayName}" class="w-full h-full object-cover rounded-xl" />
                                 </a>
                                 <div class="cart-product-item-content flex flex-col gap-y-2 flex-1 w-full">
                                     <div class="flex items-center justify-between gap-x-2">
                                         <h6 class="text-base font-semibold line-clamp-1">
-                                            <a href='product-detail.php?id=${item.productId}'>${item.productName}</a>
+                                            <a href='product-detail.php?id=${item.productId}' title="${fullName.replace(/"/g, '&quot;')}">${displayName}</a>
                                         </h6>
                                         <div class="cart-edit-remove flex items-center gap-x-3">
                                             <button class="remove-from-cart-btn" data-cart-id="${item.cartId}">
@@ -538,6 +493,8 @@ function renderCartPage(items, grandTotal) {
         const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
         const image = item.imageUrl || "assets/images/no-image.png";
         const itemTotal = price * (item.quantity || 1);
+        const fullName = item.productName || "";
+        const displayName = truncateProductName(fullName);
 
         let attributes = [];
         if (item.colorName) attributes.push(`Color: ${item.colorName}`);
@@ -549,11 +506,11 @@ function renderCartPage(items, grandTotal) {
                 <td data-title="Product" class="py-4 px-3 lg:px-4 product">
                     <div class="flex items-end md:items-start gap-x-4 flex-col md:flex-row gap-y-4">
                         <div class="product-thumbnail max-w-[120px] h-[120px] rounded-2xl bg-[#F4F3F5] shrink-0 overflow-hidden">
-                            <img src="${image}" alt="${item.productName}" class="rounded-2xl h-full w-full object-cover" />
+                            <img src="${image}" alt="${displayName}" class="rounded-2xl h-full w-full object-cover" />
                         </div>
                         <div class="flex flex-col gap-y-2 items-end md:items-start">
-                            <a class="product-name text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300" href="product-detail.php?id=${item.productId}">
-                                ${item.productName}
+                            <a class="product-name text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300" href="product-detail.php?id=${item.productId}" title="${fullName.replace(/"/g, '&quot;')}">
+                                ${displayName}
                             </a>
                             ${attrText}
                         </div>
@@ -646,6 +603,8 @@ function renderCheckoutPage(items, grandTotal) {
         const oldPrice = item.mrp && item.mrp > price ? item.mrp : null;
         const image = item.imageUrl || "assets/images/no-image.png";
         const itemTotal = price * (item.quantity || 1);
+        const fullName = item.productName || "";
+        const displayName = truncateProductName(fullName);
 
         let attributes = [];
         if (item.colorName) attributes.push(`Color: ${item.colorName}`);
@@ -656,13 +615,13 @@ function renderCheckoutPage(items, grandTotal) {
             <tr>
                 <td class="py-4 px-4 product-thumbnail">
                     <div class="w-[60px] h-[60px] rounded-xl bg-[#F4F3F5] overflow-hidden">
-                        <img src="${image}" alt="${item.productName}" class="w-full h-full object-cover rounded-xl" />
+                        <img src="${image}" alt="${displayName}" class="w-full h-full object-cover rounded-xl" />
                     </div>
                 </td>
                 <td class="py-4 md:pr-4 pr-2 align-bottom w-full">
                     <div class="flex flex-col gap-y-2">
-                        <a class="text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300 product-title" href="product-detail.php?id=${item.productId}">
-                            ${item.productName}
+                        <a class="text-light-primary-text font-semibold line-clamp-2 hover:text-primary transition-colors duration-300 product-title" href="product-detail.php?id=${item.productId}" title="${fullName.replace(/"/g, '&quot;')}">
+                            ${displayName}
                         </a>
                         ${attrText}
                         <div class="flex items-center justify-between mt-1">

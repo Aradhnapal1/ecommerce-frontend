@@ -298,7 +298,7 @@
                             >
                               <input
                                 checked
-                                value="RAZORPAY"
+                                value="ONLINE"
                                 type="radio"
                                 name="payment-method"
                                 class="peer appearance-none w-full h-full border-2 focus:outline-none checked:border-primary border-gray-300 rounded-full bg-white transition-all"
@@ -313,7 +313,7 @@
 
                           <!-- label text -->
                           <span class="text-light-primary-text"
-                            >RazorPay</span
+                            >Online Payment (Razorpay)</span
                           >
                         </label>
                       </div>

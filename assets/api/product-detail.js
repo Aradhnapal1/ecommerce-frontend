@@ -124,7 +124,7 @@
             '<ul class="flex items-center gap-x-px">' +
             '<li><a aria-label="Add to Wishlist" class="add-to-wishlist-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tl-sm rounded-bl-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-secondary-text"></i></a></li>' +
-            '<li><a aria-label="Compare" class="product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="compare.html">' +
+            '<li><a aria-label="Compare" class="add-to-compare-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i></a></li>' +
             '<li><a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="#" data-product-id="' + productId + '">' +
             '<i class="hgi hgi-stroke hgi-view text-2xl leading-6 text-light-primary-text"></i></a></li>' +
@@ -517,9 +517,12 @@
         const categoryValue = document.getElementById("product-category-value");
         if (categoryValue) categoryValue.textContent = product.categoryName || "-";
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const validProductId = product.productId || product.id || product._id || urlParams.get("id") || "";
+
         const wishlistBtn = document.getElementById("product-detail-wishlist-btn");
         if (wishlistBtn) {
-            wishlistBtn.setAttribute("data-product-id", product.productId || product.id || "");
+            wishlistBtn.setAttribute("data-product-id", validProductId);
             if (product.variantId) {
                 wishlistBtn.setAttribute("data-variant-id", product.variantId);
             } else {
@@ -527,9 +530,20 @@
             }
         }
 
-        // Guarantee we get a valid ID (Fallback to URL if API response lacks it)
-        const urlParams = new URLSearchParams(window.location.search);
-        const validProductId = product.productId || product.id || product._id || urlParams.get("id") || "";
+        const compareBtn = document.querySelector(".product-compare-btn");
+        if (compareBtn) {
+            compareBtn.setAttribute("data-product-id", validProductId);
+            if (product.variantId) {
+                compareBtn.setAttribute("data-variant-id", product.variantId);
+            } else {
+                compareBtn.removeAttribute("data-variant-id");
+            }
+            if (product.color || product.colorId) {
+                compareBtn.setAttribute("data-color-id", product.colorId || product.color);
+            } else {
+                compareBtn.removeAttribute("data-color-id");
+            }
+        }
 
         // Apply ID to ALL add to cart & buy now buttons (main page + quick view sidebar)
         const btnSections = document.querySelectorAll(".product-add-to-cart-btn-section");

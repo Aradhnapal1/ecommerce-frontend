@@ -212,12 +212,16 @@ if (document.getElementById("top-discounted-products")) {
         return parsePaginated(await response.json());
     }
 
-    async function fetchSearchProducts(query, page, pageSize) {
+    async function fetchSearchProducts(query, page, pageSize, sortBy) {
         const params = new URLSearchParams({
             q: query,
             page: String(page || 1),
             pageSize: String(pageSize || PAGE_SIZE),
         });
+
+        if (sortBy) {
+            params.append("sortBy", sortBy);
+        }
 
         const response = await fetch(API_BASE + "/api/product/search?" + params.toString());
 
@@ -364,7 +368,7 @@ if (document.getElementById("top-discounted-products")) {
             '<i class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-secondary-text"></i>' +
             '</a></li>' +
             '<li>' +
-            '<a aria-label="Compare" class="product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="compare.html">' +
+            '<a aria-label="Compare" class="add-to-compare-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center before:absolute before:left-[calc(50%-8px)] before:bottom-full before:z-9 before:border-8 before:border-transparent before:border-t-black before:opacity-0 before:invisible before:-mb-3.5 hover:before:opacity-100 hover:before:visible before:transition-all before:duration-300 after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:rounded-sm after:bg-gray-800 after:whitespace-nowrap after:text-white after:text-xs after:leading-[18px] after:py-[3px] after:px-2 after:content-[attr(aria-label)] after:opacity-0 after:invisible after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:-translate-y-2.5 hover:before:-translate-y-2.5" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + variantId + '">' +
             '<i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i>' +
             '</a></li>' +
             '<li>' +
@@ -857,7 +861,8 @@ if (document.getElementById("top-discounted-products")) {
                 result = await fetchSearchProducts(
                     shopState.searchQuery,
                     shopState.page,
-                    shopState.pageSize
+                    shopState.pageSize,
+                    shopState.sortBy
                 );
             } else {
                 result = await fetchFilteredProducts(shopState);
@@ -935,7 +940,56 @@ if (document.getElementById("top-discounted-products")) {
 
         const sortSelect = document.getElementById("sorting");
         if (sortSelect) {
-            shopState.sortBy = SORT_MAP[sortSelect.value] || "popularity";
+            const sortValue =
+                typeof jQuery !== "undefined"
+                    ? jQuery(sortSelect).val()
+                    : sortSelect.value;
+            shopState.sortBy = SORT_MAP[sortValue] || "popularity";
+        }
+    }
+
+    function getSortSelectValue() {
+        const sortSelect = document.getElementById("sorting");
+        if (!sortSelect) return "popularity";
+        const sortValue =
+            typeof jQuery !== "undefined" ? jQuery(sortSelect).val() : sortSelect.value;
+        return SORT_MAP[sortValue] || "popularity";
+    }
+
+    let sortApplyTimer;
+
+    function applySort() {
+        clearTimeout(sortApplyTimer);
+        sortApplyTimer = setTimeout(function () {
+            shopState.sortBy = getSortSelectValue();
+            shopState.page = 1;
+            loadShopProducts();
+        }, 50);
+    }
+
+    function bindSortControl() {
+        const sortSelect = document.getElementById("sorting");
+        if (!sortSelect) return;
+
+        if (typeof jQuery !== "undefined" && jQuery.fn.niceSelect) {
+            const $sort = jQuery(sortSelect);
+            const $nice = $sort.next(".nice-select");
+
+            $sort.off("change.shopSort").on("change.shopSort", function () {
+                applySort();
+            });
+
+            if ($nice.length) {
+                $nice.off("click.shopSort").on("click.shopSort", ".option:not(.disabled)", function () {
+                    setTimeout(applySort, 0);
+                });
+            }
+        } else {
+            sortSelect.removeEventListener("change", sortSelect._shopSortHandler);
+            sortSelect._shopSortHandler = function () {
+                applySort();
+            };
+            sortSelect.addEventListener("change", sortSelect._shopSortHandler);
         }
     }
 
@@ -1007,11 +1061,6 @@ if (document.getElementById("top-discounted-products")) {
                 });
             }
         );
-
-        const sortSelect = document.getElementById("sorting");
-        if (sortSelect) {
-            sortSelect.addEventListener("change", applyFilters);
-        }
 
         const priceSlider = document.getElementById("price-range-slider");
         if (priceSlider && priceSlider.noUiSlider) {
@@ -1380,6 +1429,8 @@ if (document.getElementById("top-discounted-products")) {
         }
 
         bindFilterEvents();
+        bindSortControl();
+        window.addEventListener("load", bindSortControl);
         loadShopProducts();
     }
 

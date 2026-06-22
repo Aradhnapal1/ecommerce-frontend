@@ -399,12 +399,12 @@
                   <i class="hgi hgi-stroke hgi-share-05 text-xl leading-5"></i>
                   <span>Share</span>
                 </a>
-                <a class='product-compare-btn text-info inline-flex items-center gap-x-2.5' href='compare.html'>
+                <button type="button" class="add-to-compare-btn product-compare-btn text-info inline-flex items-center gap-x-2.5" data-product-id="">
                   <i
                     class="hgi hgi-stroke hgi-git-compare text-xl leading-5"
                   ></i>
                   <span>Compare</span>
-                </a>
+                </button>
               </div>
               <div
                 class="product-extra-info-section flex flex-col gap-y-4 mt-6"

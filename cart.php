@@ -298,15 +298,15 @@
     </section>
     <!-- ========== Quality Priority Section End ========== -->
 
-    <!-- ========== New Branded Products Section Start ========== -->
-    <section class="pb-[70px]">
+    <!-- ========== Latest Products Section Start ========== -->
+    <section id="cart-latest-products-section" class="pb-[70px]">
       <div class="container">
         <div
           class="flex items-center md:justify-between justify-center mb-10 wow animate__animated animate__fadeInUp"
           data-wow-delay="0.2s"
         >
           <div>
-            <h3 class="text-light-primary-text">New Branded Products</h3>
+            <h3 class="text-light-primary-text">Latest Products</h3>
           </div>
           <div
             class="new-branded-products-nav md:flex items-center justify-center gap-x-6 hidden"
@@ -314,6 +314,7 @@
         </div>
         <div class="new-branded-product-slider-wrapper">
           <div
+            id="cart-latest-products-slider"
             data-slick='{ "slidesToShow": 6, "slidesToScroll": 1, "loop": true, "autoplay": true, "autoplaySpeed": 7000, "arrows": true, "infinite": true, 
           "appendArrows": ".new-branded-products-nav", "responsive": [{"breakpoint": 1441, "settings": {"slidesToShow": 4}}, {"breakpoint": 1025, "settings": {"slidesToShow": 3}}, {"breakpoint": 769, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'
             class="new-branded-product-slider -mx-3 sellzy-slider"
@@ -1001,6 +1002,6 @@
         </div>
       </div>
     </section>
-    <!-- ========== New Branded Products Section End ========== -->
+    <!-- ========== Latest Products Section End ========== -->
 
     <?php include 'footer.php'; ?>

@@ -122,6 +122,9 @@
 if (document.getElementById("top-discounted-products")) {
             loadTopDiscountedProducts();
         }
+        if (document.getElementById("cart-latest-products-slider")) {
+            window.addEventListener("load", loadCartLatestProducts);
+        }
         initQuickView();
         
     });
@@ -1657,5 +1660,151 @@ if (document.getElementById("top-discounted-products")) {
                 : "") +
             "</div>" + colorsHtml + "</div></a></div>"
         );
+    }
+
+    function reinitSlickSlider(slider, html) {
+        if (!slider) return;
+
+        if (typeof jQuery === "undefined" || !jQuery.fn || !jQuery.fn.slick) {
+            slider.innerHTML = html;
+            return;
+        }
+
+        const $slider = jQuery(slider);
+        if ($slider.hasClass("slick-initialized")) {
+            $slider.slick("unslick");
+        }
+
+        $slider.html(html);
+
+        const options = $slider.data("slick");
+        if (options) {
+            $slider.slick(options);
+        }
+    }
+
+    function renderCartLatestProductCard(product, index) {
+        const delay = ((index % 4) + 2) * 0.1;
+        const productId = product.id || product.productId || "";
+        const productName = product.productName || product.name || "Product";
+        const displayProductName = truncateProductName(productName);
+        const salePrice = product.salePrice ?? product.price ?? product.basePrice ?? 0;
+        const mrp = product.mrp ?? product.originalPrice ?? salePrice;
+        const discountLabel = getDiscountLabel(product);
+        const rating = Number(product.averageRating) || 0;
+        const reviewCount = product.totalReviews || 0;
+        const ratingWidth = Math.min(100, Math.max(0, (rating / 5) * 100));
+        const detailUrl =
+            productId
+                ? "product-detail.php?id=" +
+                  encodeURIComponent(productId) +
+                  (product.slug ? "&slug=" + encodeURIComponent(product.slug) : "")
+                : "product-detail.php";
+        const safeName = String(productName).replace(/"/g, "&quot;");
+
+        return (
+            '<div class="border border-gray-300 rounded-2xl product-card-1 p-4 group mx-3 wow animate__animated animate__fadeInUp" data-wow-delay="' +
+            delay +
+            's">' +
+            '<div class="product-image-container relative">' +
+            '<div class="product-image rounded-xl bg-[#F4F3F5] mb-4 overflow-hidden">' +
+            '<a href="' +
+            detailUrl +
+            '">' +
+            '<img src="' +
+            getProductImage(product) +
+            '" alt="' +
+            safeName +
+            '" class="group-hover:scale-110 transition-all transform group-hover:-rotate-3 ease-in-out duration-300" />' +
+            "</a></div>" +
+            '<div class="product-btn-actions absolute bottom-0 right-0 left-0 flex justify-center z-9 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:bottom-3">' +
+            '<ul class="flex items-center gap-x-px">' +
+            '<li><a aria-label="Add to Wishlist" class="add-to-wishlist-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tl-sm rounded-bl-sm" href="javascript:void(0)" data-product-id="' +
+            productId +
+            '"><i class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-secondary-text"></i></a></li>' +
+            '<li><a aria-label="Compare" class="add-to-compare-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center" href="javascript:void(0)" data-product-id="' +
+            productId +
+            '"><i class="hgi hgi-stroke hgi-reload text-2xl leading-6 text-light-primary-text"></i></a></li>' +
+            '<li><a aria-label="Quick view" class="quick-view-sidebar-btn product-btn-action-item relative size-11 bg-white inline-flex items-center justify-center rounded-tr-sm rounded-br-sm" href="#" data-product-id="' +
+            productId +
+            '"><i class="hgi hgi-stroke hgi-view text-2xl leading-6 text-light-primary-text"></i></a></li>' +
+            "</ul></div></div>" +
+            '<div class="product-content">' +
+            '<h5 class="text-base leading-6 font-semibold font-dm-sans mb-4">' +
+            '<a href="' +
+            detailUrl +
+            '" title="' +
+            safeName +
+            '">' +
+            displayProductName +
+            "</a></h5>" +
+            '<div class="rating-section flex items-center mb-4">' +
+            '<div class="bg-[url(\'../images/star-icon.png\')] w-[90px] h-4.5 bg-repeat-x overflow-hidden bg-position-[0_0]">' +
+            '<div style="width: ' +
+            ratingWidth +
+            '%" class="bg-[url(\'../images/star-icon.png\')] h-4.5 bg-repeat-x bg-position-[0_-18px]"></div>' +
+            "</div>" +
+            '<span class="text-sm leading-[22px] font-normal inline-block ml-1">(' +
+            reviewCount +
+            ")</span></div>" +
+            '<div class="price-section flex items-center gap-x-3 mb-2">' +
+            '<span class="current-price text-base font-semibold text-light-primary-text">' +
+            formatPrice(salePrice) +
+            "</span>" +
+            (Number(mrp) > Number(salePrice)
+                ? '<span class="old-price text-sm leading-[22px] font-normal text-light-disabled-text line-through">' +
+                  formatPrice(mrp) +
+                  "</span>"
+                : "") +
+            (discountLabel
+                ? '<span class="discount-percentage text-sm leading-[22px] font-semibold text-error">' +
+                  discountLabel +
+                  "</span>"
+                : "") +
+            "</div>" +
+            '<div class="btn-section flex items-center gap-x-4">' +
+            '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' +
+            productId +
+            '"><i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
+            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' +
+            productId +
+            '"><i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i><span>Add to Cart</span></a>' +
+            "</div></div></div>"
+        );
+    }
+
+    async function loadCartLatestProducts() {
+        const slider = document.getElementById("cart-latest-products-slider");
+        const section = document.getElementById("cart-latest-products-section");
+        if (!slider) return;
+
+        try {
+            globalVariants = await variantsPromise;
+
+            const params = new URLSearchParams({
+                sortBy: "newest",
+                page: "1",
+                pageSize: "12",
+            });
+
+            const response = await fetch(API_BASE + "/api/product/filter?" + params.toString());
+            if (!response.ok) {
+                throw new Error("HTTP Error: " + response.status);
+            }
+
+            const result = await response.json();
+            const products = parseList(result);
+
+            if (!products.length) {
+                if (section) section.style.display = "none";
+                return;
+            }
+
+            const html = products.map(renderCartLatestProductCard).join("");
+            reinitSlickSlider(slider, html);
+        } catch (error) {
+            console.error("Cart latest products error:", error);
+            if (section) section.style.display = "none";
+        }
     }
 })();

@@ -222,8 +222,38 @@
 
         const options = $slider.data("slick");
         if (options) {
+            if (slider.id === "product-details-small-slider") {
+                options.focusOnSelect = false;
+            }
             $slider.slick(options);
         }
+    }
+
+    function bindProductGalleryHover(smallSlider, bigSlider) {
+        if (
+            typeof jQuery === "undefined" ||
+            !jQuery.fn ||
+            !jQuery.fn.slick ||
+            !smallSlider ||
+            !bigSlider
+        ) {
+            return;
+        }
+
+        const $small = jQuery(smallSlider);
+        const $big = jQuery(bigSlider);
+
+        $small.off("mouseenter.productGallery", ".slick-slide");
+        $small.on("mouseenter.productGallery", ".slick-slide", function () {
+            const $slide = jQuery(this);
+            if ($slide.hasClass("slick-cloned")) return;
+
+            const index = $slide.data("slick-index");
+            if (index === undefined || index === null) return;
+            if (!$big.hasClass("slick-initialized")) return;
+
+            $big.slick("slickGoTo", index, false);
+        });
     }
 
     function renderProductSliders(product) {
@@ -263,6 +293,99 @@
 
         reinitProductSlider(smallSlider, smallHtml);
         reinitProductSlider(bigSlider, bigHtml);
+        bindProductGalleryHover(smallSlider, bigSlider);
+    }
+
+    function formatSizeLabel(size) {
+        const text = String(size ?? "").trim();
+        if (!text) return text;
+        if (text.length === 1) return text.toUpperCase();
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    function getPreservedSizeSelection(product) {
+        const prev = window.productDetailSelection || {};
+        const sizeIds = Array.isArray(product?.sizes) ? product.sizes : [];
+        const sizeNames = product?.sizeNames || [];
+
+        if (prev.sizeId && sizeIds.some(function (id) { return String(id) === String(prev.sizeId); })) {
+            const idx = sizeIds.findIndex(function (id) { return String(id) === String(prev.sizeId); });
+            return {
+                sizeId: String(prev.sizeId),
+                sizeName: prev.sizeName || sizeNames[idx] || "",
+            };
+        }
+
+        if (prev.sizeName) {
+            const normalizedPrev = formatSizeLabel(prev.sizeName).toLowerCase();
+            const nameIdx = sizeNames.findIndex(function (name) {
+                return formatSizeLabel(name).toLowerCase() === normalizedPrev;
+            });
+            if (nameIdx >= 0 && sizeIds[nameIdx] != null) {
+                return {
+                    sizeId: String(sizeIds[nameIdx]),
+                    sizeName: sizeNames[nameIdx],
+                };
+            }
+        }
+
+        return null;
+    }
+
+    function syncProductDetailSelectionFromProduct(product) {
+        if (typeof updateProductDetailSelection !== "function" || !product) return;
+
+        const productId = String(product.productId || product.id || "");
+        const colorSection = document.getElementById("product-color-section");
+        const sizeContainer = document.getElementById("product-size-items");
+
+        let colorId = "";
+        let colorName = "";
+        let variantId = "";
+
+        const activeColor = colorSection?.querySelector(".variant-color-btn.border-primary");
+        if (activeColor) {
+            colorId = activeColor.getAttribute("data-color-id") || "";
+            colorName = activeColor.getAttribute("title") || "";
+            if (activeColor.getAttribute("data-is-base") === "true") {
+                variantId = "";
+            } else {
+                variantId = activeColor.getAttribute("data-variant-id") || "";
+            }
+        } else {
+            colorId = String(product.colorId || product.color || "");
+            colorName = product.colorName || "";
+            variantId =
+                product.isVariant && product.variantId ? String(product.variantId) : "";
+        }
+
+        let sizeId = "";
+        let sizeName = "";
+        const activeSize =
+            sizeContainer?.querySelector(".size-variant-btn.border-primary.bg-primary") ||
+            sizeContainer?.querySelector(".size-variant-btn.bg-primary.text-white") ||
+            sizeContainer?.querySelector(".size-variant-btn.bg-primary");
+
+        if (activeSize) {
+            sizeId = activeSize.getAttribute("data-size-id") || "";
+            sizeName =
+                activeSize.getAttribute("data-size-text") ||
+                activeSize.textContent.trim() ||
+                "";
+        } else if ((product.sizeNames || []).length) {
+            const sizeIds = Array.isArray(product.sizes) ? product.sizes : [];
+            sizeId = sizeIds[0] != null ? String(sizeIds[0]) : "";
+            sizeName = product.sizeNames[0] || "";
+        }
+
+        updateProductDetailSelection({
+            productId: productId,
+            variantId: variantId,
+            colorId: colorId,
+            colorName: colorName,
+            sizeId: sizeId,
+            sizeName: sizeName,
+        });
     }
 
     function renderProductColor(product, variants = []) {
@@ -317,7 +440,10 @@
             if (opt.isBase && !product.isVariant) isActive = true;
             if (!opt.isBase && product.isVariant && String(product.variantId) === String(opt.id)) isActive = true;
 
-            const dataAttr = opt.isBase ? 'data-is-base="true"' : 'data-variant-id="' + opt.id + '"';
+            const colorId = opt.colorId || opt.color || "";
+            const dataAttr = opt.isBase
+                ? 'data-is-base="true" data-color-id="' + colorId + '"'
+                : 'data-variant-id="' + opt.id + '" data-color-id="' + colorId + '"';
             
             // Use API color code, or fallback to CSS color name (e.g., "Navy" -> "navy")
             let colorCode = opt.colorCode || opt.hexCode || opt.displayColorName || "#cccccc";
@@ -363,7 +489,23 @@
                         selectedOpt.productId = window.currentProductGroup.base.id || window.currentProductGroup.base.productId;
                     }
 
+                    const isBase = btn.getAttribute("data-is-base") === "true";
+                    const baseId =
+                        window.currentProductGroup.base.id ||
+                        window.currentProductGroup.base.productId ||
+                        "";
+
+                    if (typeof updateProductDetailSelection === "function") {
+                        updateProductDetailSelection({
+                            productId: String(baseId),
+                            variantId: isBase ? "" : btn.getAttribute("data-variant-id") || "",
+                            colorId: btn.getAttribute("data-color-id") || "",
+                            colorName: btn.getAttribute("title") || "",
+                        });
+                    }
+
                     pendingProduct = selectedOpt;
+                    window.pendingProduct = selectedOpt;
                     renderProductDetail(selectedOpt, window.currentProductGroup.variants);
                     renderProductSliders(selectedOpt);
                 }
@@ -375,6 +517,7 @@
         const container = document.getElementById("product-size-items");
         const section = container ? container.closest(".size-variation-section") : null;
         const sizeNames = product.sizeNames || [];
+        const sizeIds = Array.isArray(product.sizes) ? product.sizes : [];
 
         if (!container || !section) return;
 
@@ -385,26 +528,79 @@
 
         section.classList.remove("hidden");
 
+        const preservedSize = getPreservedSizeSelection(product);
+        let activeIndex = 0;
+
+        if (preservedSize) {
+            const idIndex = sizeIds.findIndex(function (id) {
+                return String(id) === String(preservedSize.sizeId);
+            });
+            if (idIndex >= 0) {
+                activeIndex = idIndex;
+            } else if (preservedSize.sizeName) {
+                const normalizedPrev = formatSizeLabel(preservedSize.sizeName).toLowerCase();
+                const nameIndex = sizeNames.findIndex(function (name) {
+                    return formatSizeLabel(name).toLowerCase() === normalizedPrev;
+                });
+                if (nameIndex >= 0) activeIndex = nameIndex;
+            }
+        }
+
+        const activeSizeName = formatSizeLabel(sizeNames[activeIndex] || sizeNames[0]);
         const selectedSize = section.querySelector(".size-variation-selected-size");
-        if (selectedSize) selectedSize.textContent = sizeNames[0];
+        if (selectedSize) selectedSize.textContent = activeSizeName;
 
         container.innerHTML = sizeNames
             .map(function (size, index) {
-                const isActive = index === 0;
+                const isActive = index === activeIndex;
+                const sizeId = sizeIds[index] != null ? sizeIds[index] : "";
+                const sizeLabel = formatSizeLabel(size);
                 return (
                     '<div class="size-variation-item">' +
                     '<button type="button" data-size-text="' +
-                    size +
-                    '" class="cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' +
+                    sizeLabel +
+                    '" data-size-id="' +
+                    sizeId +
+                    '" class="size-variant-btn cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' +
                     (isActive
                         ? "border-primary bg-primary text-white hover:bg-primary"
                         : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") +
                     '">' +
-                    size +
+                    sizeLabel +
                     "</button></div>"
                 );
             })
             .join("");
+
+        container.querySelectorAll(".size-variant-btn").forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                container.querySelectorAll(".size-variant-btn").forEach(function (item) {
+                    item.classList.remove("border-primary", "bg-primary", "text-white");
+                    item.classList.add("text-light-primary-text", "border-gray-300");
+                });
+                btn.classList.add("border-primary", "bg-primary", "text-white");
+                btn.classList.remove("text-light-primary-text", "border-gray-300");
+
+                const sizeLabel = section.querySelector(".size-variation-selected-size");
+                const sizeText =
+                    btn.getAttribute("data-size-text") || btn.textContent.trim();
+                if (sizeLabel) {
+                    sizeLabel.textContent = sizeText;
+                }
+
+                const productId = String(
+                    product.productId || product.id || window.pendingProduct?.productId || window.pendingProduct?.id || ""
+                );
+                if (typeof updateProductDetailSelection === "function" && productId) {
+                    updateProductDetailSelection({
+                        productId: productId,
+                        sizeId: btn.getAttribute("data-size-id") || "",
+                        sizeName: sizeText,
+                    });
+                }
+            });
+        });
     }
 
     function renderProductDescription(product) {
@@ -576,6 +772,9 @@
         renderProductSizes(product);
         renderProductDescription(product);
         renderProductAdditionalInfo(product);
+
+        window.pendingProduct = product;
+        syncProductDetailSelectionFromProduct(product);
     }
 
     async function initProductDetailPage() {
@@ -621,6 +820,7 @@
             }
 
             pendingProduct = product;
+            window.pendingProduct = product;
             renderProductDetail(product, variants);
             renderProductSliders(product);
             initReviews(productId);
@@ -682,9 +882,35 @@
                     return;
                 }
 
-                const variantId = buyNowBtn.getAttribute("data-variant-id") || "";
+                const container =
+                    typeof getCartSelectionContainer === "function"
+                        ? getCartSelectionContainer(buyNowBtn)
+                        : buyNowBtn.closest(".product-add-to-cart-section") ||
+                          buyNowBtn.closest(".product-add-to-cart-btn-section") ||
+                          buyNowBtn.closest(".quick-view-sidebar") ||
+                          document;
+
+                const cartOptions =
+                    typeof getProductCartOptions === "function"
+                        ? getProductCartOptions(container, buyNowBtn)
+                        : { variantId: buyNowBtn.getAttribute("data-variant-id") || "", colorId: "", sizeId: "" };
+
+                const hasSizeOptions = container.querySelector(
+                    ".size-variation-section:not(.hidden) .size-variation-item button"
+                );
+                if (hasSizeOptions && (!cartOptions.sizeId || cartOptions.sizeId === "0")) {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({
+                            text: "Please select a size",
+                            duration: 3000,
+                            style: { background: "#ffc107", color: "#000" },
+                        }).showToast();
+                    }
+                    return;
+                }
+
+                const variantId = cartOptions.variantId || "";
                 let quantity = 1;
-                const container = buyNowBtn.closest(".product-add-to-cart-btn-section") || buyNowBtn.closest(".quick-view-sidebar") || document;
                 const quantityInput = container.querySelector(".quantity-input");
                 
                 if (quantityInput) {
@@ -696,7 +922,11 @@
                         productId,
                         quantity,
                         variantId,
-                        buttonEl: buyNowBtn
+                        colorId: cartOptions.colorId,
+                        sizeId: cartOptions.sizeId,
+                        colorName: cartOptions.colorName,
+                        sizeName: cartOptions.sizeName,
+                        buttonEl: buyNowBtn,
                     });
                     return;
                 }
@@ -712,7 +942,11 @@
                         quantity,
                         variantId: variantId && variantId !== "undefined" && variantId !== "null"
                             ? parseInt(variantId, 10)
-                            : null
+                            : null,
+                        colorId: cartOptions.colorId || null,
+                        sizeId: cartOptions.sizeId || null,
+                        colorName: cartOptions.colorName || null,
+                        sizeName: cartOptions.sizeName || null,
                     }));
                     sessionStorage.setItem("buyNowCheckout", "1");
 
@@ -728,7 +962,9 @@
                     const formData = new FormData();
                     formData.append("productId", productId);
                     formData.append("quantity", quantity);
-                    if (variantId && variantId !== "undefined" && variantId !== "null") {
+                    if (typeof appendCartOptionsToFormData === "function") {
+                        appendCartOptionsToFormData(formData, cartOptions);
+                    } else if (variantId && variantId !== "undefined" && variantId !== "null") {
                         formData.append("variantId", variantId);
                     }
 
@@ -741,6 +977,9 @@
                     const result = await response.json();
 
                     if (response.ok || result.status || result.success || result?.value?.status === true) {
+                        if (typeof storeCartAddMeta === "function") {
+                            storeCartAddMeta(result, productId, cartOptions);
+                        }
                         if (typeof Toastify !== "undefined") Toastify({ text: "✅ Redirecting to checkout...", duration: 2000, style: { background: "#00b09b" } }).showToast();
                         setTimeout(() => { window.location.href = "checkout.php"; }, 1000);
                     } else {

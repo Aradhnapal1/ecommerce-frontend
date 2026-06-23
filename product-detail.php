@@ -36,7 +36,7 @@
                 <div
                   id="product-details-small-slider"
                   class="product-details-small-slider -m-2.5 sellzy-slider"
-                  data-slick='{"slidesToShow": 6, "slidesToScroll": 1, "arrows": false, "infinite": true, "loop": true, "vertical": true, "verticalSwiping": true, "asNavFor": ".product-details-big-slider", "focusOnSelect": true, "responsive": [{"breakpoint": 1025, "settings": {"slidesToShow": 4, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 769, "settings": {"slidesToShow": 3, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 480, "settings": {"slidesToShow": 2, "vertical": false, "verticalSwiping": false}}]}'
+                  data-slick='{"slidesToShow": 6, "slidesToScroll": 1, "arrows": false, "infinite": true, "loop": true, "vertical": true, "verticalSwiping": true, "asNavFor": ".product-details-big-slider", "focusOnSelect": false, "responsive": [{"breakpoint": 1025, "settings": {"slidesToShow": 4, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 769, "settings": {"slidesToShow": 3, "vertical": false, "verticalSwiping": false}}, {"breakpoint": 480, "settings": {"slidesToShow": 2, "vertical": false, "verticalSwiping": false}}]}'
                 >
                   <div
                     class="single-product-small-slider-item p-2.5 rounded-lg overflow-hidden"

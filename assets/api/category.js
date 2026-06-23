@@ -1002,6 +1002,7 @@ function initHomeQuickViewDelegation() {
                 const sizeSection = sidebar.querySelector(".size-variation-section");
                 if (sizeSection) {
                     const sizeNames = product.sizeNames || [];
+                    const sizeIds = Array.isArray(product.sizes) ? product.sizes : [];
                     if (!sizeNames.length) {
                         sizeSection.classList.add("hidden");
                     } else {
@@ -1010,7 +1011,50 @@ function initHomeQuickViewDelegation() {
                         if (selectedSize) selectedSize.textContent = sizeNames[0];
                         const items = sizeSection.querySelector(".size-variation-items");
                         if (items) {
-                            items.innerHTML = sizeNames.map((size, index) => '<div class="size-variation-item">' + '<button type="button" data-size-text="' + size + '" class="cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' + (index === 0 ? "border-primary bg-primary text-white hover:bg-primary" : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") + '">' + size + "</button></div>").join("");
+                            items.innerHTML = sizeNames
+                                .map(function (size, index) {
+                                    const sizeId = sizeIds[index] != null ? sizeIds[index] : "";
+                                    const isActive = index === 0;
+                                    return (
+                                        '<div class="size-variation-item">' +
+                                        '<button type="button" data-size-text="' +
+                                        size +
+                                        '" data-size-id="' +
+                                        sizeId +
+                                        '" class="size-variant-btn cursor-pointer flex items-center justify-center text-sm leading-6 px-[38px] py-1.5 font-semibold border rounded-[100px] ' +
+                                        (isActive
+                                            ? "border-primary bg-primary text-white hover:bg-primary"
+                                            : "text-light-primary-text border-gray-300 hover:bg-[rgba(145,158,171,0.08)]") +
+                                        '">' +
+                                        size +
+                                        "</button></div>"
+                                    );
+                                })
+                                .join("");
+
+                            items.querySelectorAll(".size-variant-btn").forEach(function (btn) {
+                                btn.addEventListener("click", function (e) {
+                                    e.preventDefault();
+                                    items.querySelectorAll(".size-variant-btn").forEach(function (item) {
+                                        item.classList.remove(
+                                            "border-primary",
+                                            "bg-primary",
+                                            "text-white"
+                                        );
+                                        item.classList.add("text-light-primary-text", "border-gray-300");
+                                    });
+                                    btn.classList.add("border-primary", "bg-primary", "text-white");
+                                    btn.classList.remove("text-light-primary-text", "border-gray-300");
+                                    const sizeLabel = sizeSection.querySelector(
+                                        ".size-variation-selected-size"
+                                    );
+                                    if (sizeLabel) {
+                                        sizeLabel.textContent =
+                                            btn.getAttribute("data-size-text") ||
+                                            btn.textContent.trim();
+                                    }
+                                });
+                            });
                         }
                     }
                 }

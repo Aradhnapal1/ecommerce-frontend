@@ -22,6 +22,20 @@ function getApiPaymentMethod(method) {
     return upper;
 }
 
+function parseCartIdForApi(value) {
+    if (
+        value === undefined ||
+        value === null ||
+        value === "" ||
+        value === "undefined" ||
+        value === "null"
+    ) {
+        return 0;
+    }
+    const parsed = parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : 0;
+}
+
 function isOnlinePayment(method) {
     const upper = normalizePaymentMethod(method);
     return upper === "ONLINE" || upper === "RAZORPAY";
@@ -159,17 +173,16 @@ async function createOrder({ addressId, paymentMethod, couponCode = "" }) {
     return { response, result, payload };
 }
 
-async function buyNow({ productId, quantity = 1, variantId = null, addressId, paymentMethod }) {
+async function buyNow({ productId, quantity = 1, variantId = null, colorId = null, sizeId = null, addressId, paymentMethod }) {
     const payload = {
         productId: parseInt(productId, 10),
         quantity: parseInt(quantity, 10) || 1,
         addressId: parseInt(addressId, 10),
-        paymentMethod: getApiPaymentMethod(paymentMethod)
+        paymentMethod: getApiPaymentMethod(paymentMethod),
+        variantId: parseCartIdForApi(variantId),
+        colorId: parseCartIdForApi(colorId),
+        sizeId: parseCartIdForApi(sizeId),
     };
-
-    if (variantId && variantId !== "undefined" && variantId !== "null") {
-        payload.variantId = parseInt(variantId, 10);
-    }
 
     const response = await fetch(`${API_BASE_ORDERS}/api/orders/buy-now`, {
         method: "POST",
@@ -195,7 +208,25 @@ function clearBuyNowSession() {
     sessionStorage.removeItem("buyNowCheckout");
 }
 
-async function addProductToCartForBuyNow(productId, quantity, variantId) {
+async function addProductToCartForBuyNow(productId, quantity, options) {
+    const cartOptions = {
+        variantId: "",
+        colorId: "",
+        sizeId: "",
+        colorName: "",
+        sizeName: "",
+    };
+
+    if (options && typeof options === "object") {
+        cartOptions.variantId = options.variantId || "";
+        cartOptions.colorId = options.colorId || "";
+        cartOptions.sizeId = options.sizeId || "";
+        cartOptions.colorName = options.colorName || "";
+        cartOptions.sizeName = options.sizeName || "";
+    } else if (options) {
+        cartOptions.variantId = options;
+    }
+
     const token = localStorage.getItem("UserToken");
     const headers = {};
     if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -208,8 +239,18 @@ async function addProductToCartForBuyNow(productId, quantity, variantId) {
     const formData = new FormData();
     formData.append("productId", productId);
     formData.append("quantity", quantity);
-    if (variantId && variantId !== "undefined" && variantId !== "null") {
-        formData.append("variantId", variantId);
+    if (typeof appendCartOptionsToFormData === "function") {
+        appendCartOptionsToFormData(formData, cartOptions);
+    } else {
+        if (cartOptions.variantId && cartOptions.variantId !== "undefined" && cartOptions.variantId !== "null") {
+            formData.append("variantId", cartOptions.variantId);
+        }
+        if (cartOptions.colorId && cartOptions.colorId !== "undefined" && cartOptions.colorId !== "null") {
+            formData.append("colorId", cartOptions.colorId);
+        }
+        if (cartOptions.sizeId && cartOptions.sizeId !== "undefined" && cartOptions.sizeId !== "null") {
+            formData.append("sizeId", cartOptions.sizeId);
+        }
     }
 
     const response = await fetch(`${API_BASE_ORDERS}/api/addcart/add`, {
@@ -390,6 +431,8 @@ async function handleOrderPlacement({ addressId, paymentMethod, couponCode = "",
                 productId: buyNowItem.productId,
                 quantity: buyNowItem.quantity,
                 variantId: buyNowItem.variantId,
+                colorId: buyNowItem.colorId,
+                sizeId: buyNowItem.sizeId,
                 addressId,
                 paymentMethod
             }));
@@ -428,7 +471,16 @@ async function handleOrderPlacement({ addressId, paymentMethod, couponCode = "",
     }
 }
 
-async function handleBuyNow({ productId, quantity = 1, variantId = null, buttonEl = null }) {
+async function handleBuyNow({
+    productId,
+    quantity = 1,
+    variantId = null,
+    colorId = null,
+    sizeId = null,
+    colorName = "",
+    sizeName = "",
+    buttonEl = null,
+}) {
     const token = localStorage.getItem("UserToken");
     if (!token) {
         showOrderToast("⚠️ Please log in to proceed to checkout", "warning");
@@ -456,17 +508,39 @@ async function handleBuyNow({ productId, quantity = 1, variantId = null, buttonE
             quantity: parseInt(quantity, 10) || 1,
             variantId: variantId && variantId !== "undefined" && variantId !== "null"
                 ? parseInt(variantId, 10)
-                : null
+                : null,
+            colorId: colorId && colorId !== "undefined" && colorId !== "null"
+                ? parseInt(colorId, 10)
+                : null,
+            sizeId: sizeId && sizeId !== "undefined" && sizeId !== "null"
+                ? parseInt(sizeId, 10)
+                : null,
         }));
         sessionStorage.setItem("buyNowCheckout", "1");
 
-        const cartResult = await addProductToCartForBuyNow(productId, quantity, variantId);
+        const cartResult = await addProductToCartForBuyNow(productId, quantity, {
+            variantId,
+            colorId,
+            sizeId,
+            colorName,
+            sizeName,
+        });
         const cartOk = cartResult.status || cartResult.success || cartResult?.value?.status === true;
 
         if (!cartOk) {
             clearBuyNowSession();
             showOrderToast(`❌ ${cartResult.message || "Failed to prepare checkout"}`, "error");
             return { success: false, result: cartResult };
+        }
+
+        if (typeof storeCartAddMeta === "function") {
+            storeCartAddMeta(cartResult, productId, {
+                variantId,
+                colorId,
+                sizeId,
+                colorName,
+                sizeName,
+            });
         }
 
         showOrderToast("✅ Redirecting to checkout...", "success");

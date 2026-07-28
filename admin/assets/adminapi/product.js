@@ -168,7 +168,7 @@ function deleteProduct(id) {
             duration: 2000,
             style: { background: "linear-gradient(to right,#00b09b,#96c93d)" },
           }).showToast();
-          loadProducts(); // Refresh the product list
+          loadProducts();
         } else {
           const result = await response
             .json()

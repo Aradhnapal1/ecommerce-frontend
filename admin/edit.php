@@ -398,7 +398,17 @@
         formData.append("browseCategory", browserCategory);
         formData.append("HeroSection", heroSection);
         formData.append("heroSection", heroSection);
-        if (file) formData.append("CategoryFile", file);
+
+        if (file) {
+            formData.append("CategoryFile", file);
+        } else if (currentCategory && (currentCategory.categoryImage || currentCategory.CategoryImage)) {
+            const existingImg = currentCategory.categoryImage || currentCategory.CategoryImage;
+            formData.append("CategoryImage", existingImg);
+            formData.append("categoryImage", existingImg);
+            formData.append("CategoryImg", existingImg);
+            formData.append("categoryImg", existingImg);
+        }
+
         formData.append("parentId", parentId);
 
         const btn = document.getElementById("editCategoryBtn");

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Product Card | AeroWave Elite</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Experience high-fidelity sound with the AeroWave Elite wireless headphones. Elegant design, active noise cancellation, and premium craftsmanship.">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* CSS Custom Properties for Theme & Design System */
+    :root {
+      --bg-dark: #0a0b0d;
+      --card-bg: rgba(18, 20, 26, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --accent-gold: #fbbf24;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      
+      /* Gradients */
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --glow-gradient: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+      --body-mesh: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                   radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+    }
+
+    /* Reset and Core Styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: var(--body-mesh);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      z-index: 10;
+    }
+
+    .page-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 400px;
+    }
+
+    /* Cart Header Badge */
+    .header-actions {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      z-index: 100;
+    }
+
+    .cart-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      color: var(--text-primary);
+      padding: 0.75rem 1.25rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cart-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cart-count {
+      background: var(--primary-gradient);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .cart-count.bounce {
+      animation: countBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes countBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    /* Product Card Container */
+    .card-wrapper {
+      position: relative;
+      perspective: 1000px;
+      z-index: 10;
+    }
+
+    /* Ambient Glow Behind Card */
+    .card-glow {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      right: 5%;
+      bottom: 5%;
+      background: var(--primary-gradient);
+      filter: blur(40px);
+      opacity: 0.2;
+      border-radius: 24px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: -1;
+    }
+
+    .card-wrapper:hover .card-glow {
+      opacity: 0.35;
+      transform: scale(1.05);
+    }
+
+    /* The Main Product Card */
+    .product-card {
+      width: 360px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.25rem;
+      box-shadow: 0 20px 40px var(--shadow-color);
+      backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .product-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+                  0 0 40px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Card Media Area */
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: #111317;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.08);
+    }
+
+    /* Float Badges */
+    .badge-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(10, 11, 13, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .badge-tag i {
+      color: var(--accent-indigo);
+    }
+
+    /* Wishlist Floating Button */
+    .wishlist-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(10, 11, 13, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-secondary);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .wishlist-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ff4757;
+      transform: scale(1.1);
+    }
+
+    .wishlist-btn.active {
+      background: rgba(255, 71, 87, 0.15);
+      border-color: rgba(255, 71, 87, 0.3);
+      color: #ff4757;
+      animation: heartPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wishlist-btn.active svg {
+      fill: #ff4757;
+    }
+
+    @keyframes heartPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+
+    /* Product Specs Overlay on Hover */
+    .specs-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(10, 11, 13, 0.95) 0%, rgba(10, 11, 13, 0) 100%);
+      padding: 2rem 1.25rem 1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+      display: flex;
+      justify-content: space-around;
+      pointer-events: none;
+    }
+
+    .product-card:hover .specs-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .spec-item {
+      text-align: center;
+      color: #fff;
+    }
+
+    .spec-val {
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .spec-label {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-top: 0.1rem;
+    }
+
+    /* Card Details Section */
+    .details-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* Category & Rating Row */
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .rating-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .stars {
+      display: flex;
+      color: var(--accent-gold);
+    }
+
+    .stars svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--accent-gold);
+    }
+
+    .rating-text {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Product Title */
+    .title-row h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+      transition: color 0.3s ease;
+    }
+
+    .product-card:hover .title-row h2 {
+      background: linear-gradient(135deg, #ffffff 60%, var(--accent-indigo) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .description {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* Interactive Options Section (Color Selectors) */
+    .interactive-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .option-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .swatch::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border: 1.5px solid transparent;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .swatch.active::after {
+      border-color: var(--accent-indigo);
+    }
+
+    .swatch:hover {
+      transform: scale(1.15);
+    }
+
+    .swatch.black { background-color: #0f1013; }
+    .swatch.silver { background-color: #d1d5db; }
+    .swatch.indigo { background-color: #4f46e5; }
+
+    /* Price and CTA Row */
+    .purchase-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .price-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .original-price {
+      font-size: 0.8rem;
+      text-decoration: line-through;
+      color: var(--text-secondary);
+    }
+
+    .current-price {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Add To Cart Button with Loader Interaction */
+    .add-to-cart-btn {
+      background: var(--primary-gradient);
+      color: #ffffff;
+      border: none;
+      padding: 0.85rem 1.4rem;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+    }
+
+    .add-to-cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45), 
+                  0 0 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .add-to-cart-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Loader Spin CSS */
+    .btn-loader {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success Checkmark CSS */
+    .btn-check {
+      display: none;
+    }
+
+    .add-to-cart-btn.loading .btn-text,
+    .add-to-cart-btn.loading svg {
+      display: none;
+    }
+
+    .add-to-cart-btn.loading .btn-loader {
+      display: inline-block;
+    }
+
+    .add-to-cart-btn.success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+    }
+
+    .add-to-cart-btn.success .btn-text,
+    .add-to-cart-btn.success svg {
+      display: none;
+    }
+
+    .add-to-cart-btn.success .btn-check {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      animation: checkPop 0.3s ease-out;
+    }
+
+    @keyframes checkPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Mini notification system */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 1000;
+    }
+
+    .toast {
+      background: rgba(18, 20, 26, 0.9);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+    }
+
+    .toast-icon.success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+    }
+
+    .toast-icon.info {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-indigo);
+    }
+
+    .toast-content {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar cart action -->
+  <div class="header-actions">
+    <button class="cart-btn" id="cartBtn">
+      <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
+      <span>Cart</span>
+      <div class="cart-count" id="cartCount">0</div>
+    </button>
+  </div>
+
+  <!-- Page Header Title -->
+  <header class="page-header">
+    <h1>Experience Pure Audio</h1>
+    <p>Elegant design meets pristine performance. A masterpiece crafted for audiophiles.</p>
+  </header>
+
+  <!-- Product Card Component -->
+  <div class="card-wrapper">
+    <!-- Neon blur glow under the card -->
+    <div class="card-glow"></div>
+    
+    <article class="product-card">
+      <!-- Media Area -->
+      <div class="image-container">
+        <span class="badge-tag">
+          <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> New Edition
+        </span>
+        
+        <button class="wishlist-btn" id="wishlistBtn" title="Add to Wishlist">
+          <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
+        </button>
+        
+        <img class="product-image" id="productImage" src="images/premium_headphone.jpg" alt="AeroWave Elite Premium Headphone">
+        
+        <!-- Specs overlays visible on hover -->
+        <div class="specs-overlay">
+          <div class="spec-item">
+            <div class="spec-val">60h</div>
+            <div class="spec-label">Battery</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-val">40dB</div>
+            <div class="spec-label">ANC</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-val">Hi-Res</div>
+            <div class="spec-label">Audio</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Text & Interactive Options -->
+      <div class="details-container">
+        <!-- Brand Category and rating -->
+        <div class="meta-row">
+          <span class="category">Wireless Headset</span>
+          <div class="rating-wrap">
+            <div class="stars">
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+            </div>
+            <span class="rating-text">4.9 (128)</span>
+          </div>
+        </div>
+
+        <!-- Product Title -->
+        <div class="title-row">
+          <h2>AeroWave Elite</h2>
+          <p class="description">Master-crafted with hybrid noise cancellation, studio audio spatialization, and ultra-plush ear cups.</p>
+        </div>
+
+        <!-- Interactive Color Picker -->
+        <div class="interactive-options">
+          <span class="option-label">Color: <span id="colorName">Matte Black</span></span>
+          <div class="color-swatches">
+            <span class="swatch black active" data-color="Matte Black"></span>
+            <span class="swatch silver" data-color="Platinum Silver"></span>
+            <span class="swatch indigo" data-color="Aurora Indigo"></span>
+          </div>
+        </div>
+
+        <!-- Price and Action -->
+        <div class="purchase-row">
+          <div class="price-container">
+            <span class="original-price">$399.00</span>
+            <span class="current-price" id="productPrice">$349.00</span>
+          </div>
+          
+          <button class="add-to-cart-btn" id="addToCartBtn">
+            <i data-lucide="shopping-cart" style="width: 16px; height: 16px;"></i>
+            <span class="btn-text">Add to Cart</span>
+            <div class="btn-loader"></div>
+            <div class="btn-check">
+              <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+              <span>Added</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Elements
+    const wishlistBtn = document.getElementById('wishlistBtn');
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const cartCount = document.getElementById('cartCount');
+    const colorSwatches = document.querySelectorAll('.swatch');
+    const colorNameText = document.getElementById('colorName');
+    const toastContainer = document.getElementById('toastContainer');
+
+    let itemsInCart = 0;
+
+    // Toast Notification helper
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      
+      const iconType = type === 'success' ? 'check' : 'info';
+      const iconClass = type === 'success' ? 'success' : 'info';
+
+      toast.innerHTML = `
+        <div class="toast-icon ${iconClass}">
+          <i data-lucide="${iconType}" style="width: 16px; height: 16px;"></i>
+        </div>
+        <div class="toast-content">${message}</div>
+        
+      `;
+      
+      toastContainer.appendChild(toast);
+      lucide.createIcons();
+
+      // Trigger transition
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+
+      // Remove after 3.5 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3500);
+    }
+
+    // 1. Wishlist Micro-interaction
+    wishlistBtn.addEventListener('click', () => {
+      const isActive = wishlistBtn.classList.toggle('active');
+      if (isActive) {
+        showToast('Added to your wishlist!', 'info');
+      } else {
+        showToast('Removed from your wishlist!', 'info');
+      }
+    });
+
+    // 2. Swatches Interactive Color Picker
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', (e) => {
+        // Remove active from other swatches
+        colorSwatches.forEach(s => s.classList.remove('active'));
+        
+        // Add active to clicked swatch
+        swatch.classList.add('active');
+        
+        // Get color name and update label
+        const selectedColor = swatch.getAttribute('data-color');
+        colorNameText.textContent = selectedColor;
+        
+        showToast(`Color style changed to ${selectedColor}`, 'info');
+      });
+    });
+
+    // 3. Add to Cart Simulation
+    addToCartBtn.addEventListener('click', () => {
+      if (addToCartBtn.classList.contains('loading') || addToCartBtn.classList.contains('success')) return;
+
+      // Add loading state
+      addToCartBtn.classList.add('loading');
+
+      // Simulate network request/loading spinner
+      setTimeout(() => {
+        addToCartBtn.classList.remove('loading');
+        addToCartBtn.classList.add('success');
+        
+        // Update cart badge
+        itemsInCart += 1;
+        cartCount.textContent = itemsInCart;
+        cartCount.classList.add('bounce');
+
+        showToast('AeroWave Elite added to your cart!', 'success');
+
+        // Remove bounce animation class after it completes
+        setTimeout(() => {
+          cartCount.classList.remove('bounce');
+        }, 400);
+
+        // Reset button state after 2 seconds
+        setTimeout(() => {
+          addToCartBtn.classList.remove('success');
+        }, 2000);
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

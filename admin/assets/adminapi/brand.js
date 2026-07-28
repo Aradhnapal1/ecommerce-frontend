@@ -4,6 +4,7 @@ const BRAND_API =`${domin}/api/brand/getallbrands`;
 
 let brandsData = [];
 let editingBrandId = null;
+let currentBrandImg = "";
 
 document.addEventListener("DOMContentLoaded", () => {
     getAllBrands();
@@ -83,6 +84,8 @@ async function checkIfEditMode() {
             const brand = (result.data || []).find(b => b.id == editId);
 
             if (brand) {
+                currentBrandImg = brand.brandImg || brand.BrandImg || brand.image || "";
+
                 // Fill Brand Name
                 const brandNameInput = document.getElementById("brandName");
                 if (brandNameInput) brandNameInput.value = brand.brandName;
@@ -247,6 +250,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         "BrandFile",
                         brandFile
                     );
+                } else if (editingBrandId && currentBrandImg) {
+                    formData.append("BrandImg", currentBrandImg);
+                    formData.append("brandImg", currentBrandImg);
+                    formData.append("BrandImage", currentBrandImg);
+                    formData.append("brandImage", currentBrandImg);
                 }
 
                 loader.style.display = "flex";

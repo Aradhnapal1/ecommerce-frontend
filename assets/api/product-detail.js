@@ -9,9 +9,9 @@
         const productId = product.id || product.productId;
         const slug = product.slug || "";
 
-        if (!productId) return "product-detail.php";
+        if (!productId) return "product-detail";
 
-        let url = "product-detail.php?id=" + encodeURIComponent(productId);
+        let url = "product-detail?id=" + encodeURIComponent(productId);
         if (slug) {
             url += "&slug=" + encodeURIComponent(slug);
         }

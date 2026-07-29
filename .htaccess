@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /ecommerce-frontend/
+
+    # 1. External 301 Redirect: Convert any direct request with .php extension to clean extensionless URL in address bar
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+(?:ecommerce-frontend/)?([^\s?]+)\.php [NC]
+    RewriteRule ^ %1 [R=301,L]
+
+    # 2. Do not rewrite existing directories or static files (CSS, JS, Images, etc.)
+    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # 3. Internal Rewrite: Route clean extensionless URL (e.g. /checkout, /blog-detail) to .php file on server
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
+</IfModule>

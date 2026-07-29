@@ -144,24 +144,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 <nav class="mobile-menu">
                     <ul>
                         <li>
-                            <a class="active" href="#">Home</a>
-
+                            <a class="active" href="index">Home</a>
                         </li>
                         <li>
-                            <a href='about.php'>About Us</a>
+                            <a href='about'>About Us</a>
                         </li>
                         <li>
-                            <a href="shop.php">Shop</a>
-
+                            <a href="shop">Shop</a>
                         </li>
-                        <!-- <li>
-                            <a href="#">Sellers</a>
-
-                        </li> -->
-
-                        <!-- <li><a href='my-account.php'>My Account</a></li> -->
-                        <li><a href='blog-grid.php'>Blog Grid</a></li>
-                        <li><a href='contact.php'>Contact</a></li>
+                        <li><a href='blog-grid'>Blog Grid</a></li>
+                        <li><a href='contact'>Contact</a></li>
                     </ul>
                 </nav>
                 <div class="border border-gray-500/24 p-5 rounded-2xl">
@@ -242,10 +234,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 </div>
                 <div class="cart-buttons flex items-center gap-x-4">
                     <a class='btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none'
-                        href='cart.php'>
+                        href='cart'>
                         View Cart
                     </a>
-                    <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout.php'>
+                    <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout'>
                         Proceed to Checkout
                     </a>
                 </div>
@@ -1911,7 +1903,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <span><i class="hgi hgi-stroke hgi-arrow-down-01 text-2xl text-light-primary-text"></i></span>
                                     <ul class="absolute right-0 top-full py-2 z-10 w-[200px] bg-white rounded-lg shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                                         <li class="px-4 group/item">
-                                            <a href="my-account.php" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Dashboard</a>
+                                            <a href="my-account" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Dashboard</a>
                                         </li>
                                         <li class="px-4 group/item">
                                             <a href="javascript:void(0)" onclick="localStorage.removeItem('UserToken'); window.location.reload();" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Log Out</a>
@@ -2048,15 +2040,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                     <nav class="main-menu">
                         <ul>
                             <li>
-                                <a class="active" href="index.php">Home </a>
+                                <a class="active" href="index">Home </a>
 
                             </li>
 
                             <li>
-                                <a href='about.php'>About Us </a>
+                                <a href='about'>About Us </a>
                             </li>
                             <li>
-                                <a href="shop.php">Shop </a>
+                                <a href="shop">Shop </a>
                               
                             </li>
                             <!-- <li>
@@ -2075,10 +2067,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                 </ul>
                             </li> -->
 
-                            <li><a href='blog-grid.php'>Blog </a></li>
+                            <li><a href='blog-grid'>Blog </a></li>
                             <!-- <li><a href='my-account.php'>My Account</a></li> -->
                             <li>
-                                <a href='contact.php'>Contact </a>
+                                <a href='contact'>Contact </a>
                             </li>
                         </ul>
                     </nav>

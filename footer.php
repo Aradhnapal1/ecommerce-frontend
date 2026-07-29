@@ -440,7 +440,7 @@
       <div class="container">
         <ul class="flex items-center justify-between footer-bottom-nav -mt-px">
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='index.php'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='index'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-home-01 text-2xl leading-6 text-light-primary-text"
                 ></i></span
@@ -448,7 +448,7 @@
             >
           </li>
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='cart.php'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='cart'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-package-moving text-2xl leading-6 text-light-primary-text"
                 ></i></span
@@ -456,7 +456,7 @@
             >
           </li>
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='wishlist.php'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='wishlist'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-favourite text-2xl leading-6 text-light-primary-text"
                 ></i></span
@@ -464,7 +464,7 @@
             >
           </li>
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='my-account.php'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='my-account'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-user-circle text-2xl leading-6 text-light-primary-text"
                 ></i></span

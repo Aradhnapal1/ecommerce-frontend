@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (typeof Toastify !== "undefined") Toastify({ text: "✅ Address updated successfully!", duration: 3000, style: { background: "#00b09b" } }).showToast();
                     
                     setTimeout(() => {
-                        window.location.href = "my-account.php?tab=address";
+                        window.location.href = "my-account?tab=address";
                     }, 1500);
                 } else {
                     if (typeof Toastify !== "undefined") Toastify({ text: `❌ ${result.message || "Failed to update address"}`, duration: 3000, style: { background: "#ff416c" } }).showToast();

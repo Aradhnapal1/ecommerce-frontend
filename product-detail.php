@@ -179,6 +179,10 @@
                 class="product-discount-badge inline-block mb-6 uppercase relative bg-error text-warning-lighter font-medium text-sm leading-[22px] px-1 after:absolute after:top-0 after:left-full after:z-10 after:w-1 after:h-full after:bg-[url('images/discount-shape.html')] after:bg-contain after:bg-no-repeat"
                 >Sales</span
               >
+              <span
+                id="product-stock-badge"
+                class="product-stock-badge inline-block mb-6 ml-2 uppercase font-medium text-sm leading-[22px] px-2 py-0.5 rounded"
+              ></span>
               <p
                 class="uppercase text-info text-xs leading-[18px] font-bold new-arrival-badge mb-6"
               >

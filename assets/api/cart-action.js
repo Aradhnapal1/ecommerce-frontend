@@ -364,6 +364,37 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity = parseInt(quantityInput.value) || 1;
         }
 
+        // Available stock check before adding to cart
+        let availableStock = 9999;
+        if (window.pendingProduct && window.pendingProduct.stock != null) {
+            availableStock = parseInt(window.pendingProduct.stock, 10);
+        } else if (container.getAttribute("data-stock")) {
+            availableStock = parseInt(container.getAttribute("data-stock"), 10);
+        }
+        if (isNaN(availableStock)) availableStock = 9999;
+
+        if (availableStock <= 0) {
+            if (typeof Toastify !== "undefined") {
+                Toastify({
+                    text: "❌ Product is Out of Stock!",
+                    duration: 3000,
+                    style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" }
+                }).showToast();
+            }
+            return;
+        }
+
+        if (quantity > availableStock) {
+            if (typeof Toastify !== "undefined") {
+                Toastify({
+                    text: "⚠️ Stock is not available for more quantity",
+                    duration: 3000,
+                    style: { background: "linear-gradient(to right, #ffc107, #ff9800)", color: "#000" }
+                }).showToast();
+            }
+            return;
+        }
+
         const formData = new FormData();
         formData.append("productId", productId);
         formData.append("quantity", quantity);
@@ -398,7 +429,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Sync with server just in case
                 fetchGlobalCart();
             } else {
-                if (typeof Toastify !== "undefined") Toastify({ text: "❌ Failed to add: " + formatCartApiError(result.message), duration: 3000, style: { background: "#ff416c" } }).showToast();
+                const rawMsg = (result.message || "").toLowerCase();
+                let displayMsg = formatCartApiError(result.message);
+                if (rawMsg.includes("out of stock") || rawMsg.includes("stock is 0") || rawMsg.includes("no stock")) {
+                    displayMsg = "Product is Out of Stock!";
+                } else if (rawMsg.includes("stock") || rawMsg.includes("quantity") || rawMsg.includes("available") || rawMsg.includes("exceed")) {
+                    displayMsg = "Stock is not available for more quantity";
+                }
+                if (typeof Toastify !== "undefined") Toastify({ text: "⚠️ " + displayMsg, duration: 3000, style: { background: "#ff416c" } }).showToast();
             }
         } catch (error) {
             console.error("Error adding to cart:", error);
@@ -444,6 +482,30 @@ document.addEventListener("DOMContentLoaded", function () {
             if (action === "decrease" && currentQty <= 1) {
                 deleteCartItem(cartId);
                 return;
+            }
+
+            // Check if stock attribute exists
+            const itemContainer = qtyBtn.closest(".cart-product-item") || qtyBtn.closest("tr");
+            let itemStock = null;
+            if (qtyBtn.hasAttribute("data-stock") && qtyBtn.getAttribute("data-stock") !== "") {
+                itemStock = parseInt(qtyBtn.getAttribute("data-stock"), 10);
+            } else if (itemContainer && itemContainer.hasAttribute("data-stock") && itemContainer.getAttribute("data-stock") !== "") {
+                itemStock = parseInt(itemContainer.getAttribute("data-stock"), 10);
+            }
+
+            if (action === "increase" && itemStock !== null && !isNaN(itemStock)) {
+                if (itemStock <= 0) {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({ text: "❌ Out of Stock!", duration: 3000, style: { background: "#ff416c" } }).showToast();
+                    }
+                    return;
+                }
+                if (currentQty >= itemStock) {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({ text: "⚠️ Stock is not available for more quantity", duration: 3000, style: { background: "linear-gradient(to right, #ffc107, #ff9800)", color: "#000" } }).showToast();
+                    }
+                    return;
+                }
             }
 
             const quantityChange = action === "increase" ? 1 : -1;
@@ -731,7 +793,19 @@ async function updateCartItemQuantity(cartId, quantityChange, btnElement) {
             // Success, just refresh the whole cart for consistency
             fetchGlobalCart();
         } else {
-            Toastify({ text: `❌ Update failed: ${result.message || 'Unknown error'}`, duration: 3000, style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" } }).showToast();
+            const rawMsg = (result.message || result?.value?.message || result?.error || "").toLowerCase();
+            let displayMsg = "Stock is not available for more quantity";
+            if (rawMsg.includes("out of stock") || rawMsg.includes("stock is 0") || rawMsg.includes("no stock")) {
+                displayMsg = "Product is Out of Stock!";
+            } else if (rawMsg.includes("stock") || rawMsg.includes("quantity") || rawMsg.includes("available") || rawMsg.includes("exceed")) {
+                displayMsg = "Stock is not available for more quantity";
+            } else if (result.message) {
+                displayMsg = result.message;
+            }
+
+            if (typeof Toastify !== "undefined") {
+                Toastify({ text: `⚠️ ${displayMsg}`, duration: 3000, style: { background: "linear-gradient(to right, #ffc107, #ff9800)", color: "#000" } }).showToast();
+            }
             // Re-enable on failure
             buttons.forEach(btn => btn.disabled = false);
             if (input) input.style.opacity = 1;

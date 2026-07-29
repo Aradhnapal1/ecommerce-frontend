@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!qtyBtn) return;
             
             e.preventDefault();
-            const container = qtyBtn.closest(".quantity-section");
+            const container = qtyBtn.closest(".quantity-section") || qtyBtn.closest(".product-add-to-cart-btn-section") || qtyBtn.closest(".border") || qtyBtn.parentElement;
             if (!container) return;
             
             const input = container.querySelector(".quantity-input");
@@ -46,9 +46,41 @@ document.addEventListener("DOMContentLoaded", function () {
             
             let qty = parseInt(input.value) || 1;
             
-            if (qtyBtn.querySelector(".hgi-plus-sign") || qtyBtn.textContent.includes("+")) {
+            let availableStock = 9999;
+            if (window.pendingProduct && window.pendingProduct.stock != null) {
+                availableStock = parseInt(window.pendingProduct.stock, 10);
+            } else if (container.getAttribute("data-stock")) {
+                availableStock = parseInt(container.getAttribute("data-stock"), 10);
+            }
+            if (isNaN(availableStock)) availableStock = 9999;
+
+            const isPlus = qtyBtn.querySelector(".hgi-plus-sign") || qtyBtn.textContent.includes("+") || qtyBtn.classList.contains("cart-qty-plus") || qtyBtn.classList.contains("bootstrap-touchspin-up");
+            const isMinus = qtyBtn.querySelector(".hgi-minus-sign") || qtyBtn.textContent.includes("-") || qtyBtn.classList.contains("cart-qty-minus") || qtyBtn.classList.contains("bootstrap-touchspin-down");
+
+            if (isPlus) {
+                if (availableStock <= 0) {
+                    input.value = 0;
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({
+                            text: "❌ Product is Out of Stock!",
+                            duration: 3000,
+                            style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" }
+                        }).showToast();
+                    }
+                    return;
+                }
+                if (qty >= availableStock) {
+                    if (typeof Toastify !== "undefined") {
+                        Toastify({
+                            text: "⚠️ Stock is not available for more quantity",
+                            duration: 3000,
+                            style: { background: "linear-gradient(to right, #ffc107, #ff9800)", color: "#000" }
+                        }).showToast();
+                    }
+                    return;
+                }
                 qty++;
-            } else if (qtyBtn.querySelector(".hgi-minus-sign") || qtyBtn.textContent.includes("-")) {
+            } else if (isMinus) {
                 if (qty > 1) qty--;
             }
             
@@ -694,9 +726,11 @@ function renderHomeProductCard(product, index) {
         '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
         '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + (product.variantId || "") + '">' +
         '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
-            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
-        '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
-        "<span>Add to Cart</span></a></div></div></div></div>"
+        ((product.stock != null && parseInt(product.stock, 10) <= 0)
+            ? '<button type="button" disabled class="btn btn-secondary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1 cursor-not-allowed opacity-75 text-white">Out of Stock</button>'
+            : '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '"><i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white me-1"></i><span>Add to Cart</span></a>'
+        ) +
+        "</div></div></div></div>"
     );
 }
 

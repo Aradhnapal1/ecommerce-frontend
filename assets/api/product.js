@@ -428,9 +428,11 @@ if (document.getElementById("top-discounted-products")) {
             '<div class="btn-section flex items-center gap-x-4 mt-auto">' +
             '<a class="add-to-wishlist-btn size-11 flex flex-none items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300" href="javascript:void(0)" data-product-id="' + productId + '" data-variant-id="' + variantId + '">' +
             '<i class="hgi hgi-stroke hgi-favourite text-xl text-light-secondary-text"></i></a>' +
-            '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '">' +
-            '<i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white"></i>' +
-            "<span>Add to Cart</span></a></div> </div></div></div>"
+            ((product.stock != null && parseInt(product.stock, 10) <= 0)
+                ? '<button type="button" disabled class="btn btn-secondary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1 cursor-not-allowed opacity-75 text-white">Out of Stock</button>'
+                : '<a class="add-to-cart-btn btn btn-primary rounded-full font-semibold text-sm leading-6 px-6.5 py-2 flex-1" href="javascript:void(0)" data-product-id="' + productId + '"><i class="hgi hgi-stroke hgi-shopping-cart-02 text-xl text-white me-1"></i><span>Add to Cart</span></a>'
+            ) +
+            "</div> </div></div></div>"
         );
     }
 

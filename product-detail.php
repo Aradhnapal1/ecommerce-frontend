@@ -108,66 +108,66 @@
               >
                 <div
                   id="product-details-big-slider"
-                  class="product-details-big-slider -mx-3 sellzy-slider"
-                  data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "arrows": true, "asNavFor": ".product-details-small-slider", "appendArrows": ".product-details-big-slider-nav", "responsive": [{"breakpoint": 769, "settings": {"slidesToShow": 1, "arrows": false}}]}'
+                  class="product-details-big-slider sellzy-slider rounded-2xl overflow-hidden bg-[#F4F3F5] border border-gray-300"
+                  data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "arrows": true, "asNavFor": ".product-details-small-slider", "appendArrows": ".product-details-big-slider-nav", "prevArrow": "<button type=\"button\" class=\"slider-btn size-10 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-200 hover:bg-primary hover:text-white transition-all pointer-events-auto\"><i class=\"hgi hgi-stroke hgi-arrow-left-01 text-xl\"></i></button>", "nextArrow": "<button type=\"button\" class=\"slider-btn size-10 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-200 hover:bg-primary hover:text-white transition-all pointer-events-auto\"><i class=\"hgi hgi-stroke hgi-arrow-right-01 text-xl\"></i></button>", "responsive": [{"breakpoint": 769, "settings": {"slidesToShow": 1, "arrows": false}}]}'
                 >
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-1.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-2.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-3.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-4.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-5.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                   <div
-                    class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden"
+                    class="single-product-big-slider-item rounded-2xl overflow-hidden"
                   >
                     <img
                       src="assets/images/product-details/product-details-slider-6.png"
                       alt="product-image"
-                      class="w-full h-full object-cover rounded-3xl"
+                      class="w-full h-full object-contain rounded-2xl"
                     />
                   </div>
                 </div>
                 <div
-                  class="product-details-big-slider-nav absolute top-1/2 -translate-y-1/2 left-0 right-0 flex items-center justify-between px-3"
+                  class="product-details-big-slider-nav absolute top-1/2 -translate-y-1/2 left-0 right-0 flex items-center justify-between px-3 z-10 pointer-events-none"
                 ></div>
               </div>
             </div>

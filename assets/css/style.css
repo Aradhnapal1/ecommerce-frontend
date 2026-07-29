@@ -9316,3 +9316,176 @@ Others css
 #dropdownMenu::-webkit-scrollbar-button {
   display: none; /* Top aur bottom ke arrow buttons (stepper) hatane ke liye */
 }
+
+/* ==========================================================================
+   Fixed Product Image Sizing & Slider Card Boundary Rules
+   ========================================================================== */
+
+/* 1. Product Cards Grid (index.php, shop.php, etc.) */
+.product-card-1 {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.product-image-container {
+  width: 100% !important;
+  position: relative !important;
+}
+
+.product-image-container .product-image,
+.product-image {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important; /* Fixed 1:1 Aspect Ratio (1000x1000 format) */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background-color: #F4F3F5 !important;
+  border-radius: 0.75rem !important; /* rounded-xl */
+}
+
+.product-image-container .product-image a,
+.product-image a {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.product-image-container .product-image img,
+.product-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Image stays strictly inside card bounds */
+  object-position: center !important;
+}
+
+.product-card-1 .product-content {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+.product-card-1 .product-content .btn-section {
+  margin-top: auto !important;
+}
+
+/* 2. Product Detail Page (product-detail.php) Main Image Slider Card */
+.product-details-big-slider {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important; /* 1:1 Aspect Ratio Card Container */
+  max-height: 600px !important;
+  background-color: #F4F3F5 !important;
+  border: 1px solid #DFE3E8 !important;
+  border-radius: 1.25rem !important; /* rounded-2xl */
+  overflow: hidden !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.product-details-big-slider .slick-list {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  position: relative !important;
+  display: block !important;
+}
+
+.product-details-big-slider .slick-track {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.product-details-big-slider .slick-slide {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  float: left !important;
+}
+
+.product-details-big-slider .slick-slide > div {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.single-product-big-slider-item {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #F4F3F5 !important;
+  border-radius: inherit !important;
+}
+
+.single-product-big-slider-item img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important; /* Prevents image from going outside the slider card */
+  object-position: center !important;
+  border-radius: inherit !important;
+  display: block !important;
+}
+
+/* Thumbnail slider items on product detail page */
+.product-details-small-slider .slick-list,
+.product-details-small-slider .slick-track,
+.product-details-small-slider .slick-slide,
+.product-details-small-slider .slick-slide > div {
+  overflow: hidden !important;
+  border-radius: 0.5rem !important;
+}
+
+.single-product-small-slider-item {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background-color: #F4F3F5 !important;
+  border: 1px solid #DFE3E8 !important;
+  border-radius: 0.5rem !important;
+  padding: 4px !important;
+}
+
+.single-product-small-slider-item img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 0.375rem !important;
+  display: block !important;
+}
+
+/* Slick arrow button styling inside product-details-big-slider-nav */
+.product-details-big-slider-nav button.slick-prev,
+.product-details-big-slider-nav button.slick-next {
+  font-size: 0 !important;
+  color: transparent !important;
+  line-height: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+

@@ -220,13 +220,20 @@
 
         $slider.html(html);
 
-        const options = $slider.data("slick");
-        if (options) {
-            if (slider.id === "product-details-small-slider") {
-                options.focusOnSelect = false;
-            }
-            $slider.slick(options);
+        const options = $slider.data("slick") || {};
+        if (slider.id === "product-details-small-slider") {
+            options.focusOnSelect = false;
         }
+        if (slider.id === "product-details-big-slider") {
+            options.prevArrow = '<button type="button" class="slider-btn size-10 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-200 hover:bg-primary hover:text-white transition-all pointer-events-auto"><i class="hgi hgi-stroke hgi-arrow-left-01 text-xl"></i></button>';
+            options.nextArrow = '<button type="button" class="slider-btn size-10 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-200 hover:bg-primary hover:text-white transition-all pointer-events-auto"><i class="hgi hgi-stroke hgi-arrow-right-01 text-xl"></i></button>';
+        }
+        $slider.slick(options);
+        setTimeout(function () {
+            if ($slider.hasClass("slick-initialized")) {
+                $slider.slick("setPosition");
+            }
+        }, 50);
     }
 
     function bindProductGalleryHover(smallSlider, bigSlider) {
@@ -266,12 +273,12 @@
         const smallHtml = images
             .map(function (image) {
                 return (
-                    '<div class="single-product-small-slider-item p-2.5 rounded-lg overflow-hidden">' +
+                    '<div class="single-product-small-slider-item p-1.5 rounded-lg overflow-hidden flex items-center justify-center bg-[#F4F3F5]">' +
                     '<img src="' +
                     image +
                     '" alt="' +
                     (product.productName || "Product") +
-                    '" class="w-full h-full object-cover rounded-lg" />' +
+                    '" class="w-full h-full object-contain rounded-lg" />' +
                     "</div>"
                 );
             })
@@ -280,12 +287,12 @@
         const bigHtml = images
             .map(function (image) {
                 return (
-                    '<div class="single-product-big-slider-item px-3 rounded-2xl overflow-hidden">' +
+                    '<div class="single-product-big-slider-item rounded-2xl overflow-hidden flex items-center justify-center bg-[#F4F3F5]">' +
                     '<img src="' +
                     image +
                     '" alt="' +
                     (product.productName || "Product") +
-                    '" class="w-full h-full object-cover rounded-3xl" />' +
+                    '" class="w-full h-full object-contain rounded-2xl" />' +
                     "</div>"
                 );
             })

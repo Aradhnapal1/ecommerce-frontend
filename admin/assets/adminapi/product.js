@@ -771,3 +771,250 @@ function bindEditProduct(id) {
     }
   });
 }
+
+/* ==========================================================================
+   PRODUCT CSV IMPORT & EXPORT HANDLERS
+   Endpoints:
+   - GET  /api/product/import/sample
+   - POST /api/product/import
+   - GET  /api/product/export
+   ========================================================================== */
+
+/**
+ * Downloads Sample CSV Template for Product Import
+ */
+async function downloadSampleCSV() {
+  try {
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "⏳ Downloading sample CSV template...",
+        duration: 2000,
+        style: { background: "#17a2b8" },
+      }).showToast();
+    }
+
+    const res = await adminFetch(`${domin}/api/product/import/sample`);
+
+    if (res.ok) {
+      const blob = await res.blob();
+      if (blob.size > 0) {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sample_product_import.csv";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        if (typeof Toastify !== "undefined") {
+          Toastify({
+            text: "✅ Sample CSV downloaded!",
+            duration: 3000,
+            style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+          }).showToast();
+        }
+        return;
+      }
+    }
+  } catch (error) {
+    console.warn("API sample download error, using fallback format:", error);
+  }
+
+  // Fallback: Generate sample CSV file dynamically
+  const sampleHeaders = "ProductName,Type,ShortDescription,Description,SKU,Brand,Category,Color,ColorCode,Sizes,MRP,DiscountPercent,GST,Stock,ProductImageUrl,GalleryImageUrls,IsActive";
+  const sampleRow = "Nike Air Max,Shoes,Comfortable,Full desc,SKU-001,Nike,Men Footwear,Black,#000000,S|M|L,4999,10,18,50,https://example.com/main.jpg,https://example.com/g1.jpg|https://example.com/g2.jpg,true";
+  const csvContent = sampleHeaders + "\n" + sampleRow;
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "sample_product_import.csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+
+  if (typeof Toastify !== "undefined") {
+    Toastify({
+      text: "✅ Sample CSV template downloaded!",
+      duration: 3000,
+      style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+    }).showToast();
+  }
+}
+
+/**
+ * Exports All Products to CSV
+ */
+async function exportProductsCSV() {
+  try {
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "⏳ Exporting products...",
+        duration: 2000,
+        style: { background: "#17a2b8" },
+      }).showToast();
+    }
+
+    const res = await adminFetch(`${domin}/api/product/export`);
+
+    if (!res.ok) {
+      let errMsg = "Failed to export products";
+      try {
+        const errJson = await res.json();
+        errMsg = errJson.message || errMsg;
+      } catch (e) {}
+      throw new Error(errMsg);
+    }
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `products_export_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "✅ Products exported successfully!",
+        duration: 3000,
+        style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+      }).showToast();
+    }
+  } catch (error) {
+    console.error("Export CSV error:", error);
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: `❌ ${error.message || "Failed to export products"}`,
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+    }
+  }
+}
+
+/**
+ * Handles CSV Import Submission
+ * @param {Event} event 
+ */
+async function handleCSVImport(event) {
+  event.preventDefault();
+
+  const fileInput = document.getElementById("csvFileInput");
+  const statusDiv = document.getElementById("importStatusMessage");
+  const btnSubmit = document.getElementById("btnSubmitImport");
+
+  if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "❌ Please select a CSV file to upload!",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+    }
+    return;
+  }
+
+  const file = fileInput.files[0];
+
+  if (!file.name.toLowerCase().endsWith(".csv")) {
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "❌ Invalid file type. Only .csv files are supported!",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+    }
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("csv", file);
+
+  if (btnSubmit) {
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Importing...`;
+  }
+
+  if (statusDiv) {
+    statusDiv.innerHTML = `<div class="alert alert-info py-2"><i class="fa fa-spinner fa-spin me-1"></i> Uploading & importing products CSV, please wait...</div>`;
+  }
+
+  try {
+    const res = await adminFetch(`${domin}/api/product/import`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json().catch(() => null);
+
+    if (res.ok) {
+      const successMsg = data?.message || "Products imported successfully!";
+      if (statusDiv) {
+        statusDiv.innerHTML = `<div class="alert alert-success py-2"><i class="fa fa-check-circle me-1"></i> ${successMsg}</div>`;
+      }
+      if (typeof Toastify !== "undefined") {
+        Toastify({
+          text: `✅ ${successMsg}`,
+          duration: 3000,
+          style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+        }).showToast();
+      }
+
+      fileInput.value = "";
+
+      // Refresh product table
+      if (typeof loadProducts === "function") {
+        loadProducts();
+      }
+
+      // Close modal after brief delay
+      setTimeout(() => {
+        const modalEl = document.getElementById("importCsvModal");
+        if (modalEl && typeof bootstrap !== "undefined" && bootstrap.Modal) {
+          const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+          bsModal.hide();
+        } else if (modalEl && typeof $ !== "undefined") {
+          $(modalEl).modal("hide");
+        }
+        if (statusDiv) statusDiv.innerHTML = "";
+      }, 1500);
+
+    } else {
+      const errMsg = data?.message || data?.error || "Failed to import products from CSV.";
+      if (statusDiv) {
+        statusDiv.innerHTML = `<div class="alert alert-danger py-2"><i class="fa fa-exclamation-triangle me-1"></i> ${errMsg}</div>`;
+      }
+      if (typeof Toastify !== "undefined") {
+        Toastify({
+          text: `❌ ${errMsg}`,
+          duration: 4000,
+          style: { background: "#ff416c" },
+        }).showToast();
+      }
+    }
+  } catch (error) {
+    console.error("CSV Import error:", error);
+    if (statusDiv) {
+      statusDiv.innerHTML = `<div class="alert alert-danger py-2"><i class="fa fa-exclamation-triangle me-1"></i> Server error during CSV import.</div>`;
+    }
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: "❌ Server error occurred while importing products.",
+        duration: 3000,
+        style: { background: "#ff416c" },
+      }).showToast();
+    }
+  } finally {
+    if (btnSubmit) {
+      btnSubmit.disabled = false;
+      btnSubmit.innerHTML = `<i class="fa fa-upload me-1"></i> Start Import`;
+    }
+  }
+}

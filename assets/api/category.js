@@ -657,12 +657,7 @@ function renderHomeProductCard(product, index) {
         renderHomeProductHoverActions(product) +
         "</div>" +
         '<div class="product-content text-center flex-1 flex flex-col">' +
-        '<div class="limited-time-product-countdown sellzy-countdown flex items-center justify-center gap-x-1 bg-[#FF4842]/12 py-[5px] px-5 rounded-[50px] text-[12px] leading-[18px] text-error-dark">' +
-        '<p class="days">00</p><p>Days</p><p>&colon;</p>' +
-        '<p class="hours">00</p><p>Hours</p><p>&colon;</p>' +
-        '<p class="minutes">00</p><p>Mins</p><p>&colon;</p>' +
-        '<p class="seconds">00</p><p>Secs</p>' +
-        "</div>" +
+       
         '<h5 class="text-[20px] leading-[30px] font-bold py-3 min-h-[84px]">' +
         '<a href="' +
         detailUrl +

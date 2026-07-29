@@ -59,7 +59,7 @@
             <div>
               <a href='index'>
                 <!-- <img src="assets/images/footer-logo.svg" alt="logo" /> -->
-                <img src="assets/img/logo.png" alt="Logo" />
+                <img src="logo.png" alt="Logo" />
               </a>
             </div>
             <p class="text-primary-lighter text-base">

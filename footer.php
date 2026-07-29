@@ -35,8 +35,8 @@
         <label
           class="absolute left-12 peer-focus:left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:left-[14px] bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1"
           for="email"
-          >Enter your email</label
-        >
+          >Enter your email</label>
+        
         <div class="input-group-addon" data-align="inline-end">
           <button class="btn btn-primary btn-medium rounded-3xl">
             Subscribe
@@ -57,8 +57,9 @@
             class="md:col-span-12 col-span-12 xl:col-span-3 flex flex-col gap-y-6"
           >
             <div>
-              <a href='index.html'>
-                <img src="assets/images/footer-logo.svg" alt="logo" />
+              <a href='index'>
+                <!-- <img src="assets/images/footer-logo.svg" alt="logo" /> -->
+                <img src="assets/img/logo.png" alt="Logo" />
               </a>
             </div>
             <p class="text-primary-lighter text-base">
@@ -137,7 +138,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="about"
                   class="text-primary-lighter font-semibold hover:underline"
                   >About Us</a
                 >
@@ -149,7 +150,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="terms-conditions"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Terms & Conditions</a
                 >
@@ -161,7 +162,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="careers"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Careers</a
                 >
@@ -173,7 +174,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="latest-news"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Latest News</a
                 >
@@ -184,7 +185,7 @@
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
-                <a class='text-primary-lighter font-semibold hover:underline' href='contact.html'>Contact Us</a
+                <a class='text-primary-lighter font-semibold hover:underline' href='contact'>Contact Us</a
                 >
               </li>
               <li class="py-1.5 flex items-center gap-x-2">
@@ -194,7 +195,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="privacy-policy"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Privacy Policy</a
                 >
@@ -215,7 +216,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="my-account"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Your Account</a
                 >
@@ -227,23 +228,23 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="return-policies"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Return Policies</a
                 >
               </li>
-              <li class="py-1.5 flex items-center gap-x-2">
+              <!-- <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="become-a-vendor"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Become a Vendor</a
                 >
-              </li>
+              </li> -->
               <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
@@ -251,30 +252,30 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="wishlist"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Wishlist</a
                 >
               </li>
-              <li class="py-1.5 flex items-center gap-x-2">
+              <!-- <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="affiliate-program"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Affiliate Program</a
                 >
-              </li>
+              </li> -->
               <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
-                <a class='text-primary-lighter font-semibold hover:underline' href='faq.html'>FAQs</a
+                <a class='text-primary-lighter font-semibold hover:underline' href='faq'>FAQs</a
                 >
               </li>
             </ul>
@@ -286,19 +287,19 @@
               Categories
             </h5>
             <ul class="flex flex-col gap-y-1.5 pt-4">
-              <li class="py-1.5 flex items-center gap-x-2">
+              <!-- <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="healthcare"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Healthcare</a
                 >
-              </li>
-              <li class="py-1.5 flex items-center gap-x-2">
+              </li> -->
+              <!-- <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
@@ -309,7 +310,7 @@
                   class="text-primary-lighter font-semibold hover:underline"
                   >Fashion</a
                 >
-              </li>
+              </li> -->
               <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
@@ -317,7 +318,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="organic"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Organic</a
                 >
@@ -329,7 +330,7 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="beauty"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Beauty</a
                 >
@@ -341,23 +342,23 @@
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="shop"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Groceries</a
                 >
               </li>
-              <li class="py-1.5 flex items-center gap-x-2">
+              <!-- <li class="py-1.5 flex items-center gap-x-2">
                 <span class="inline-flex items-center"
                   ><i
                     class="hgi hgi-stroke hgi-arrow-right-01 text-xl text-primary-lighter"
                   ></i>
                 </span>
                 <a
-                  href="#"
+                  href="fashion"
                   class="text-primary-lighter font-semibold hover:underline"
-                  >Fahion</a
+                  >Fashion</a
                 >
-              </li>
+              </li> -->
             </ul>
           </div>
           <div class="md:col-span-6 col-span-12 xl:col-span-3">
@@ -397,7 +398,7 @@
                   ></i>
                 </span>
                 <p class="text-primary-lighter font-semibold">
-                  sara.cruz@example.com
+                  sales@wisetrack.in
                 </p>
               </li>
               <li class="flex items-center gap-x-3">
@@ -408,7 +409,7 @@
                   ></i>
                 </span>
                 <p class="text-primary-lighter font-semibold">
-                  sara.cruz@example.com
+                  sales@wisetrack.in
                 </p>
               </li>
             </ul>
@@ -426,7 +427,8 @@
         <div
           class="text-center text-white bg-[url('images/bottom-border.html')] pt-[22px] bg-center pb-px bg-no-repeat"
         >
-          2026 Copyright By Themeforest Powered By Createuiux
+          
+          © 2026 WISETRACK TECHNOLOGIES · SELECTIVE ENGINEERING
         </div>
         <!-- ========== Footer Bottom Section End ========== -->
       </div>

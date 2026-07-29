@@ -35,9 +35,9 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <form class="form-inline search-form search-box">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input class="form-control-plaintext" type="search" placeholder="Search..">
-                            </div>
+                            </div> -->
                         </form>
 
                         <div class="d-flex flex-wrap gap-2 align-items-center">

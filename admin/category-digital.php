@@ -35,9 +35,9 @@
                             <div class="card">
                                 <div class="card-header">
                                     <form class="form-inline search-form search-box">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <input class="form-control-plaintext" type="search" placeholder="Search..">
-                                        </div>
+                                        </div> -->
                                     </form>
 
                                     <!-- <button type="button" class="btn btn-primary mt-md-0 mt-2" data-bs-toggle="modal"

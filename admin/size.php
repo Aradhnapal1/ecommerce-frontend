@@ -35,9 +35,9 @@
                 <div class="card">
                     <div class="card-header">
                         <form class="form-inline search-form search-box">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input class="form-control-plaintext" type="search" placeholder="Search..">
-                            </div>
+                            </div> -->
                         </form>
 
                         <a href="add-size.php" class="btn btn-primary mt-md-0 mt-2">Add New
@@ -58,9 +58,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
-                              <tbody id="sizeTableBody"></tbody>
-                                </tbody>
+                                <tbody id="sizeTableBody"></tbody>
                             </table>
                         </div>
                     </div>

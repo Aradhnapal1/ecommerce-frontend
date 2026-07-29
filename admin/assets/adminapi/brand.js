@@ -63,6 +63,7 @@ async function getAllBrands() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Error fetching brands:", error);

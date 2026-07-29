@@ -76,29 +76,59 @@
     <!--script admin-->
     <script src="assets/js/admin-script.js"></script>
 
-    <!-- Global Search Logic for Tables -->
+    <!-- DataTables JS CDN -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Global DataTables & Search Logic for Admin Tables -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        function initAdminDataTable(targetSelector) {
+            if (typeof jQuery === "undefined" || !jQuery.fn.DataTable) return;
             
-            // 1. Prevent form submission on pressing Enter
+            const selector = targetSelector || "table.table-category, table.all-package, table.table";
+            const $tables = jQuery(selector);
+
+            $tables.each(function() {
+                const $table = jQuery(this);
+                
+                // Ensure table has thead
+                if ($table.find("thead").length === 0) return;
+
+                // Cleanly destroy previous DataTable instance before checking new rows
+                if (jQuery.fn.DataTable.isDataTable($table)) {
+                    $table.DataTable().clear().destroy();
+                }
+
+                const bodyRows = $table.find("tbody tr");
+                if (bodyRows.length === 0 || (bodyRows.length === 1 && bodyRows.text().toLowerCase().includes("no "))) return;
+
+                $table.DataTable({
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                    responsive: true,
+                    ordering: true,
+                    autoWidth: false,
+                    destroy: true,
+                    language: {
+                        search: "Search Data:",
+                        searchPlaceholder: "Type to search...",
+                        lengthMenu: "Show _MENU_ entries",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        paginate: {
+                            previous: '<i class="fa fa-angle-left"></i>',
+                            next: '<i class="fa fa-angle-right"></i>'
+                        }
+                    }
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Prevent search forms from refreshing on submit
             const searchForms = document.querySelectorAll(".search-form");
             searchForms.forEach(form => {
                 form.addEventListener("submit", function (e) {
                     e.preventDefault(); 
-                });
-            });
-
-            // 2. Filter table rows based on input A-Z
-            const searchInputs = document.querySelectorAll(".search-box input[type='search']");
-            searchInputs.forEach(input => {
-                input.addEventListener("input", function () {
-                    const searchTerm = this.value.toLowerCase().trim();
-                    const card = this.closest('.card');
-                    const tableRows = card ? card.querySelectorAll("table tbody tr") : document.querySelectorAll("table tbody tr");
-                    
-                    tableRows.forEach(row => {
-                        row.style.display = row.textContent.toLowerCase().includes(searchTerm) ? "" : "none";
-                    });
                 });
             });
         });

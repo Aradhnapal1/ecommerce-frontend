@@ -88,6 +88,7 @@ async function loadVariants() {
         });
 
         document.getElementById("getvariant").innerHTML = html;
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (err) {
         console.log("Error loading variants:", err);

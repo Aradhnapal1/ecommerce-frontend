@@ -498,11 +498,11 @@
     safeInit(function () {
       if (typeof noUiSlider === "undefined") return;
       noUiSlider.create(priceRangeSlider, {
-      start: [0, 100000],
+      start: [0, 5000],
       connect: true,
       range: {
         min: 0,
-        max: 100000,
+        max: 5000,
       },
       // make numbers whole
       format: {

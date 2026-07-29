@@ -68,7 +68,7 @@
 
 
 <!-- ========== Smart Section Start ========== -->
-<section class="pb-[70px]">
+<!-- <section class="pb-[70px]">
     <div class="container">
         <h3 class="pb-12 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
             Smart technology on your wrist.
@@ -222,7 +222,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- ========== CTA Section Start ========== -->
 <section class="pb-[70px]">

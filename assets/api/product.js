@@ -1179,6 +1179,12 @@ if (document.getElementById("top-discounted-products")) {
         });
     }
 
+    function isItemActive(item) {
+        if (!item) return false;
+        if (item.isActive === false || item.isActive === "false" || item.isActive === 0) return false;
+        return true;
+    }
+
     function renderCategoryTree(containerSelector, categories, selectedSlugs) {
         const container = document.querySelector(containerSelector);
         if (!container || !categories.length) return;
@@ -1193,7 +1199,7 @@ if (document.getElementById("top-discounted-products")) {
 
         function buildTreeHTML(cats) {
             if (!cats || !cats.length) return "";
-            return cats.map(function(cat) {
+            return cats.filter(isItemActive).map(function(cat) {
                 const label = cat.categoryName;
                 const value = cat.slug;
                 if (!value) return "";
@@ -1234,6 +1240,7 @@ if (document.getElementById("top-discounted-products")) {
         const selected = selectedSlugs || [];
 
         container.innerHTML = items
+            .filter(isItemActive)
             .map(function (item) {
                 const label = item[labelKey];
                 const value = item[valueKey];
@@ -1265,6 +1272,7 @@ if (document.getElementById("top-discounted-products")) {
         if (!container || !colors.length) return;
 
         container.innerHTML = colors
+            .filter(isItemActive)
             .map(function (color) {
                 const hex = color.colorCode || color.hexCode || "#00AB55";
                 const slug = color.slug;
@@ -1289,6 +1297,7 @@ if (document.getElementById("top-discounted-products")) {
         if (!container || !sizes.length) return;
 
         container.innerHTML = sizes
+            .filter(isItemActive)
             .map(function (size) {
                 const label = size.sizeName || size.name || size.size;
                 const slug = size.slug;
@@ -1329,6 +1338,8 @@ if (document.getElementById("top-discounted-products")) {
 
     function flattenCategories(categories, output) {
         categories.forEach(function (category) {
+            if (!isItemActive(category)) return;
+
             if (category.slug) {
                 output.push({
                     slug: category.slug,
@@ -1352,10 +1363,10 @@ if (document.getElementById("top-discounted-products")) {
                 fetch(API_BASE + "/api/size/getallsize"),
             ]);
 
-            const categories = parseList(await catRes.json());
-            const brands = parseList(await brandRes.json());
-            const colors = parseList(await colorRes.json());
-            const sizes = parseList(await sizeRes.json());
+            const categories = parseList(await catRes.json()).filter(isItemActive);
+            const brands = parseList(await brandRes.json()).filter(isItemActive);
+            const colors = parseList(await colorRes.json()).filter(isItemActive);
+            const sizes = parseList(await sizeRes.json()).filter(isItemActive);
 
             const flatCategories = [];
             flattenCategories(categories, flatCategories);

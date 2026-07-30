@@ -62,28 +62,27 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- Script Api Js  -->
-     <script src="./assets/api/domin.js"></script>
-     <script src="./assets/api/banner.js"></script>
-     <script src="./assets/api/category.js"></script>
-     <script src="./assets/api/product.js"></script>
-     <script src="./assets/api/search.js"></script>
-     <script src="./assets/api/product-detail.js"></script>
-     <script src="./assets/api/blog.js"></script>
-     <script src="./assets/api/wishlist.js"></script>
-     <script src="./assets/api/compare.js"></script>
-     <script src="./assets/api/contact.js"></script>
-     <script src="./assets/api/orders.js"></script>
-     <script src="./assets/api/cart-action.js"></script>
-     <script src="./assets/api/address.js"></script>
+    <script src="./assets/api/domin.js"></script>
+    <script src="./assets/api/banner.js"></script>
+    <script src="./assets/api/category.js"></script>
+    <script src="./assets/api/product.js"></script>
+    <script src="./assets/api/search.js"></script>
+    <script src="./assets/api/product-detail.js"></script>
+    <script src="./assets/api/blog.js"></script>
+    <script src="./assets/api/wishlist.js"></script>
+    <script src="./assets/api/compare.js"></script>
+    <script src="./assets/api/contact.js"></script>
+    <script src="./assets/api/orders.js"></script>
+    <script src="./assets/api/cart-action.js"></script>
+    <script src="./assets/api/address.js"></script>
 
-     
-     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-     <script src="./assets/api/authUser.js"></script>
-     <script src="./assets/api/review.js"></script>
+
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="./assets/api/authUser.js"></script>
+    <script src="./assets/api/review.js"></script>
 
 </head>
 
@@ -181,7 +180,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             </span>
                             log in / Sign Up
                         </a>
-                        <a href="javascript:void(0)" onclick="localStorage.removeItem('UserToken'); window.location.reload();" class="items-center gap-x-2 user-only-block" style="display: none;">
+                        <a href="javascript:void(0)"
+                            onclick="localStorage.removeItem('UserToken'); window.location.reload();"
+                            class="items-center gap-x-2 user-only-block" style="display: none;">
                             <span class="inline-flex items-center justify-center bg-primary size-8 rounded-full"><i
                                     class="hgi hgi-stroke hgi-logout-01 text-base text-white"></i>
                             </span>
@@ -230,7 +231,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <!-- Cart Sidebar Start -->
     <div data-state="close"
         class="cart-sidebar flex fixed xl:top-[30px] xl:right-[22px] right-0 top-0 xl:h-[calc(100vh-52px)] h-full z-99 max-w-[1101px] w-full bg-white xl:rounded-2xl rounded-none transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)] data-[state=open]:translate-x-0 data-[state=open]:opacity-100 data-[state=open]:visible data-[state=close]:translate-x-[200px] data-[state=close]:opacity-0 data-[state=close]:invisible">
-       
+
         <div class="cart-products xl:max-w-[500px] w-full h-full flex flex-col justify-between">
             <div class="cart-products-header pt-6 px-6 pb-4 border-b border-gray-300 flex flex-col gap-y-1 relative">
                 <h5>Cart Products</h5>
@@ -241,7 +242,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                     <i class="hgi hgi-stroke hgi-multiplication-sign text-xl leading-5 text-light-primary-text"></i>
                 </button>
             </div>
-            <div id="cart-sidebar-list" class="cart-products-content p-6 flex flex-col gap-y-4 overflow-y-auto h-[calc(100%-250px)]">
+            <div id="cart-sidebar-list"
+                class="cart-products-content p-6 flex flex-col gap-y-4 overflow-y-auto h-[calc(100%-250px)]">
                 <!-- Dynamic Cart Items Rendered via JS -->
             </div>
             <div class="cart-products-footer p-6 border-t border-gray-300 flex flex-col gap-y-4">
@@ -250,8 +252,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                     <h5 id="cart-sidebar-subtotal">₹0.00</h5>
                 </div>
                 <div class="cart-buttons flex items-center gap-x-4">
-                    <a class='btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none'
-                        href='cart'>
+                    <a class='btn btn-default outline btn-large rounded-[80px] flex-1 shadow-none' href='cart'>
                         View Cart
                     </a>
                     <a class='btn btn-primary btn-large rounded-[80px] flex-1' href='checkout'>
@@ -314,67 +315,67 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 <form class="flex flex-col gap-y-6" id="userRegisterForm">
                     <div id="registerFields" class="flex flex-col gap-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
-                        <div class="relative w-full">
-                            <input type="text" id="first-name"
-                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                                placeholder="First Name *" />
+                            <div class="relative w-full">
+                                <input type="text" id="first-name"
+                                    class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                    placeholder="First Name *" />
 
-                            <label for="first-name"
-                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                                First Name *
-                            </label>
+                                <label for="first-name"
+                                    class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                    First Name *
+                                </label>
+                            </div>
+                            <div class="relative w-full">
+                                <input type="text" id="last-name"
+                                    class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                    placeholder="Last Name *" />
+
+                                <label for="last-name"
+                                    class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                    Last Name *
+                                </label>
+                            </div>
                         </div>
                         <div class="relative w-full">
-                            <input type="text" id="last-name"
-                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                                placeholder="Last Name *" />
-
-                            <label for="last-name"
-                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                                Last Name *
-                            </label>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
                             <input type="number" id="register-phone"
-                            class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
                                 placeholder="Phone Number *" />
 
                             <label for="register-phone"
-                            class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
                                 Phone Number *
-                        </label>
-                    </div>
-                    <div class="relative w-full">
-                        <input type="email" id="register-email"
-                            class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                            placeholder="Email *" />
+                            </label>
+                        </div>
+                        <div class="relative w-full">
+                            <input type="email" id="register-email"
+                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                placeholder="Email *" />
 
-                        <label for="register-email"
-                            class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                            Email *
-                        </label>
-                    </div>
-                    <div class="relative w-full">
-                        <input type="password" id="register-password"
-                            class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                            placeholder="Password *" />
+                            <label for="register-email"
+                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                Email *
+                            </label>
+                        </div>
+                        <div class="relative w-full">
+                            <input type="password" id="register-password"
+                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                placeholder="Password *" />
 
-                        <label for="register-password"
-                            class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                            Password *
-                        </label>
-                    </div>
-                    <div class="relative w-full">
-                        <input type="password" id="confirm-password"
-                            class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
-                            placeholder="Confirm Password *" />
+                            <label for="register-password"
+                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                Password *
+                            </label>
+                        </div>
+                        <div class="relative w-full">
+                            <input type="password" id="confirm-password"
+                                class="peer form-control input-group medium rounded-[80px] px-3.5 placeholder-transparent focus:placeholder-transparent focus:outline-none"
+                                placeholder="Confirm Password *" />
 
-                        <label for="confirm-password"
-                            class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
-                            Confirm Password *
-                        </label>
-                    </div>
+                            <label for="confirm-password"
+                                class="absolute left-[14px] top-1/2 -translate-y-1/2 text-xs leading-[18px] transition-all peer-placeholder-shown:text-light-disabled-text peer-focus:text-light-disabled-text peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-1/2 peer-focus:text-[12px] peer-focus:top-0 peer-[:not(:placeholder-shown)]:text-[12px] peer-[:not(:placeholder-shown)]:top-0 bg-white peer-focus:px-1 peer-[:not(:placeholder-shown)]:px-1">
+                                Confirm Password *
+                            </label>
+                        </div>
                     </div>
                     <div id="otpContainer" style="display: none;" class="flex flex-col gap-y-6">
                         <div class="relative w-full">
@@ -388,7 +389,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         </div>
                     </div>
                     <div>
-                        <button type="submit" id="registerSubmitBtn" class="btn btn-primary btn-large rounded-[80px] w-full">
+                        <button type="submit" id="registerSubmitBtn"
+                            class="btn btn-primary btn-large rounded-[80px] w-full">
                             Otp Sent
                         </button>
                     </div>
@@ -478,7 +480,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             Password?</a>
                     </div>
                     <div>
-                        <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-large rounded-[80px] w-full">
+                        <button type="submit" id="loginSubmitBtn"
+                            class="btn btn-primary btn-large rounded-[80px] w-full">
                             Sign In
                         </button>
                     </div>
@@ -797,7 +800,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <i class="hgi hgi-stroke hgi-plus-sign text-xl leading-5"></i>
                                 </button>
                             </div> -->
-                            
+
                             <div class="flex-1">
                                 <a href="#" class="btn btn-warning btn-large rounded-[80px] w-full">
                                     Buy Now
@@ -1607,14 +1610,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             </span>
                             Need Support ?
                             <span>Call Us</span>
-                            <a href="#"
-                                class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800"> +91 9315957014</a>
+                            <a href="#" class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800">
+                                +91 9315957014</a>
                         </p>
                         <div>
                             <ul class="flex items-center gap-x-[19px]">
                                 <li
                                     class="relative group after:absolute after:h-7.5 after:w-px after:bg-primary-light after:right-0 after:top-1/2 after:-translate-y-1/2">
-                                    <a href="#"
+                                    <!-- <a href="#"
                                         class="text-sm leading-[22px] text-white inline-flex items-center gap-x-2 pr-[19px] py-3.5"><span
                                             class="inline-flex items-center justify-center size-7 bg-primary-darker rounded-full"><i
                                                 class="hgi hgi-stroke hgi-language-circle text-xl text-white"></i>
@@ -1623,7 +1626,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                         <span class="inline-flex items-center justify-center"><i
                                                 class="hgi hgi-stroke hgi-arrow-down-01 text-xl text-white"></i>
                                         </span>
-                                    </a>
+                                    </a> -->
 
                                     <ul
                                         class="absolute left-0 top-full py-2 z-50 w-[250px] max-w-[250px] bg-white rounded-lg shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
@@ -1661,49 +1664,53 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                                     </svg> </span>English
                                             </a>
                                         </li>
-                                   
+
                                         <li class="py-2 px-4 group/item">
-    <a href="#"
-        class="flex items-center gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
+                                            <a href="#"
+                                                class="flex items-center gap-x-2 relative text-light-primary-text group-hover/item:text-primary">
 
-        <span
-            class="w-8 h-8 bg-[#F0F0F0] group-hover/item:bg-[#00AB55]/8 transition-colors duration-300 inline-flex items-center justify-center rounded-full">
+                                                <span
+                                                    class="w-8 h-8 bg-[#F0F0F0] group-hover/item:bg-[#00AB55]/8 transition-colors duration-300 inline-flex items-center justify-center rounded-full">
 
-            <svg width="16" height="16" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="256" cy="256" r="256" fill="#F0F0F0"/>
-                
-                <!-- Saffron -->
-                <path d="M256 0C146.1 0 52.3 69.5 16 167h480C459.7 69.5 365.9 0 256 0z"
-                    fill="#FF9811"/>
-                
-                <!-- Green -->
-                <path d="M256 512c109.9 0 203.7-69.5 240-167H16c36.3 97.5 130.1 167 240 167z"
-                    fill="#6DA544"/>
-                
-                <!-- Ashoka Chakra -->
-                <circle cx="256" cy="256" r="45" fill="none" stroke="#0052B4" stroke-width="10"/>
-                <circle cx="256" cy="256" r="6" fill="#0052B4"/>
+                                                    <svg width="16" height="16" viewBox="0 0 512 512"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <circle cx="256" cy="256" r="256" fill="#F0F0F0" />
 
-                <g stroke="#0052B4" stroke-width="4">
-                    <line x1="256" y1="211" x2="256" y2="301"/>
-                    <line x1="211" y1="256" x2="301" y2="256"/>
-                    <line x1="224" y1="224" x2="288" y2="288"/>
-                    <line x1="288" y1="224" x2="224" y2="288"/>
-                    <line x1="238" y1="214" x2="274" y2="298"/>
-                    <line x1="214" y1="238" x2="298" y2="274"/>
-                    <line x1="274" y1="214" x2="238" y2="298"/>
-                    <line x1="298" y1="238" x2="214" y2="274"/>
-                </g>
-            </svg>
+                                                        <!-- Saffron -->
+                                                        <path
+                                                            d="M256 0C146.1 0 52.3 69.5 16 167h480C459.7 69.5 365.9 0 256 0z"
+                                                            fill="#FF9811" />
 
-        </span>
+                                                        <!-- Green -->
+                                                        <path
+                                                            d="M256 512c109.9 0 203.7-69.5 240-167H16c36.3 97.5 130.1 167 240 167z"
+                                                            fill="#6DA544" />
 
-        हिन्दी
-    </a>
-</li>
+                                                        <!-- Ashoka Chakra -->
+                                                        <circle cx="256" cy="256" r="45" fill="none" stroke="#0052B4"
+                                                            stroke-width="10" />
+                                                        <circle cx="256" cy="256" r="6" fill="#0052B4" />
+
+                                                        <g stroke="#0052B4" stroke-width="4">
+                                                            <line x1="256" y1="211" x2="256" y2="301" />
+                                                            <line x1="211" y1="256" x2="301" y2="256" />
+                                                            <line x1="224" y1="224" x2="288" y2="288" />
+                                                            <line x1="288" y1="224" x2="224" y2="288" />
+                                                            <line x1="238" y1="214" x2="274" y2="298" />
+                                                            <line x1="214" y1="238" x2="298" y2="274" />
+                                                            <line x1="274" y1="214" x2="238" y2="298" />
+                                                            <line x1="298" y1="238" x2="214" y2="274" />
+                                                        </g>
+                                                    </svg>
+
+                                                </span>
+
+                                                हिन्दी
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="relative group">
+                                <!-- <li class="relative group">
                                     <a href="#"
                                         class="text-sm leading-[22px] text-white flex items-center gap-x-2 py-3.5"><span
                                             class="inline-flex items-center justify-center size-7 bg-primary-darker rounded-full"><i
@@ -1735,16 +1742,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
                     <div class="text-center py-3.5">
                         <p class="flex items-center gap-x-[7px] text-white text-sm leading-[22px] font-dm-sans">
                             <span class="inline-flex items-center"><i
-                                    class="hgi hgi-stroke hgi-discount-01 text-white text-xl"></i></span>Fashion
+                                    class="hgi hgi-stroke hgi-discount-01 text-white text-xl"></i></span>Grocery
                             Category
-                            <span class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800">25%
+                            <span class="bg-warning py-px px-2 text-xs leading-4.5 rounded-[60px] text-gray-800">up to 25%
                                 OFF</span>
                             Today
                         </p>
@@ -1783,7 +1790,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 <div class="xl:flex items-center hidden">
                     <div>
                         <a href='index.php'>
-                            <img src="assets/img/logo.png" alt="Logo"  style="width: 50%;"/>
+                            <img src="assets/img/logo.png" alt="Logo" style="width: 50%;" />
                         </a>
                     </div>
                     <div class="flex items-center w-full justify-end gap-x-[54px]">
@@ -1822,7 +1829,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <p class="text-base font-semibold text-light-primary-text mb-4">
                                         Recommended
                                     </p>
-                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300"></div>
+                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300">
+                                    </div>
                                 </div>
                             </div>
 
@@ -1904,26 +1912,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                         </li> -->
                                     </ul>
                                 </li>
-                                <li class="items-center gap-x-4 cursor-pointer relative group user-only-block" style="display: none;">
+                                <li class="items-center gap-x-4 cursor-pointer relative group user-only-block"
+                                    style="display: none;">
                                     <p class="flex items-center" id="headerProfileIconContainer">
-                                        <span id="headerProfileDefault" class="inline-flex items-center justify-center bg-primary w-12 h-12 rounded-full">
+                                        <span id="headerProfileDefault"
+                                            class="inline-flex items-center justify-center bg-primary w-12 h-12 rounded-full">
                                             <i class="hgi hgi-stroke hgi-user text-2xl text-white"></i>
                                         </span>
-                                        <span id="headerProfileInitials" class="hidden items-center justify-center bg-primary w-12 h-12 rounded-full text-white font-bold text-lg uppercase tracking-widest">
+                                        <span id="headerProfileInitials"
+                                            class="hidden items-center justify-center bg-primary w-12 h-12 rounded-full text-white font-bold text-lg uppercase tracking-widest">
                                         </span>
-                                        <img id="headerProfileImage" src="" alt="Profile" class="hidden w-12 h-12 rounded-full object-cover border border-gray-200" />
+                                        <img id="headerProfileImage" src="" alt="Profile"
+                                            class="hidden w-12 h-12 rounded-full object-cover border border-gray-200" />
                                     </p>
                                     <p class="flex flex-col text-light-secondary-text text-sm leading-[22px]">
                                         Welcome
                                         <span class="text-base leading-6 text-light-primary-text">My Account</span>
                                     </p>
-                                    <span><i class="hgi hgi-stroke hgi-arrow-down-01 text-2xl text-light-primary-text"></i></span>
-                                    <ul class="absolute right-0 top-full py-2 z-10 w-[200px] bg-white rounded-lg shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                                    <span><i
+                                            class="hgi hgi-stroke hgi-arrow-down-01 text-2xl text-light-primary-text"></i></span>
+                                    <ul
+                                        class="absolute right-0 top-full py-2 z-10 w-[200px] bg-white rounded-lg shadow-dark-z-24 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                                         <li class="px-4 group/item">
-                                            <a href="my-account" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Dashboard</a>
+                                            <a href="my-account"
+                                                class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Dashboard</a>
                                         </li>
                                         <li class="px-4 group/item">
-                                            <a href="javascript:void(0)" onclick="localStorage.removeItem('UserToken'); window.location.reload();" class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Log Out</a>
+                                            <a href="javascript:void(0)"
+                                                onclick="localStorage.removeItem('UserToken'); window.location.reload();"
+                                                class="flex items-center py-2 gap-x-2 relative text-light-primary-text group-hover/item:text-primary">Log
+                                                Out</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -2024,7 +2042,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                                     <p class="text-base font-semibold text-light-primary-text mb-4">
                                         Recommended
                                     </p>
-                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300"></div>
+                                    <div class="recommended-search-list flex flex-col gap-y-2 divide-y divide-gray-300">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2066,7 +2085,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                             </li>
                             <li>
                                 <a href="shop">Shop </a>
-                              
+
                             </li>
                             <!-- <li>
                                 <a href="#">Sellers</a>

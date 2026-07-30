@@ -216,7 +216,8 @@
                   ></i>
                 </span>
                 <a
-                  href="my-account"
+                  href="javascript:void(0)"
+                  onclick="handleUserAccountClick(event)"
                   class="text-primary-lighter font-semibold hover:underline"
                   >Your Account</a
                 >
@@ -387,7 +388,7 @@
                   ></i>
                 </span>
                 <p class="text-primary-lighter font-semibold">
-                  Call Us: (239) 555-0108
+                  Call Us: +919315957014
                 </p>
               </li>
               <li class="flex items-center gap-x-3">
@@ -466,7 +467,7 @@
             >
           </li>
           <li class="group">
-            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='my-account'><span class="inline-flex items-center justify-center">
+            <a class='footer-bottom-nav-btn flex items-center flex-col gap-y-1 border-t-2 border-transparent text-sm leading-[22px] text-light-primary-text px-[9px] pt-2.5 pb-1' href='javascript:void(0)' onclick='handleUserAccountClick(event)'><span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-user-circle text-2xl leading-6 text-light-primary-text"
                 ></i></span
@@ -508,6 +509,33 @@
     <script src="assets/api/product-detail.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/pwa.js"></script>
+
+    <script>
+        function handleUserAccountClick(event) {
+            if (event) event.preventDefault();
+            const token = localStorage.getItem("UserToken");
+            if (token) {
+                window.location.href = "my-account";
+            } else {
+                if (typeof Toastify !== "undefined") {
+                    Toastify({
+                        text: "⚠️ Please login first!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: { background: "linear-gradient(to right, #ff416c, #ff4b2b)" }
+                    }).showToast();
+                }
+                if (typeof showSidebar === "function") {
+                    if (typeof isAnythingOpen === "function") isAnythingOpen();
+                    showSidebar(".login-page-sidebar");
+                } else {
+                    const loginBtn = document.querySelector(".login-page-btn");
+                    if (loginBtn) loginBtn.click();
+                }
+            }
+        }
+    </script>
   </body>
 
 <!-- Mirrored from sellzy-preview.netlify.app/index-5 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jun 2026 07:03:58 GMT -->

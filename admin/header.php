@@ -389,10 +389,6 @@
                                 </li>
                             </ul>
                         </li>
-
-
-
-
                         <li>
                             <a class="sidebar-header" href="javascript:void(0)">
                                 <i data-feather="user-plus"></i>
@@ -412,16 +408,11 @@
                                 </li>
                             </ul>
                         </li>
-
-
-
                         <!-- <li>
                             <a class="sidebar-header" href="support-ticket.html"><i
                                     data-feather="phone"></i><span>Support Ticket</span>
                             </a>
                         </li> -->
-
-
                         <!-- <li>
                             <a class="sidebar-header" href="javascript:void(0)"><i
                                     data-feather="settings"></i><span>Settings</span><i
@@ -433,9 +424,6 @@
                                 </li>
                             </ul>
                         </li> -->
-
-
-
                         <li>
                             <a class="sidebar-header" href="contact-list.php"><i
                                     data-feather="archive"></i><span>Contact List</span></a>

@@ -80,6 +80,7 @@ async function loadBlogs() {
         }
 
         document.getElementById("blogTableBody").innerHTML = html;
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Error loading blogs:", error);

@@ -52,6 +52,7 @@ async function loadContacts() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
 

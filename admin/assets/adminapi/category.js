@@ -18,6 +18,7 @@ async function loadCategories() {
         });
 
         document.getElementById("categoryTableBody").innerHTML = html;
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (err) {
         console.error(err);

@@ -85,6 +85,7 @@ async function getBanners() {
         }
 
         tbody.innerHTML = rows;
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Banner Fetch Error:", error);

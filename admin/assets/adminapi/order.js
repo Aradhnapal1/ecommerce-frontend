@@ -101,6 +101,7 @@ async function loadOrders() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Order Fetch Error:", error);

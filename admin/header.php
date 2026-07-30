@@ -48,13 +48,32 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
     <script src="./assets/adminapi/domin.js"></script>
     <script src="./assets/adminapi/auth-helper.js"></script>
 
-    <!-- Check Authentication Token -->
+    <!-- Check Authentication Token & Logout Helper -->
     <script>
         if (!localStorage.getItem("adminToken") && !window.location.href.includes("login.php")) {
             window.location.href = "login.php";
+        }
+
+        function adminLogout() {
+            localStorage.removeItem("adminToken");
+            localStorage.removeItem("adminUser");
+            if (typeof Toastify !== "undefined") {
+                Toastify({
+                    text: "✅ Logged out successfully!",
+                    duration: 1500,
+                    style: { background: "linear-gradient(to right, #00b09b, #96c93d)" }
+                }).showToast();
+            }
+            setTimeout(() => {
+                window.location.href = "login.php";
+            }, 500);
         }
     </script>
 
@@ -87,7 +106,7 @@
                 </div>
                 <div class="nav-right col">
                     <ul class="nav-menus">
-                        <li>
+                        <!-- <li>
                             <form class="form-inline search-form">
                                 <div class="form-group">
                                     <input class="form-control-plaintext" type="search" placeholder="Search..">
@@ -96,13 +115,13 @@
                                     </span>
                                 </div>
                             </form>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
                                 <i data-feather="maximize-2"></i>
                             </a>
                         </li>
-                        <li class="onhover-dropdown">
+                        <!-- <li class="onhover-dropdown">
                             <a class="txt-dark" href="javascript:void(0)">
                                 <h6>EN</h6>
                             </a>
@@ -124,8 +143,8 @@
                                         <i class="flag-icon flag-icon-nz"></i>French</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="onhover-dropdown">
+                        </li> -->
+                        <!-- <li class="onhover-dropdown">
                             <i data-feather="bell"></i>
                             <span class="badge badge-pill badge-primary pull-right notification-badge">3</span>
                             <span class="dot"></span>
@@ -175,7 +194,7 @@
                                 <i class="right_side_toggle" data-feather="message-square"></i>
                                 <span class="dot"></span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="onhover-dropdown">
                             <div class="media align-items-center">
                                 <img class="align-self-center pull-right img-50 blur-up lazyloaded"
@@ -187,27 +206,12 @@
                             </div>
                             <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="profile.php">
                                         <i data-feather="user"></i>Edit Profile
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="mail"></i>Inbox
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="lock"></i>Lock Screen
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="settings"></i>Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="javascript:void(0)" onclick="adminLogout()">
                                         <i data-feather="log-out"></i>Logout
                                     </a>
                                 </li>
@@ -269,11 +273,11 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <!-- <li>
                                     <a href="category-digitalsub.php">
                                         <i class="fa fa-circle"></i>Sub Category
                                     </a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a href="brand.php">
                                         <i class="fa fa-circle"></i>Brand List
@@ -411,14 +415,14 @@
 
 
 
-                        <li>
+                        <!-- <li>
                             <a class="sidebar-header" href="support-ticket.html"><i
                                     data-feather="phone"></i><span>Support Ticket</span>
                             </a>
-                        </li>
+                        </li> -->
 
 
-                        <li>
+                        <!-- <li>
                             <a class="sidebar-header" href="javascript:void(0)"><i
                                     data-feather="settings"></i><span>Settings</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
@@ -428,7 +432,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
 
 
@@ -437,19 +441,19 @@
                                     data-feather="archive"></i><span>Contact List</span></a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a class="sidebar-header" href="forgot-password.php">
                                 <i data-feather="key"></i>
                                 <span>Forgot Password</span>
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li>
+                        <!-- <li>
                             <a class="sidebar-header" href="login.php">
                                 <i data-feather="log-in"></i>
                                 <span>Login</span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

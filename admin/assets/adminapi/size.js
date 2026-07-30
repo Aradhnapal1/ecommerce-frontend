@@ -115,6 +115,7 @@ async function getAllSizes() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
 

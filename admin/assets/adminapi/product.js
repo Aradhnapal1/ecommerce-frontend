@@ -104,6 +104,7 @@ function renderTable(products) {
 
     tbody.innerHTML += row;
   });
+  if (typeof initAdminDataTable === "function") initAdminDataTable();
 }
 
 

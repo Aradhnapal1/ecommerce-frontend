@@ -41,6 +41,7 @@ async function loadUsers() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Load Users Error:", error);
@@ -60,7 +61,7 @@ async function loadAdmins() {
         console.log("ADMIN API RESPONSE:", result);
 
         const tableBody = document.getElementById("adminTableBody");
-        tableBody.innerHTML = "";
+        if (tableBody) tableBody.innerHTML = "";
 
         const users = result.data || result.users || result || [];
 
@@ -89,6 +90,7 @@ async function loadAdmins() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
 
     } catch (error) {
         console.error("Load Admin Error:", error);

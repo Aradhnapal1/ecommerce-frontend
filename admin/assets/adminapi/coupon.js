@@ -210,6 +210,7 @@ async function loadCoupons() {
         });
 
         document.getElementById("couponTableBody").innerHTML = html;
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
     }
     catch (error) {
         console.error("Error loading coupons:", error);

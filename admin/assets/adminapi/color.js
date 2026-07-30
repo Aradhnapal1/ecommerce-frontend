@@ -140,6 +140,7 @@ async function getAllColors() {
                 </tr>
             `;
         });
+        if (typeof initAdminDataTable === "function") initAdminDataTable();
     } catch (error) {
         console.error("Error fetching colors:", error);
     }

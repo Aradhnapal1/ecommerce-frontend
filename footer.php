@@ -478,6 +478,22 @@
     </div>
     <!-- Footer Bottom Nav End -->
 
+    <!-- ========== PWA Install Banner Start (Matching image.png) ========== -->
+    <div id="pwaInstallBanner" aria-live="polite" role="dialog" aria-label="Install App Prompt">
+      <div class="pwa-banner-icon">
+        <img src="assets/img/favicon.webp" alt="App Logo" />
+      </div>
+      <div class="pwa-banner-content">
+        <h4 class="pwa-banner-title">Install App</h4>
+        <p class="pwa-banner-desc">Get quick access from your home screen</p>
+      </div>
+      <div class="pwa-banner-actions">
+        <button id="pwaInstallBtn" type="button" class="pwa-install-btn">Install</button>
+        <button id="pwaCloseBtn" type="button" class="pwa-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+    </div>
+    <!-- ========== PWA Install Banner End ========== -->
+
     <!-- ========== Plugins JS ========== -->
     <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
     <script src="assets/js/vendor/slick.min.js"></script>
@@ -491,6 +507,7 @@
     <!-- ========== Custom JS ========== -->
     <script src="assets/api/product-detail.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/pwa.js"></script>
   </body>
 
 <!-- Mirrored from sellzy-preview.netlify.app/index-5 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jun 2026 07:03:58 GMT -->

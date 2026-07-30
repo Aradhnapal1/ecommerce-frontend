@@ -8,6 +8,7 @@ function getCartSelectionContainer(element) {
         element.closest(".product-add-to-cart-btn-section") ||
         element.closest(".quick-view-sidebar") ||
         element.closest(".product-card-1") ||
+        element.closest("tr") ||
         document
     );
 }

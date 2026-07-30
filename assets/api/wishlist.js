@@ -162,14 +162,41 @@ async function loadWishlist() {
                 
                 const salePrice = product.salePrice || 0;
                 const mrp = product.mrp || 0;
-                const stockText = product.stock > 0 ? `${product.stock} in stock` : "Out of stock";
+                const stock = product.stock != null ? parseInt(product.stock, 10) : 0;
+                const stockText = stock > 0 ? `${stock} in stock` : '<span class="text-red-500 font-semibold">Out of stock</span>';
                 const image = product.image || "assets/images/no-image.png";
                 const slug = product.slug || "";
                 const name = product.name || "Unknown Product";
                 const displayName = truncateProductName(name);
 
+                let buyActionHtml = "";
+                if (stock <= 0) {
+                    buyActionHtml = `
+                        <button type="button" disabled class="btn btn-secondary text-white font-semibold md:px-6 px-4 py-[11px] rounded-[80px] md:text-base text-[13px] opacity-75 cursor-not-allowed">
+                            <span class="inline-flex items-center justify-center me-1">
+                                <i class="hgi hgi-stroke hgi-remove-circle text-lg"></i>
+                            </span>
+                            Out of Stock
+                        </button>
+                    `;
+                } else {
+                    buyActionHtml = `
+                        <div class="flex items-center flex-row lg:flex-col xl:flex-row gap-x-2 md:gap-4">
+                            <button class="btn btn-warning px-4 md:px-[22px] rounded-[80px] font-semibold py-[11px] md:text-base md:leading-[26px] text-[13px] leading-[22px] buy-now-btn" data-product-id="${product.id}">
+                                Buy Now
+                            </button>
+                            <a class="add-to-cart-btn btn btn-primary font-semibold md:px-6 px-2.5 py-[11px] rounded-[80px] md:text-base md:leading-[26px] text-[13px] leading-[22px]" href="javascript:void(0)" data-product-id="${product.id}">
+                                <span class="inline-flex items-center justify-center me-1">
+                                    <i class="hgi hgi-stroke hgi-shopping-cart-02 md:text-2xl text-xl md:leading-6 leading-5"></i>
+                                </span>
+                                Add to Cart
+                            </a>
+                        </div>
+                    `;
+                }
+
                 html += `
-                <tr class="py-4">
+                <tr class="py-4" data-stock="${stock}" data-product-id="${product.id}">
                     <td class="py-4 pl-4 hidden lg:table-cell product-checkbox">
                         <div class="has-[input:checked]:hover:bg-primary/8 flex items-center justify-center w-10 h-10 bg-transparent rounded-full hover:bg-[#919EAB]/8 transition-colors duration-300 ease-in-out">
                             <label class="relative inline-flex w-5 h-5 cursor-pointer items-center justify-center">
@@ -211,17 +238,7 @@ async function loadWishlist() {
                         </div>
                     </td>
                     <td data-title="Buy Action" class="capitalize py-4 px-3 lg:px-0 product-actions">
-                        <div class="flex items-center flex-row lg:flex-col xl:flex-row gap-x-2 md:gap-4">
-                            <button class="btn btn-warning px-4 md:px-[22px] rounded-[80px] font-semibold py-[11px] md:text-base md:leading-[26px] text-[13px] leading-[22px] product-buy-now">
-                                Buy Now
-                            </button>
-                            <a class="add-to-cart-btn btn btn-primary font-semibold md:px-6 px-2.5 py-[11px] rounded-[80px] md:text-base md:leading-[26px] text-[13px] leading-[22px]" href="javascript:void(0)" data-product-id="${product.id}">
-                                <span class="inline-flex items-center justify-center">
-                                    <i class="hgi hgi-stroke hgi-shopping-cart-02 md:text-2xl text-xl md:leading-6 leading-5"></i>
-                                </span>
-                                Add to Cart
-                            </a>
-                        </div>
+                        ${buyActionHtml}
                     </td>
                     <td data-title="Remove" class="capitalize text-center py-4 px-3 lg:px-0 pr-4 product-remove">
                         <button class="remove-wishlist-btn" data-wishlist-id="${wishlistItem.id}" data-product-id="${product.id}">

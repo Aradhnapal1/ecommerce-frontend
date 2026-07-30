@@ -33,14 +33,14 @@
             <p id="wishlist-item-count" class="font-semibold text-light-primary-text">
               0 items
             </p>
-            <a class='btn btn-primary btn-large py-[11px] px-6 rounded-[80px]' href='cart-single-vendor.html'>
+            <!-- <a class='btn btn-primary btn-large py-[11px] px-6 rounded-[80px]' href='cart-single-vendor.html'>
               <span class="inline-flex items-center justify-center">
                 <i
                   class="hgi hgi-stroke hgi-shopping-cart-02 text-2xl leading-6"
                 ></i>
               </span>
               Add to Cart
-            </a>
+            </a> -->
           </div>
         </div>
 
